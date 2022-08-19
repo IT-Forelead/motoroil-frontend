@@ -9,6 +9,12 @@ const routes = [
     // beforeEnter: navigationGuard('client'),
   },
   {
+    path: '/about-us',
+    name: 'AboutUs',
+    component: () => import('../components/pages/AboutUs/AboutUs.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/:pathMach(.*)*',
     name: 'NotFound',
     component: () => import('../components/NotFound.vue'),
