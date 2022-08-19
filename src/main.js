@@ -4,7 +4,6 @@ import App from './App.vue'
 import router from './router'
 import './index.css'
 import 'flowbite'
-import LoadScript from 'vue-plugin-load-script'
 import { VueMaskDirective } from 'v-mask'
 import money from 'v-money3'
 import DashboardLayout from './components/layout/DashboardLayout.vue'
@@ -24,5 +23,4 @@ app.use(router)
 app.use(money)
 app.directive('mask', vMaskV3)
 app.component('dashboard-layout', DashboardLayout)
-app.use(LoadScript)
 app.mount('#app')
