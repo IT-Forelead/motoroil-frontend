@@ -7,10 +7,9 @@
 		
 		<div class="row">
 			<div id="content" class="col-sm-12">
-				<h3>Got Questions? We’ve Got Answers!</h3>
-				<p>Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in anim id est laborum. Allamco laboris nisi ut aliquip ex ea commodo consequat. Aser velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in anim id est laborum.</p>
+				<h3>Got Questions? Weve Got Answers!</h3>
 				<p>
-					<br>
+					Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in anim id est laborum. Allamco laboris nisi ut aliquip ex ea commodo consequat. Aser velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in anim id est laborum.
 				</p>
 				<div class="row">
 					<div class="col-sm-12">
@@ -63,8 +62,6 @@
 						</ul>
 					</div>
 				</div>
-			
-				
 			</div>
 		</div>
 	</div>

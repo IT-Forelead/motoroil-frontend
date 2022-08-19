@@ -9,6 +9,18 @@ const routes = [
     // beforeEnter: navigationGuard('client'),
   },
   {
+    path: '/blogs',
+    name: 'Blogs',
+    component: () => import('../components/pages/Blogs/Blogs.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
+    path: '/blog',
+    name: 'Blog',
+    component: () => import('../components/pages/Blogs/Blog.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/about-us',
     name: 'AboutUs',
     component: () => import('../components/pages/AboutUs/AboutUs.vue'),
