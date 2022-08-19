@@ -5662,7 +5662,7 @@ span.fa-stack {
     -ms-flex-align: stretch;
     display: -webkit-box;
     display: -moz-box;
-    display: box;
+    display: flex;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flexbox;
@@ -6153,7 +6153,7 @@ span.fa-stack {
     width: 65%;
     display: -webkit-box;
     display: -moz-box;
-    display: box;
+    display: flex;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flexbox;

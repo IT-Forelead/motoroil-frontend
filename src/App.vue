@@ -2,8 +2,7 @@
 import Navbar from './components/layout/Navbar/Navbar.vue';
 import Footer from './components/layout/Footer/Footer.vue';
 import Home from './components/pages/Home/Home.vue';
-
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const defaultLayout = "login";

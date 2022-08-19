@@ -2,14 +2,19 @@
 import TopFooter from './parts/TopFooter.vue';
 import MiddleFooter from './parts/MiddleFooter.vue';
 import BottomFooter from './parts/BottomFooter.vue';
-
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
 </script>
 <template>
   <footer class="footer-container typefooter-1">
     <TopFooter />
     <MiddleFooter />
     <BottomFooter />
-    <div class="back-to-top"><i class="fa fa-angle-up"></i></div>
+    <div class="back-to-top" @click="scrollToTop()"><i class="fa fa-angle-up"></i></div>
   </footer>
 </template>
 <style scoped>
