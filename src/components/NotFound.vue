@@ -12,12 +12,13 @@
         </div>
       </div>
     </div>
+    <Modal/>
   </div>
 </template>
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
+import Modal from './Modal.vue';
 const router = useRouter()
 
 onMounted(() => {
