@@ -3,17 +3,23 @@ import Navbar from './components/layout/Navbar/Navbar.vue';
 import Footer from './components/layout/Footer/Footer.vue';
 import Home from './components/pages/Home/Home.vue';
 
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+
+const defaultLayout = "login";
+
+const { currentRoute } = useRouter();
+
+const layout = computed(
+  () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
+);
 </script>
 
 <template>
-  <div id="wrapper" class="wrapper-fluid banners-effect-5">
-    <Navbar />
-    <div class="main-container">
-      <div id="content">
-        <Home />
-      </div>
-    </div>
-    <Footer />
+  <div>
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
 
