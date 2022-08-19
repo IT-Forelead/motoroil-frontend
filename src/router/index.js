@@ -15,6 +15,12 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/faq',
+    name: 'Faq',
+    component: () => import('../components/pages/Faq.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/:pathMach(.*)*',
     name: 'NotFound',
     component: () => import('../components/NotFound.vue'),
