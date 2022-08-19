@@ -17,7 +17,6 @@
     "v-mask": "latest",
     "v-money3": "^3.21.0",
     "vue": "^3.2.37",
-    "vue-plugin-load-script": "^2.1.1",
     "vue-router": "^4.0.14",
     "vue3-flip-countdown": "^0.1.6"
   },
