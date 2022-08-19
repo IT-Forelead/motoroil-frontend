@@ -2,7 +2,6 @@ module.exports = {
     semi: false,
     tabWidth: 2,
     useTabs: false,
-    printWidth: 500,
     endOfLine: 'auto',
     singleQuote: true,
     trailingComma: 'es5',
