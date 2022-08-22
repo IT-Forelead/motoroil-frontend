@@ -8,17 +8,16 @@
             <span class="text-red-500">Oops!</span> Page Not Found!
           </p>
           <router-link to="/"
-            class="px-6 py-2 mt-6 text-sm font-semibold text-blue-800 transition bg-blue-100 rounded hover:text-white hover:bg-indigo-500">Home page</router-link>
+            class="px-6 py-2 mt-6 text-sm font-semibold text-blue-800 transition bg-blue-100 rounded hover:text-white hover:bg-indigo-500">
+            Home page</router-link>
         </div>
       </div>
     </div>
-    <Modal/>
   </div>
 </template>
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import Modal from './Modal.vue';
 const router = useRouter()
 
 onMounted(() => {

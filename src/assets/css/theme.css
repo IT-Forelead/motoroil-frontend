@@ -2594,7 +2594,7 @@ body #so_sociallogin .block-popup-login .tt_popup_login {
 ul.breadcrumb {
   background-color: transparent;
   padding: 15px 0 !important;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   display: inline-block;
   width: 100%;
   line-height: 100%; }

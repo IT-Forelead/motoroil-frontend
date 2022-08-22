@@ -5,7 +5,6 @@ import ArrivalsSection from './parts/ArrivalsSection.vue';
 import DealsSection from './parts/DealsSection.vue';
 import BestSellerSection from './parts/BestSellerSection.vue';
 import TopContentSection from './parts/TopContentSection.vue';
-
 </script>
 <template>
   <TopContentSection />
