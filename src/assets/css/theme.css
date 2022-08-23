@@ -1841,7 +1841,6 @@ div.required .control-label:before {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 600;
-    color: #222;
     display: block;
     position: relative;
     padding: 15px 0;
@@ -2783,13 +2782,11 @@ ul.breadcrumb {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 500;
-    color: #282828;
     display: block;
     position: relative;
     padding: 18px 20px 16px 20px;
     line-height: 100%;
     height: auto;
-    background-color: #fff;
     border-radius: 5px 5px 0 0; }
   .container-megamenu.horizontal ul.megamenu > li > a strong {
     font-weight: 500; }
@@ -6023,7 +6020,7 @@ span.fa-stack {
     -moz-transition: all 0.4s ease-in-out 0s;
     -webkit-transition: all 0.4s ease-in-out 0s;
     padding-top: 15px;
-    z-index: 99;
+    z-index: 10;
     top: 0; }
   .products-list.grid .product-item-container.item--static:hover, .products-list .product-grid .product-item-container.item--static:hover {
     border-color: #f5f5f5;

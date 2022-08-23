@@ -21,6 +21,18 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/products',
+    name: 'Products',
+    component: () => import('../components/pages/Products/Products.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
+    path: '/product',
+    name: 'Product',
+    component: () => import('../components/pages/Products/Product.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/about-us',
     name: 'AboutUs',
     component: () => import('../components/pages/AboutUs/AboutUs.vue'),

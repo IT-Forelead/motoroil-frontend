@@ -124,10 +124,6 @@ const closeLoginModal = () => {
                 </label>
                 <div class="flex flex-row justify-between">
                   <div>
-                    <label for="remember" class="">
-                      <input type="checkbox" id="remember" class="w-4 h-4 border-slate-200 focus:bg-indigo-600">
-                      Remember me
-                    </label>
                   </div>
                   <div>
                     <a href="#" class="font-medium text-indigo-600">Forgot Password?</a>

@@ -174,7 +174,8 @@
                                     <div class="col-md-6">
                                       <div class="row banner">
                                         <a href="#">
-                                          <img src="/src/assets/image/catalog/menu/megabanner/vbanner1.png" alt="banner1">
+                                          <img src="/src/assets/image/catalog/menu/megabanner/vbanner1.png"
+                                            alt="banner1">
                                         </a>
                                       </div>
                                     </div>
@@ -427,40 +428,25 @@
                     </button>
                   </div>
                   <div class="megamenu-wrapper">
-                    <span id="remove-megamenu" class="fa fa-times"></span>
-                    <div class="megamenu-pattern">
-                      <div class="container-mega">
-                        <ul class="megamenu" data-transition="slide" data-animationtime="250">
-                          <li class="home hover">
-                            <router-link to="/">Home</router-link>
-                          </li>
-                          <li class="with-sub-menu hover">
-                            <a href="#" class="clearfix">
-                              <strong>Features</strong>
-                            </a>
-                          </li>
-                          <li class="with-sub-menu hover">
-                            <a href="#" class="clearfix">
-                              <strong>Pages</strong>
-                            </a>
-                          </li>
-                          <li class="with-sub-menu hover">
-                            <a href="#" class="clearfix">
-                              <strong>Categories</strong>
-                            </a>
-                          </li>
-                          <li class="">
-                            <a href="#" class="clearfix">
-                              <strong>Accessories</strong>
-                            </a>
-                          </li>
-                          <li class="">
-                            <router-link to="/blogs" class="clearfix">
-                              <strong>Blogs</strong>
-                            </router-link>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="container-mega">
+                      <ul class="megamenu">
+                        <li>
+                          <router-link to="/" class="txt-gray"
+                            :class="{ 'bg-red-500 txt-white': $router.currentRoute.value.path === '/' }">
+                            Home</router-link>
+                        </li>
+                        <li>
+                          <router-link to="/products" class="txt-gray"
+                            :class="{ 'bg-red-500 txt-white': $router.currentRoute.value.path === '/products' }">
+                            Products</router-link>
+                        </li>
+                        <li>
+                          <router-link to="/blogs" class="txt-gray"
+                            :class="{ 'bg-red-500 txt-white': $router.currentRoute.value.path === '/blog' || $router.currentRoute.value.path === '/blogs' }">
+                            <strong>Blogs</strong>
+                          </router-link>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -473,4 +459,10 @@
   </div>
 </template>
 <style scoped>
+.txt-gray {
+  color: #333;
+}
+.txt-white {
+  color: #fff;
+}
 </style>
