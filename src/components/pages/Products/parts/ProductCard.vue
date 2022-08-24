@@ -1,11 +1,20 @@
 <script setup>
 import { toRefs } from 'vue'
+import { useProductStore } from '../../../../stores/product.js'
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
+const store = useProductStore()
+
 const props = defineProps({
-    product: Object
+  product: Object
 })
 const { product } = toRefs(props)
+
+const showProduct = (id) => {
+  store.getSingleProduct(id)
+  sessionStorage.removeItem('sp_id')
+  sessionStorage.setItem('sp_id', id)
+}
 </script>
 <template>
   <div class="product-layout">
@@ -19,8 +28,9 @@ const { product } = toRefs(props)
         <span class="label-product label-new">New</span>
         <!--quickview-->
         <div class="so-quickview">
-          <router-link class="iframe-link btn-button quickview quickview_handler visible-lg" to="/product"
-            title="Quick view"><i class="fa fa-search"></i><span>Quick
+          <router-link @click="showProduct(product.product.id)"
+            class="iframe-link btn-button quickview quickview_handler visible-lg" to="/product" title="Quick view"><i
+              class="fa fa-search"></i><span>Quick
               view</span></router-link>
         </div>
         <!--end quickview-->
@@ -35,7 +45,11 @@ const { product } = toRefs(props)
           <button type="button" class="compare btn-button" title="Compare this Product"><i
               class="fa fa-refresh"></i></button>
         </div>
-        <h4><router-link to="/product" title="Volup tatem accu" target="_self">Volup tatem accu</router-link></h4>
+        <h4>
+          <router-link to="/product" @click="showProduct(product.product.id)"
+            :title="product.productGroup.productGroup.name + ' ' + product.productGroup.viscosityGrade.name" target="_self">
+            {{ product.productGroup.productGroup.name + ' ' + product.productGroup.viscosityGrade.name }}</router-link>
+        </h4>
         <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
           <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
           <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
@@ -46,9 +60,7 @@ const { product } = toRefs(props)
           <span class="price">$48.00</span>
         </div>
         <div class="description item-desc">
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-            ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-            dolores et ea rebum.</p>
+          <p>{{ product.productGroup.productGroup.description }}</p>
         </div>
       </div>
     </div>

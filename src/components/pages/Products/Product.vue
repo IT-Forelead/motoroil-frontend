@@ -1,6 +1,31 @@
 <script setup>
-import { ref } from '@vue/reactivity';
+import { computed, onMounted, ref } from 'vue';
 import Sidebar from '../../layout/Sidebar/Sidebar.vue';
+import { useProductStore } from '../../../stores/product.js'
+import { formatDateTime } from '../../../mixins/utils.js';
+import { Swiper, SwiperSlide } from "swiper/vue";
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
+const store = useProductStore()
+
+const product = ref('')
+const rating = ref(0)
+const selectedImage = ref('')
+
+onMounted(() => {
+  store.getSingleProduct(sessionStorage.getItem('sp_id')).then((data) => {
+    product.value = store.singleProduct
+    rating.value = Number(store.singleProduct?.product?.rating)
+  }).catch((err) => {
+    console.log(err);
+  })
+  store.getOemsAndSpecsByProductId(sessionStorage.getItem('sp_id'))
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+})
+
+const setImageFull = (img) => selectedImage.value = img
 
 const isActiveDesc = ref(true)
 const isActiveRew = ref(false)
@@ -25,7 +50,8 @@ const changeActiveTab = (tab) => {
       <li>
         <router-link to="/products">Products</router-link>
       </li>
-      <!-- <li><a href="#">{{ store.singleProduct.title }}</a></li> -->
+      <li><a href="#">{{ product?.productGroup?.name + ' ' + product?.viscosityGrade?.name }}</a>
+      </li>
     </ul>
     <div class="row">
       <Sidebar />
@@ -33,44 +59,60 @@ const changeActiveTab = (tab) => {
         <div class="product-view row">
           <div class="left-content-product">
             <div class="content-product-left class-honizol col-md-5 col-sm-12 col-xs-12">
-              <div class="large-image ">
-                <img itemprop="image" class="product-image-zoom"
-                  src="/src/assets/image/catalog/demo/product/replacement/1.jpg" title="Chicken swinesha"
-                  alt="Chicken swinesha">
+              <div class="relative h-[300px] large-image">
+                <img class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  :src="selectedImage ? `${API_URL}/image/${selectedImage}` : `${API_URL}/image/${product?.product?.imageUrl[0]}`"
+                  title="Chicken swinesha" alt="Chicken swinesha">
+                <a class="absolute text-5xl right-10 bottom-10"><i class="fa fa-youtube-play"></i></a>
               </div>
-              <a class="thumb-video pull-left" href="https://www.youtube.com/watch?v=HhabgvIIXik"><i
-                  class="fa fa-youtube-play"></i></a>
+              <swiper :slidesPerView="4" :spaceBetween="20" :pagination="{ clickable: true }"
+                :scrollbar="{ hide: true }" class="mt-5 mySwiper" style="height: 75px;">
+                <swiper-slide v-for="(image, idx) in product?.product?.imageUrl" :key="idx" @click="setImageFull(image)"
+                  class="relative border cursor-pointer" :class="{ 'border-red-500': image === selectedImage }">
+                  <img :src="`${API_URL}/image/${image}`" alt="Product Image"
+                    class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                </swiper-slide>
+              </swiper>
             </div>
             <div class="content-product-right col-md-7 col-sm-12 col-xs-12">
               <div class="title-product">
-                <h1>Chicken swinesha</h1>
+                <h1>{{ product?.productGroup?.name + ' ' + product?.viscosityGrade?.name }}</h1>
               </div>
-              <!-- Review ---->
               <div class="box-review form-group">
                 <div class="ratings">
                   <div class="space-x-2 rating-box">
-                    <span class="fa fa-stack"><i class="text-2xl fa fa-star-o fa-stack-1x"></i></span>
-                    <span class="fa fa-stack"><i class="text-2xl fa fa-star-o fa-stack-1x"></i></span>
-                    <span class="fa fa-stack"><i class="text-2xl fa fa-star-o fa-stack-1x"></i></span>
-                    <span class="fa fa-stack"><i class="text-2xl fa fa-star-o fa-stack-1x"></i></span>
-                    <span class="fa fa-stack"><i class="text-2xl fa fa-star-o fa-stack-1x"></i></span>
+                    <span v-for="r1 in rating" :key="r1" class="fa fa-stack">
+                      <i class="text-2xl fa fa-star fa-stack-1x"></i>
+                    </span>
+                    <span v-for="r2 in (5 - rating)" :key="r2" class="fa fa-stack">
+                      <i class="text-2xl fa fa-star-o fa-stack-1x"></i>
+                    </span>
                   </div>
                 </div>
               </div>
               <div class="product-label form-group">
                 <div class="flex space-x-2 product_page_price price">
-                  <span class="price-new" itemprop="price">$114.00</span>
-                  <span class="price-old">$122.00</span>
+                  <span class="price-new">€ {{ product?.product?.price.toLocaleString('en-US') + '.00' }}</span>
                 </div>
-                <div class="stock"><span>Availability:</span> <span class="status-stock">In Stock</span></div>
+                <div class="stock">
+                  <span>Availability:</span>
+                  <span v-if="product?.product?.quantity !== 0" class="status-stock">In Stock</span>
+                  <span v-else class="status-stock">Not Stock</span>
+                </div>
               </div>
               <div class="product-box-desc">
                 <div class="inner-box-desc">
-                  <div class="price-tax"><span>Ex Tax:</span> $60.00</div>
-                  <div class="reward"><span>Price in reward points:</span> 400</div>
-                  <div class="brand"><span>Brand:</span><a href="#">Apple</a> </div>
-                  <div class="model"><span>Product Code:</span> Product 15</div>
-                  <div class="reward"><span>Reward Points:</span> 100</div>
+                  <div><span>Capacity (L):</span> {{ product?.product?.specTypeValue?.value }} </div>
+                  <div><span>Viscosity Grade:</span> {{ product?.viscosityGrade?.name }}</div>
+                  <div><span>Brand:</span> {{ product?.brand?.name }}</div>
+                  <div><span>OEM-Freigabe:</span> {{ store.oemsAndSpecsByProductId?.oems?.map(o => o.name).join(', ') }}
+                  </div>
+                  <div><span>Spezifikation:</span> {{ store.oemsAndSpecsByProductId?.specifications?.map(o =>
+                      o.name).join(', ')
+                  }}</div>
+                  <div><span>View:</span> {{ product?.product?.views }}</div>
+                  <div><span>Likes:</span> {{ product?.product?.likes }}</div>
+                  <div><span>Orders:</span> {{ product?.product?.orders }}</div>
                 </div>
               </div>
               <div id="product">
@@ -128,25 +170,14 @@ const changeActiveTab = (tab) => {
         <div class="producttab">
           <div class="tabsslider vertical-tabs col-xs-12">
             <ul class="nav nav-tabs col-lg-2 col-sm-3">
-              <li :class="{ 'active': isActiveDesc }" @click="changeActiveTab('desc')"><a href="#desc">Description</a></li>
-              <li :class="{ 'active': isActiveRew }" @click="changeActiveTab('rew')"><a href="#desc">Reviews (1)</a></li>
+              <li :class="{ 'active': isActiveDesc }" @click="changeActiveTab('desc')"><a href="#desc">Description</a>
+              </li>
+              <li :class="{ 'active': isActiveRew }" @click="changeActiveTab('rew')"><a href="#desc">Reviews (1)</a>
+              </li>
             </ul>
             <div class="tab-content col-lg-10 col-sm-9 col-xs-12">
-              <div class="tab-pane fade" :class="{ 'active in': isActiveDesc }">
-                <p>
-                  The 30-inch Apple Cinema HD Display delivers an amazing 2560 x 1600 pixel resolution. Designed
-                  specifically for the creative professional, this display provides more space for easier access to all
-                  the tools and palettes needed to edit, format and composite your work. Combine this display with a Mac
-                  Pro, MacBook Pro, or PowerMac G5 and there's no limit to what you can achieve. <br>
-                  <br>
-                  The Cinema HD features an active-matrix liquid crystal display that produces flicker-free images that
-                  deliver twice the brightness, twice the sharpness and twice the contrast ratio of a typical CRT
-                  display. Unlike other flat panels, it's designed with a pure digital interface to deliver
-                  distortion-free images that never need adjusting. With over 4 million digital pixels, the display is
-                  uniquely suited for scientific and technical applications such as visualizing molecular structures or
-                  analyzing geological data. <br>
-                </p>
-              </div>
+              <div class="tab-pane fade" :class="{ 'active in': isActiveDesc }"
+                v-html="product?.productGroup?.description"></div>
               <div class="tab-pane fade" :class="{ 'active in': isActiveRew }" id="rew">
                 <form>
                   <div id="review">

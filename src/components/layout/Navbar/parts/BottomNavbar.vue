@@ -437,7 +437,7 @@
                         </li>
                         <li>
                           <router-link to="/products" class="txt-gray"
-                            :class="{ 'bg-red-500 txt-white': $router.currentRoute.value.path === '/products' }">
+                            :class="{ 'bg-red-500 txt-white': $router.currentRoute.value.path === '/products' || $router.currentRoute.value.path === '/product'}">
                             Products</router-link>
                         </li>
                         <li>
