@@ -9,12 +9,14 @@ export const useModalStore = defineStore({
   actions: {
     openModal() {
       this.isOpen = true
+      this.isOpenRegisterModal = false
     },
     closeModal() {
       this.isOpen = false
     },
     openRegisterModal() {
       this.isOpenRegisterModal = true
+      this.isOpen = false
     },
     closeRegisterModal() {
       this.isOpenRegisterModal = false
