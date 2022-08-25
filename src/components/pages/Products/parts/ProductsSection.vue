@@ -9,12 +9,8 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div id="content">
-    <div class="products-category">
-      <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 products-list">
-        <ProductCard v-for="(product, idx) in store.products" :key="idx" :product="product" />
-      </div>
-    </div>
+  <div class="grid grid-cols-4 gap-7">
+    <ProductCard v-for="(product, idx) in store.products" :key="idx" :product="product" />
   </div>
 </template>
 

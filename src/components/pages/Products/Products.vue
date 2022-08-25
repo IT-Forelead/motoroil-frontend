@@ -1,39 +1,110 @@
-
 <script setup>
-import Sidebar from '../../layout/Sidebar/Sidebar.vue';
+import HouseIcon from '../../../assets/icons/HouseIcon.vue'
+import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
+import FunnelIcon from '../../../assets/icons/FunnelIcon.vue';
+import Sidebar from '../../layout/Sidebar/Sidebar.vue'
+import ProductCard from './parts/ProductCard.vue';
 import ProductsSection from './parts/ProductsSection.vue';
 </script>
+
 <template>
-  <div class="container main-container">
-    <ul class="breadcrumb">
-      <li>
-        <router-link to="/"><i class="fa fa-home"></i></router-link>
-      </li>
-      <li>
-        <router-link to="/products">Products</router-link>
-      </li>
-    </ul>
-    <div class="row">
-      <Sidebar />
-      <div class="col-md-9 col-sm-8">
-        <div class="flex items-center justify-between mb-5">
-          <h3 class="flex-1 text-3xl font-bold">Our Products</h3>
-          <div class="flex items-center flex-5">
-            <label class="mb-0 mr-3 text-3xl control-label" for="input-sort"><i class="fa fa-filter"></i></label>
-            <select class="p-0 text-xl border-none form-control">
-              <option value="" selected="selected">Default</option>
-              <option value="">Name (A - Z)</option>
-              <option value="">Name (Z - A)</option>
-              <option value="">Price (Low &gt; High)</option>
-              <option value="">Price (High &gt; Low)</option>
-              <option value="">Rating (Highest)</option>
-              <option value="">Rating (Lowest)</option>
-              <option value="">Model (A - Z)</option>
-              <option value="">Model (Z - A)</option>
-            </select>
+  <div class="flex justify-center px-5 py-2 bg-white">
+    <div class="container flex flex-col justify-center">
+      <div class="p-2">
+        <ul class="flex items-center">
+          <li class="flex items-center">
+            <a href="/" class="text-gray-700">
+              <HouseIcon class="w-4 h-4" />
+            </a>
+            <CaretRightIcon class="mx-3 text-gray-500" />
+          </li>
+          <li class="flex items-center">
+            <a href="/products" class="text-gray-700">Products</a>
+            <CaretRightIcon class="mx-3 text-gray-500" />
+          </li>
+          <li class="text-gray-700">Products</li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-4 gap-10">
+        <Sidebar />
+        <div class="col-span-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="p-3 text-2xl font-semibold text-gray-700">Products</div>
+            <button
+              class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
+              <FunnelIcon class="mr-2" /> Saralash
+            </button>
           </div>
+          <ProductsSection/>
+          <!-- <div class="flex items-center justify-between py-3 mt-3 bg-white sm:px-6">
+            <div class="flex justify-between flex-1 sm:hidden">
+              <a href="#"
+                class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                Previous </a>
+              <a href="#"
+                class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                Next </a>
+            </div>
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+              <div>
+                <p class="text-sm text-gray-700">
+                  Showing
+                  <span class="font-medium">1</span>
+                  to
+                  <span class="font-medium">10</span>
+                  of
+                  <span class="font-medium">97</span>
+                  results
+                </p>
+              </div>
+              <div>
+                <nav class="relative z-0 inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                  <a href="#"
+                    class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50">
+                    <span class="sr-only">Previous</span>
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                      aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </a>
+                  <a href="#" aria-current="page"
+                    class="relative z-10 inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-600 border border-indigo-500 bg-indigo-50">
+                    1 </a>
+                  <a href="#"
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">
+                    2 </a>
+                  <a href="#"
+                    class="relative items-center hidden px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 md:inline-flex">
+                    3 </a>
+                  <span
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
+                    ... </span>
+                  <a href="#"
+                    class="relative items-center hidden px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 md:inline-flex">
+                    8 </a>
+                  <a href="#"
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">
+                    9 </a>
+                  <a href="#"
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">
+                    10 </a>
+                  <a href="#"
+                    class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50">
+                    <span class="sr-only">Next</span>
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                      aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </div> -->
         </div>
-        <ProductsSection />
       </div>
     </div>
   </div>

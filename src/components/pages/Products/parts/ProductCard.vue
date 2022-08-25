@@ -1,6 +1,7 @@
 <script setup>
 import { toRefs, ref, onMounted, computed } from 'vue'
 import { useProductStore } from '../../../../stores/product.js'
+import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 const rating = ref(0)
@@ -16,57 +17,42 @@ const ratingCalc = (rate) => {
 }
 
 const showProduct = (id) => {
-  store.getSingleProduct(id).then()
+  store.getSingleProduct(id)
   sessionStorage.removeItem('sp_id')
   sessionStorage.setItem('sp_id', id)
 }
 </script>
 <template>
-  <div class="product-layout">
-    <div class="product-item-container item--static">
-      <div class="relative overflow-hidden h-72 left-block">
-        <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-          <router-link to="/product" target="_self">
-            <img :src="API_URL + '/image/' + product?.product?.imageUrl[0]" class="w-full max-h-full" alt="image1">
-          </router-link>
-        </div>
-        <span class="label-product label-new">New</span>
-        <div class="so-quickview">
-          <router-link @click="showProduct(product?.product?.id)"
-            class="iframe-link btn-button quickview quickview_handler visible-lg" to="/product" title="Quick view"><i
-              class="fa fa-search"></i><span>Quick
-              view</span></router-link>
-        </div>
+  <div class="relative max-w-sm border border-gray-200">
+    <div class="absolute font-normal text-center text-white top-4 sale">-10%</div>
+    <div class="absolute font-normal text-center text-white uppercase top-4 new">new</div>
+    <div class="relative h-[200px] border-b">
+      <router-link to="/product" @click="showProduct(product?.product?.id)" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+        <img :src="API_URL + '/image/' + (product?.product?.imageUrl[0] ? product?.product?.imageUrl[0] : '')" alt="product image">
+      </router-link>
+    </div>
+    <div class="p-5 py-3 text-center">
+      <router-link to="/product" class="text-gray-900 text-md" @click="showProduct(product?.product?.id)"
+        :title="product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name"
+        target="_self">
+        {{ product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name }}
+      </router-link>
+      <div>{{ ratingCalc(product?.product?.rating) }}</div>
+      <div class="flex items-center justify-center py-2">
+        <ul class="flex">
+          <li v-for="r1 in rating" :key="r1">
+            <StarFillIcon class="text-yellow-300" />
+          </li>
+          <li v-for="r2 in (5 - rating)" :key="r2">
+            <StarFillIcon class="text-gray-300" />
+          </li>
+        </ul>
       </div>
-      <div class="right-block">
-        <div class="button-group cartinfo--static">
-          <button type="button" class="wishlist btn-button" title="Add to Wish List"><i
-              class="fa fa-heart"></i></button>
-          <button type="button" class="addToCart" title="Add to cart">
-            <span>Add to cart </span>
-          </button>
-          <button type="button" class="compare btn-button" title="Compare this Product"><i
-              class="fa fa-refresh"></i></button>
-        </div>
-        <h4>
-          <router-link to="/product" @click="showProduct(product?.product?.id)"
-            :title="product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name"
-            target="_self">
-            {{ product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name }}
-          </router-link>
-        </h4>
-        <div>{{ ratingCalc(product?.product?.rating) }}</div>
-        <div class="mb-5 space-x-1 rating">
-          <span v-for="r1 in rating" :key="r1" class="fa fa-stack">
-            <i class="text-2xl fa fa-star fa-stack-1x"></i>
-          </span>
-          <span v-for="r2 in (5 - rating)" :key="r2" class="fa fa-stack">
-            <i class="text-2xl fa fa-star-o fa-stack-1x"></i>
-          </span>
-        </div>
-        <div class="price">
-          <span class="price">$48.00</span>
-        </div>
+      <div class="flex items-center justify-center">
+        <div class="mb-2 mr-3 text-lg font-semibold text-red-500">€ {{ product?.product?.price.toLocaleString('en-US') +
+            '.00'
+        }}</div>
+        <!-- <div class="mb-2 text-gray-500 line-through text-md">$50.00</div> -->
       </div>
     </div>
   </div>
