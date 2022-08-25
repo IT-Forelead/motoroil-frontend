@@ -1,119 +1,137 @@
 <script setup>
+import MapPinIcon from '../../../../assets/icons/MapPinIcon.vue';
+import PhoneIcon from '../../../../assets/icons/PhoneIcon.vue';
+import EnvelopeIcon from '../../../../assets/icons/EnvelopeIcon.vue';
+import AlarmIcon from '../../../../assets/icons/AlarmIcon.vue';
+import FacebookFIcon from '../../../../assets/icons/FacebookFIcon.vue';
+import TwitterIcon from '../../../../assets/icons/TwitterIcon.vue';
+import TelegramIcon from '../../../../assets/icons/TelegramIcon.vue';
+import InstagramIcon from '../../../../assets/icons/InstagramIcon.vue';
+import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
 
 </script>
-<template>
-  <div class="container">
-    <div class="row footer-middle">
-      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-style">
-        <div class="box-footer box-infos">
-          <div class="module">
-            <h3 class="modtitle">Contact us</h3>
-            <div class="modcontent">
-              <ul class="list-icon">
-                <li><span class="icon pe-7s-map-marker"></span>5611 Wellington Road, Suite 115, Gainesville, VA 20155
-                </li>
-                <li><span class="icon pe-7s-call"></span> <a href="#">888 9344 6000 - 888 1234 6789</a></li>
-                <li><span class="icon pe-7s-mail"></span><a
-                    href="mailto:contact@opencartworks.com">contact@opencartworks.com</a></li>
-                <li><span class="icon pe-7s-alarm"></span>7 Days a week from 10-00 am to 6-00 pm</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-style">
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-style">
-            <div class="box-information box-footer">
-              <div class="module clearfix">
-                <h3 class="modtitle">Information</h3>
-                <div class="modcontent">
-                  <ul class="menu">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Warranty And Services</a></li>
-                    <li><a href="#">Support 24/7 page</a></li>
-                    <li><a href="#">Product Registration</a></li>
-                    <li><a href="#">Product Support</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
 
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-style">
-            <div class="box-account box-footer">
-              <div class="module clearfix">
-                <h3 class="modtitle">My Account</h3>
-                <div class="modcontent">
-                  <ul class="menu">
-                    <li><a href="#">Brands</a></li>
-                    <li><a href="#">Gift Certificates</a></li>
-                    <li><a href="#">Affiliates</a></li>
-                    <li><a href="#">Specials</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Custom Link</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 col-clear">
-            <div class="box-service box-footer">
-              <div class="module clearfix">
-                <h3 class="modtitle">Categories</h3>
-                <div class="modcontent">
-                  <ul class="menu">
-                    <li><a href="#">Event & Party Supplies</a></li>
-                    <li><a href="#">Home Improvement</a></li>
-                    <li><a href="#">Lamps & Light Fixtures</a></li>
-                    <li><a href="#">Kitchen & Bath Fixtures</a></li>
-                    <li><a href="#">Customer Service</a></li>
-                    <li><a href="#">Kitchen & Dining</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row row-dark">
-      <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12 col-socials">
-        <ul class="socials">
-          <li class="facebook"><a href="https://www.facebook.com/smartaddons.page" target="_blank"><i
-                class="fa fa-facebook"></i></a></li>
-          <li class="twitter"><a href="https://twitter.com/smartaddons" target="_blank"><i
-                class="fa fa-twitter"></i></a></li>
-          <li class="google_plus"><a href="https://plus.google.com/u/0/+Smartaddons/posts" target="_blank"><i
-                class="fa fa-google-plus"></i></a></li>
-          <li class="pinterest"><a href="https://www.pinterest.com/smartaddons/" target="_blank"><i
-                class="fa fa-pinterest-p"></i></a></li>
-          <li class="instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
-          <li class="Youtube"><a href="#" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
+<template>
+  <div class="flex justify-center px-5 pt-10 bg-white">
+    <div class="container grid grid-cols-4 gap-7">
+      <div>
+        <div class="font-semibold uppercase text-mf">Contact us</div>
+        <ul class="py-5">
+          <li class="flex items-center py-3 space-x-3">
+            <MapPinIcon class="text-red-500 w-9 h-9" />
+            <div class="text-gray-500 text-md">5611 Wellington Road, Suite 115, Gainesville, VA 20155</div>
+          </li>
+          <li class="flex items-center py-3 space-x-3">
+            <PhoneIcon class="text-red-500 w-7 h-7" />
+            <div class="text-gray-500 text-md">888 9344 6000 - 888 1234 6789</div>
+          </li>
+          <li class="flex items-center py-3 space-x-3">
+            <EnvelopeIcon class="text-red-500 w-7 h-7" />
+            <div class="text-gray-500 text-md">contact@motoroelexpress.de</div>
+          </li>
+          <li class="flex items-center py-3 space-x-3">
+            <AlarmIcon class="text-red-500 w-7 h-7" />
+            <div class="text-gray-500 text-md">7 days a week from 10:00 AM to 6:00 PM</div>
+          </li>
         </ul>
       </div>
-      <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-        <div class="module newsletter-footer1">
-          <div class="newsletter">
-            <h3 class="modtitle">Sign Up for Newsletter</h3>
-            <div class="block_content">
-              <form method="post" id="signup" name="signup" class="form-group form-inline signup send-mail">
-                <div class="form-group">
-                  <div class="input-box">
-                    <input type="email" placeholder="Your email address..." value="" class="form-control" id="txtemail"
-                      name="txtemail" size="55">
-                  </div>
-                  <div class="subcribe">
-                    <button class="btn btn-primary btn-default font-title" type="submit"
-                      onclick="return subscribe_newsletter();" name="submit">
-                      <span>Subscribe</span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+      <div>
+        <div class="font-semibold uppercase text-mf">INFORMATION</div>
+        <ul class="py-5">
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">About Us</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Faq</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Warranty And Services</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Support 24/7 page</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Product Registration</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Product Support</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold uppercase text-mf">My Account</div>
+        <ul class="py-5">
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Brands</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Gift Certificates</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Affiliates</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Specials</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">FAQs</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Custom Link</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold uppercase text-mf">Categories</div>
+        <ul class="py-5">
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Event & Party Supplies</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Home Improvement</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Lamps & Light Fixtures</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Kitchen & Bath Fixtures</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Customer Service</a>
+          </li>
+          <li class="py-1.5">
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Kitchen & Dining</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center py-3">
+    <div class="container grid grid-cols-3">
+      <div class="col-span-1 px-5 bg-gray-700 py-7">
+        <div class="flex">
+          <div class="flex items-center justify-center w-10 h-10 mx-1 text-gray-700 bg-white rounded hover:bg-red-500 hover:text-white">
+            <FacebookFIcon/>
           </div>
+          <div class="flex items-center justify-center w-10 h-10 mx-1 text-gray-700 bg-white rounded hover:bg-red-500 hover:text-white">
+            <TwitterIcon/>
+          </div>
+          <div class="flex items-center justify-center w-10 h-10 mx-1 text-gray-700 bg-white rounded hover:bg-red-500 hover:text-white">
+            <TelegramIcon/>
+          </div>
+          <div class="flex items-center justify-center w-10 h-10 mx-1 text-gray-700 bg-white rounded hover:bg-red-500 hover:text-white">
+            <InstagramIcon/>
+          </div>
+          <div class="flex items-center justify-center w-10 h-10 mx-1 text-gray-700 bg-white rounded hover:bg-red-500 hover:text-white">
+            <YoutubeIcon/>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between col-span-2 px-12 bg-gray-800 py-7">
+        <div class="text-xl font-medium text-white uppercase indent-3">Sign Up for Newsletter</div>
+        <div class="flex rounded bg-white w-[30rem]">
+          <input type="search" class="w-full px-4 py-1 text-gray-900 bg-transparent border-none outline-none focus:outline-none" placeholder="Your email address..." />
+          <button type="button" class="px-4 py-2 text-white uppercase bg-red-500 rounded-r"> Subscribe </button>
         </div>
       </div>
     </div>

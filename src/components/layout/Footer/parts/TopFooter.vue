@@ -1,49 +1,53 @@
 <script setup>
+import CarIcon from '../../../../assets/icons/CarIcon.vue';
+import ArrowsClockwiseIcon from '../../../../assets/icons/ArrowsClockwiseIcon.vue';
+import KeyholeIcon from '../../../../assets/icons/KeyholeIcon.vue';
+import UsersIcon from '../../../../assets/icons/UsersIcon.vue';
 
 </script>
+
 <template>
-  <div class="row-top">
-    <div class="block-services container">
-      <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-margin1">
-          <div class="icon-service">
-            <div class="icon"><i class="pe-7s-car">&nbsp;</i></div>
-            <div class="text">
-              <h6>Free shipping</h6>
-              <p class="no-margin">On all orders over $99.00</p>
-            </div>
-          </div>
+  <div class="flex justify-center p-5 bg-gray-100">
+    <div class="container grid grid-cols-4 gap-5">    
+      <div class="flex items-center space-x-3">
+        <div class="p-3 bg-white border border-gray-200 rounded-full shadow">
+          <CarIcon class="w-10 h-10 text-red-500" />
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-margin1">
-          <div class="icon-service">
-            <div class="icon"><i class="pe-7s-refresh-2">&nbsp;</i></div>
-            <div class="text">
-              <h6>30 days return</h6>
-              <p class="no-margin">You have 30 days to return</p>
-            </div>
-          </div>
+        <div>
+          <div class="font-medium uppercase text-md">Free shipping</div>
+          <div class="text-sm text-gray-400">On all orders over $99.00</div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-margin">
-          <div class="icon-service">
-            <div class="icon"><i class="pe-7s-door-lock">&nbsp;</i></div>
-            <div class="text">
-              <h6>Safe Shopping<br></h6>
-              <p class="no-margin">Payment 100% secure</p>
-            </div>
-          </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <div class="p-3 bg-white border border-gray-200 rounded-full shadow">
+          <ArrowsClockwiseIcon class="w-10 h-10 text-red-500" />
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-          <div class="icon-service">
-            <div class="icon"><i class="pe-7s-users">&nbsp;</i></div>
-            <div class="text">
-              <h6>Online support</h6>
-              <p class="no-margin">Contact us 24 hours a day</p>
-            </div>
-          </div>
+        <div>
+          <div class="font-medium uppercase text-md">30 days return</div>
+          <div class="text-sm text-gray-400">You have 30 days to return</div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <div class="p-3 bg-white border border-gray-200 rounded-full shadow">
+          <KeyholeIcon class="w-10 h-10 text-red-500" />
+        </div>
+        <div>
+          <div class="font-medium uppercase text-md">Safe Shopping</div>
+          <div class="text-sm text-gray-400">Payment 100% secure</div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <div class="p-3 bg-white border border-gray-200 rounded-full shadow">
+          <UsersIcon class="w-10 h-10 text-red-500" />
+        </div>
+        <div>
+          <div class="font-medium uppercase text-md">Online support</div>
+          <div class="text-sm text-gray-400">Contact us 24 hours a day</div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <style scoped>
 </style>

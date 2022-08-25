@@ -25,10 +25,8 @@ onMounted(() => {
                         <CaretRightIcon class="mx-3 text-gray-500" />
                     </li>
                     <li class="flex items-center">
-                        <a href="#" class="text-gray-700">Project</a>
-                        <CaretRightIcon class="mx-3 text-gray-500" />
+                        <a href="/blog" class="text-gray-700">Our Blog</a>
                     </li>
-                    <li class="text-gray-700">Marketing</li>
                 </ul>
             </div>
             <div class="grid grid-cols-4 gap-3">

@@ -1,67 +1,89 @@
 <script setup>
 import CloseIcon from "../../../../assets/icons/CloseIcon.vue";
-import { ref } from 'vue'
+import FaceBookIcon from '../../../../assets/icons/FaceBookIcon.vue';
+import TelegramIcon from '../../../../assets/icons/TelegramIcon.vue';
+import InstagramIcon from '../../../../assets/icons/InstagramIcon.vue';
+import EmailIcon from '../../../../assets/icons/EmailIcon.vue';
+import ChevronDownIcon from '../../../../assets/icons/ChevronDownIcon.vue';
+import SignInIcon from '../../../../assets/icons/SignInIcon.vue';
 import { useModalStore } from '../../../../stores/modal.js'
+import { ref } from 'vue';
+import { onClickOutside } from '@vueuse/core'
+
 const store = useModalStore()
+
+const isOpenLanguageDropDown = ref(false)
+const dropdown = ref(null)
+const toggleDropDown = () => {
+  isOpenLanguageDropDown.value = !isOpenLanguageDropDown.value
+}
+
+onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
 </script>
 <template>
-  <div class="header-top hidden-compact">
-    <div class="container">
-      <div class="row">
-        <div class="header-top-left col-lg-3 col-md-4 col-sm-5 hidden-xs">
-          <div class="telephone ">
-            <ul class="socials">
-              <li class="facebook"><a href="https://www.facebook.com/smartaddons.page" target="_blank"><i
-                    class="fa fa-facebook"></i></a></li>
-              <li class="twitter"><a href="https://twitter.com/smartaddons" target="_blank"><i
-                    class="fa fa-twitter"></i></a></li>
-              <li class="google_plus"><a href="https://plus.google.com/u/0/+Smartaddons/posts" target="_blank"><i
-                    class="fa fa-google-plus"></i></a></li>
-              <li class="pinterest"><a href="https://www.pinterest.com/smartaddons/" target="_blank"><i
-                    class="fa fa-pinterest-p"></i></a></li>
-              <li class="instagram"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
-              <li class="linkedin"><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="header-top-right col-lg-9 col-md-8 col-sm-7 col-xs-12">
-          <ul class="top-link list-inline lang-curr">
-            <li class="currency">
-              <div class="btn-group currencies-block">
-                <form action="index.html" method="post" enctype="multipart/form-data" id="currency">
-                  <a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                    <span class="icon icon-credit "></span> $ US Dollar <span class="fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu btn-xs">
-                    <li> <a href="#">(€)&nbsp;Euro</a></li>
-                    <li> <a href="#">(£)&nbsp;Pounds </a></li>
-                    <li> <a href="#">($)&nbsp;US Dollar </a></li>
-                  </ul>
-                </form>
-              </div>
+  <div class="flex justify-center py-2 bg-gray-900">
+    <div class="container grid items-center grid-cols-4 gap-3">
+      <ul class="items-center hidden space-x-2 md:flex">
+        <li
+          class="p-1 text-lg text-gray-400 border border-gray-400 rounded hover:bg-red-500 hover:text-white hover:border-red-500">
+          <a href="#" target="_blank">
+            <FaceBookIcon />
+          </a>
+        </li>
+        <li
+          class="p-1 text-lg text-gray-400 border border-gray-400 rounded hover:bg-red-500 hover:text-white hover:border-red-500">
+          <a href="#" target="_blank">
+            <TelegramIcon />
+          </a>
+        </li>
+        <li
+          class="p-1 text-lg text-gray-400 border border-gray-400 rounded hover:bg-red-500 hover:text-white hover:border-red-500">
+          <a href="#" target="_blank">
+            <InstagramIcon />
+          </a>
+        </li>
+        <li
+          class="p-1 text-lg text-gray-400 border border-gray-400 rounded hover:bg-red-500 hover:text-white hover:border-red-500">
+          <a href="#" target="_blank">
+            <EmailIcon />
+          </a>
+        </li>
+      </ul>
+      <div class="relative col-span-2">
+        <button @click="toggleDropDown()"
+          class="flex items-center justify-between w-full px-3 py-2 text-gray-300 uppercase md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+          English
+          <ChevronDownIcon />
+        </button>
+        <div :class="{ 'hidden': !isOpenLanguageDropDown }" ref="dropdown"
+          class="absolute z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
+          <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
+            <li>
+              <a href="#"
+                class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">O'zbek</a>
             </li>
-            <li class="language">
-              <div class="btn-group languages-block ">
-                <form action="index.html" method="post" enctype="multipart/form-data" id="bt-language">
-                  <a class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                    <span class="eng">English</span>
-                    <span class="fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="index.html"><img class="image_flag" src="/src/assets/image/catalog/flags/gb.png"
-                          alt="English" title="English" /> English </a></li>
-                    <li> <a href="html_with_RTL/index.html"> <img class="image_flag"
-                          src="/src/assets/image/catalog/flags/ar.png" alt="Arabic" title="Arabic" /> Arabic </a> </li>
-                  </ul>
-                </form>
-              </div>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">русский</a>
             </li>
           </ul>
-          <ul class="top-log list-inline">
-            <li @click="store.openModal()"><i class="fa fa-lock"></i><a href="#">Login</a> / </li>
-            <li><a href="#">Register</a></li>
-          </ul>
         </div>
+      </div>
+      <div class="flex items-center justify-end space-x-2">
+        <button @click="store.openModal()"
+          class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+          <SignInIcon class="mr-1" />
+          Login
+        </button>
+        <div class="text-gray-300">/</div>
+        <button
+          class="w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+          Registration
+        </button>
       </div>
     </div>
     <!-- Login Modal -->

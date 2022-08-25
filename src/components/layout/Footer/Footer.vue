@@ -10,7 +10,7 @@ function scrollToTop() {
 }
 </script>
 <template>
-  <footer class="footer-container typefooter-1">
+  <footer class="w-full mt-5">
     <TopFooter />
     <MiddleFooter />
     <BottomFooter />

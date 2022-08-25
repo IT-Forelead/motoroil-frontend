@@ -1,150 +1,41 @@
 <script setup>
-
+import HeartFillIcon from '../../../../assets/icons/HeartFillIcon.vue';
+import ShoppingCartFillIcon from '../../../../assets/icons/ShoppingCartFillIcon.vue';
+import SearchIcon from '../../../../assets/icons/SearchIcon.vue';
 </script>
+
 <template>
-  <div class="header-middle hidden-compact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-          <div class="logo">
-            <a href="/"><img src="/src/assets/image/catalog/logo.png" title="Your Store" alt="Your Store" /></a>
-          </div>
+  <div class="flex justify-center h-20 p-5 bg-white">
+    <div class="container grid items-center grid-cols-4 gap-3">
+      <a href="/"><img src="/src/assets/image/catalog/logo.png" alt="Motoroil" /></a>
+      <div class="col-span-2">
+        <div class="flex items-center rounded bg-white w-[30rem]">
+          <input type="search"
+            class="w-full px-4 text-gray-900 bg-transparent border border-gray-300 rounded-l outline-none focus:outline-none"
+            placeholder="Your email address..." />
+          <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-r">
+            <SearchIcon class="w-6 h-6" />
+          </button>
         </div>
-        <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 middle-right">
-          <div class="search-header-w">
-            <div class="icon-search hidden-lg hidden-md"><i class="fa fa-search"></i></div>
-            <div id="sosearchpro" class="sosearchpro-wrapper so-search ">
-              <form method="GET" action="index.html">
-                <div id="search0" class="search input-group form-group">
-                  <div class="select_category filter_type  icon-select hidden-sm hidden-xs">
-                    <select class="no-border" name="category_id">
-                      <option value="0">All Categories</option>
-                      <option value="78">Apparel</option>
-                      <option value="77">Cables &amp; Connectors</option>
-                      <option value="82">Cameras &amp; Photo</option>
-                      <option value="80">Flashlights &amp; Lamps</option>
-                      <option value="81">Mobile Accessories</option>
-                      <option value="79">Video Games</option>
-                      <option value="20">Jewelry &amp; Watches</option>
-                      <option value="76">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Earings</option>
-                      <option value="26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wedding Rings</option>
-                      <option value="27">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Men Watches</option>
-                    </select>
-                  </div>
-                  <input class="autosearch-input form-control" type="text" value="" size="50" autocomplete="off"
-                    placeholder="Keyword here..." name="search">
-
-                  <button type="submit" class="button-search btn btn-primary" name="submit_search"><i
-                      class="fa fa-search"></i></button>
-                </div>
-                <input type="hidden" name="route" value="product/search" />
-              </form>
-            </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button class="flex items-center justify-center p-3 text-gray-700 border rounded hover:text-red-500">
+          <HeartFillIcon />
+        </button>
+        <button class="inline-flex items-center text-gray-700 border rounded hover:text-red-500">
+          <div class="relative flex items-center justify-center p-2">
+            <ShoppingCartFillIcon />
+            <div class="absolute -top-3 -right-2 px-1.5 py-0.5 text-xs text-white bg-red-500 rounded-full">1</div>
           </div>
-          <div class="shopping_cart">
-            <div id="cart" class="btn-shopping-cart">
-              <a href="javascript:void(0)" data-loading-text="Loading... " class="btn-group top_cart dropdown-toggle"
-                data-toggle="dropdown" aria-expanded="true">
-                <div class="shopcart">
-                  <span class="icon-c">
-                    <i class="fa fa-shopping-basket"></i>
-                  </span>
-                  <div class="shopcart-inner">
-                    <p class="text-shopping-cart">
-                      My cart
-                    </p>
-
-                    <span class="total-shopping-cart cart-total-full">
-                      <span class="items_cart">02</span><span class="items_cart2"> item(s)</span><span
-                        class="items_carts">$162.00</span>
-                    </span>
-                  </div>
-                </div>
-              </a>
-              <ul class="dropdown-menu pull-right shoppingcart-box" role="menu">
-                <li>
-                  <table class="table table-striped">
-                    <tbody>
-                      <tr>
-                        <td class="text-center" style="width:70px">
-                          <a href="product.html">
-                            <img src="/src/assets/image/catalog/demo/product/80/1.jpg" style="width:70px" alt="Yutculpa ullamcon"
-                              title="Yutculpa ullamco" class="preview">
-                          </a>
-                        </td>
-                        <td class="text-left"> <a class="cart_product_name" href="product.html">Yutculpa ullamco</a>
-                        </td>
-                        <td class="text-center">x1</td>
-                        <td class="text-center">$80.00</td>
-                        <td class="text-right">
-                          <a href="product.html" class="fa fa-edit"></a>
-                        </td>
-                        <td class="text-right">
-                          <a onclick="cart.remove('2');" class="fa fa-times fa-delete"></a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="text-center" style="width:70px">
-                          <a href="product.html">
-                            <img src="/src/assets/image/catalog/demo/product/80/2.jpg" style="width:70px" alt="Xancetta bresao"
-                              title="Xancetta bresao" class="preview">
-                          </a>
-                        </td>
-                        <td class="text-left"> <a class="cart_product_name" href="product.html">Xancetta bresao</a>
-                        </td>
-                        <td class="text-center">x1</td>
-                        <td class="text-center">$60.00</td>
-                        <td class="text-right">
-                          <a href="product.html" class="fa fa-edit"></a>
-                        </td>
-                        <td class="text-right">
-                          <a onclick="cart.remove('1');" class="fa fa-times fa-delete"></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </li>
-                <li>
-                  <div>
-                    <table class="table table-bordered">
-                      <tbody>
-                        <tr>
-                          <td class="text-left"><strong>Sub-Total</strong>
-                          </td>
-                          <td class="text-right">$140.00</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left"><strong>Eco Tax (-2.00)</strong>
-                          </td>
-                          <td class="text-right">$2.00</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left"><strong>VAT (20%)</strong>
-                          </td>
-                          <td class="text-right">$20.00</td>
-                        </tr>
-                        <tr>
-                          <td class="text-left"><strong>Total</strong>
-                          </td>
-                          <td class="text-right">$162.00</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <p class="text-right"> <a class="btn view-cart" href="cart.html"><i
-                          class="fa fa-shopping-cart"></i>View Cart</a>&nbsp;&nbsp;&nbsp; <a
-                        class="btn btn-mega checkout-cart" href="checkout.html"><i class="fa fa-share"></i>Checkout</a>
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          <div class="flex items-center justify-center px-4 py-2 border-l">
+            My cart
+            <span class="ml-1 font-medium text-red-500">$123.00</span>
           </div>
-          <div class="wishlist hidden-md hidden-sm hidden-xs"><a href="#" id="wishlist-total" class="top-link-wishlist"
-              title="Wish List (0) "><i class="fa fa-heart"></i></a></div>
-        </div>
+        </button>
       </div>
     </div>
   </div>
 </template>
+
 <style scoped>
 </style>

@@ -5,7 +5,7 @@ import BottomNavbar from './parts/BottomNavbar.vue';
 
 </script>
 <template>
-  <header id="header" class=" typeheader-1">
+  <header class="w-full">
     <TopNavbar />
     <MiddleNavbar />
     <BottomNavbar />
