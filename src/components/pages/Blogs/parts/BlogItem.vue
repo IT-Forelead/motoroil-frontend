@@ -1,7 +1,7 @@
 <script setup>
 import { toRefs } from 'vue'
 import { useBlogStore } from '../../../../stores/blog.js'
-import { getMonthName } from '../../../../mixins/utils.js'
+import { formatDateTime } from '../../../../mixins/utils.js'
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useBlogStore()
 
@@ -17,42 +17,22 @@ const readMore = (id) => {
 }
 </script>
 <template>
-    <div class="blog-item col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="clearfix blog-item-inner">
-            <div class="clearfix overflow-hidden itemBlogImg h-80">
-                <div class="article-image">
-                    <router-link to="/blog" @click="readMore(blog.id)" class="popup-gallery">
-                        <img :src="API_URL + '/image/' + blog.imageUrl" alt="#" class="object-cover object-center" />
-                    </router-link>
-                    <div class="article-date">
-                        <div class="date">
-                            <span class="article-date"><b>{{ (new Date(blog.createdAt)).getDate() }}</b> {{
-                                    getMonthName(blog.createdAt)
-                            }}</span>
-                        </div>
-                    </div>
-                </div>
+    <div class="max-w-sm">
+        <router-link to="/blog" @click="readMore(blog.id)">
+            <img :src="API_URL + '/image/' + blog.imageUrl" alt="#" class="object-cover object-center" />
+        </router-link>
+        <div class="py-3">
+            <div class="flex items-center justify-between mb-2 text-xs text-gray-400">
+                <div>{{ formatDateTime(blog.createdAt) }}</div>
+                <div>Post by {{ blog.userName }}</div>
             </div>
-            <div class="clearfix itemBlogContent">
-                <div class="blog-content">
-                    <div class="h-24 overflow-hidden article-title font-title">
-                        <h4>
-                            <router-link to="/blog" @click="readMore(blog.id)">{{ blog.title }}</router-link>
-                        </h4>
-                    </div>
-                    <div class="blog-meta">
-                        <span class="author">
-                            <i class="fa fa-user"></i> Post by {{ blog.userName }}
-                        </span>
-                    </div>
-                    <p class="overflow-hidden article-description h-52" v-html="blog.text">
-                    </p>
-                    <div class="readmore">
-                        <router-link to="/blog" @click="readMore(blog.id)" class="btn-readmore font-title"><i
-                                class="fa fa-caret-right"></i>Read More</router-link>
-                    </div>
-                </div>
-            </div>
+            <router-link to="/blog" @click="readMore(blog.id)">
+                <h5 class="mb-2 font-semibold text-gray-900 text-md">{{ blog.title }}</h5>
+            </router-link>
+            <p class="mb-3 font-normal text-gray-700" v-html="blog.text"></p>
+            <router-link to="/blog" @click="readMore(blog.id)"
+                class="px-5 py-2 text-sm text-center text-white uppercase bg-gray-900 rounded hover:bg-red-500 focus:ring-0">
+                Read More</router-link>
         </div>
     </div>
 </template>

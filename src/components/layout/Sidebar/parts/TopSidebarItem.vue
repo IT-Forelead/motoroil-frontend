@@ -1,74 +1,76 @@
 <script setup>
-
+import ListPlusIcon from '../../../../assets/icons/ListPlusIcon.vue';
+import CaretRightIcon from '../../../../assets/icons/CaretRightIcon.vue';
 </script>
+
 <template>
   <div>
-    <div class="module category-style">
-      <h3 class="modtitle">Categories</h3>
-      <div class="modcontent">
-        <div class="box-category">
-          <ul id="cat_accordion" class="list-group">
-            <li class="hadchild"><a href="category.html" class="cutom-parent">Smartphone & Tablets</a> <span
-                class="button-view fa fa-plus-square-o"></span>
-              <ul style="display: block;">
-                <li><a href="category.html">Men's Watches</a></li>
-                <li><a href="category.html">Women's Watches</a></li>
-                <li><a href="category.html">Kids' Watches</a></li>
-                <li><a href="category.html">Accessories</a></li>
-              </ul>
+    <div class="p-3 font-medium text-white uppercase bg-red-500 rounded-t-lg">Categories</div>
+    <div class="p-3 bg-white border border-t-0 border-gray-300 rounded-b-lg">
+      <ul class="divide-y divide-gray-300">
+        <li class="p-2">
+          <div class="flex justify-between text-gray-700 cursor-pointer text-md hover:text-red-500">
+            <a href="#">Accessories</a>
+            <ListPlusIcon/>
+          </div>
+          <ul class="p-3 text-sm">
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
             </li>
-            <li class="hadchild"><a class="cutom-parent" href="category.html">Electronics</a> <span
-                class="button-view fa fa-plus-square-o"></span>
-              <ul style="display: none;">
-                <li><a href="category.html">Cycling</a></li>
-                <li><a href="category.html">Running</a></li>
-                <li><a href="category.html">Swimming</a></li>
-                <li><a href="category.html">Football</a></li>
-                <li><a href="category.html">Golf</a></li>
-                <li><a href="category.html">Windsurfing</a></li>
-              </ul>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
             </li>
-            <li class="hadchild"><a href="category.html" class="cutom-parent">Shoes</a> <span
-                class="button-view fa fa-plus-square-o"></span>
-              <ul style="display: none;">
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-              </ul>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
             </li>
-            <li class="hadchild"><a href="category.html" class="cutom-parent">Watches</a> <span
-                class="button-view fa fa-plus-square-o"></span>
-              <ul style="display: none;">
-                <li><a href="category.html">Men's Watches</a></li>
-                <li><a href="category.html">Women's Watches</a></li>
-                <li><a href="category.html">Kids' Watches</a></li>
-                <li><a href="category.html">Accessories</a></li>
-              </ul>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
             </li>
-            <li class="hadchild"><a href="category.html" class="cutom-parent">Jewellery</a> <span
-                class="button-view fa fa-plus-square-o"></span>
-              <ul style="display: none;">
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-                <li><a href="category.html">Sub Categories</a></li>
-              </ul>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
             </li>
-            <li class=""><a href="category.html" class="cutom-parent">Health &amp; Beauty</a> <span
-                class="dcjq-icon"></span></li>
-            <li class=""><a href="category.html" class="cutom-parent">Kids &amp; Babies</a> <span
-                class="dcjq-icon"></span></li>
-            <li class=""><a href="category.html" class="cutom-parent">Sports</a> <span class="dcjq-icon"></span></li>
-            <li class=""><a href="category.html" class="cutom-parent">Home &amp; Garden</a><span
-                class="dcjq-icon"></span></li>
-            <li class=""><a href="category.html" class="cutom-parent">Wines &amp; Spirits</a> <span
-                class="dcjq-icon"></span></li>
           </ul>
-        </div>
-      </div>
+        </li>
+        <li class="p-2">
+          <div class="flex justify-between text-gray-700 cursor-pointer text-md hover:text-red-500">
+            <a href="#">Accessories</a>
+            <ListPlusIcon/>
+          </div>
+          <ul class="p-3 text-sm">
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
+            </li>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
+            </li>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
+            </li>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
+            </li>
+            <li class="flex items-center p-1">
+              <CaretRightIcon class="mr-1"/>
+              <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">Customer Service</a>
+            </li>
+          </ul>
+        </li>
+        <li class="block p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
+          <a href="#">Accessories</a>
+        </li>
+        <li class="block p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
+          <a href="#">Accessories</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
