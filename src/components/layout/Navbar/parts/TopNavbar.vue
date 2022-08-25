@@ -1,13 +1,8 @@
 <script setup>
 import CloseIcon from "../../../../assets/icons/CloseIcon.vue";
 import { ref } from 'vue'
-const isLoginModalOpen = ref(false)
-const toggleLoginModal = () => {
-  isLoginModalOpen.value = !isLoginModalOpen.value
-}
-const closeLoginModal = () => {
-  isLoginModalOpen.value = false
-}
+import { useModalStore } from '../../../../stores/modal.js'
+const store = useModalStore()
 </script>
 <template>
   <div class="header-top hidden-compact">
@@ -63,14 +58,14 @@ const closeLoginModal = () => {
             </li>
           </ul>
           <ul class="top-log list-inline">
-            <li @click="toggleLoginModal()"><i class="fa fa-lock"></i><a href="#">Login</a> / </li>
+            <li @click="store.openModal()"><i class="fa fa-lock"></i><a href="#">Login</a> / </li>
             <li><a href="#">Register</a></li>
           </ul>
         </div>
       </div>
     </div>
     <!-- Login Modal -->
-    <div :class="{ 'hidden': !isLoginModalOpen }"
+    <div :class="{ 'hidden': !store.isOpen }"
       class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-500/50">
       <div
         class="relative w-full h-full max-w-3xl p-4 text-xl -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
@@ -81,7 +76,7 @@ const closeLoginModal = () => {
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
               Login Form
             </h3>
-            <button type="button" @click="closeLoginModal()"
+            <button type="button" @click="store.closeModal()"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-toggle="defaultModal">
               <CloseIcon />
@@ -100,13 +95,15 @@ const closeLoginModal = () => {
             <div class="my-5">
               <button
                 class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded-lg border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
-                <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login with
+                <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
+                  with
                   Facebook</span>
               </button>
             </div>
             <div class="relative mx-auto">
               <hr />
-              <p class="absolute p-2 -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">Have a password? Continue with your email address</p>
+              <p class="absolute p-2 -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">Have
+                a password? Continue with your email address</p>
             </div>
             <form action="" class="my-10">
               <div class="flex flex-col space-y-5">
