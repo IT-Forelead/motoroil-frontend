@@ -1,73 +1,90 @@
 <script setup>
 import { Countdown } from 'vue3-flip-countdown'
+import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 </script>
+
 <template>
-  <div class="row-image deals-w">
-    <div class="container row row-deals">
-      <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
-        <div class="module deals-layout1" style="height: 475px;">
-          <h3 class="modtitle2"><span>Deal of the day</span></h3>
-          <div class="modcontent">
-            <div id="so_deal_11" class="so-deal">
-              <div class="products-list">
-                <div class="item product-layout">
-                  <div class="transition product-thumb product-item-container">
-                    <div class="col-lg-6 col-md-5 col-sm-6 col-xs-12 col-left">
-                      <div class="left-block">
-                        <div class="product-image-container second_img">
-                          <a href="/product" target="_self" title="Sunt in culpa">
-                            <img src="/src/assets/image/catalog/demo/product/400/1.jpg" class="img-responsive"
-                              alt="image1">
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12 col-right">
-                      <div class="right-block">
-                        <h4><a href="/product" title="Sunt in culpa" target="_self">Sunt in culpa back wheel</a>
-                        </h4>
-                        <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
-                        </div>
-                        <div class="price" style="display: flex; align-items: center;">
-                          <span class="price-new">$50.00</span>
-                          <span class="price-old" style="margin-left: 10px;">$59.00</span>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, ..</p>
-                        <div style="float: left;">
-                          <Countdown :flipAnimation="false"/>
-                        </div>
-                        <div style="clear: both"></div>
-                        <div class="button-group" style="margin-top: 10px">
-                          <button type="button" class="addToCart" title="Add to cart">
-                            <span>Add to cart </span>
-                          </button>
-                          <button type="button" class="wishlist btn-button" title="Add to Wish List">
-                            <i class="fa fa-heart"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div class="flex justify-center p-5 bg-gray-100">
+    <div class="container grid grid-cols-3 gap-20 p-5">
+      <div class="relative col-span-2 p-5 bg-white">
+        <div class="absolute top-0 py-2 font-medium text-white uppercase bg-red-500 rounded-b px-7 text-md deal">Deal of
+          the day</div>
+        <div class="flex items-center justify-center h-full p-3 space-x-5">
+          <div class="w-full">
+            <img src="/src/assets/image/catalog/demo/product/400/1.jpg" class="img-responsive" alt="image1">
+          </div>
+          <div>
+            <div class="text-gray-900 text-md">Prista Extra W10-53</div>
+            <div class="flex items-center py-2">
+              <ul class="flex">
+                <li>
+                  <StarFillIcon class="text-yellow-300" />
+                </li>
+                <li>
+                  <StarFillIcon class="text-yellow-300" />
+                </li>
+                <li>
+                  <StarFillIcon class="text-yellow-300" />
+                </li>
+                <li>
+                  <StarFillIcon class="text-gray-300" />
+                </li>
+                <li>
+                  <StarFillIcon class="text-gray-300" />
+                </li>
+              </ul>
             </div>
+            <div class="flex items-center">
+              <div class="mb-2 mr-3 text-lg font-semibold text-red-500">$50.00</div>
+              <div class="mb-2 text-gray-500 line-through text-md">$50.00</div>
+            </div>
+            <div class="text-sm text-gray-500">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis reiciendis voluptates pariatur
+              libero quam doloremque deleniti earum illum provident quo error repudiandae enim, eius repellendus cum?
+              Tempore fuga at aut. Fugiat maxime exercitationem odit quia adipisci enim nesciunt nulla! Eaque
+              necessitatibus inventore minus ad! Fugit vitae delectus sunt veritatis iure!
+            </div>
+            <Countdown class="float-left" :flipAnimation="false" />
+            <div class="clear-both"></div>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 col-style hidden-xs hidden-sm">
-        <div class="banners banners1">
-          <div>
-            <a href="#"><img src="/src/assets/image/catalog/banners/bn1.jpg" alt="banner"></a>
-          </div>
-        </div>
+      <div>
+        <img src="/src/assets/image/catalog/demo/product/400/1.jpg" class="img-responsive" alt="image1">
       </div>
     </div>
   </div>
 </template>
+
 <style scoped>
+.deal {
+  margin: -9px 40px 0;
+  z-index: 2;
+}
+
+.deal:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: -22px;
+  right: auto;
+  border-bottom: 0 solid transparent;
+  border-top: 9px solid transparent;
+  border-right: 10px solid #c60009;
+  border-left: 12px solid transparent;
+}
+
+.deal:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: auto;
+  right: -22px;
+  border-bottom: 0 solid transparent;
+  border-top: 9px solid transparent;
+  border-left: 10px solid #c60009;
+  border-right: 12px solid transparent;
+}
 </style>

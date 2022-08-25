@@ -3,7 +3,9 @@ import ListIcon from '../../../../assets/icons/ListIcon.vue';
 import CaretRightIcon from '../../../../assets/icons/CaretRightIcon.vue';
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const isOpenMainDropDown = ref(false)
 const dropdown = ref(null)
 const toggleDropDown = () => {
@@ -45,20 +47,21 @@ onClickOutside(dropdown, (event) => isOpenMainDropDown.value = false)
       </div>
       <ul class="flex items-center col-span-3 space-x-1">
         <li
-          class="px-4 py-2 m-0 font-medium uppercase text-md rounded-t-md hover:bg-red-500 hover:text-white"
-          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }">
-          <router-link to="/">
-            Home</router-link>
+          class="px-4 py-2 m-0 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }" @click="router.push('/')">
+          Home
         </li>
-        <li class="px-4 py-2 font-medium uppercase text-md rounded-t-md hover:bg-red-500 hover:text-white"
-          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/products' || $router.currentRoute.value.path === '/product' }">
-          <router-link to="/products">
-            Products</router-link>
+        <li
+          class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/products' || $router.currentRoute.value.path === '/product' }"
+          @click="router.push('/products')">
+          Products
         </li>
-        <li class="px-4 py-2 font-medium uppercase text-md rounded-t-md hover:bg-red-500 hover:text-white"
-          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/blogs' || $router.currentRoute.value.path === '/blog' }">
-          <router-link to="/blogs">
-            Blogs</router-link>
+        <li
+          class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/blogs' || $router.currentRoute.value.path === '/blog' }"
+          @click="router.push('/blogs')">
+          Blogs
         </li>
       </ul>
     </div>

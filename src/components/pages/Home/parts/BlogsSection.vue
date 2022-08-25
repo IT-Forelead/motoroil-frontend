@@ -3,7 +3,7 @@ import LatestBlogs from './Blogs/LatestBlogs.vue';
 
 </script>
 <template>
-  <div class="container">
+  <div class="w-full">
     <LatestBlogs />
   </div>
 </template>

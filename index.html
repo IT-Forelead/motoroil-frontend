@@ -12,12 +12,22 @@
     body {
       font-family: 'Rubik', sans-serif;
     }
+    .home-loader {
+      min-width: 100%;
+      height: 100vh;
+    }
   </style>
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <div class="relative z-50 overflow-hidden home-loader">
+      <lottie-player src="/src/assets/json/home_preloader.json" class="absolute top-1/2 left-1/2" background="transparent" speed="2.5"
+        style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+    </div>
+  </div>
   <script type="module" src="./node_modules/flowbite/dist/flowbite.js"></script>
+  <script type="module" src="/src/assets/js/lottie-player.js"></script>
   <script type="module" src="/src/main.js"></script>
 </body>
 

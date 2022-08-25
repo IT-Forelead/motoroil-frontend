@@ -22,7 +22,8 @@ export const useProductStore = defineStore({
         singleProduct: {},
         oemsAndSpecsByProductId: {},
         initialMainSearchProps: {},
-        sidebarProducts: []
+        sidebarProducts: [],
+        newArrivals: []
     }),
     getters: {},
     actions: {
@@ -90,6 +91,10 @@ export const useProductStore = defineStore({
         async getSidebarProducts(id) {
             const response = await axios.get(`${API_URL}/products-for-sidebar/4`)
             this.sidebarProducts = response.data
+        },
+        async getNewArrivals(id) {
+            const response = await axios.get(`${API_URL}/products-for-sidebar/5`)
+            this.newArrivals = response.data
         },
     },
 })

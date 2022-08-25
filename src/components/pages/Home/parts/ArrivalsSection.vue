@@ -1,12 +1,33 @@
 <script setup>
-import Banners from "./Arrivals/Banners.vue";
-import ExtraNewArrivals from "./Arrivals/ExtraNewArrivals.vue";
+import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
+import ArrivalItem from './Arrivals/ArrivalItem.vue';
+import { useProductStore } from '../../../../stores/product.js'
+import { onMounted } from '@vue/runtime-core';
 
+const store = useProductStore()
+
+onMounted(() => {
+  store.getNewArrivals()
+})
 </script>
+
 <template>
-  <div class="container">
-    <ExtraNewArrivals />
-    <Banners />
+  <div class="w-full">
+    <div class="flex justify-center p-5 bg-white">
+      <div class="container flex flex-col justify-center">
+        <div class="py-5 text-center">
+          <div class="space-x-2 text-red-500 uppercase text-md">Top sale in the week</div>
+          <div class="flex items-center justify-center">
+            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+            <div class="mx-3 text-3xl font-bold uppercase">New Arrivals</div>
+            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+          </div>
+        </div>
+        <div class="grid grid-cols-5 gap-8">
+          <ArrivalItem v-for="(product, idx) in store.newArrivals" :key="idx" :product="product" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
