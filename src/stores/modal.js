@@ -4,6 +4,7 @@ export const useModalStore = defineStore({
   id: 'modal',
   state: () => ({
     isOpen: false,
+    isOpenRegisterModal: false,
   }),
   actions: {
     openModal() {
@@ -11,6 +12,12 @@ export const useModalStore = defineStore({
     },
     closeModal() {
       this.isOpen = false
+    },
+    openRegisterModal() {
+      this.isOpenRegisterModal = true
+    },
+    closeRegisterModal() {
+      this.isOpenRegisterModal = false
     },
   },
 })
