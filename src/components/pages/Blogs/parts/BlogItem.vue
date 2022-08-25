@@ -18,18 +18,20 @@ const readMore = (id) => {
 </script>
 <template>
     <div class="max-w-sm">
-        <router-link to="/blog" @click="readMore(blog.id)">
-            <img :src="API_URL + '/image/' + blog.imageUrl" alt="#" class="object-cover object-center" />
-        </router-link>
+        <div class="w-full h-[200px] relative overflow-hidden">
+            <router-link to="/blog" @click="readMore(blog.id)" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <img :src="API_URL + '/image/' + blog.imageUrl" alt="#"/>
+            </router-link>
+        </div>
         <div class="py-3">
             <div class="flex items-center justify-between mb-2 text-xs text-gray-400">
                 <div>{{ formatDateTime(blog.createdAt) }}</div>
                 <div>Post by {{ blog.userName }}</div>
             </div>
             <router-link to="/blog" @click="readMore(blog.id)">
-                <h5 class="mb-2 font-semibold text-gray-900 text-md">{{ blog.title }}</h5>
+                <h5 class="h-12 mb-2 overflow-hidden font-semibold text-gray-900 text-md">{{ blog.title }}</h5>
             </router-link>
-            <p class="mb-3 font-normal text-gray-700" v-html="blog.text"></p>
+            <p class="h-24 mb-3 overflow-hidden font-normal text-gray-700" v-html="blog.text"></p>
             <router-link to="/blog" @click="readMore(blog.id)"
                 class="px-5 py-2 text-sm text-center text-white uppercase bg-gray-900 rounded hover:bg-red-500 focus:ring-0">
                 Read More</router-link>

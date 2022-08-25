@@ -1,8 +1,13 @@
 <script setup>
+import Sidebar from '../../layout/Sidebar/Sidebar.vue'
+import HouseIcon from '../../../assets/icons/HouseIcon.vue'
+import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
+import UserFillIcon from '../../../assets/icons/UserFillIcon.vue';
+import CalendarFillIcon from '../../../assets/icons/CalendarFillIcon.vue';
 import { onMounted } from 'vue';
-import Sidebar from '../../layout/Sidebar/Sidebar.vue';
 import { useBlogStore } from '../../../stores/blog.js'
 import { formatDateTime } from '../../../mixins/utils.js';
+
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useBlogStore()
 
@@ -14,73 +19,45 @@ onMounted(() => {
 	store.getSingleBlog(sessionStorage.getItem('sb_id'))
 })
 </script>
+
 <template>
-	<div class="container main-container">
-		<ul class="breadcrumb">
-			<li>
-				<router-link to="/"><i class="fa fa-home"></i></router-link>
-			</li>
-			<li>
-				<router-link to="/blogs">Blogs</router-link>
-			</li>
-			<li><a href="#">{{ store.singleBlog.title }}</a></li>
-		</ul>
-
-		<div class="row">
-			<Sidebar />
-
-			<div id="content" class="col-md-9 col-sm-8">
-				<div class="article-info">
-					<div class="blog-header">
-						<h3>{{ store.singleBlog.title }}</h3>
-					</div>
-					<div class="article-sub-title">
-						<span class="article-author">Post by: <a href="#"> {{ store.singleBlog.userName }}</a></span>
-						<span class="article-date">Created Date: {{ formatDateTime(store.singleBlog.createdAt) }}</span>
-						<span class="article-comment">0 Comments</span>
-					</div>
-					<div class="overflow-hidden form-group">
-						<a href="#" class="image-popup">
-							<img :src="API_URL + '/image/' + store.singleBlog.imageUrl" class="object-fill" alt="#">
+	<div class="flex justify-center px-5 py-2 bg-white">
+		<div class="container flex flex-col justify-center">
+			<div class="p-2">
+				<ul class="flex items-center">
+					<li class="flex items-center">
+						<a href="/" class="text-gray-700">
+							<HouseIcon class="w-4 h-4" />
 						</a>
-					</div>
-					<div class="article-description" v-html="store.singleBlog.text"></div>
-					<div class="panel panel-default related-comment">
-						<div class="panel-body">
-							<div class="form-group">
-								<div id="comments" class="blog-comment-info">
-									<h3 id="review-title">Leave your comment </h3>
-									<input type="hidden" name="blog_article_reply_id" value="0" id="blog-reply-id">
-									<div class="comment-left contacts-form row">
-										<div class="col-md-6">
-											<b>Your Name:</b>
-											<br>
-											<input type="text" name="name" value="" class="form-control">
-											<br>
-										</div>
-										<div class="col-md-12">
-											<b>Your Comment:</b>
-											<br>
-											<textarea rows="6" cols="50" name="text" class="form-control"></textarea>
-											<span style="font-size: 11px;">Note: HTML is not translated!</span>
-											<br>
-										</div>
-									</div>
-									<br>
-									<div class="text-left"><a id="button-comment" class="btn buttonGray"><span>Submit</span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
+						<CaretRightIcon class="mx-3 text-gray-500" />
+					</li>
+					<li class="flex items-center">
+						<a href="/blogs" class="text-gray-700">Blogs</a>
+						<CaretRightIcon class="mx-3 text-gray-500" />
+					</li>
+					<li class="text-red-700">{{ store.singleBlog.title }}</li>
+				</ul>
 			</div>
-
-
+			<div class="grid grid-cols-4 gap-10">
+				<Sidebar />
+				<div class="col-span-3 px-3">
+					<div class="py-3 text-2xl font-semibold text-gray-700">{{ store.singleBlog.title }}</div>
+					<ul class="flex items-center space-x-5 text-sm text-gray-400">
+						<li class="flex items-center justify-between">
+							<CalendarFillIcon class="mr-1" />
+							<span>{{ formatDateTime(store.singleBlog.createdAt) }}</span>
+						</li>
+						<li class="flex items-center justify-between">
+							<UserFillIcon class="mr-1" />
+							<span>Post by: {{ store.singleBlog.userName }}</span>
+						</li>
+					</ul>
+					<img :src="API_URL + '/image/' + store.singleBlog.imageUrl" class="object-fill" alt="#">
+					<div class="py-3 font-normal text-gray-700 text-md" v-html="store.singleBlog?.text"></div>
+				</div>
+			</div>
 		</div>
 	</div>
-
 </template>
 
 <style scoped>
