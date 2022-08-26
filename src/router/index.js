@@ -39,6 +39,12 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/orders',
+    name: 'My orders',
+    component: () => import('../components/pages/Orders/OrdersForUsers.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/product',
     name: 'Product',
     component: () => import('../components/pages/Products/Product.vue'),

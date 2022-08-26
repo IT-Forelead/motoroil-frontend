@@ -2,12 +2,12 @@
 import HouseIcon from '../../../assets/icons/HouseIcon.vue'
 import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
 import FunnelIcon from '../../../assets/icons/FunnelIcon.vue';
-import Sidebar from '../../layout/Sidebar/Sidebar.vue'
 import TrashIcon from '../../../assets/icons/TrashIcon.vue';
 import MinusIcon from '../../../assets/icons/MinusIcon.vue';
 import PlusIcon from '../../../assets/icons/PlusIcon.vue';
 import StackIcon from '../../../assets/icons/StackIcon.vue';
 import GiftIcon from '../../../assets/icons/GiftIcon.vue';
+import Sidebar from '../../layout/Sidebar/Sidebar.vue'
 </script>
 
 <template>
