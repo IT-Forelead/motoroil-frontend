@@ -33,6 +33,12 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/cart',
+    name: 'My Cart',
+    component: () => import('../components/pages/Cart/Cart.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/product',
     name: 'Product',
     component: () => import('../components/pages/Products/Product.vue'),

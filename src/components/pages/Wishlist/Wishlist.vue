@@ -18,9 +18,7 @@ import ProductsSection from './parts/ProductsSection.vue';
             </a>
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
-          <li class="flex items-center">
-            <a href="/products" class="text-red-600">Wishlist</a>
-          </li>
+          <li class="text-gray-700">Wishlist</li>
         </ul>
       </div>
       <div class="grid grid-cols-4 gap-10">
