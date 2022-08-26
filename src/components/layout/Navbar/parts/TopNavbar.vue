@@ -145,7 +145,7 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
                 </label>
                 <button
                   class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-indigo-600 border-indigo-500 rounded hover:bg-indigo-500 hover:shadow">
-                  <span>Login</span>
+                  Registration
                 </button>
                 <p class="text-center">
                   Already have account? 
@@ -192,15 +192,15 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
             </div>
             <form action="" class="my-10">
               <div class="flex flex-col space-y-5">
-                <label for="email">
+                <label for="email-input">
                   <p class="pb-2 font-medium text-slate-700">Email address</p>
-                  <input id="email" name="email" type="email"
+                  <input id="email-input" name="email" type="email"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter email address">
                 </label>
-                <label for="password">
+                <label for="password-input">
                   <p class="pb-2 font-medium text-slate-700">Password</p>
-                  <input id="password" name="password" type="password"
+                  <input id="password-input" name="password" type="password"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter your password">
                 </label>
