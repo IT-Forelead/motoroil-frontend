@@ -4,14 +4,14 @@ import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 </script>
 
 <template>
-  <div class="flex justify-center p-5 bg-gray-100">
+  <div class="flex justify-center p-5 bg-gray-100 bg-[url('/bg/bg-deals-new.jpg')] bg-cover">
     <div class="container grid grid-cols-3 gap-20 p-5">
       <div class="relative col-span-2 p-5 bg-white">
         <div class="absolute top-0 py-2 font-medium text-white uppercase bg-red-500 rounded-b px-7 text-md deal">Deal of
           the day</div>
         <div class="flex items-center justify-center h-full p-3 space-x-5">
           <div class="w-full">
-            <img src="/src/assets/image/catalog/demo/product/400/1.jpg" class="img-responsive" alt="image1">
+            <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="img-responsive" alt="image1">
           </div>
           <div>
             <div class="text-gray-900 text-md">Prista Extra W10-53</div>
@@ -50,7 +50,7 @@ import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
         </div>
       </div>
       <div>
-        <img src="/src/assets/image/catalog/demo/product/400/1.jpg" class="img-responsive" alt="image1">
+        <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="img-responsive" alt="image1">
       </div>
     </div>
   </div>
