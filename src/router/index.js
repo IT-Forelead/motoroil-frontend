@@ -1,3 +1,4 @@
+import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
     name: 'Blog',
     component: () => import('../components/pages/Blogs/Blog.vue'),
     meta: { layout: 'dashboard' },
+    beforeEnter: notSelectedBlog(),
   },
   {
     path: '/products',
@@ -43,6 +45,7 @@ const routes = [
     name: 'Product',
     component: () => import('../components/pages/Products/Product.vue'),
     meta: { layout: 'dashboard' },
+    beforeEnter: notSelectedProduct(),
   },
   {
     path: '/about-us',
@@ -55,6 +58,11 @@ const routes = [
     name: 'Faq',
     component: () => import('../components/pages/Faq.vue'),
     meta: { layout: 'dashboard' },
+  },
+  {
+    path: '/notfound',
+    name: 'Not-Found',
+    component: () => import('../components/NotFound.vue'),
   },
   {
     path: '/:pathMach(.*)*',
@@ -84,5 +92,19 @@ const router = createRouter({
 //     return localStorage.getItem('role') === role
 //   }
 // }
+
+function notSelectedBlog() {
+  return () => {
+    if (sessionStorage.getItem('sb_id') === null) router.push('/notfound')
+    return sessionStorage.getItem('sb_id') !== null
+  }
+}
+
+function notSelectedProduct() {
+  return () => {
+    if (sessionStorage.getItem('sp_id') === null) router.push('/notfound')
+    return sessionStorage.getItem('sp_id') !== null
+  }
+}
 
 export default router

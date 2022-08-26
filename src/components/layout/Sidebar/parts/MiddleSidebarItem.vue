@@ -11,6 +11,12 @@ const ratingCalc = (rate) => {
   rating.value = Number(rate)
 }
 
+const showProduct = (id) => {
+  store.getSingleProduct(id)
+  sessionStorage.removeItem('sp_id')
+  sessionStorage.setItem('sp_id', id)
+}
+
 onMounted(() => {
   store.getSidebarProducts()
 })
@@ -22,12 +28,12 @@ onMounted(() => {
       <div class="flex items-center p-3" v-for="(product, idx) in store.sidebarProducts" :key="idx">
         <img class="w-20" :src="`${API_URL}/image/${product?.product?.imageUrl[0]}`" alt="Latest Product">
         <div class="ml-3">
-          <a href="#">
+          <router-link to="/product" @click="showProduct(product?.product?.id)">
             <div class="text-gray-900 text-md">
               {{ product?.productGroup?.productGroup?.name }} <br>
               {{ product?.productGroup?.viscosityGrade?.name }}
             </div>
-          </a>
+          </router-link>
           <div>{{ ratingCalc(product?.product?.rating) }}</div>
           <ul class="flex items-center py-2">
             <li v-for="r1 in rating" :key="r1">

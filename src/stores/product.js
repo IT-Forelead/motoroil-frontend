@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 export const useProductStore = defineStore({
     id: 'product',
     state: () => ({
+        search: '',
         products: [],
         productGroups: [],
         productsByGroupId: [],
@@ -18,7 +19,6 @@ export const useProductStore = defineStore({
         productsByLikes: [],
         productsByViews: [],
         productsForSidebar: [],
-        searchByName: [],
         singleProduct: {},
         oemsAndSpecsByProductId: {},
         initialMainSearchProps: {},
@@ -53,8 +53,8 @@ export const useProductStore = defineStore({
             this.productSpecifications = response.data
         },
         async getProductsSearchByName(name) {
-            const response = await axios.get(`${API_URL}/search-by-name?=${name}`)
-            this.searchByName = response.data
+            const response = await axios.get(`${API_URL}/search-by-name?name=${name}`)
+            this.products= response.data
         },
         async getProductsForSidebar(limit) {
             const response = await axios.get(`${API_URL}/products-for-sidebar/${limit}`)
@@ -96,5 +96,8 @@ export const useProductStore = defineStore({
             const response = await axios.get(`${API_URL}/products-for-sidebar/5`)
             this.newArrivals = response.data
         },
+        setSearchString(str) {
+            this.search = str
+        }
     },
 })

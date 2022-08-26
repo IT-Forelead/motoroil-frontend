@@ -69,8 +69,8 @@ const changeActiveTab = (tab) => {
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
           <li class="text-gray-700">{{ store.singleProduct?.productGroup?.name + ' ' +
-            store.singleProduct?.viscosityGrade?.name
-            }}</li>
+              store.singleProduct?.viscosityGrade?.name
+          }}</li>
         </ul>
       </div>
       <div class="grid grid-cols-4 gap-10">
@@ -78,10 +78,14 @@ const changeActiveTab = (tab) => {
         <div class="col-span-3 px-3">
           <div class="grid grid-cols-2 gap-7">
             <div>
-              <div class="relative h-[300px]">
-                <img class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              <div class="relative h-[300px] overflow-hidden">
+                <img v-if="store.singleProduct?.product?.imageUrl[0]"
+                  class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   :src="selectedImage ? `${API_URL}/image/${selectedImage}` : `${API_URL}/image/${store.singleProduct?.product?.imageUrl[0]}`"
-                  title="Chicken swinesha" alt="Chicken swinesha">
+                  alt="Product image">
+                <img v-else class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  :src="store.singleProduct?.product?.imageUrl[0] ? `${API_URL}/image/${store.singleProduct?.product?.imageUrl[0]}` : ''"
+                  alt="Product image">
               </div>
               <swiper :slidesPerView="4" :spaceBetween="20" :pagination="{ clickable: true }"
                 :scrollbar="{ hide: true }" class="mt-5 mySwiper" style="height: 75px;">
@@ -95,8 +99,8 @@ const changeActiveTab = (tab) => {
             </div>
             <div class="divide-y">
               <div class="py-3 text-2xl font-semibold text-gray-700">{{ store.singleProduct?.productGroup?.name + ' ' +
-                store.singleProduct?.viscosityGrade?.name
-                }}</div>
+                  store.singleProduct?.viscosityGrade?.name
+              }}</div>
               <div>{{ ratingCalc(store.singleProduct?.product?.rating) }}</div>
               <div class="py-3">
                 <ul class="flex items-center py-2">
@@ -109,8 +113,8 @@ const changeActiveTab = (tab) => {
                 </ul>
                 <div class="flex items-center py-2">
                   <div class="mb-2 mr-3 text-lg font-semibold text-red-500">€ {{
-                    store.singleProduct?.product?.price.toLocaleString('en-US') + '.00'
-                    }}</div>
+                      store.singleProduct?.product?.price.toLocaleString('en-US') + '.00'
+                  }}</div>
                   <!-- <div class="mb-2 text-gray-500 line-through text-md">$50.00</div> -->
                 </div>
                 <div v-if="store.singleProduct?.product?.quantity !== 0"
@@ -123,13 +127,13 @@ const changeActiveTab = (tab) => {
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">Capacity:</span>
                     <span class="font-normal text-gray-700 text-md">{{
-                      store.singleProduct?.product?.specTypeValue?.value
-                      }}</span>
+                        store.singleProduct?.product?.specTypeValue?.value
+                    }}</span>
                   </li>
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">Viscosity Grade:</span>
                     <span class="font-normal text-gray-700 text-md">{{ store.singleProduct?.viscosityGrade?.name
-                      }}</span>
+                    }}</span>
                   </li>
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">Brand:</span>
@@ -138,14 +142,14 @@ const changeActiveTab = (tab) => {
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">OEM-Freigabe:</span>
                     <span class="font-normal text-gray-700 text-md">{{ store.oemsAndSpecsByProductId?.oems?.map(o =>
-                      o.name).join(', ')
-                      }}</span>
+                        o.name).join(', ')
+                    }}</span>
                   </li>
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">Spectification:</span>
                     <span class="font-normal text-gray-700 text-md">{{
-                      store.oemsAndSpecsByProductId?.specifications?.map(o => o.name).join(', ')
-                      }}</span>
+                        store.oemsAndSpecsByProductId?.specifications?.map(o => o.name).join(', ')
+                    }}</span>
                   </li>
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">View:</span>
@@ -204,11 +208,11 @@ const changeActiveTab = (tab) => {
                   <span class="font-medium text-gray-700 text-md">Automotive</span>
                 </div>
                 <div class="flex items-center space-x-3">
-                  <button
+                  <a :href="`${API_URL}/image/${store.singleProduct?.productGroup?.pdfUrl}`" download
                     class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded hover:bg-gray-100">
                     <PdfFileIcon class="mr-1" />
                     Download PDF
-                  </button>
+                  </a>
                   <button
                     class="flex items-center justify-center px-5 py-2 text-red-500 bg-white border border-red-500 rounded hover:bg-gray-100">
                     <PdfFileIcon class="mr-1" />
@@ -220,45 +224,46 @@ const changeActiveTab = (tab) => {
           </div>
           <div class="p-5">
             <ul class="flex items-center space-x-3 border-b border-red-500">
-              <li class="px-5 py-2 text-red-700 border border-b-0 border-red-500 rounded-t cursor-pointer">Description</li>
-              <li class="px-3 py-2 text-gray-700 rounded-t cursor-pointer hover:text-red-700">Reviews</li>
+              <li class="px-5 py-2 text-gray-700 cursor-pointer hover:text-red-700"
+                :class="{ 'text-red-700 border border-b-0 border-red-500 rounded-t': isActiveDesc }"
+                @click="changeActiveTab('desc')">Description</li>
+              <li class="px-3 py-2 text-gray-700 cursor-pointer hover:text-red-700"
+                :class="{ 'text-red-700 border border-b-0 border-red-500 rounded-t': isActiveRew }"
+                @click="changeActiveTab('rew')">Reviews</li>
             </ul>
             <div id="tab-contents" class="px-1 py-3">
-              <div id="first" class="hidden text-gray-700 ">
-                The 30-inch Apple Cinema HD Display delivers an amazing 2560 x 1600 pixel resolution. Designed specifically for the creative professional, this display provides more space for easier access to all the tools and palettes needed to edit, format and composite your work. Combine this display with a Mac Pro, MacBook Pro, or PowerMac G5 and there's no limit to what you can achieve.
-                <br><br>
-                The Cinema HD features an active-matrix liquid crystal display that produces flicker-free images that deliver twice the brightness, twice the sharpness and twice the contrast ratio of a typical CRT display. Unlike other flat panels, it's designed with a pure digital interface to deliver distortion-free images that never need adjusting. With over 4 million digital pixels, the display is uniquely suited for scientific and technical applications such as visualizing molecular structures or analyzing geological data.
-                <br><br>
-                Offering accurate, brilliant color performance, the Cinema HD delivers up to 16.7 million colors across a wide gamut allowing you to see subtle nuances between colors from soft pastels to rich jewel tones. A wide viewing angle ensures uniform color from edge to edge. Apple's ColorSync technology allows you to create custom profiles to maintain consistent color onscreen and in print. The result: You can confidently use this display in all your color-critical applications.
-                <br><br>
-                Housed in a new aluminum design, the display has a very thin bezel that enhances visual accuracy. Each display features two FireWire 400 ports and two USB 2.0 ports, making attachment of desktop peripherals, such as iSight, iPod, digital and still cameras, hard drives, printers and scanners, even more accessible and convenient. Taking advantage of the much thinner and lighter footprint of an LCD, the new displays support the VESA (Video Electronics Standards Association) mounting interface standard. Customers with the optional Cinema Display VESA Mount Adapter kit gain the flexibility to mount their display in locations most appropriate for their work environment.
-                <br><br>
-                30-inch (viewable) active-matrix liquid crystal display provides breathtaking image quality and vivid, richly saturated color.
-                Support for 2560-by-1600 pixel resolution for display of high definition still and video imagery.
-                Wide-format design for simultaneous display of two full pages of text and graphics.
-                Industry standard DVI connector for direct attachment to Mac- and Windows-based desktops and notebooks
-                Incredibly wide (170 degree) horizontal and vertical viewing angle for maximum visibility and color performance.
-                Lightning-fast pixel response for full-motion digital video playback.
-                Support for 16.7 million saturated colors, for use in all graphics-intensive applications.
-                Simple setup and operation
-              </div>
-              <div id="second" class="space-y-2">
+              <div id="desc" class="text-gray-700" v-if="isActiveDesc"
+                v-html="store.singleProduct?.productGroup?.description"></div>
+              <div id="review" class="space-y-2" v-else>
                 <div class="pb-3 mb-3 border-b">
                   <div class="max-w-2xl space-y-1">
-                    <label for="message" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">Write a review</label>
-                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Your review..."></textarea>
+                    <label for="message" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">Write a
+                      review</label>
+                    <textarea id="message" rows="4"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Your review..."></textarea>
                     <div class="flex items-center space-x-2">
                       <span class="text-sm text-gray-500">Rating:</span>
                       <ul class="flex items-center py-2">
-                        <li v-for="r1 in rating" :key="r1">
+                        <li>
                           <StarFillIcon class="text-yellow-300" />
                         </li>
-                        <li v-for="r2 in (5 - rating)" :key="r2">
+                        <li>
+                          <StarFillIcon class="text-yellow-300" />
+                        </li>
+                        <li>
+                          <StarFillIcon class="text-yellow-300" />
+                        </li>
+                        <li>
+                          <StarFillIcon class="text-gray-300" />
+                        </li>
+                        <li>
                           <StarFillIcon class="text-gray-300" />
                         </li>
                       </ul>
                     </div>
-                    <button type="submit" class="block items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-500 rounded focus:ring-4 focus:ring-red-200 hover:bg-red-700">
+                    <button type="submit"
+                      class="block items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-500 rounded focus:ring-4 focus:ring-red-200 hover:bg-red-700">
                       Comment
                     </button>
                   </div>
