@@ -217,6 +217,14 @@ const changeActiveTab = (tab) => {
               </div>
             </div>
           </div>
+
+          <div class="p-5">
+            <ul class="flex items-center space-x">
+              <li class="px-3 py-2 text-red-700 border border-b-2 border-red-500 rounded-t cursor-pointer">Description</li>
+              <li class="px-3 py-2 text-gray-700 border rounded-t cursor-pointer">Reviews</li>
+              <li class="px-3 py-2 text-gray-700 border rounded-t cursor-pointer">Tags</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
