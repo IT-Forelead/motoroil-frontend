@@ -5,6 +5,16 @@ import FunnelIcon from '../../../assets/icons/FunnelIcon.vue';
 import Sidebar from '../../layout/Sidebar/Sidebar.vue'
 import ProductCard from './parts/ProductCard.vue';
 import ProductsSection from './parts/ProductsSection.vue';
+import { ref } from '@vue/reactivity';
+import { onClickOutside } from '@vueuse/core'
+
+const isOpenSortDropDown = ref(false)
+const sortDropDown = ref(null)
+const toggleDropDown = () => {
+  isOpenSortDropDown.value = !isOpenSortDropDown.value
+}
+
+onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
 </script>
 
 <template>
@@ -28,80 +38,43 @@ import ProductsSection from './parts/ProductsSection.vue';
         <div class="col-span-3">
           <div class="flex items-center justify-between mb-2">
             <div class="p-3 text-2xl font-semibold text-gray-700">Products</div>
-            <button
-              class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
-              <FunnelIcon class="mr-2" /> Saralash
-            </button>
+            <div class="relative">
+              <button @click="toggleDropDown()"
+                class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
+                <FunnelIcon class="mr-2" /> Sort By
+              </button>
+              <div :class="{ 'hidden': !isOpenSortDropDown }" ref="dropdown"
+                class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
+                  <li
+                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Name (A - Z)
+                  </li>
+                  <li
+                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Name (Z - A)
+                  </li>
+                  <li
+                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Price (Low > High)
+                  </li>
+                  <li
+                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Price (High > Low)
+                  </li>
+                  <li
+                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Rating (Highest)
+                  </li>
+                  <li
+                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Rating (Lowest)
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
           <ProductsSection />
-          <!-- <div class="flex items-center justify-between py-3 mt-3 bg-white sm:px-6">
-            <div class="flex justify-between flex-1 sm:hidden">
-              <a href="#"
-                class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                Previous </a>
-              <a href="#"
-                class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                Next </a>
-            </div>
-            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-              <div>
-                <p class="text-sm text-gray-700">
-                  Showing
-                  <span class="font-medium">1</span>
-                  to
-                  <span class="font-medium">10</span>
-                  of
-                  <span class="font-medium">97</span>
-                  results
-                </p>
-              </div>
-              <div>
-                <nav class="relative z-0 inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                  <a href="#"
-                    class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50">
-                    <span class="sr-only">Previous</span>
-                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                      aria-hidden="true">
-                      <path fill-rule="evenodd"
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                  <a href="#" aria-current="page"
-                    class="relative z-10 inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-600 border border-indigo-500 bg-indigo-50">
-                    1 </a>
-                  <a href="#"
-                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">
-                    2 </a>
-                  <a href="#"
-                    class="relative items-center hidden px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 md:inline-flex">
-                    3 </a>
-                  <span
-                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
-                    ... </span>
-                  <a href="#"
-                    class="relative items-center hidden px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 md:inline-flex">
-                    8 </a>
-                  <a href="#"
-                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">
-                    9 </a>
-                  <a href="#"
-                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50">
-                    10 </a>
-                  <a href="#"
-                    class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50">
-                    <span class="sr-only">Next</span>
-                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                      aria-hidden="true">
-                      <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </nav>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>

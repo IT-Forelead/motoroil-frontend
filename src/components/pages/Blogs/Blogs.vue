@@ -25,7 +25,7 @@ onMounted(() => {
                         <CaretRightIcon class="mx-3 text-gray-500" />
                     </li>
                     <li class="flex items-center">
-                        <a href="/blog" class="text-red-600">Our Blog</a>
+                        <a href="/blogs" class="text-red-600">Our Blog</a>
                     </li>
                 </ul>
             </div>
