@@ -5,9 +5,11 @@ import SearchIcon from '../../../../assets/icons/SearchIcon.vue';
 </script>
 
 <template>
-  <div class="flex justify-center h-20 p-5 bg-white">
+  <div class="flex justify-center h-20 p-2 mb-5 bg-white">
     <div class="container grid items-center grid-cols-4 gap-3">
-      <a href="/"><img src="/src/assets/image/catalog/logo.png" alt="Motoroil" /></a>
+      <div class="relative h-24 overflow-hidden">
+        <router-link to="/"><img src="/logo.png" alt="Motoroil" class="absolute w-auto h-24 -translate-y-1/2 top-1/2" /></router-link>
+      </div>
       <div class="col-span-2">
         <div class="flex items-center rounded bg-white w-[30rem]">
           <input type="search"
