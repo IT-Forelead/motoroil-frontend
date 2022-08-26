@@ -15,6 +15,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useProductStore } from '../../../stores/product.js'
 import { formatDateTime } from '../../../mixins/utils.js';
 import { Swiper, SwiperSlide } from "swiper/vue";
+import UserIcon from '../../../assets/icons/UserIcon.vue';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
 
@@ -217,13 +218,97 @@ const changeActiveTab = (tab) => {
               </div>
             </div>
           </div>
-
           <div class="p-5">
-            <ul class="flex items-center space-x">
-              <li class="px-3 py-2 text-red-700 border border-b-2 border-red-500 rounded-t cursor-pointer">Description</li>
-              <li class="px-3 py-2 text-gray-700 border rounded-t cursor-pointer">Reviews</li>
-              <li class="px-3 py-2 text-gray-700 border rounded-t cursor-pointer">Tags</li>
+            <ul class="flex items-center space-x-3 border-b border-red-500">
+              <li class="px-5 py-2 text-red-700 border border-b-0 border-red-500 rounded-t cursor-pointer">Description</li>
+              <li class="px-3 py-2 text-gray-700 rounded-t cursor-pointer hover:text-red-700">Reviews</li>
             </ul>
+            <div id="tab-contents" class="px-1 py-3">
+              <div id="first" class="hidden text-gray-700 ">
+                The 30-inch Apple Cinema HD Display delivers an amazing 2560 x 1600 pixel resolution. Designed specifically for the creative professional, this display provides more space for easier access to all the tools and palettes needed to edit, format and composite your work. Combine this display with a Mac Pro, MacBook Pro, or PowerMac G5 and there's no limit to what you can achieve.
+                <br><br>
+                The Cinema HD features an active-matrix liquid crystal display that produces flicker-free images that deliver twice the brightness, twice the sharpness and twice the contrast ratio of a typical CRT display. Unlike other flat panels, it's designed with a pure digital interface to deliver distortion-free images that never need adjusting. With over 4 million digital pixels, the display is uniquely suited for scientific and technical applications such as visualizing molecular structures or analyzing geological data.
+                <br><br>
+                Offering accurate, brilliant color performance, the Cinema HD delivers up to 16.7 million colors across a wide gamut allowing you to see subtle nuances between colors from soft pastels to rich jewel tones. A wide viewing angle ensures uniform color from edge to edge. Apple's ColorSync technology allows you to create custom profiles to maintain consistent color onscreen and in print. The result: You can confidently use this display in all your color-critical applications.
+                <br><br>
+                Housed in a new aluminum design, the display has a very thin bezel that enhances visual accuracy. Each display features two FireWire 400 ports and two USB 2.0 ports, making attachment of desktop peripherals, such as iSight, iPod, digital and still cameras, hard drives, printers and scanners, even more accessible and convenient. Taking advantage of the much thinner and lighter footprint of an LCD, the new displays support the VESA (Video Electronics Standards Association) mounting interface standard. Customers with the optional Cinema Display VESA Mount Adapter kit gain the flexibility to mount their display in locations most appropriate for their work environment.
+                <br><br>
+                30-inch (viewable) active-matrix liquid crystal display provides breathtaking image quality and vivid, richly saturated color.
+                Support for 2560-by-1600 pixel resolution for display of high definition still and video imagery.
+                Wide-format design for simultaneous display of two full pages of text and graphics.
+                Industry standard DVI connector for direct attachment to Mac- and Windows-based desktops and notebooks
+                Incredibly wide (170 degree) horizontal and vertical viewing angle for maximum visibility and color performance.
+                Lightning-fast pixel response for full-motion digital video playback.
+                Support for 16.7 million saturated colors, for use in all graphics-intensive applications.
+                Simple setup and operation
+              </div>
+              <div id="second" class="space-y-2">
+                <div class="pb-3 mb-3 border-b">
+                  <div class="max-w-2xl space-y-1">
+                    <label for="message" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">Write a review</label>
+                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Your review..."></textarea>
+                    <div class="flex items-center space-x-2">
+                      <span class="text-sm text-gray-500">Rating:</span>
+                      <ul class="flex items-center py-2">
+                        <li v-for="r1 in rating" :key="r1">
+                          <StarFillIcon class="text-yellow-300" />
+                        </li>
+                        <li v-for="r2 in (5 - rating)" :key="r2">
+                          <StarFillIcon class="text-gray-300" />
+                        </li>
+                      </ul>
+                    </div>
+                    <button type="submit" class="block items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-500 rounded focus:ring-4 focus:ring-red-200 hover:bg-red-700">
+                      Comment
+                    </button>
+                  </div>
+                </div>
+                <div class="flex items-start px-4 py-3 border rounded">
+                  <div class="flex items-center justify-center w-12 h-12 mr-4 bg-red-500 rounded-full shadow">
+                    <UserIcon class="w-8 h-8 text-white" />
+                  </div>
+                  <div class="w-full">
+                    <div class="flex items-center justify-between">
+                      <h2 class="-mt-1 text-lg font-semibold text-gray-900">Brad Adams</h2>
+                      <ul class="flex items-center py-2">
+                        <li v-for="r1 in rating" :key="r1">
+                          <StarFillIcon class="text-yellow-300" />
+                        </li>
+                        <li v-for="r2 in (5 - rating)" :key="r2">
+                          <StarFillIcon class="text-gray-300" />
+                        </li>
+                      </ul>
+                    </div>
+                    <p class="text-sm text-gray-500">22.08.2022 17:30</p>
+                    <p class="mt-3 text-sm text-gray-700">
+                      Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit amet!
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start px-4 py-3 border rounded">
+                  <div class="flex items-center justify-center w-12 h-12 mr-4 bg-red-500 rounded-full shadow">
+                    <UserIcon class="w-8 h-8 text-white" />
+                  </div>
+                  <div class="w-full">
+                    <div class="flex items-center justify-between">
+                      <h2 class="-mt-1 text-lg font-semibold text-gray-900">Brad Adams</h2>
+                      <ul class="flex items-center py-2">
+                        <li v-for="r1 in rating" :key="r1">
+                          <StarFillIcon class="text-yellow-300" />
+                        </li>
+                        <li v-for="r2 in (5 - rating)" :key="r2">
+                          <StarFillIcon class="text-gray-300" />
+                        </li>
+                      </ul>
+                    </div>
+                    <p class="text-sm text-gray-500">22.08.2022 17:30</p>
+                    <p class="mt-3 text-sm text-gray-700">
+                      Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit amet!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
