@@ -5,20 +5,31 @@ import { onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router';
 import { useBrandStore } from '../../../../stores/brand.js';
+import { useAuthStore } from '../../../../stores/auth.js';
 
 const store = useBrandStore()
+const authStore = useAuthStore()
 
 const router = useRouter()
 const isOpenMainDropDown = ref(false)
+const isOpenAdminMenus = ref(false)
 const dropdown = ref(null)
+const menus = ref(null)
 const toggleDropDown = () => {
-  isOpenMainDropDown.value = !isOpenMainDropDown.value
+  isOpenAdminMenus.value = !isOpenAdminMenus.value
+}
+const toggleAdminMenus = () => {
+  isOpenAdminMenus.value = !isOpenAdminMenus.value
 }
 
 onClickOutside(dropdown, (event) => isOpenMainDropDown.value = false)
+onClickOutside(menus, (event) => isOpenAdminMenus.value = false)
 
 onMounted(() => {
   store.getAllBrands()
+  if (authStore.isLogin) {
+    authStore.getUser()
+  }
 })
 
 </script>
@@ -60,6 +71,25 @@ onMounted(() => {
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/blogs' || $router.currentRoute.value.path === '/blog' }"
           @click="router.push('/blogs')">
           Blogs
+        </li>
+        <li v-if="authStore?.user?.role === 'admin'"
+          class="relative px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/store' || $router.currentRoute.value.path === '/orders' }"
+          @click="toggleAdminMenus()">
+          Admin Access
+          <div :class="{ 'hidden': !isOpenAdminMenus }" ref="menus"
+            class="absolute left-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
+              <li>
+                <router-link to="/store"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Store</router-link>
+              </li>
+              <li>
+                <router-link to="/orders"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Orders</router-link>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>
