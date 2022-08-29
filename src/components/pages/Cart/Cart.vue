@@ -67,7 +67,7 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
                     </div>
                   </td>
                   <td class="p-3">
-                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded">
+                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
                       <TrashIcon />
                     </button>
                   </td>
@@ -100,7 +100,7 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
                     </div>
                   </td>
                   <td class="p-3">
-                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded">
+                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
                       <TrashIcon />
                     </button>
                   </td>
@@ -133,7 +133,7 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
                     </div>
                   </td>
                   <td class="p-3">
-                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded">
+                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
                       <TrashIcon />
                     </button>
                   </td>
