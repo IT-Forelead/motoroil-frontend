@@ -59,6 +59,12 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/admin/discount',
+    name: 'Discount',
+    component: () => import('../components/pages/Admin/Discount.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/product',
     name: 'Product',
     component: () => import('../components/pages/Products/Product.vue'),

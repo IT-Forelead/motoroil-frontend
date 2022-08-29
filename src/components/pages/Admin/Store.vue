@@ -108,11 +108,11 @@ import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
                 </label>
               </td>
               <td class="p-3">
-                <div class="flex items-start justify-center">
-                  <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
+                <div class="flex items-start space-x-2">
+                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
-                  <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
+                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <TrashIcon />
                   </button>
                 </div>
@@ -167,11 +167,11 @@ import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
                 </label>
               </td>
               <td class="p-3">
-                <div class="flex items-start justify-center">
-                  <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
+                <div class="flex items-start space-x-2">
+                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
-                  <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
+                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <TrashIcon />
                   </button>
                 </div>
@@ -226,11 +226,11 @@ import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
                 </label>
               </td>
               <td class="p-3">
-                <div class="flex items-start justify-center">
-                  <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
+                <div class="flex items-start space-x-2">
+                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
-                  <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
+                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <TrashIcon />
                   </button>
                 </div>
