@@ -43,11 +43,15 @@ onMounted(() => {
               <StarFillIcon class="text-gray-300" />
             </li>
           </ul>
-          <div class="flex items-center">
-            <div class="mb-2 mr-3 text-lg font-semibold text-red-500">€ {{
-                product?.product?.price.toLocaleString('en-US') + '.00'
-            }}</div>
-            <!-- <div class="mb-2 text-gray-500 line-through text-md">$50.00</div> -->
+          <div class="flex items-center justify-center">
+            <div v-if="!product?.discount" class="mb-2 mr-3 text-lg font-semibold text-red-500">€
+              {{ product?.product?.price }}</div>
+            <div v-else class="flex items-center justify-center">
+              <div class="mb-2 mr-3 text-lg font-semibold text-red-500">€ {{ (product?.product?.price -
+                  product?.product?.price * (product?.discount?.discountPercent / 100))
+              }}</div>
+              <div class="mb-2 text-gray-500 line-through text-md">€ {{ product?.product?.price }}</div>
+            </div>
           </div>
         </div>
       </div>

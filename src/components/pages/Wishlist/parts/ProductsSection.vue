@@ -1,16 +1,15 @@
 <script setup>
 import ProductCard from './ProductCard.vue';
 import { useProductStore } from '../../../../stores/product.js'
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 const store = useProductStore()
-
-onMounted(() => {
-  store.getAllProducts()
-})
 </script>
 <template>
-  <div class="grid grid-cols-4 gap-7">
-    <ProductCard v-for="(product, idx) in store.products" :key="idx" :product="product" />
+  <div v-if="store.products.length > 0" class="grid grid-cols-4 gap-7">
+    <ProductCard v-for="(product, idx) in products" :key="idx" :product="product" />
+  </div>
+  <div v-else>
+    <p>Database is empty!</p>
   </div>
 </template>
 
