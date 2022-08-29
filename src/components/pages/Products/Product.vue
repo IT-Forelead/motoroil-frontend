@@ -73,7 +73,7 @@ const changeActiveTab = (tab) => {
           }}</li>
         </ul>
       </div>
-      <div class="grid grid-cols-4 gap-10">
+      <div class="grid grid-cols-4 gap-3">
         <Sidebar />
         <div class="col-span-3 px-3">
           <div class="grid grid-cols-2 gap-7">

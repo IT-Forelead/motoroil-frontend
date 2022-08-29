@@ -1,9 +1,12 @@
 <script setup>
 import ListIcon from '../../../../assets/icons/ListIcon.vue';
 import CaretRightIcon from '../../../../assets/icons/CaretRightIcon.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router';
+import { useBrandStore } from '../../../../stores/brand.js';
+
+const store = useBrandStore()
 
 const router = useRouter()
 const isOpenMainDropDown = ref(false)
@@ -13,6 +16,10 @@ const toggleDropDown = () => {
 }
 
 onClickOutside(dropdown, (event) => isOpenMainDropDown.value = false)
+
+onMounted(() => {
+  store.getAllBrands()
+})
 
 </script>
 
@@ -25,22 +32,13 @@ onClickOutside(dropdown, (event) => isOpenMainDropDown.value = false)
           ALL CATEGORIES
           <ListIcon class="mr-1" />
         </button>
-        <div :class="{ 'hidden': !isOpenMainDropDown }" ref="dropdown"
+        <div v-if="store.brands.length > 0" :class="{ 'hidden': !isOpenMainDropDown }" ref="dropdown"
           class="absolute left-0 z-10 w-full px-4 py-2 bg-white border border-t-0 border-gray-100 rounded-b-lg shadow top-10">
           <ul class="divide-y divide-gray-300">
-            <li class="flex justify-between p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
-              <a href="#">Accessories</a>
+            <li v-for="(brand, idx) in store.brands" :key="idx"
+              class="flex justify-between p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
+              <div>{{ brand?.name }}</div>
               <CaretRightIcon />
-            </li>
-            <li class="flex justify-between p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
-              <a href="#">Accessories</a>
-              <CaretRightIcon />
-            </li>
-            <li class="flex justify-between p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
-              <a href="#">Accessories</a>
-            </li>
-            <li class="flex justify-between p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
-              <a href="#">Accessories</a>
             </li>
           </ul>
         </div>
