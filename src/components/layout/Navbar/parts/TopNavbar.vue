@@ -7,18 +7,42 @@ import EmailIcon from '../../../../assets/icons/EmailIcon.vue';
 import ChevronDownIcon from '../../../../assets/icons/ChevronDownIcon.vue';
 import SignInIcon from '../../../../assets/icons/SignInIcon.vue';
 import { useModalStore } from '../../../../stores/modal.js'
-import { ref } from 'vue';
+import { useAuthStore } from '../../../../stores/auth.js'
+import { computed, onMounted, reactive, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
+import { useRouter } from "vue-router";
+import UserFillIcon from "../../../../assets/icons/UserFillIcon.vue";
+import SignOutIcon from "../../../../assets/icons/SignOutIcon.vue";
 
+const router = useRouter()
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useModalStore()
+const authStore = useAuthStore()
 
 const isOpenLanguageDropDown = ref(false)
 const dropdown = ref(null)
 const toggleDropDown = () => {
   isOpenLanguageDropDown.value = !isOpenLanguageDropDown.value
 }
-
 onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
+
+const user = reactive({
+  email: '',
+  password: ''
+})
+
+const submitLoginData = () => {
+  authStore.loginUser(user).then(() => {
+    if (authStore.isLogin) {
+      router.go('/')
+    }
+  })
+}
+
+onMounted(() => {
+  authStore.checkLogin()
+})
+
 </script>
 <template>
   <div class="flex justify-center py-2 bg-gray-900">
@@ -73,7 +97,7 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
           </ul>
         </div>
       </div>
-      <div class="flex items-center justify-end space-x-2">
+      <div class="flex items-center justify-end space-x-2" v-if="!authStore.isLogin">
         <button @click="store.openModal()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignInIcon class="mr-1" />
@@ -84,6 +108,19 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
           class="w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           Registration
         </button>
+      </div>
+      <div class="flex items-center justify-end space-x-2" v-else>
+        <button
+          class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+          <UserFillIcon class="mr-1" />
+          {{ 'Admin' }}
+        </button>
+        <div class="text-gray-300">/</div>
+        <a href="/" @click="authStore.logout()"
+          class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+          <SignOutIcon class="mr-1" />
+          Logout
+        </a>
       </div>
     </div>
 
@@ -102,20 +139,22 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
             </button>
           </div>
           <div class="px-6 py-3 space-y-6">
-            <button
+            <a :href="`${API_URL}/auth/google`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
               <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>Login with
                 Google</span>
+            </a>
+            <button
+              class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
+              <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
+                with
+                Facebook</span>
             </button>
-              <button
-                class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
-                <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
-                  with
-                  Facebook</span>
-              </button>
             <div class="relative mx-auto">
               <hr />
-              <p class="absolute px-3 py-2 text-gray-400 uppercase -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">Or</p>
+              <p
+                class="absolute px-3 py-2 text-gray-400 uppercase -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">
+                Or</p>
             </div>
             <form action="" class="my-10">
               <div class="flex flex-col space-y-5">
@@ -148,8 +187,9 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
                   Registration
                 </button>
                 <p class="text-center">
-                  Already have account? 
-                  <a @click="store.openModal()" class="inline-flex items-center space-x-1 font-medium text-indigo-600 cursor-pointer">
+                  Already have account?
+                  <a @click="store.openModal()"
+                    class="inline-flex items-center space-x-1 font-medium text-indigo-600 cursor-pointer">
                     Login
                   </a>
                 </p>
@@ -180,27 +220,29 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
               <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>Login with
                 Google</span>
             </button>
-              <button
-                class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
-                <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
-                  with
-                  Facebook</span>
-              </button>
+            <button
+              class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
+              <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
+                with
+                Facebook</span>
+            </button>
             <div class="relative mx-auto">
               <hr />
-              <p class="absolute px-3 py-2 text-gray-400 uppercase -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">Or</p>
+              <p
+                class="absolute px-3 py-2 text-gray-400 uppercase -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">
+                Or</p>
             </div>
             <form action="" class="my-10">
               <div class="flex flex-col space-y-5">
                 <label for="email-input">
                   <p class="pb-2 font-medium text-slate-700">Email address</p>
-                  <input id="email-input" name="email" type="email"
+                  <input id="email-input" name="email" type="email" v-model="user.email"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter email address">
                 </label>
                 <label for="password-input">
                   <p class="pb-2 font-medium text-slate-700">Password</p>
-                  <input id="password-input" name="password" type="password"
+                  <input id="password-input" name="password" type="password" v-model="user.password"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter your password">
                 </label>
@@ -211,13 +253,14 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
                     <a href="#" class="font-medium text-indigo-600">Forgot Password?</a>
                   </div>
                 </div>
-                <button
+                <button @click.prevent="submitLoginData()"
                   class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-indigo-600 border-indigo-500 rounded hover:bg-indigo-500 hover:shadow">
                   <span>Login</span>
                 </button>
                 <p class="text-center">
-                  Not registered yet? 
-                  <a @click="store.openRegisterModal()" class="inline-flex items-center space-x-1 font-medium text-indigo-600 cursor-pointer">
+                  Not registered yet?
+                  <a @click="store.openRegisterModal()"
+                    class="inline-flex items-center space-x-1 font-medium text-indigo-600 cursor-pointer">
                     Register now
                   </a>
                 </p>
@@ -227,7 +270,6 @@ onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
         </div>
       </div>
     </div>
-
   </div>
 </template>
 <style scoped>
