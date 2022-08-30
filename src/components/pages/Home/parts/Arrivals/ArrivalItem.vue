@@ -1,9 +1,11 @@
 <script setup>
 import { ref, toRefs } from 'vue'
 import StarFillIcon from '../../../../../assets/icons/StarFillIcon.vue';
+import { useProductStore } from '../../../../../stores/product.js';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const rating = ref(0)
+const store = useProductStore()
 
 const ratingCalc = (rate) => {
   rating.value = Number(rate)
@@ -20,6 +22,7 @@ const props = defineProps({
 })
 const { product } = toRefs(props)
 </script>
+
 <template>
   <div class="relative max-w-sm border border-gray-200">
     <div v-if="product?.discount" class="absolute font-normal text-center text-white top-4 sale">
@@ -64,5 +67,6 @@ const { product } = toRefs(props)
     </div>
   </div>
 </template>
+
 <style scoped>
 </style>
