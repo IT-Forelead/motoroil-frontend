@@ -5,6 +5,16 @@ import StackIcon from '../../../assets/icons/StackIcon.vue';
 import CalendarCheckIcon from '../../../assets/icons/CalendarCheckIcon.vue';
 import CalendarXIcon from '../../../assets/icons/CalendarXIcon.vue';
 import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
+import { ref } from '@vue/reactivity';
+import { onClickOutside } from '@vueuse/core'
+
+const isOpenSortDropDown = ref(false)
+const sortDropDown = ref(null)
+const toggleDropDown = () => {
+  isOpenSortDropDown.value = !isOpenSortDropDown.value
+}
+
+onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
 </script>
 
 <template>
@@ -14,10 +24,10 @@ import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
         <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">Store</div>
         <div class="flex items-center">
             <div class="relative mr-3">
-              <button class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
+              <button @click="toggleDropDown" class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
                 <FunnelIcon class="mr-2" /> Sort By
               </button>
-              <div :class="{ 'hidden': !isOpenSortDropDown }" ref="dropdown"
+              <div :class="{ 'hidden': !isOpenSortDropDown }" ref="sortDropDown"
                 class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
                   <li class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">

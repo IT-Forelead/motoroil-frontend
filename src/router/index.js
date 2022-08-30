@@ -7,7 +7,6 @@ const routes = [
     name: 'Index',
     component: () => import('../components/pages/Home/Home.vue'),
     meta: { layout: 'dashboard' },
-    // beforeEnter: navigationGuard('client'),
   },
   {
     path: '/blogs',
@@ -29,34 +28,46 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/product',
+    name: 'Product',
+    component: () => import('../components/pages/Products/Product.vue'),
+    meta: { layout: 'dashboard' },
+    beforeEnter: notSelectedProduct(),
+  },
+  {
     path: '/wishlist',
     name: 'Wishlist',
     component: () => import('../components/pages/Wishlist/Wishlist.vue'),
     meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('client'),
   },
   {
     path: '/cart',
     name: 'My Cart',
     component: () => import('../components/pages/Cart/Cart.vue'),
     meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('client'),
   },
   {
     path: '/orders',
     name: 'My orders',
     component: () => import('../components/pages/Orders/OrdersForUsers.vue'),
     meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('client'),
   },
   {
     path: '/admin/orders',
     name: 'Orders',
     component: () => import('../components/pages/Orders/OrdersForAdmins.vue'),
     meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('admin'),
   },
   {
     path: '/admin/store',
     name: 'Store',
     component: () => import('../components/pages/Admin/Store.vue'),
     meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('admin'),
   },
   {
     path: '/admin/discount',
@@ -87,13 +98,7 @@ const routes = [
     name: 'Accounting',
     component: () => import('../components/pages/Admin/Accounting.vue'),
     meta: { layout: 'dashboard' },
-  },
-  {
-    path: '/product',
-    name: 'Product',
-    component: () => import('../components/pages/Products/Product.vue'),
-    meta: { layout: 'dashboard' },
-    beforeEnter: notSelectedProduct(),
+    beforeEnter: navigationGuard('admin'),
   },
   {
     path: '/about-us',
@@ -125,21 +130,31 @@ const router = createRouter({
 })
 
 // router.beforeEach((to, from, next) => {
-//   const publicPages = ['/', '/blogs', '/products']
+//   const publicPages = [
+//     '/blogs',
+//     '/products',
+//     '/blog',
+//     '/product',
+//     '/faq',
+//     '/about-us',
+//   ]
 //   const authNotRequired = !publicPages.includes(to.path)
-//   const notLoggedIn = localStorage.getItem('token')
-//   if ((authNotRequired && notLoggedIn)) {
+//   const notLoggedIn = sessionStorage.getItem('Authorization')
+//   if (authNotRequired && notLoggedIn) {
 //     next()
 //   } else {
 //     next('/')
 //   }
 // })
 
-// function navigationGuard(role) {
-//   return () => {
-//     return localStorage.getItem('role') === role
-//   }
-// }
+function navigationGuard(role) {
+  return () => {
+    if (!(sessionStorage.getItem('role') === role)) {
+      router.push('/notfound')
+    }
+    return sessionStorage.getItem('role') === role
+  }
+}
 
 function notSelectedBlog() {
   return () => {

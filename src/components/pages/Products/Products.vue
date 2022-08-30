@@ -43,7 +43,7 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
                 class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
                 <FunnelIcon class="mr-2" /> Sort By
               </button>
-              <div :class="{ 'hidden': !isOpenSortDropDown }" ref="dropdown"
+              <div :class="{ 'hidden': !isOpenSortDropDown }" ref="sortDropDown"
                 class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
                   <li

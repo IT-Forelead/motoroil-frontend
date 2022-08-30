@@ -2,6 +2,8 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 import authHeader from '../mixins/auth/auth-header.js'
 import { useModalStore } from './modal.js'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -23,7 +25,10 @@ export const useAuthStore = defineStore({
           useModalStore().closeModal()
         })
         .catch((err) => {
-          console.log('Error ', err)
+          notify.warning({
+            message: 'Email or password is incorrect. Please try again!',
+            position: 'bottomRight',
+          })
         })
     },
     checkLogin() {
@@ -33,12 +38,32 @@ export const useAuthStore = defineStore({
     logout() {
       this.token = ''
       sessionStorage.removeItem('Authorization')
+      sessionStorage.removeItem('role')
+    },
+    async sendRecoveryEmail(email) {
+      await axios
+        .get(`${API_URL}/user/send-email/${email}`)
+        .then(() => {
+          notify.success({
+            message: `Code sent to ${email} please click to Reset Password button!`,
+            position: 'bottomRight',
+          })
+          useModalStore().closeResetPasswordModal()
+        })
+        .catch((err) => {
+          notify.error({
+            title: 'Error',
+            message: 'While sending reset password email. Please try again!',
+            position: 'bottomRight',
+          })
+        })
     },
     async getUser() {
       await axios
         .get(`${API_URL}/user`, { headers: authHeader() })
         .then((response) => {
           this.user = response?.data
+          sessionStorage.setItem('role', response?.data?.role)
         })
         .catch((err) => {
           console.log('Error ', err)

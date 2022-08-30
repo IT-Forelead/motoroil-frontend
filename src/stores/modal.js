@@ -5,6 +5,7 @@ export const useModalStore = defineStore({
   state: () => ({
     isOpen: false,
     isOpenRegisterModal: false,
+    isOpenResetPassword: false,
   }),
   actions: {
     openModal() {
@@ -20,6 +21,13 @@ export const useModalStore = defineStore({
     },
     closeRegisterModal() {
       this.isOpenRegisterModal = false
+    },
+    openResetPasswordModal() {
+      this.isOpenResetPassword = true
+      this.isOpen = false
+    },
+    closeResetPasswordModal() {
+      this.isOpenResetPassword = false
     },
   },
 })
