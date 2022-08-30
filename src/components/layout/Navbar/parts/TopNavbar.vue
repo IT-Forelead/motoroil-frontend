@@ -162,12 +162,12 @@ const submitRecoveryEmail = () => {
               <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>Login with
                 Google</span>
             </a>
-            <button
+            <a :href="`${API_URL}/auth/facebook`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
               <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
                 with
                 Facebook</span>
-            </button>
+            </a>
             <div class="relative mx-auto">
               <hr />
               <p
@@ -233,17 +233,17 @@ const submitRecoveryEmail = () => {
             </button>
           </div>
           <div class="px-6 py-3 space-y-6">
-            <button
+            <a :href="`${API_URL}/auth/google`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
               <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>Login with
                 Google</span>
-            </button>
-            <button
+            </a>
+            <a :href="`${API_URL}/auth/facebook`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
               <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
                 with
                 Facebook</span>
-            </button>
+            </a>
             <div class="relative mx-auto">
               <hr />
               <p
