@@ -82,16 +82,28 @@ onClickOutside(menus, () => isOpenAdminMenus.value = false)
                 </router-link>
               </li>
               <li>
-                <router-link to="/admin/orders"
-                  :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/orders' }"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Orders</router-link>
+                <router-link to="/admin/product-groups" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/product-groups'}"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Product groups</router-link>
               </li>
               <li>
-                <router-link to="/admin/discount"
-                  :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/discount' }"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Discount</router-link>
+                <router-link to="/admin/orders" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/orders'}"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Orders</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/discount" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/discount'}"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Discounts</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/accounting" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/accounting'}"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Accounting</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/product-models" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/product-models'}"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Product models</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/spec-type" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/spec-types'}"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Spec types</router-link>
               </li>
             </ul>
           </div>
