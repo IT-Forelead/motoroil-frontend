@@ -43,6 +43,12 @@ onMounted(() => {
   authStore.checkLogin()
 })
 
+const recoveryEmail = ref('')
+
+const submitRecoveryEmail = () => {
+  authStore.sendRecoveryEmail(recoveryEmail.value)
+}
+
 </script>
 <template>
   <div class="flex justify-center py-2 bg-gray-900">
@@ -113,7 +119,7 @@ onMounted(() => {
         <button
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <UserFillIcon class="mr-1" />
-          {{ 'Admin' }}
+          {{  'Admin'  }}
         </button>
         <div class="text-gray-300">/</div>
         <a href="/" @click="authStore.logout()"
@@ -183,7 +189,7 @@ onMounted(() => {
                     placeholder="Enter confirm password">
                 </label>
                 <button
-                  class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-indigo-600 border-indigo-500 rounded hover:bg-indigo-500 hover:shadow">
+                  class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
                   Registration
                 </button>
                 <p class="text-center">
@@ -250,11 +256,12 @@ onMounted(() => {
                   <div>
                   </div>
                   <div>
-                    <a href="#" class="font-medium text-indigo-600">Forgot Password?</a>
+                    <a href="#" @click="store.openResetPasswordModal" class="font-medium text-blue-600">Forgot
+                      Password?</a>
                   </div>
                 </div>
                 <button @click.prevent="submitLoginData()"
-                  class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-indigo-600 border-indigo-500 rounded hover:bg-indigo-500 hover:shadow">
+                  class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
                   <span>Login</span>
                 </button>
                 <p class="text-center">
@@ -264,6 +271,39 @@ onMounted(() => {
                     Register now
                   </a>
                 </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div :class="{ 'hidden': !store.isOpenResetPassword }"
+      class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+      <div class="relative w-full h-full max-w-xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+        <div class="relative bg-white rounded shadow dark:bg-gray-700">
+          <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recovery Password</h3>
+            <button type="button" @click="store.closeResetPasswordModal()"
+              class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900">
+              <CloseIcon />
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <div class="px-6 py-3 space-y-6">
+            <form action="" class="mb-5">
+              <div class="flex flex-col space-y-5">
+                <label for="recovery-email">
+                  <p class="pb-2 font-medium text-slate-700">Email address</p>
+                  <input id="recovery-email" name="email" type="email" v-model="recoveryEmail"
+                    class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                    placeholder="Enter email address">
+                </label>
+                <button @click.prevent="submitRecoveryEmail()"
+                  class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+                  <span>Recovery</span>
+                </button>
               </div>
             </form>
           </div>

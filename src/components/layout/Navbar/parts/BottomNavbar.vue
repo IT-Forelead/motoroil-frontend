@@ -16,14 +16,14 @@ const isOpenAdminMenus = ref(false)
 const dropdown = ref(null)
 const menus = ref(null)
 const toggleDropDown = () => {
-  isOpenAdminMenus.value = !isOpenAdminMenus.value
+  isOpenMainDropDown.value = !isOpenMainDropDown.value
 }
 const toggleAdminMenus = () => {
   isOpenAdminMenus.value = !isOpenAdminMenus.value
 }
 
-onClickOutside(dropdown, (event) => isOpenMainDropDown.value = false)
-onClickOutside(menus, (event) => isOpenAdminMenus.value = false)
+onClickOutside(dropdown, () => isOpenMainDropDown.value = false)
+onClickOutside(menus, () => isOpenAdminMenus.value = false)
 
 onMounted(() => {
   store.getAllBrands()
@@ -74,19 +74,23 @@ onMounted(() => {
         </li>
         <li v-if="authStore?.user?.role === 'admin'"
           class="relative px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
-          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/store' || $router.currentRoute.value.path === '/orders' }"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store' || $router.currentRoute.value.path === '/admin/orders' || $router.currentRoute.value.path === '/admin/discount' }"
           @click="toggleAdminMenus()">
           Admin Access
           <div :class="{ 'hidden': !isOpenAdminMenus }" ref="menus"
-            class="absolute left-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
+            class="absolute left-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-12 w-44">
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
               <li>
-                <router-link to="/store"
+                <router-link to="/admin/store" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store'}"
                   class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Store</router-link>
               </li>
               <li>
-                <router-link to="/orders"
+                <router-link to="/admin/orders" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/orders'}"
                   class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Orders</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/discount" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/discount'}"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Discount</router-link>
               </li>
             </ul>
           </div>
