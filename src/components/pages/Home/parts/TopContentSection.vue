@@ -3,35 +3,43 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper";
+import { useMainSearchStore } from '../../../../stores/mainSearch.js'
+import { onMounted } from "@vue/runtime-core";
 
 const modules = [Autoplay, Navigation]
+
+const mainSearchStore = useMainSearchStore()
+
+onMounted(() => {
+  mainSearchStore.getAllBrands()
+  mainSearchStore.getAllSAEViscosityGrades()
+  mainSearchStore.getAllProductOEMs()
+  mainSearchStore.getAllSpecifications()
+})
+
 </script>
 
 <template>
   <div class="flex justify-center p-5 bg-white">
     <div class="container grid items-center grid-cols-4 gap-3">
       <div class="flex flex-col h-full space-y-20 bg-slate-200 bg-[url('/bg/bg-advanced.jpg')] bg-no-repeat bg-cover">
-        <div class="p-5 text-2xl font-semibold text-white uppercase bg-gray-900/60">Lorem ipsum dolor  orem ipsum dolor  ipsum dolor sit amet.</div>
+        <div class="p-5 text-2xl font-semibold text-white uppercase bg-gray-900/60">ANFORDERUNGEN AN DAS MOTORÖL AUSWÄHLEN</div>
         <div class="px-5 space-y-3">
-          <select id="country" name="country" autocomplete="country-name" class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option>United States</option>
-            <option>Canada</option>
-            <option>Mexico</option>
+          <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option selected>Brand</option>
+            <option v-for="(brand, idx) in mainSearchStore.brands" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
           </select>
-          <select id="country" name="country" autocomplete="country-name" class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option>United States</option>
-            <option>Canada</option>
-            <option>Mexico</option>
+          <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option selected>SAE Viscosity Grades</option>
+            <option v-for="(brand, idx) in mainSearchStore.saeViscosityGrades" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
           </select>
-          <select id="country" name="country" autocomplete="country-name" class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option>United States</option>
-            <option>Canada</option>
-            <option>Mexico</option>
+          <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option selected>OEM-Freigabe</option>
+            <option v-for="(brand, idx) in mainSearchStore.oems" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
           </select>
-          <select id="country" name="country" autocomplete="country-name" class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option>United States</option>
-            <option>Canada</option>
-            <option>Mexico</option>
+          <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option selected>Specifications</option>
+            <option v-for="(brand, idx) in mainSearchStore.specifications" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
           </select>
           <button class="flex items-center justify-center w-full p-3 text-white uppercase bg-red-600 rounded hover:bg-red-700">Search</button>
         </div>
