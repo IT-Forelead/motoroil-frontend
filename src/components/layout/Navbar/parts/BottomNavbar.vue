@@ -4,10 +4,10 @@ import CaretRightIcon from '../../../../assets/icons/CaretRightIcon.vue';
 import { onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router';
-import { useBrandStore } from '../../../../stores/brand.js';
 import { useAuthStore } from '../../../../stores/auth.js';
+import { useMainSearchStore } from '../../../../stores/mainSearch.js';
 
-const store = useBrandStore()
+const store = useMainSearchStore()
 const authStore = useAuthStore()
 
 const router = useRouter()
@@ -24,13 +24,6 @@ const toggleAdminMenus = () => {
 
 onClickOutside(dropdown, () => isOpenMainDropDown.value = false)
 onClickOutside(menus, () => isOpenAdminMenus.value = false)
-
-onMounted(() => {
-  store.getAllBrands()
-  if (authStore.isLogin) {
-    authStore.getUser()
-  }
-})
 
 </script>
 

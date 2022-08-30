@@ -35,14 +35,14 @@ const searchProducts = () => {
         </div>
       </div>
       <div class="flex items-center space-x-3">
-        <button v-if="authStore.user?.role === 'client'" class="flex items-center justify-center p-3 text-gray-700 border rounded hover:text-red-500">
+        <button v-if="authStore.user?.role === 'user'" class="flex items-center justify-center p-3 text-gray-700 border rounded hover:text-red-500">
           <HeartFillIcon />
         </button>
         <button v-else-if="authStore.user?.role === 'admin'" class="hidden"></button>
         <button @click="modalStore.openModal()" v-else class="flex items-center justify-center p-3 text-gray-700 border rounded hover:text-red-500">
           <HeartFillIcon />
         </button>
-        <button v-if="authStore.user?.role === 'client'" class="inline-flex items-center text-gray-700 border rounded hover:text-red-500">
+        <button v-if="authStore.user?.role === 'user'" class="inline-flex items-center text-gray-700 border rounded hover:text-red-500">
           <div class="relative flex items-center justify-center p-2">
             <ShoppingCartFillIcon />
             <!-- <div class="absolute -top-3 -right-2 px-1.5 py-0.5 text-xs text-white bg-red-500 rounded-full">1</div> -->

@@ -40,8 +40,14 @@ const submitLoginData = () => {
 }
 
 onMounted(() => {
-  authStore.checkLogin()
-  authStore.getUser()
+  if (router.currentRoute.value?.query?.token) {
+    authStore.checkSSOLogin(router.currentRoute.value?.query?.token)
+  } else {
+    authStore.checkLogin()
+  }
+  if (authStore.token) {
+    authStore.getUser()
+  }
 })
 
 const recoveryEmail = ref('')
@@ -79,7 +85,6 @@ const submitRecoveryEmail = () => {
             <EmailIcon />
           </a>
         </li>
-        <li>{{  authStore.checkSSOLogin($router.currentRoute.value?.query?.token)  }}</li>
       </ul>
       <div class="relative col-span-2">
         <button @click="toggleDropDown()"
@@ -105,7 +110,7 @@ const submitRecoveryEmail = () => {
           </ul>
         </div>
       </div>
-      <div class="flex items-center justify-end space-x-2" v-if="!authStore.isLogin">
+      <div class="flex items-center justify-end space-x-2" v-if="!(authStore.isLogin || authStore.isSSOLogin)">
         <button @click="store.openModal()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignInIcon class="mr-1" />
@@ -121,14 +126,19 @@ const submitRecoveryEmail = () => {
         <button
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <UserFillIcon class="mr-1" />
-          {{  authStore.user?.username }}
+          {{  authStore.user?.username  }}
         </button>
         <div class="text-gray-300">/</div>
-        <a href="/" @click="authStore.logout()"
+        <a href="/" v-if="authStore.isLogin" @click="authStore.logout()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignOutIcon class="mr-1" />
           Logout
         </a>
+        <p v-else @click="authStore.ssoLogout()"
+          class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+          <SignOutIcon class="mr-1" />
+          Logout
+        </p>
       </div>
     </div>
 

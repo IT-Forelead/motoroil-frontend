@@ -4,7 +4,9 @@ import authHeader from '../mixins/auth/auth-header.js'
 import { useModalStore } from './modal.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 export const useAuthStore = defineStore({
@@ -12,6 +14,7 @@ export const useAuthStore = defineStore({
   state: () => ({
     token: '',
     isLogin: false,
+    isSSOLogin: false,
     user: '',
   }),
   actions: {
@@ -32,19 +35,59 @@ export const useAuthStore = defineStore({
         })
     },
     checkLogin() {
-      this.isLogin =
-        sessionStorage.getItem('Authorization') || this.token ? true : false
+      this.token = sessionStorage.getItem('Authorization')
+      this.isLogin = sessionStorage.getItem('Authorization') ? true : false
     },
     checkSSOLogin(token) {
       sessionStorage.setItem('Authorization', token)
       this.token = token
-      this.isLogin =
-        token ? true : false
+      this.isSSOLogin = token ? true : false
     },
-    logout() {
+    async logout() {
+      console.log('default logout')
+      await axios
+        .get(`${API_URL}/auth/logout`, { headers: authHeader() })
+        .then(() => {
+          this.token = ''
+          sessionStorage.removeItem('Authorization')
+          sessionStorage.removeItem('role')
+          sessionStorage.removeItem('sp_id')
+          sessionStorage.removeItem('sb_id')
+          this.isLogin = false
+        })
+        .catch((err) => {
+          notify.error({
+            title: 'Error',
+            message: 'While logging out. Please try again!',
+            position: 'bottomRight',
+          })
+        })
       this.token = ''
       sessionStorage.removeItem('Authorization')
       sessionStorage.removeItem('role')
+      sessionStorage.removeItem('sp_id')
+      sessionStorage.removeItem('sb_id')
+      this.isLogin = false
+    },
+    async ssoLogout() {
+      console.log('sso logout')
+      await axios
+        .get(`${API_URL}/auth/sso-logout`, { headers: authHeader() })
+        .then(() => {
+          this.token = ''
+          this.isSSOLogin = false
+          sessionStorage.removeItem('Authorization')
+          sessionStorage.removeItem('role')
+          sessionStorage.removeItem('sp_id')
+          sessionStorage.removeItem('sb_id')
+        })
+        .catch((err) => {
+          notify.error({
+            title: 'Error',
+            message: 'While logging out. Please try again!',
+            position: 'bottomRight',
+          })
+        })
     },
     async sendRecoveryEmail(email) {
       await axios
