@@ -35,6 +35,12 @@ export const useAuthStore = defineStore({
       this.isLogin =
         sessionStorage.getItem('Authorization') || this.token ? true : false
     },
+    checkSSOLogin(token) {
+      sessionStorage.setItem('Authorization', token)
+      this.token = token
+      this.isLogin =
+        token ? true : false
+    },
     logout() {
       this.token = ''
       sessionStorage.removeItem('Authorization')
