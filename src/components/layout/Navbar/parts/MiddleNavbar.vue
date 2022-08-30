@@ -14,7 +14,8 @@ const modalStore = useModalStore()
 const search = ref('')
 
 const searchProducts = () => {
-  // store.setSearchString(search.value)
+  store.setSearchString(search.value)
+  store.getProductsSearchByName(search.value)
 }
 </script>
 

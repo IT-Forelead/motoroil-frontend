@@ -6,9 +6,11 @@ import { onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../../../stores/auth.js';
 import { useMainSearchStore } from '../../../../stores/mainSearch.js';
+import { useProductStore } from '../../../../stores/product.js';
 
 const store = useMainSearchStore()
 const authStore = useAuthStore()
+const productStore = useProductStore()
 
 const router = useRouter()
 const isOpenMainDropDown = ref(false)
@@ -41,7 +43,7 @@ onClickOutside(menus, () => isOpenAdminMenus.value = false)
           <ul class="divide-y divide-gray-300">
             <li v-for="(brand, idx) in store.brands" :key="idx"
               class="flex justify-between p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
-              <div>{{ brand?.name }}</div>
+              <div>{{  brand?.name  }}</div>
               <CaretRightIcon />
             </li>
           </ul>
@@ -56,7 +58,7 @@ onClickOutside(menus, () => isOpenAdminMenus.value = false)
         <li
           class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/products' || $router.currentRoute.value.path === '/product' }"
-          @click="router.push('/products')">
+          @click="router.push('/products'); productStore.setSearchString(''); productStore.getAllProducts()">
           Products
         </li>
         <li
@@ -74,16 +76,22 @@ onClickOutside(menus, () => isOpenAdminMenus.value = false)
             class="absolute left-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-12 w-44">
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
               <li>
-                <router-link to="/admin/store" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Store</router-link>
+                <router-link to="/admin/store"
+                  :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store' }"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Store
+                </router-link>
               </li>
               <li>
-                <router-link to="/admin/orders" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/orders'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Orders</router-link>
+                <router-link to="/admin/orders"
+                  :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/orders' }"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  Orders</router-link>
               </li>
               <li>
-                <router-link to="/admin/discount" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/discount'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Discount</router-link>
+                <router-link to="/admin/discount"
+                  :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/discount' }"
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  Discount</router-link>
               </li>
             </ul>
           </div>

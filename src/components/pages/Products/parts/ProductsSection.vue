@@ -20,8 +20,8 @@ const products = computed(() => {
   <div v-if="store.products.length > 0" class="grid grid-cols-4 gap-7">
     <ProductCard v-for="(product, idx) in products" :key="idx" :product="product" />
   </div>
-  <div v-else>
-    <p>Database is empty!</p>
+  <div v-else class="text-center text-red-500">
+    <p>No results!</p>
   </div>
 </template>
 
