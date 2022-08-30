@@ -9,6 +9,14 @@ import StackIcon from '../../../assets/icons/StackIcon.vue';
 import OilCanIcon from '../../../assets/icons/OilCanIcon.vue';
 import YoutubeIcon from '../../../assets/icons/YoutubeIcon.vue';
 import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
+import { useProductStore } from '../../../stores/product.js'
+import { onMounted } from '@vue/runtime-core';
+
+const store = useProductStore()
+
+onMounted(() => {
+  store.getProductGroups()
+})
 </script>
 
 <template>
@@ -24,151 +32,55 @@ import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
         <table class="min-w-full divide-y divide-gray-300">
           <thead class="bg-gray-50">
             <tr>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Discount</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Validity preiod</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Status</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Product group</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Category</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">CLASSIFICATION</td>
               <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Files</td>
               <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Action</td>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr class="align-middle">
+            <tr v-for="(productGroup, idx) in store.productGroups" :key="idx" class="align-middle">
               <td class="p-3 text-sm text-gray-700">
                 <div class="flex flex-col">
-                    <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
+                    <div class="font-medium text-gray-700 text-md">{{ productGroup?.productGroup?.name }}</div>
                     <div class="flex items-center space-x-2 text-sm text-gray-500">
                       <div class="flex items-center">
                         <StackIcon class="mr-1"/>
-                        Automotivation
+                        {{ productGroup?.category?.name }}
                       </div>
                       <div class="flex items-center">
                         <OilCanIcon class="mr-1"/>
-                        W10-50
+                        {{ productGroup?.viscosityGrade?.name }}
                       </div>
                     </div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex flex-col">
-                  <div class="font-medium text-gray-700 text-md">AUTOMOTIVE</div>
-                  <div class="font-medium text-gray-700 text-md">HDMO</div>
-                  <div class="font-medium text-gray-700 text-md">Premium</div>
+                  <div class="font-medium text-gray-700 text-md">{{ productGroup?.category?.name }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ productGroup?.subCategory?.name }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ productGroup?.miniSubCategory?.name }}</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">OEM-Freigabe:</div>
-                  <div class="font-medium text-gray-700 text-md">2-Stroke DFI, 82009201</div>
+                  <div class="font-medium text-gray-700 text-md">{{ productGroup?.oems.map(o => o.name).join(', ') }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">Spezifikation:</div>
-                  <div class="font-medium text-gray-700 text-md">ACEA A2/B2, ACEA A1/B1</div>
+                  <div class="font-medium text-gray-700 text-md">{{ productGroup?.specifications.map(o => o.name).join(', ') }}</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center space-x-3">
-                  <YoutubeIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
-                  <PdfFileIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex items-start space-x-2">
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
-                    <PencilDuotoneIcon class="w-4 h-4" />
-                  </button>
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
-                    <TrashIcon />
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <td class="p-3 text-sm text-gray-700">
-                <div class="flex flex-col">
-                    <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                    <div class="flex items-center space-x-2 text-sm text-gray-500">
-                      <div class="flex items-center">
-                        <StackIcon class="mr-1"/>
-                        Automotivation
-                      </div>
-                      <div class="flex items-center">
-                        <OilCanIcon class="mr-1"/>
-                        W10-50
-                      </div>
-                    </div>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex flex-col">
-                  <div class="font-medium text-gray-700 text-md">AUTOMOTIVE</div>
-                  <div class="font-medium text-gray-700 text-md">HDMO</div>
-                  <div class="font-medium text-gray-700 text-md">Premium</div>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">OEM-Freigabe:</div>
-                  <div class="font-medium text-gray-700 text-md">2-Stroke DFI, 82009201</div>
-                </div>
-                <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Spezifikation:</div>
-                  <div class="font-medium text-gray-700 text-md">ACEA A2/B2, ACEA A1/B1</div>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex items-center space-x-3">
-                  <YoutubeIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
-                  <PdfFileIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex items-start space-x-2">
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
-                    <PencilDuotoneIcon class="w-4 h-4" />
-                  </button>
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
-                    <TrashIcon />
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr class="align-middle">
-              <td class="p-3 text-sm text-gray-700">
-                <div class="flex flex-col">
-                    <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                    <div class="flex items-center space-x-2 text-sm text-gray-500">
-                      <div class="flex items-center">
-                        <StackIcon class="mr-1"/>
-                        Automotivation
-                      </div>
-                      <div class="flex items-center">
-                        <OilCanIcon class="mr-1"/>
-                        W10-50
-                      </div>
-                    </div>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex flex-col">
-                  <div class="font-medium text-gray-700 text-md">AUTOMOTIVE</div>
-                  <div class="font-medium text-gray-700 text-md">HDMO</div>
-                  <div class="font-medium text-gray-700 text-md">Premium</div>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">OEM-Freigabe:</div>
-                  <div class="font-medium text-gray-700 text-md">2-Stroke DFI, 82009201</div>
-                </div>
-                <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Spezifikation:</div>
-                  <div class="font-medium text-gray-700 text-md">ACEA A2/B2, ACEA A1/B1</div>
-                </div>
-              </td>
-              <td class="p-3">
-                <div class="flex items-center space-x-3">
-                  <YoutubeIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
-                  <PdfFileIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
+                  <div v-if="productGroup?.productGroup?.videoUrl">
+                    <YoutubeIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
+                  </div>
+                  <div v-if="productGroup?.productGroup?.pdfUrl">
+                    <PdfFileIcon class="text-red-500 cursor-pointer w-7 h-7 hover:text-red-700"/>
+                  </div>
                 </div>
               </td>
               <td class="p-3">
