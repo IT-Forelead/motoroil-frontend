@@ -61,7 +61,13 @@ const routes = [
   {
     path: '/admin/discount',
     name: 'Discount',
-    component: () => import('../components/pages/Admin/Discount.vue'),
+    component: () => import('../components/pages/Admin/Discounts.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
+    path: '/admin/product-groups',
+    name: 'Discount',
+    component: () => import('../components/pages/Admin/ProductGroups.vue'),
     meta: { layout: 'dashboard' },
   },
   {
