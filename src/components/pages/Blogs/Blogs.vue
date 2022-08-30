@@ -31,7 +31,7 @@ onMounted(() => {
             </div>
             <div class="grid grid-cols-4 gap-3">
                 <Sidebar />
-                <div class="col-span-3">
+                <div class="col-span-3 ml-3">
                     <div class="p-3 text-2xl font-semibold text-gray-700">Our Blog</div>
                     <div class="grid grid-cols-4 gap-7">
                         <BlogItem v-for="(blog, idx) in store.blogs" :key="idx" :blog="blog" />

@@ -65,6 +65,12 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/admin/spec-type',
+    name: 'Spec Type',
+    component: () => import('../components/pages/Admin/SpecType.vue'),
+    meta: { layout: 'dashboard' },
+  },
+  {
     path: '/product',
     name: 'Product',
     component: () => import('../components/pages/Products/Product.vue'),

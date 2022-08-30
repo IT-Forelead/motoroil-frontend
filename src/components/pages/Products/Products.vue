@@ -35,7 +35,7 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
       </div>
       <div class="grid grid-cols-4 gap-3">
         <Sidebar />
-        <div class="col-span-3">
+        <div class="col-span-3 ml-3">
           <div class="flex items-center justify-between mb-2">
             <div class="p-3 text-2xl font-semibold text-gray-700">Products</div>
             <div class="relative">
