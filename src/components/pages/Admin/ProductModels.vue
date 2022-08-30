@@ -1,8 +1,17 @@
 
 <script setup>
-import HouseIcon from '../../../assets/icons/HouseIcon.vue'
-import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
 import TrashIcon from '../../../assets/icons/TrashIcon.vue';
+import { useProductStore } from '../../../stores/product.js'
+import { onMounted } from '@vue/runtime-core';
+
+const store = useProductStore()
+
+onMounted(() => {
+  store.getBrands()
+  store.getSAEViscosityGrades()
+  store.getProductOEMs()
+  store.getSpecifications()
+})
 
 </script>
 <template>
@@ -16,17 +25,9 @@ import TrashIcon from '../../../assets/icons/TrashIcon.vue';
                         <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Save</button>
                     </div>
                     <div class="p-3 text-xl font-semibold text-gray-700">Brands</div>
-                    <ul class="flex flex-col divide-y">
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
+                    <ul class="flex flex-col divide-y max-h-[30rem] overflow-y-auto">
+                        <li v-for="(brand, idx) in store.brands" :key="idx" class="flex items-center justify-between px-3 py-2">
+                            {{ brand?.name }}
                             <TrashIcon class="w-5 h-5 text-red-500"/>
                         </li>
                     </ul>
@@ -38,17 +39,9 @@ import TrashIcon from '../../../assets/icons/TrashIcon.vue';
                         <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Save</button>
                     </div>
                     <div class="p-3 text-xl font-semibold text-gray-700">SAE Viscosity Grades</div>
-                    <ul class="flex flex-col divide-y">
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
+                    <ul class="flex flex-col overflow-y-auto divide-y max-h-[30rem]">
+                        <li v-for="(sae, idx) in store.saeViscosityGrades" :key="idx" class="flex items-center justify-between px-3 py-2">
+                            {{ sae?.name }}
                             <TrashIcon class="w-5 h-5 text-red-500"/>
                         </li>
                     </ul>
@@ -60,17 +53,9 @@ import TrashIcon from '../../../assets/icons/TrashIcon.vue';
                         <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Save</button>
                     </div>
                     <div class="p-3 text-xl font-semibold text-gray-700">OEM approvals</div>
-                    <ul class="flex flex-col divide-y">
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
+                    <ul class="flex flex-col divide-y max-h-[30rem] overflow-y-auto">
+                        <li v-for="(oem, idx) in store.productOEMs" :key="idx" class="flex items-center justify-between px-3 py-2">
+                            {{ oem?.name }}
                             <TrashIcon class="w-5 h-5 text-red-500"/>
                         </li>
                     </ul>
@@ -82,17 +67,9 @@ import TrashIcon from '../../../assets/icons/TrashIcon.vue';
                         <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Save</button>
                     </div>
                     <div class="p-3 text-2xl font-semibold text-gray-700">Specifications</div>
-                    <ul class="flex flex-col divide-y">
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
-                        </li>
-                        <li class="flex items-center justify-between px-3 py-2">
-                            asasdssdsd
+                    <ul class="flex flex-col divide-y max-h-[30rem] overflow-y-auto">
+                        <li v-for="(specifications, idx) in store.productSpecifications" :key="idx" class="flex items-center justify-between px-3 py-2">
+                            {{ specifications?.name }}
                             <TrashIcon class="w-5 h-5 text-red-500"/>
                         </li>
                     </ul>

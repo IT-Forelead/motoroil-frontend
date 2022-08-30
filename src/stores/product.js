@@ -11,10 +11,11 @@ export const useProductStore = defineStore({
         products: [],
         productGroups: [],
         productsByGroupId: [],
+        brands: [],
+        saeViscosityGrades: [],
         productOEMs: [],
         productSpecifications: [],
         bestSellerProducts: [],
-        SAEViscosityGrades: [],
         timerSpecialOffers: [],
         productsByLikes: [],
         productsByViews: [],
@@ -27,7 +28,6 @@ export const useProductStore = defineStore({
     }),
     getters: {},
     actions: {
-        // APIs
         async getAllProducts() {
             const response = await axios.get(`${API_URL}/get-products/`)
             this.products = response.data
@@ -43,6 +43,10 @@ export const useProductStore = defineStore({
         async getInitialMainSearchProps() {
             const response = await axios.get(`${API_URL}/main-search-default`)
             this.initialMainSearchProps = response.data
+        },
+        async getBrands() {
+            const response = await axios.get(`${API_URL}/brands`)
+            this.brands = response.data
         },
         async getProductOEMs() {
             const response = await axios.get(`${API_URL}/product-oems`)
@@ -78,7 +82,7 @@ export const useProductStore = defineStore({
         },
         async getSAEViscosityGrades() {
             const response = await axios.get(`${API_URL}/sae-viscosity-grades`)
-            this.SAEViscosityGrades = response.data
+            this.saeViscosityGrades = response.data
         },
         async getOemsAndSpecsByProductId(productId) {
             const response = await axios.get(`${API_URL}/oems-and-specs-by-product-id/${productId}`)

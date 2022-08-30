@@ -11,7 +11,6 @@ export const useDiscountStore = defineStore({
     }),
     getters: {},
     actions: {
-        // APIs
         async getDiscountsByDate() {
             const response = await axios.get(`${API_URL}/discounts-by-date`)
             this.discountsByDate = response.data
