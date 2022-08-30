@@ -1,5 +1,26 @@
 <script setup>
 import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
+import { useProductStore } from '../../../../stores/product.js'
+import { computed, onMounted, ref } from 'vue';
+import BestSellerItem from './BestSeller/BestSellerItem.vue';
+const store = useProductStore()
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
+
+function newProductChecker(productCreatedAt) {
+  let today = new Date()
+  return new Date(today.setDate(today.getDate() - 3)) <= new Date(productCreatedAt)
+}
+
+const rating = ref(0)
+
+const ratingCalc = (rate) => {
+  rating.value = Number(rate)
+}
+
+onMounted(() => {
+  store.getBestSellerProducts()
+})
+
 </script>
 
 <template>
@@ -15,71 +36,7 @@ import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
           </div>
         </div>
         <div class="grid grid-cols-5 gap-8">
-          <div v-for="i in 9" :key="i" class="relative max-w-sm">
-            <div class="absolute font-normal text-center text-white top-4 sale">-10%</div>
-            <div class="absolute font-normal text-center text-white uppercase top-4 new">new</div>
-            <a href="#">
-              <img src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="#">
-            </a>
-            <div class="p-5 py-3 text-center border border-t-0 border-gray-200">
-              <a href="#">
-                <div class="text-gray-900 text-md">Prista Extra W10-53</div>
-              </a>
-              <div class="flex items-center justify-center py-2">
-                <ul class="flex">
-                  <li>
-                    <StarFillIcon class="text-yellow-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-yellow-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-yellow-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-gray-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-gray-300" />
-                  </li>
-                </ul>
-              </div>
-              <div class="flex items-center justify-center">
-                <div class="mb-2 mr-3 text-lg font-semibold text-red-500">$50.00</div>
-                <div class="mb-2 text-gray-500 line-through text-md">$50.00</div>
-              </div>
-            </div>
-          </div>
-          <div class="max-w-sm">
-            <a href="#">
-              <img src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="#">
-            </a>
-            <div class="p-5 py-3 text-center border border-t-0 border-gray-200">
-              <a href="#">
-                <div class="mb-2 text-gray-900 text-md">Prista Extra W10-53</div>
-              </a>
-              <div class="flex items-center justify-center py-2">
-                <ul class="flex">
-                  <li>
-                    <StarFillIcon class="text-yellow-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-yellow-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-yellow-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-gray-300" />
-                  </li>
-                  <li>
-                    <StarFillIcon class="text-gray-300" />
-                  </li>
-                </ul>
-              </div>
-              <div class="mb-2 text-lg font-semibold text-red-500">$25.00</div>
-            </div>
-          </div>
+          <BestSellerItem v-for="(product, idx) in store.bestSellerProducts" :key="idx" :product="product" class="relative max-w-sm"></BestSellerItem>
         </div>
       </div>
     </div>

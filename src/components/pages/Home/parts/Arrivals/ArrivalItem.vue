@@ -9,6 +9,12 @@ const ratingCalc = (rate) => {
   rating.value = Number(rate)
 }
 
+const showProduct = (id) => {
+  store.getSingleProduct(id)
+  sessionStorage.removeItem('sp_id')
+  sessionStorage.setItem('sp_id', id)
+}
+
 const props = defineProps({
   product: Object
 })
@@ -16,12 +22,15 @@ const { product } = toRefs(props)
 </script>
 <template>
   <div class="relative max-w-sm border border-gray-200">
-    <!-- <div class="absolute font-normal text-center text-white top-4 sale">-10%</div> -->
+    <div v-if="product?.discount" class="absolute font-normal text-center text-white top-4 sale">
+      - {{ product?.discount?.discountPercent }} %
+    </div>
     <div class="absolute font-normal text-center text-white uppercase top-4 new">new</div>
     <div class="w-full h-[250px] relative overflow-hidden border-b">
-      <router-link to="/blog" @click="readMore(blog.id)"
+      <router-link to="/product" @click="showProduct(product?.product?.id)"
         class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-        <img :src="API_URL + '/image/' + product?.product?.imageUrl[0]" alt="Product image" />
+        <img :src="API_URL + '/image/' + (product?.product?.imageUrl[0] ? product?.product?.imageUrl[0] : '')"
+          alt="product image">
       </router-link>
     </div>
     <div class="p-5 py-3 text-center">
