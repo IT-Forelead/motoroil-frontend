@@ -19,6 +19,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import UserIcon from '../../../assets/icons/UserIcon.vue';
 import Rating from '../../Rating.vue';
 import { uuid } from 'vue-uuid';
+import HeartFillIcon from '../../../assets/icons/HeartFillIcon.vue';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
 const authStore = useAuthStore()
@@ -195,10 +196,16 @@ const addComment = () => {
                       <PlusIcon />
                     </button>
                   </div>
-                  <button class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
-                    <ShoppingCartFillIcon class="mr-2" />
-                    Add to cart
-                  </button>
+                  <div class="flex items-center space-x-2">
+                    <button class="flex items-center justify-center p-3.5 text-white bg-red-500 hover:bg-red-700">
+                      <HeartFillIcon class="w-5 h-5" />
+                    </button>
+                    <button class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
+                      <ShoppingCartFillIcon class="mr-2" />
+                      Add to cart
+                    </button>
+
+                  </div>
                   <div v-for="i in 3" :key="i" class="flex items-center px-3 py-2 space-x-3 border border-gray-300">
                     <input id="push-nothing" name="push-notifications" type="radio"
                       class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
