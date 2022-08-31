@@ -204,7 +204,6 @@ const addComment = () => {
                       <ShoppingCartFillIcon class="mr-2" />
                       Add to cart
                     </button>
-
                   </div>
                   <div v-for="i in 3" :key="i" class="flex items-center px-3 py-2 space-x-3 border border-gray-300">
                     <input id="push-nothing" name="push-notifications" type="radio"
