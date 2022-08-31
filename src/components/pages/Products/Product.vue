@@ -24,6 +24,8 @@ import { uuid } from 'vue-uuid';
 import $ from 'jquery';
 import HeartFillIcon from '../../../assets/icons/HeartFillIcon.vue';
 import router from '../../../router';
+import YoutubeIcon from '../../../assets/icons/YoutubeIcon.vue';
+import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
 const authStore = useAuthStore()
@@ -124,6 +126,9 @@ const addComment = () => {
                     <span class="text-xs">%</span>
                   </div>
                 </div>
+                <div v-if="store.singleProduct?.productGroup?.videoUrl" @click="modalStore.openVideoModal()" class="absolute z-10 bottom-5 right-5">
+                  <YoutubeIcon class="w-10 h-10 text-gray-700 cursor-pointer hover:text-red-500"/>
+                </div>
                 <img v-if="store.singleProduct?.product?.imageUrl[0]"
                   class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   :src="selectedImage ? `${API_URL}/image/${selectedImage}` : `${API_URL}/image/${store.singleProduct?.product?.imageUrl[0]}`"
@@ -203,7 +208,7 @@ const addComment = () => {
                   </li>
                 </ul>
               </div>
-              <div class="py-3">
+              <div v-if="authStore.user?.role !== 'admin'" class="py-3">
                 <div class="space-y-2 w-72">
                   <div class="flex items-center px-3 py-1.5 space-x-3 border border-gray-300">
                     <input id="lll" name="push-notifications" type="radio"
@@ -273,12 +278,12 @@ const addComment = () => {
                   <span class="font-medium text-gray-700 text-md">Automotive</span>
                 </div>
                 <div class="flex items-center space-x-3">
-                  <a :href="`${API_URL}/image/${store.singleProduct?.productGroup?.pdfUrl}`" download
+                  <a v-if="store.singleProduct?.productGroup?.pdfUrl" :href="`${API_URL}/image/${store.singleProduct?.productGroup?.pdfUrl}`" download
                     class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded hover:bg-gray-100">
                     <PdfFileIcon class="mr-1" />
                     Download PDF
                   </a>
-                  <button
+                  <button v-if="authStore.user?.role === 'admin'"
                     class="flex items-center justify-center px-5 py-2 text-red-500 bg-white border border-red-500 rounded hover:bg-gray-100">
                     <PdfFileIcon class="mr-1" />
                     Upload PDF
@@ -300,7 +305,7 @@ const addComment = () => {
               <div id="desc" class="text-gray-700" v-if="isActiveDesc"
                 v-html="store.singleProduct?.productGroup?.description"></div>
               <div id="review" class="space-y-2" v-else>
-                <div class="pb-3 mb-3 border-b">
+                <div v-if="authStore.user?.role === 'user'" class="pb-3 mb-3 border-b">
                   <div class="max-w-2xl space-y-1">
                     <label for="message" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">Write a
                       review</label>
@@ -341,6 +346,27 @@ const addComment = () => {
       </div>
     </div>
   </div>
+
+<!-- Video Modal -->
+<div :class="{ 'hidden': !modalStore.isOpenVideoModal }"
+  class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+  <div class="relative w-full h-full max-w-5xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+    <div class="relative bg-white rounded shadow dark:bg-gray-700">
+      <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Product video</h3>
+        <button type="button" @click="modalStore.closeVideoModal()"
+          class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+          data-modal-toggle="defaultModal">
+          <CloseIcon />
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <div >
+        <iframe class="w-full aspect-video" :src="store.singleProduct?.productGroup?.videoUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <style scoped>
