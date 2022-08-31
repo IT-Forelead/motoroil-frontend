@@ -13,6 +13,8 @@ import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
 import CheckCircleFillIcon from '../../../assets/icons/CheckCircleFillIcon.vue';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useProductStore } from '../../../stores/product.js'
+import { useModalStore } from '../../../stores/modal.js'
+import { useUserStore } from '../../../stores/user.js';
 import { useAuthStore } from '../../../stores/auth.js';
 import { formatDateTime } from '../../../mixins/utils.js';
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -25,6 +27,8 @@ import router from '../../../router';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
 const authStore = useAuthStore()
+const modalStore = useModalStore()
+const userStore = useUserStore()
 
 const selectedImage = ref('')
 const currentRating = ref(5)
@@ -50,6 +54,19 @@ const setImageFull = (img) => selectedImage.value = img
 
 const isActiveDesc = ref(true)
 const isActiveRew = ref(false)
+
+const likeFunction = () => {
+  if (authStore.user) {
+    userStore.addWishlist(
+      {
+        userId: uuid.v4(),
+        productId: sessionStorage.getItem('sp_id')
+      }
+    )
+  } else {
+    modalStore.openModal()
+  }
+}
 
 const comment = reactive({
   userId: uuid.v4(),
@@ -219,7 +236,7 @@ const addComment = () => {
                     </button>
                   </div>
                   <div class="flex items-center space-x-2">
-                    <button class="flex items-center justify-center p-3.5 text-white bg-red-500 hover:bg-red-700">
+                    <button @click="likeFunction()" class="flex items-center justify-center p-3.5 text-white bg-red-500 hover:bg-red-700">
                       <HeartFillIcon class="w-5 h-5" />
                     </button>
                     <button class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
