@@ -11,6 +11,7 @@ const modules = [Autoplay, Navigation]
 const mainSearchStore = useMainSearchStore()
 
 onMounted(() => {
+  mainSearchStore.getMainSearch()
   mainSearchStore.getAllBrands()
   mainSearchStore.getAllSAEViscosityGrades()
   mainSearchStore.getAllProductOEMs()
@@ -27,19 +28,19 @@ onMounted(() => {
         <div class="px-5 space-y-3">
           <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option selected>Brand</option>
-            <option v-for="(brand, idx) in mainSearchStore.brands" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
+            <option v-for="(brand, idx) in mainSearchStore.mainSearch?.brands" :key="idx" :value="brand?.id">{{ brand?.name  }}</option>
           </select>
           <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option selected>SAE Viscosity Grades</option>
-            <option v-for="(brand, idx) in mainSearchStore.saeViscosityGrades" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
+            <option v-for="(sae, idx) in mainSearchStore.mainSearch?.saes" :key="idx" :value="sae?.id">{{ sae?.name }}</option>
           </select>
           <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option selected>OEM-Freigabe</option>
-            <option v-for="(brand, idx) in mainSearchStore.oems" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
+            <option v-for="(oem, idx) in mainSearchStore.mainSearch?.oems" :key="idx" :value="oem?.id">{{ oem?.name }}</option>
           </select>
           <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option selected>Specifications</option>
-            <option v-for="(brand, idx) in mainSearchStore.specifications" :key="idx" :value="brand?.id">{{ brand?.name }}</option>
+            <option v-for="(specification, idx) in mainSearchStore.mainSearch?.specifications" :key="idx" :value="specification?.id">{{ specification?.name }}</option>
           </select>
           <button class="flex items-center justify-center w-full p-3 text-white uppercase bg-red-600 rounded hover:bg-red-700">Search</button>
         </div>

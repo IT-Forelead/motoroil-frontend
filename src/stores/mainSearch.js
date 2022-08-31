@@ -6,15 +6,20 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 export const useMainSearchStore = defineStore({
     id: 'mainSearch',
     state: () => ({
+        mainSearch: [],
         brands: [],
         saeViscosityGrades: [],
         oems: [],
         specifications: [],
     }),
     actions: {
+        async getMainSearch() {
+            const response = await axios.get(`${API_URL}/main-search-default`)
+            this.mainSearch = response.data
+        },
         async getAllBrands() {
             const response = await axios.get(`${API_URL}/brands`)
-            this.brands = response.data
+            this.mainSearch = response.data
         },
         async getAllSAEViscosityGrades() {
             const response = await axios.get(`${API_URL}/sae-viscosity-grades`)
