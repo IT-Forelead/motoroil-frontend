@@ -92,6 +92,12 @@ const addComment = () => {
           <div class="grid grid-cols-2 gap-7">
             <div>
               <div class="relative h-[300px] overflow-hidden">
+                <div class="absolute top-5 left-5">
+                  <div class="relative z-10 flex items-center justify-center w-10 h-10 font-semibold bg-yellow-300 discount">
+                    <span class="text-xl">10</span>
+                    <span class="text-xs">%</span>
+                  </div>
+                </div>
                 <img v-if="store.singleProduct?.product?.imageUrl[0]"
                   class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   :src="selectedImage ? `${API_URL}/image/${selectedImage}` : `${API_URL}/image/${store.singleProduct?.product?.imageUrl[0]}`"
@@ -293,4 +299,20 @@ const addComment = () => {
 </template>
 
 <style scoped>
+  .discount:before {
+      transform: rotate(30deg);
+  }
+  .discount:after {
+      transform: rotate(60deg);
+  }
+  .discount:before, .discount:after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      background: rgb(255, 217, 0);
+  }
 </style>
