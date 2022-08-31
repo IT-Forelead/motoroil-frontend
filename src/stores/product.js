@@ -24,7 +24,8 @@ export const useProductStore = defineStore({
         oemsAndSpecsByProductId: {},
         initialMainSearchProps: {},
         sidebarProducts: [],
-        newArrivals: []
+        newArrivals: [],
+        comments: []
     }),
     getters: {},
     actions: {
@@ -35,6 +36,10 @@ export const useProductStore = defineStore({
         async getProductsByGroupId(productId) {
             const response = await axios.get(`${API_URL}/products-by-group-id/${productId}`)
             this.productsByGroupId = response.data
+        },
+        async getCommentsByProductId(productId) {
+            const response = await axios.get(`${API_URL}/comments/${productId}`)
+            this.comments = response.data
         },
         async getProductGroups() {
             const response = await axios.get(`${API_URL}/get-product-groups`)

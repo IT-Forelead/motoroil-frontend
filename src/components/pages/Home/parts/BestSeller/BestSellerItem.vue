@@ -1,29 +1,25 @@
 <script setup>
-  import { ref, toRefs } from 'vue'
-  import StarFillIcon from '../../../../../assets/icons/StarFillIcon.vue';
+import { ref, toRefs } from 'vue'
+import StarFillIcon from '../../../../../assets/icons/StarFillIcon.vue';
+import Rating from '../../../../Rating.vue';
 
-  const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
-  const rating = ref(0)
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
-  const ratingCalc = (rate) => {
-    rating.value = Number(rate)
-  }
+const showProduct = (id) => {
+  store.getSingleProduct(id)
+  sessionStorage.removeItem('sp_id')
+  sessionStorage.setItem('sp_id', id)
+}
 
-  const showProduct = (id) => {
-    store.getSingleProduct(id)
-    sessionStorage.removeItem('sp_id')
-    sessionStorage.setItem('sp_id', id)
-  }
+function newProductChecker(productCreatedAt) {
+  let today = new Date()
+  return new Date(today.setDate(today.getDate() - 3)) <= new Date(productCreatedAt)
+}
 
-  function newProductChecker(productCreatedAt) {
-    let today = new Date()
-    return new Date(today.setDate(today.getDate() - 3)) <= new Date(productCreatedAt)
-  }
-
-  const props = defineProps({
-    product: Object
-  })
-  const { product } = toRefs(props)
+const props = defineProps({
+  product: Object
+})
+const { product } = toRefs(props)
 </script>
 
 <template>
@@ -44,16 +40,8 @@
         target="_self">
         {{ product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name }}
       </router-link>
-      <div>{{ ratingCalc(product?.product?.rating) }}</div>
       <div class="flex items-center justify-center py-2">
-        <ul class="flex">
-          <li v-for="r1 in rating" :key="r1">
-            <StarFillIcon class="text-yellow-300" />
-          </li>
-          <li v-for="r2 in (5 - rating)" :key="r2">
-            <StarFillIcon class="text-gray-300" />
-          </li>
-        </ul>
+        <Rating :rating="product?.product?.rating" />
       </div>
       <div class="flex items-center justify-center">
         <div v-if="!product?.discount" class="mb-2 mr-3 text-lg font-semibold text-red-500">€

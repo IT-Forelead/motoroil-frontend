@@ -16,20 +16,15 @@ import { useProductStore } from '../../../stores/product.js'
 import { formatDateTime } from '../../../mixins/utils.js';
 import { Swiper, SwiperSlide } from "swiper/vue";
 import UserIcon from '../../../assets/icons/UserIcon.vue';
+import Rating from '../../Rating.vue';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
 
-const rating = ref(0)
 const selectedImage = ref('')
-
-function ratingCalc(rate) {
-  if (rate) {
-    rating.value = Number(rate);
-  }
-}
 
 onMounted(() => {
   store.getSingleProduct(sessionStorage.getItem('sp_id'))
+  store.getCommentsByProductId(sessionStorage.getItem('sp_id'))
   store.getOemsAndSpecsByProductId(sessionStorage.getItem('sp_id'))
   window.scrollTo({
     top: 0,
@@ -98,19 +93,11 @@ const changeActiveTab = (tab) => {
               </swiper>
             </div>
             <div class="divide-y">
-              <div class="py-3 text-2xl font-semibold text-gray-700">{{ store.singleProduct?.productGroup?.name + ' ' +
-                  store.singleProduct?.viscosityGrade?.name
-              }}</div>
-              <div>{{ ratingCalc(store.singleProduct?.product?.rating) }}</div>
+              <div class="py-3 text-2xl font-semibold text-gray-700">
+                {{ store.singleProduct?.productGroup?.name + ' ' + store.singleProduct?.viscosityGrade?.name }}
+              </div>
               <div class="py-3">
-                <ul class="flex items-center py-2">
-                  <li v-for="r1 in rating" :key="r1">
-                    <StarFillIcon class="text-yellow-300" />
-                  </li>
-                  <li v-for="r2 in (5 - rating)" :key="r2">
-                    <StarFillIcon class="text-gray-300" />
-                  </li>
-                </ul>
+                <Rating :rating="store.singleProduct?.product?.rating" />
                 <div class="flex items-center">
                   <div v-if="!store.singleProduct?.discount" class="mb-2 mr-3 text-lg font-semibold text-red-500">€
                     {{ store.singleProduct?.product?.price }}</div>
@@ -272,48 +259,17 @@ const changeActiveTab = (tab) => {
                     </button>
                   </div>
                 </div>
-                <div class="flex items-start px-4 py-3 border rounded">
+                <div v-for="(comment, idx) in store.comments" :key="idx" class="flex items-start px-4 py-3 border rounded">
                   <div class="flex items-center justify-center w-12 h-12 mr-4 bg-red-500 rounded-full shadow">
                     <UserIcon class="w-8 h-8 text-white" />
                   </div>
                   <div class="w-full">
                     <div class="flex items-center justify-between">
-                      <h2 class="-mt-1 text-lg font-semibold text-gray-900">Brad Adams</h2>
-                      <ul class="flex items-center py-2">
-                        <li v-for="r1 in rating" :key="r1">
-                          <StarFillIcon class="text-yellow-300" />
-                        </li>
-                        <li v-for="r2 in (5 - rating)" :key="r2">
-                          <StarFillIcon class="text-gray-300" />
-                        </li>
-                      </ul>
+                      <h2 class="-mt-1 text-lg font-semibold text-gray-900">{{ comment?.userName }}</h2>
+                      <Rating :rating="comment?.comment?.rating" class="py-2" />
                     </div>
-                    <p class="text-sm text-gray-500">22.08.2022 17:30</p>
-                    <p class="mt-3 text-sm text-gray-700">
-                      Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit amet!
-                    </p>
-                  </div>
-                </div>
-                <div class="flex items-start px-4 py-3 border rounded">
-                  <div class="flex items-center justify-center w-12 h-12 mr-4 bg-red-500 rounded-full shadow">
-                    <UserIcon class="w-8 h-8 text-white" />
-                  </div>
-                  <div class="w-full">
-                    <div class="flex items-center justify-between">
-                      <h2 class="-mt-1 text-lg font-semibold text-gray-900">Brad Adams</h2>
-                      <ul class="flex items-center py-2">
-                        <li v-for="r1 in rating" :key="r1">
-                          <StarFillIcon class="text-yellow-300" />
-                        </li>
-                        <li v-for="r2 in (5 - rating)" :key="r2">
-                          <StarFillIcon class="text-gray-300" />
-                        </li>
-                      </ul>
-                    </div>
-                    <p class="text-sm text-gray-500">22.08.2022 17:30</p>
-                    <p class="mt-3 text-sm text-gray-700">
-                      Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit amet!
-                    </p>
+                    <p class="text-sm text-gray-500">{{ formatDateTime(comment?.comment?.createdAt) }}</p>
+                    <p class="mt-3 text-sm text-gray-700" v-text="comment?.comment?.message"></p>
                   </div>
                 </div>
               </div>

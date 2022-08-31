@@ -4,9 +4,6 @@ import authHeader from '../mixins/auth/auth-header.js'
 import { useModalStore } from './modal.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 export const useAuthStore = defineStore({
