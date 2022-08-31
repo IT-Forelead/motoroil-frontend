@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {defineStore} from 'pinia'
 import authHeader from '../mixins/auth/auth-header.js'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -40,6 +42,22 @@ export const useProductStore = defineStore({
         async getCommentsByProductId(productId) {
             const response = await axios.get(`${API_URL}/comments/${productId}`)
             this.comments = response.data
+        },
+        async createComment(data) {
+            const response = await axios.post(`${API_URL}/user/comment`, data, {headers:authHeader()})
+            .then(() => {
+                notify.success({
+                    message: 'Comment added!',
+                    position: 'bottomRight',
+                  })
+                  this.getCommentsByProductId(sessionStorage.getItem('sp_id'))
+            }).catch(() => {
+                notify.error({
+                    message: 'Comment not add!',
+                    position: 'bottomRight',
+                  })
+
+            })
         },
         async getProductGroups() {
             const response = await axios.get(`${API_URL}/get-product-groups`)

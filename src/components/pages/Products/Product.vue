@@ -11,16 +11,20 @@ import PlusIcon from '../../../assets/icons/PlusIcon.vue';
 import ShoppingCartFillIcon from '../../../assets/icons/ShoppingCartFillIcon.vue';
 import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
 import CheckCircleFillIcon from '../../../assets/icons/CheckCircleFillIcon.vue';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useProductStore } from '../../../stores/product.js'
+import { useAuthStore } from '../../../stores/auth.js';
 import { formatDateTime } from '../../../mixins/utils.js';
 import { Swiper, SwiperSlide } from "swiper/vue";
 import UserIcon from '../../../assets/icons/UserIcon.vue';
 import Rating from '../../Rating.vue';
+import { uuid } from 'vue-uuid';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
+const authStore = useAuthStore()
 
 const selectedImage = ref('')
+const currentRating = ref(5)
 
 onMounted(() => {
   store.getSingleProduct(sessionStorage.getItem('sp_id'))
@@ -37,6 +41,13 @@ const setImageFull = (img) => selectedImage.value = img
 const isActiveDesc = ref(true)
 const isActiveRew = ref(false)
 
+const comment = reactive({
+  userId: uuid.v4(),
+  productId: sessionStorage.getItem('sp_id'),
+  message: '',
+  rating: 5
+})
+
 const changeActiveTab = (tab) => {
   if (tab === 'desc') {
     isActiveDesc.value = true
@@ -46,6 +57,12 @@ const changeActiveTab = (tab) => {
     isActiveRew.value = true
     isActiveDesc.value = false
   }
+}
+
+const addComment = () => {
+  store.createComment(comment)
+  comment.message = ''
+  comment.rating = 5
 }
 </script>
 <template>
@@ -230,30 +247,18 @@ const changeActiveTab = (tab) => {
                   <div class="max-w-2xl space-y-1">
                     <label for="message" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">Write a
                       review</label>
-                    <textarea id="message" rows="4"
+                    <textarea id="message" rows="4" v-model="comment.message"
                       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Your review..."></textarea>
                     <div class="flex items-center space-x-2">
                       <span class="text-sm text-gray-500">Rating:</span>
                       <ul class="flex items-center py-2">
-                        <li>
-                          <StarFillIcon class="text-yellow-300" />
-                        </li>
-                        <li>
-                          <StarFillIcon class="text-yellow-300" />
-                        </li>
-                        <li>
-                          <StarFillIcon class="text-yellow-300" />
-                        </li>
-                        <li>
-                          <StarFillIcon class="text-gray-300" />
-                        </li>
-                        <li>
-                          <StarFillIcon class="text-gray-300" />
+                        <li v-for="i in 5" :key="i" @click="comment.rating = i; currentRating = comment.rating" class="cursor-pointer">
+                          <StarFillIcon :class="i <= currentRating ? 'text-yellow-300' : 'text-gray-300'" />
                         </li>
                       </ul>
                     </div>
-                    <button type="submit"
+                    <button @click="addComment()"
                       class="block items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-500 rounded focus:ring-4 focus:ring-red-200 hover:bg-red-700">
                       Comment
                     </button>
