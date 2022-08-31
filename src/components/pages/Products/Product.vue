@@ -19,13 +19,22 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import UserIcon from '../../../assets/icons/UserIcon.vue';
 import Rating from '../../Rating.vue';
 import { uuid } from 'vue-uuid';
+import $ from 'jquery';
 import HeartFillIcon from '../../../assets/icons/HeartFillIcon.vue';
+import router from '../../../router';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
 const authStore = useAuthStore()
 
 const selectedImage = ref('')
 const currentRating = ref(5)
+
+const showProduct = (id) => {
+  store.getSingleProduct(id)
+  router.go('/product')
+  sessionStorage.removeItem('sp_id')
+  sessionStorage.setItem('sp_id', id)
+}
 
 onMounted(() => {
   store.getSingleProduct(sessionStorage.getItem('sp_id'))
@@ -92,9 +101,9 @@ const addComment = () => {
           <div class="grid grid-cols-2 gap-7">
             <div>
               <div class="relative h-[300px] overflow-hidden">
-                <div class="absolute top-5 left-5">
+                <div v-if="store.singleProduct?.discount" class="absolute top-5 left-5">
                   <div class="relative z-10 flex items-center justify-center w-10 h-10 font-semibold bg-yellow-300 discount">
-                    <span class="text-xl">10</span>
+                    <span class="text-xl">-{{ store.singleProduct?.discount?.discountPercent }}</span>
                     <span class="text-xs">%</span>
                   </div>
                 </div>
@@ -111,8 +120,7 @@ const addComment = () => {
                 <swiper-slide v-for="(image, idx) in store.singleProduct?.product?.imageUrl" :key="idx"
                   @click="setImageFull(image)" class="relative border cursor-pointer"
                   :class="{ 'border-red-500': image === selectedImage }">
-                  <img :src="`${API_URL}/image/${image}`" alt="Product Image"
-                    class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                  <img :src="`${API_URL}/image/${image}`" alt="Product Image">
                 </swiper-slide>
               </swiper>
             </div>
@@ -140,10 +148,8 @@ const addComment = () => {
               <div class="py-3">
                 <ul class="flex flex-col p-2 space-y-1 border-l-4 border-red-500">
                   <li class="flex items-center space-x-2">
-                    <span class="font-medium text-gray-700 text-md">Capacity:</span>
-                    <span class="font-normal text-gray-700 text-md">{{
-                        store.singleProduct?.product?.specTypeValue?.value
-                    }}</span>
+                    <span class="font-medium text-gray-700 text-md">{{ store.singleProduct?.specType?.name }}:</span>
+                    <span class="font-normal text-gray-700 text-md">{{ store.singleProduct?.specTypeValue?.value }}</span>
                   </li>
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">Viscosity Grade:</span>
@@ -182,13 +188,23 @@ const addComment = () => {
               </div>
               <div class="py-3">
                 <div class="space-y-2 w-72">
-                  <div class="flex items-center p-3 space-x-3 border border-gray-300">
-                    <input id="push-nothing" name="push-notifications" type="radio"
-                      class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                  <div class="flex items-center px-3 py-1.5 space-x-3 border border-gray-300">
+                    <input id="lll" name="push-notifications" type="radio"
+                      class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500" checked>
                     <OilerIcon class="w-5 h-5" />
-                    <label for="push-nothing" class="block ml-3 text-sm font-medium text-gray-700">
-                      <div class="font-medium text-md">Capacity (L): 2</div>
-                      <div class="text-sm font-normal">$123.00</div>
+                    <label for="lll" class="block ml-3 text-sm font-medium text-gray-700">
+                      <div class="font-medium text-md">{{ store.singleProduct?.specType?.name + ': ' + store.singleProduct?.specTypeValue?.value }}</div>
+                      <div class="text-sm font-normal">
+                        <div v-if="!store.singleProduct?.discount" class="text-red-500">
+                          € {{ store.singleProduct?.product?.price }}
+                        </div>
+                        <div v-else class="flex items-center justify-center">
+                          <div class="mr-2 text-red-500">
+                            € {{ (store.singleProduct?.product?.price - store.singleProduct?.product?.price * (store.singleProduct?.discount?.discountPercent / 100)) }}
+                          </div>
+                          <div class="text-gray-500 line-through text-md">€ {{ store.singleProduct?.product?.price }}</div>
+                        </div>
+                      </div>
                     </label>
                   </div>
                   <div class="flex items-center border border-gray-300 divide-x divide-gray-300">
@@ -196,7 +212,7 @@ const addComment = () => {
                       <MinusIcon />
                     </button>
                     <div class="w-2/4 px-4 py-2 text-lg font-normal text-center">
-                      123
+                      0
                     </div>
                     <button class="flex justify-center w-1/4 p-3 text-gray-700 rounded-r hover:text-red-500">
                       <PlusIcon />
@@ -211,13 +227,25 @@ const addComment = () => {
                       Add to cart
                     </button>
                   </div>
-                  <div v-for="i in 3" :key="i" class="flex items-center px-3 py-2 space-x-3 border border-gray-300">
-                    <input id="push-nothing" name="push-notifications" type="radio"
+                  <div v-for="(product, idx) in store.productsByGroupId.filter(p => p?.product?.id !== store.singleProduct?.product?.id)" :key="idx" class="flex items-center px-3 py-1 space-x-3 border border-gray-300">
+                    <input @click="showProduct(product?.product?.id)" :id="`cp-${product?.product?.id}`" name="push-notifications" type="radio"
                       class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
                     <OilerIcon class="w-5 h-5" />
-                    <label for="push-nothing" class="block ml-3 text-sm font-medium text-gray-700">
-                      <div class="font-medium text-md">Capacity (L): 2</div>
-                      <div class="text-sm font-normal">$123.00</div>
+                    <label @click="showProduct(product?.product?.id)" :for="`cp-${product?.product?.id}`" class="block ml-3 text-sm font-medium text-gray-700">
+                      <div class="font-medium text-md">
+                        {{ product?.specType?.name + ': ' + product?.specTypeValue?.value }}
+                      </div>
+                      <div class="text-sm font-normal">
+                        <div v-if="!product?.discount" class="text-red-500">
+                          € {{ product?.product?.price }}
+                        </div>
+                        <div v-else class="flex items-center justify-center">
+                          <div class="mr-2 text-red-500">
+                            € {{ (product?.product?.price - product?.product?.price * (product?.discount?.discountPercent / 100)) }}
+                          </div>
+                          <div class="text-gray-500 line-through text-md">€ {{ product?.product?.price }}</div>
+                        </div>
+                      </div>
                     </label>
                   </div>
                 </div>

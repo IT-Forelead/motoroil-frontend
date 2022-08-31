@@ -112,8 +112,11 @@ export const useProductStore = defineStore({
             this.oemsAndSpecsByProductId = response.data
         },
         async getSingleProduct(id) {
-            const response = await axios.get(`${API_URL}/product-by-id/${id}`)
-            this.singleProduct = response.data
+            await axios.get(`${API_URL}/product-by-id/${id}`)
+            .then((response) => {
+                this.singleProduct = response.data
+                this.getProductsByGroupId(response.data?.product?.id)
+            })
         },
         async getSidebarProducts(id) {
             const response = await axios.get(`${API_URL}/products-for-sidebar/4`)
