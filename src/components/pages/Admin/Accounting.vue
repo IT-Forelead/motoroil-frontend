@@ -10,7 +10,7 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const orderStore = useOrderStore()
 
 onMounted(() => {
-  orderStore.getAcounting()
+  orderStore.getAccounting()
 })
 </script>
 

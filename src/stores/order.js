@@ -20,7 +20,7 @@ export const useOrderStore = defineStore({
             const response = await axios.get(`${API_URL}/admin/orders`, {headers: authHeader()})
             this.ordersForAdmins = response.data
         },
-        async getAcounting() {
+        async getAccounting() {
             const response = await axios.get(`${API_URL}/admin/accounting`, {headers: authHeader()})
             this.accounting = response.data
         },
