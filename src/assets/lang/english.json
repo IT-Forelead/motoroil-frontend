@@ -1,7 +1,6 @@
 {
   "login": "Login",
   "registration": "Registration",
-  "new": "New",
   "ourRecentPosts": "Our recent posts",
   "homePage": "Home Page",
   "Oops": "Oops!",
@@ -15,7 +14,6 @@
   "affiliates":"Affiliates",
   "groupSales":"Group Sales",
   "ourMember":"Our Member",
-  "happyCustomerSays":"Happy customer says"
   "happyCustomerSays":"Happy customer says",
   "new": "New",
   "accounting":"Accounting",
@@ -81,12 +79,9 @@
   "shippingAndHandling":"Shipping and handling",
   "taxi":"Taxi",
   "buy":"Buy",
-
   "noResults":"No results",
-
   "dbEmpty":"Database is empty!",
   "wishlist":"Wishlist",
   "myWishlist":"My Wishlist",
-
   "faq":"FAQ"
 }
