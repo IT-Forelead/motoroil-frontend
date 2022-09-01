@@ -5,10 +5,8 @@ import { onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../../../stores/auth.js';
-import { useMainSearchStore } from '../../../../stores/mainSearch.js';
 import { useProductStore } from '../../../../stores/product.js';
 
-const store = useMainSearchStore()
 const authStore = useAuthStore()
 const productStore = useProductStore()
 
@@ -17,6 +15,7 @@ const isOpenMainDropDown = ref(false)
 const isOpenAdminMenus = ref(false)
 const dropdown = ref(null)
 const menus = ref(null)
+
 const toggleDropDown = () => {
   isOpenMainDropDown.value = !isOpenMainDropDown.value
 }
@@ -26,6 +25,10 @@ const toggleAdminMenus = () => {
 
 onClickOutside(dropdown, () => isOpenMainDropDown.value = false)
 onClickOutside(menus, () => isOpenAdminMenus.value = false)
+
+onMounted(() => {
+  productStore.getBrands()
+})
 
 </script>
 
@@ -38,10 +41,10 @@ onClickOutside(menus, () => isOpenAdminMenus.value = false)
           ALL CATEGORIES
           <ListIcon class="mr-1" />
         </button>
-        <div v-if="store.brands.length > 0" :class="{ 'hidden': !isOpenMainDropDown }" ref="dropdown"
+        <div v-if="productStore.brands.length > 0" :class="{ 'hidden': !isOpenMainDropDown }" ref="dropdown"
           class="absolute left-0 z-10 w-full px-4 py-2 bg-white border border-t-0 border-gray-100 rounded-b-lg shadow top-10">
           <ul class="divide-y divide-gray-300">
-            <li v-for="(brand, idx) in store.brands" :key="idx"
+            <li v-for="(brand, idx) in productStore.brands" :key="idx"
               class="flex justify-between p-2 text-gray-700 cursor-pointer text-md hover:text-red-500">
               <div>{{  brand?.name  }}</div>
               <CaretRightIcon />
