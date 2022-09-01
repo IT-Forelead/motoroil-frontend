@@ -126,6 +126,74 @@ export const useProductStore = defineStore({
             const response = await axios.get(`${API_URL}/products-for-sidebar/5`)
             this.newArrivals = response.data
         },
+        async createBrand(data) {
+          await axios
+            .post(`${API_URL}/admin/create-brand`, data, {headers: authHeader()})
+            .then(() => {
+              notify.success({
+                message: 'Brand added!',
+                position: 'bottomRight',
+              })
+              this.getBrands()
+            })
+            .catch((err) => {
+              notify.warning({
+                message: 'Brand not added!',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async createSAEViscosityGrade(data) {
+          await axios
+            .post(`${API_URL}/admin/create-sae`, data, {headers: authHeader()})
+            .then(() => {
+              notify.success({
+                message: 'SAE Viscosity Grade added!',
+                position: 'bottomRight',
+              })
+              this.getSAEViscosityGrades()
+            })
+            .catch((err) => {
+              notify.warning({
+                message: 'SAE Viscosity Grade not added!',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async createProductOEM(data) {
+          await axios
+            .post(`${API_URL}/admin/create-product-oem`, data, {headers: authHeader()})
+            .then(() => {
+              notify.success({
+                message: 'OEM added!',
+                position: 'bottomRight',
+              })
+              this.getProductOEMs()
+            })
+            .catch((err) => {
+              notify.warning({
+                message: 'OEM not added!',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async createSpecification(data) {
+          await axios
+            .post(`${API_URL}/admin/create-product-specification`, data, {headers: authHeader()})
+            .then(() => {
+              notify.success({
+                message: 'Specification added!',
+                position: 'bottomRight',
+              })
+              this.getSpecifications()
+            })
+            .catch((err) => {
+              notify.warning({
+                message: 'Specification not added!',
+                position: 'bottomRight',
+              })
+            })
+        },
         setSearchString(str) {
             this.search = str
         }

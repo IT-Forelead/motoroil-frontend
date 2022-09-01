@@ -12,10 +12,6 @@ const mainSearchStore = useMainSearchStore()
 
 onMounted(() => {
   mainSearchStore.getMainSearch()
-  mainSearchStore.getAllBrands()
-  mainSearchStore.getAllSAEViscosityGrades()
-  mainSearchStore.getAllProductOEMs()
-  mainSearchStore.getAllSpecifications()
 })
 
 </script>
