@@ -218,6 +218,78 @@ export const useProductStore = defineStore({
           })
         })
     },
+    async deleteBrand(id) {
+      await axios
+        .get(`${API_URL}/admin/delete-brand/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Brand deleted!',
+            position: 'bottomRight',
+          })
+          this.getBrands()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While brand deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async deleteSAEViscosityGrade(id) {
+      await axios
+        .get(`${API_URL}/admin/delete-sae/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'SAE Viscosity Grade deleted!',
+            position: 'bottomRight',
+          })
+          this.getSAEViscosityGrades()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While SAE Viscosity Grade deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async deleteProductOEM(id) {
+      await axios
+        .get(`${API_URL}/admin/delete-product-oem/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Product OEM deleted!',
+            position: 'bottomRight',
+          })
+          this.getProductOEMs()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While product OEM deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async deleteSpecification(id) {
+      await axios
+        .get(`${API_URL}/admin/delete-product-specification/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Specification deleted!',
+            position: 'bottomRight',
+          })
+          this.getSpecifications()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While specification deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
     setSearchString(str) {
       this.search = str
     },

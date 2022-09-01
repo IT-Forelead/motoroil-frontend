@@ -69,7 +69,9 @@ onMounted(() => {
                     <ul class="flex flex-col divide-y max-h-[30rem] overflow-y-auto">
                         <li v-for="(brand, idx) in store.brands" :key="idx" class="flex items-center justify-between px-3 py-2">
                             {{ brand?.name }}
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
+                            <div @click="store.deleteBrand(brand?.id)">
+                                <TrashIcon class="w-5 h-5 text-red-500"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -83,7 +85,9 @@ onMounted(() => {
                     <ul class="flex flex-col overflow-y-auto divide-y max-h-[30rem]">
                         <li v-for="(sae, idx) in store.saeViscosityGrades" :key="idx" class="flex items-center justify-between px-3 py-2">
                             {{ sae?.name }}
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
+                            <div @click="store.deleteSAEViscosityGrade(sae?.id)">
+                                <TrashIcon class="w-5 h-5 text-red-500"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -97,7 +101,9 @@ onMounted(() => {
                     <ul class="flex flex-col divide-y max-h-[30rem] overflow-y-auto">
                         <li v-for="(oem, idx) in store.productOEMs" :key="idx" class="flex items-center justify-between px-3 py-2">
                             {{ oem?.name }}
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
+                            <div @click="store.deleteProductOEM(oem?.id)">
+                                <TrashIcon class="w-5 h-5 text-red-500"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -111,7 +117,9 @@ onMounted(() => {
                     <ul class="flex flex-col divide-y max-h-[30rem] overflow-y-auto">
                         <li v-for="(specifications, idx) in store.productSpecifications" :key="idx" class="flex items-center justify-between px-3 py-2">
                             {{ specifications?.name }}
-                            <TrashIcon class="w-5 h-5 text-red-500"/>
+                            <div @click="store.deleteSpecification(specifications?.id)">
+                                <TrashIcon class="w-5 h-5 text-red-500"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
