@@ -31,7 +31,7 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
           <li class="flex items-center">
-            <a href="/products" class="text-red-600">Products</a>
+            <a href="/products" class="text-red-600">{{$t('products')}}</a>
           </li>
         </ul>
       </div>
@@ -43,34 +43,34 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
             <div class="relative">
               <button @click="toggleDropDown()" v-if="!store.search"
                 class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
-                <FunnelIcon class="mr-2" /> Sort By
+                <FunnelIcon class="mr-2" /> {{$t('sortBy')}}
               </button>
               <div :class="{ 'hidden': !isOpenSortDropDown }" ref="sortDropDown"
                 class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
                   <li
                     class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Name (A - Z)
+                    {{$t('nameUp')}}
                   </li>
                   <li
                     class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Name (Z - A)
+                    {{$t('nameDown')}}
                   </li>
                   <li
                     class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Price (Low > High)
+                    {{$t('priceUp')}}
                   </li>
                   <li
                     class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Price (High > Low)
+                    {{$t('priceDown')}}
                   </li>
                   <li
                     class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Rating (Highest)
+                    {{$t('ratingUp')}}
                   </li>
                   <li
                     class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Rating (Lowest)
+                    {{$t('ratingDown')}}
                   </li>
                 </ul>
               </div>

@@ -22,21 +22,21 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
             </a>
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
-          <li class="text-gray-700">Cart</li>
+          <li class="text-gray-700">{{$t('cart')}}</li>
         </ul>
       </div>
       <div class="grid grid-cols-4 gap-3">
         <Sidebar />
         <div class="col-span-3">
-          <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">My orders</div>
+          <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{$t('myOrders')}}</div>
           <div class="space-y-5">
             <table class="min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-50">
                 <tr>
-                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Product</td>
-                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Created at</td>
-                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Order</td>
-                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Details</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('product')}}</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('createdAt')}}</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('order')}}</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('details')}}</td>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
@@ -50,7 +50,7 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                         <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
                         <div class="flex items-center text-sm text-gray-500">
                           <StackIcon class="mr-1"/>
-                          Automotivation
+                          {{$t('automotivation')}}
                         </div>
                       </div>
                     </div>
@@ -63,25 +63,25 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                   </td>
                   <td class="p-3">
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Order ID:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
                       <div class="font-medium text-gray-700 text-md">#1232421</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Status:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
                       <div class="font-medium text-gray-700 text-md">Shipped</div>
                     </div>
                   </td>
                   <td class="p-3">
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Total:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
                       <div class="font-medium text-gray-700 text-md">$246</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Unit:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
                       <div class="font-medium text-gray-700 text-md">$123</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Quantity:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>
                       <div class="font-medium text-gray-700 text-md">2</div>
                     </div>
                   </td>
@@ -96,7 +96,7 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                         <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
                         <div class="flex items-center text-sm text-gray-500">
                           <StackIcon class="mr-1"/>
-                          Automotivation
+                          {{$t('automotivation')}}
                         </div>
                       </div>
                     </div>
@@ -109,25 +109,25 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                   </td>
                   <td class="p-3">
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Order ID:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
                       <div class="font-medium text-gray-700 text-md">#1232421</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Status:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
                       <div class="font-medium text-gray-700 text-md">Shipped</div>
                     </div>
                   </td>
                   <td class="p-3">
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Total:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
                       <div class="font-medium text-gray-700 text-md">$246</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Unit:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
                       <div class="font-medium text-gray-700 text-md">$123</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Quantity:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}ity:</div>
                       <div class="font-medium text-gray-700 text-md">2</div>
                     </div>
                   </td>
@@ -142,7 +142,7 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                         <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
                         <div class="flex items-center text-sm text-gray-500">
                           <StackIcon class="mr-1"/>
-                          Automotivation
+                          {{$t('automotivation')}}
                         </div>
                       </div>
                     </div>
@@ -155,25 +155,25 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                   </td>
                   <td class="p-3">
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Order ID:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
                       <div class="font-medium text-gray-700 text-md">#1232421</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Status:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
                       <div class="font-medium text-gray-700 text-md">Shipped</div>
                     </div>
                   </td>
                   <td class="p-3">
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Total:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
                       <div class="font-medium text-gray-700 text-md">$246</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Unit:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
                       <div class="font-medium text-gray-700 text-md">$123</div>
                     </div>
                     <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">Quantity:</div>
+                      <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>
                       <div class="font-medium text-gray-700 text-md">2</div>
                     </div>
                   </td>
