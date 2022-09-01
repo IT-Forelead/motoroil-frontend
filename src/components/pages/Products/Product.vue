@@ -348,8 +348,7 @@ const addComment = () => {
   </div>
 
 <!-- Video Modal -->
-<div :class="{ 'hidden': !modalStore.isOpenVideoModal }"
-  class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+<div :class="{ 'hidden': !modalStore.isOpenVideoModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
   <div class="relative w-full h-full max-w-5xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
     <div class="relative bg-white rounded shadow dark:bg-gray-700">
       <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
@@ -370,20 +369,20 @@ const addComment = () => {
 </template>
 
 <style scoped>
-  .discount:before {
-      transform: rotate(30deg);
-  }
-  .discount:after {
-      transform: rotate(60deg);
-  }
-  .discount:before, .discount:after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      top: 0;
-      left: 0;
-      width: 40px;
-      height: 40px;
-      background: rgb(255, 217, 0);
-  }
+.discount:before {
+  transform: rotate(30deg);
+}
+.discount:after {
+  transform: rotate(60deg);
+}
+.discount:before, .discount:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 217, 0);
+}
 </style>
