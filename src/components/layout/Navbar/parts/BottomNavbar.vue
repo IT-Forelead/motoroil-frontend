@@ -70,6 +70,11 @@ onMounted(() => {
           @click="router.push('/blogs')">
           Blogs
         </li>
+        <li v-if="authStore?.user?.role === 'user'" class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/orders' || $router.currentRoute.value.path === '/orders' }"
+          @click="router.push('/orders')">
+          Orders
+        </li>
         <li v-if="authStore?.user?.role === 'admin'"
           class="relative px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store' || $router.currentRoute.value.path === '/admin/orders' || $router.currentRoute.value.path === '/admin/discount' || $router.currentRoute.value.path === '/admin/accounting' || $router.currentRoute.value.path === '/admin/product-models' || $router.currentRoute.value.path === '/admin/spec-type' }"

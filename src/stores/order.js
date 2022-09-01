@@ -9,6 +9,7 @@ export const useOrderStore = defineStore({
     state: () => ({
         ordersForUsers: [],
         ordersForAdmins: [],
+        accounting: [],
     }),
     actions: {
         async getOrdersForUsers() {
@@ -18,6 +19,10 @@ export const useOrderStore = defineStore({
         async getOrdersForAdmins() {
             const response = await axios.get(`${API_URL}/admin/orders`, {headers: authHeader()})
             this.ordersForAdmins = response.data
+        },
+        async getAcounting() {
+            const response = await axios.get(`${API_URL}/admin/accounting`, {headers: authHeader()})
+            this.accounting = response.data
         },
     },
 })

@@ -3,6 +3,15 @@ import TrashIcon from '../../../assets/icons/TrashIcon.vue';
 import StackIcon from '../../../assets/icons/StackIcon.vue';
 import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
 import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
+import { useOrderStore } from '../../../stores/order.js';
+import { onMounted } from '@vue/runtime-core';
+
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
+const orderStore = useOrderStore()
+
+onMounted(() => {
+  orderStore.getAcounting()
+})
 </script>
 
 <template>
@@ -27,67 +36,28 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
             <tr>
               <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Product</td>
               <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Count</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Price</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Unit price</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Total price</td>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr class="align-middle">
+            <tr v-for="(accounting, idx) in orderStore.accounting" :key="idx" class="align-middle">
               <td class="p-3 text-sm text-gray-700">
                 <div class="flex items-center space-x-2">
                   <div>
-                    <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
+                    <img :src="accounting?.imageUrls[0] ? `${API_URL}/image/${accounting?.imageUrls[0]}` : ''" class="w-full h-12" alt="Product image">
                   </div>
-                  <div>
-                    <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                    <div class="flex items-center text-sm text-gray-500">
-                      <StackIcon class="mr-1"/>
-                      Automotivation
-                    </div>
-                  </div>
+                  <div class="font-medium text-gray-700 text-md">{{ accounting?.productName }}</div>
                 </div>
               </td>
-              <td class="p-3 font-medium text-gray-700 text-md">3423</td>
-              <td class="p-3 font-medium text-gray-700 text-md">$3423.0</td>
-            </tr>
-            <tr class="align-middle">
-              <td class="p-3 text-sm text-gray-700">
-                <div class="flex items-center space-x-2">
-                  <div>
-                    <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
-                  </div>
-                  <div>
-                    <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                    <div class="flex items-center text-sm text-gray-500">
-                      <StackIcon class="mr-1"/>
-                      Automotivation
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="p-3 font-medium text-gray-700 text-md">3423</td>
-              <td class="p-3 font-medium text-gray-700 text-md">$3423.0</td>
-            </tr>
-            <tr class="align-middle">
-              <td class="p-3 text-sm text-gray-700">
-                <div class="flex items-center space-x-2">
-                  <div>
-                    <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
-                  </div>
-                  <div>
-                    <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                    <div class="flex items-center text-sm text-gray-500">
-                      <StackIcon class="mr-1"/>
-                      Automotivation
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="p-3 font-medium text-gray-700 text-md">3423</td>
-              <td class="p-3 font-medium text-gray-700 text-md">$3423.0</td>
+              <td class="p-3 font-medium text-gray-700 text-md">{{ accounting?.quantity }}</td>
+              <td class="p-3 font-medium text-gray-700 text-md">${{ accounting?.price }}</td>
+              <td class="p-3 font-medium text-gray-700 text-md">${{ accounting?.price * accounting?.quantity }}</td>
             </tr>
             <tr class="align-middle">
               <td class="p-3 font-medium text-gray-700 text-md">Total:</td>
-              <td class="p-3 font-medium text-gray-700 text-md">3423</td>
+              <td class="p-3 font-medium text-gray-700 text-md">{{ orderStore.accounting.map(p => [p?.quantity, p?.price]) }}</td>
+              <td class="p-3 font-medium text-gray-700 text-md"></td>
               <td class="p-3 font-medium text-gray-700 text-md">$3423.0</td>
             </tr>
           </tbody>
