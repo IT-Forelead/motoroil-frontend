@@ -40,27 +40,26 @@ onMounted(() => {
   store.getAllSpecTypes()
 })
 
-const addProduct = () => {
-  console.log("Add product function!");
-}
-
 const uploadedImageForView = ref([])
 
 function getImage(e) {
   const filteredImages = Object.values(e?.target?.files).filter(i => i.type.includes('image'))
   uploadedImageForView.value = filteredImages.map(f => URL.createObjectURL(f))
-  
+  productData['product-image'] = filteredImages
 }
 
-const productData =  reactive({
-  "productGroupId": '',
-  "product-image": '',
-  "specTypeId": '',
+const productData = reactive({
+  "productGroupId": 'Product Group',
+  "product-image": [],
+  "specTypeId": 'Type',
   "capacity": 0,
   "price": 0,
   "quantity": 0
 })
 
+const addProduct = () => {
+  console.log(productData);
+}
 </script>
 
 <template>
@@ -222,7 +221,6 @@ const productData =  reactive({
                 <p class="pb-2 font-medium text-slate-700">Select product group</p>
                 <select v-model="productData.productGroupId"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
-                  <option selected>Product group</option>
                   <option v-for="(productGroup, idx) in store.productGroups" :key="idx"
                     :value="productGroup?.productGroup?.id">{{
                         productGroup?.productGroup?.name
@@ -244,9 +242,8 @@ const productData =  reactive({
               <div class="grid grid-cols-2 mt-0 gap-x-2">
                 <label for="spec-type">
                   <p class="pb-2 font-medium text-slate-700">Select type</p>
-                  <select
+                  <select v-model="productData.specTypeId"
                     class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
-                    <option selected>Type</option>
                     <option v-for="(specType, idx) in store.specTypes" :key="idx" :value="specType?.id">{{
                         specType?.name
                     }}</option>
@@ -254,18 +251,18 @@ const productData =  reactive({
                 </label>
                 <label for="capacity">
                   <p class="pb-2 font-medium text-slate-700">Capacity</p>
-                  <input type="number" id="capacity" min="0"
+                  <input type="number" id="capacity" min="0" v-model="productData.capacity"
                     class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
                 </label>
               </div>
               <label for="price">
                 <p class="pb-2 font-medium text-slate-700">Price</p>
-                <input type="number" id="price" min="0"
+                <input type="number" id="price" min="0" v-model="productData.price"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </label>
               <label for="quantity">
                 <p class="pb-2 font-medium text-slate-700">Quantity</p>
-                <input type="number" id="quantity" min="0"
+                <input type="number" id="quantity" min="0" v-model="productData.quantity"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </label>
               <button
