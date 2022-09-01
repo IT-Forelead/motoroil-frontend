@@ -13,16 +13,16 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
 <template>
   <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
-      <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">Orders</div>
+      <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{$t('orders')}}</div>
       <div class="space-y-5">
         <table class="min-w-full divide-y divide-gray-300">
           <thead class="bg-gray-50">
             <tr>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Product</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Order</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Receiver</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Address</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Price</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('product')}}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('order')}}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('receiver')}}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('address')}}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('price')}}</td>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -36,14 +36,14 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                     <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
                     <div class="flex items-center text-sm text-gray-500">
                       <StackIcon class="mr-1"/>
-                      Automotivation
+                      {{$t('automotivation')}}
                     </div>
                   </div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Ordered:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('ordered')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Jumaniyozov Suroj</div>
                 </div>
                 <div class="flex items-center">
@@ -51,53 +51,53 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                   <div class="font-medium text-gray-700 text-md">28.08.2022 17:30</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Order ID:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
                   <div class="font-medium text-gray-700 text-md">#1232421</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Status:</div>
-                  <div class="font-medium text-gray-700 text-md">Shipped</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
+                  <div class="font-medium text-gray-700 text-md">{{$t('shipped')}}</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Name:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('name')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Jumaniyozov Surojiddin</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Phone:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('phone')}}:</div>
                   <div class="font-medium text-gray-700 text-md">+998937475995</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Postal code:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('postalCode')}}:</div>
                   <div class="font-medium text-gray-700 text-md">220100</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Country:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('country')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Uzbekistan</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Region:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('region')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Khorezm region</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Street:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('street')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Urgench</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Total:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
                   <div class="font-medium text-gray-700 text-md">$246</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Unit:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
                   <div class="font-medium text-gray-700 text-md">$123</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Quantity:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>
                   <div class="font-medium text-gray-700 text-md">2</div>
                 </div>
               </td>
@@ -112,14 +112,14 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                     <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
                     <div class="flex items-center text-sm text-gray-500">
                       <StackIcon class="mr-1"/>
-                      Automotivation
+                      {{$t('automotivation')}}
                     </div>
                   </div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Ordered:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('ordered')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Jumaniyozov Suroj</div>
                 </div>
                 <div class="flex items-center">
@@ -127,53 +127,53 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                   <div class="font-medium text-gray-700 text-md">28.08.2022 17:30</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Order ID:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
                   <div class="font-medium text-gray-700 text-md">#1232421</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Status:</div>
-                  <div class="font-medium text-gray-700 text-md">Shipped</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
+                  <div class="font-medium text-gray-700 text-md">{{$t('shipped')}}</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Name:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('name')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Jumaniyozov Surojiddin</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Phone:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('phone')}}:</div>
                   <div class="font-medium text-gray-700 text-md">+998937475995</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Postal code:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('postalCode')}}:</div>
                   <div class="font-medium text-gray-700 text-md">220100</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Country:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('country')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Uzbekistan</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Region:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('region')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Khorezm region</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Street:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('street')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Urgench</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Total:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
                   <div class="font-medium text-gray-700 text-md">$246</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Unit:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
                   <div class="font-medium text-gray-700 text-md">$123</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Quantity:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>
                   <div class="font-medium text-gray-700 text-md">2</div>
                 </div>
               </td>
@@ -188,14 +188,14 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                     <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
                     <div class="flex items-center text-sm text-gray-500">
                       <StackIcon class="mr-1"/>
-                      Automotivation
+                      {{$t('automotivation')}}
                     </div>
                   </div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Ordered:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('ordered')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Jumaniyozov Suroj</div>
                 </div>
                 <div class="flex items-center">
@@ -203,53 +203,53 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                   <div class="font-medium text-gray-700 text-md">28.08.2022 17:30</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Order ID:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
                   <div class="font-medium text-gray-700 text-md">#1232421</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Status:</div>
-                  <div class="font-medium text-gray-700 text-md">Shipped</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
+                  <div class="font-medium text-gray-700 text-md">{{$t('shipped')}}</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Name:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('name')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Jumaniyozov Surojiddin</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Phone:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('phone')}}:</div>
                   <div class="font-medium text-gray-700 text-md">+998937475995</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Postal code:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('postalCode')}}:</div>
                   <div class="font-medium text-gray-700 text-md">220100</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Country:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('country')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Uzbekistan</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Region:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('region')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Khorezm region</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Street:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('street')}}:</div>
                   <div class="font-medium text-gray-700 text-md">Urgench</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Total:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
                   <div class="font-medium text-gray-700 text-md">$246</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Unit:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
                   <div class="font-medium text-gray-700 text-md">$123</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Quantity:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>
                   <div class="font-medium text-gray-700 text-md">2</div>
                 </div>
               </td>
