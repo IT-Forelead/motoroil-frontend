@@ -25,14 +25,14 @@ onMounted(() => {
                         <CaretRightIcon class="mx-3 text-gray-500" />
                     </li>
                     <li class="flex items-center">
-                        <a href="/blogs" class="text-red-600">Our Blog</a>
+                        <a href="/blogs" class="text-red-600">{{ $t('ourBlog') }}</a>
                     </li>
                 </ul>
             </div>
             <div class="grid grid-cols-4 gap-3">
                 <Sidebar />
                 <div class="col-span-3 ml-3">
-                    <div class="p-3 text-2xl font-semibold text-gray-700">Our Blog</div>
+                    <div class="p-3 text-2xl font-semibold text-gray-700">{{ $t('ourBlog') }}</div>
                     <div class="grid grid-cols-4 gap-7">
                         <BlogItem v-for="(blog, idx) in store.blogs" :key="idx" :blog="blog" />
                     </div>

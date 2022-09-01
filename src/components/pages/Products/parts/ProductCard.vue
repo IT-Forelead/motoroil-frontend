@@ -28,7 +28,7 @@ function newProductChecker(productCreatedAt) {
     <div v-if="product?.discount" class="absolute font-normal text-center text-white top-4 sale"> -
       {{ product?.discount?.discountPercent }} %</div>
     <div v-if="newProductChecker(product?.product?.createdAt)"
-      class="absolute font-normal text-center text-white uppercase top-4 new">new</div>
+      class="absolute font-normal text-center text-white uppercase top-4 new">{{ $t('new') }}</div>
     <div class="relative h-[200px] border-b overflow-hidden">
       <router-link to="/product" @click="showProduct(product?.product?.id)"
         class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">

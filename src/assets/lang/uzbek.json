@@ -22,6 +22,7 @@
   "discount":"Chegirma",
   "validityPeriod":"Yaroqlilik muddati",
   "action":"Harakat",
+  "active":"Faol",
   "productGroups":"Mahsulot guruhlari",
   "addProductGroup":"Mahsulotlar guruhini qo'shing",
   "productGroup":"Mahsulotlar guruhi",
@@ -132,5 +133,11 @@
   "writeReview": "Sharh yozish",
   "comment": "Izoh",
   "productVideo": "Mahsulot video",
-  "closeModal": "Modalni yopish"
+  "closeModal": "Modalni yopish",
+  "selectProductGroup": "Mahsulot guruhini tanlang",
+  "selectProductImage(s)": "Mahsulot tasvir(lar)ini tanlang",
+  "uploadImage": "Rasm yuklash",
+  "selectType": "Turni tanlang",
+  "capacity": "Sig'im",
+  "blogs": "Bloglar"
 }

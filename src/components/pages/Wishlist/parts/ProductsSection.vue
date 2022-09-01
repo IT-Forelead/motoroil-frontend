@@ -9,7 +9,7 @@ const store = useProductStore()
     <ProductCard v-for="(product, idx) in products" :key="idx" :product="product" />
   </div>
   <div v-else>
-    <p>Database is empty!</p>
+    <p>{{ $t('dbEmpty') }}</p>
   </div>
 </template>
 
