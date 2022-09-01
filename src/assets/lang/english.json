@@ -1,5 +1,22 @@
 {
   "login": "Login",
+<<<<<<< HEAD
+  "registration": "Registration",
+  "homePage": "Home Page",
+  "Oops": "Oops!",
+  "404":"Page Not Found",
+  "aboutUs":"About Us",
+  "welcomeToShop":"Welcome To Shop",
+  "whyChooseUs":"Why Choose Us",
+  "shippingAndReturns":"Shipping & Returns",
+  "secureShopping":"Secure Shopping",
+  "internationalShipping":"International Shipping",
+  "affiliates":"Affiliates",
+  "groupSales":"Group Sales",
+  "ourMember":"Our Member",
+  "happyCustomerSays":"Happy customer says"
+=======
   "registration": "Registration",
   "new": "New"
+>>>>>>> 43d15e84362fbd21641289b2d546cd0d761e1e9a
 }
