@@ -1,10 +1,6 @@
 {
   "login": "Kirish",
-<<<<<<< HEAD
   "registration": "Ro'yhatdan o'tish",
-  "homePage": "Bosh Sahifa"
-=======
-  "registration": "Ro'yhatdan o'tish",
+  "homePage": "Bosh Sahifa",
   "new": "Yangi"
->>>>>>> 43d15e84362fbd21641289b2d546cd0d761e1e9a
 }

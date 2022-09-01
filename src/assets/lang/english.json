@@ -1,6 +1,5 @@
 {
   "login": "Login",
-<<<<<<< HEAD
   "registration": "Registration",
   "homePage": "Home Page",
   "Oops": "Oops!",
@@ -14,9 +13,6 @@
   "affiliates":"Affiliates",
   "groupSales":"Group Sales",
   "ourMember":"Our Member",
-  "happyCustomerSays":"Happy customer says"
-=======
-  "registration": "Registration",
+  "happyCustomerSays":"Happy customer says",
   "new": "New"
->>>>>>> 43d15e84362fbd21641289b2d546cd0d761e1e9a
 }
