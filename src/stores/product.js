@@ -169,7 +169,7 @@ export const useProductStore = defineStore({
     },
     async getAllSpecTypes() {
       await axios
-        .get(`${API_URL}/admin/create-sae`, { headers: authHeader() })
+        .get(`${API_URL}/admin/spec-types`, { headers: authHeader() })
         .then((response) => {
           this.specTypes = response.data
         })
