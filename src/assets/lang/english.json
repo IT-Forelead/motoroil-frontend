@@ -37,6 +37,7 @@
   "topViewedProducts": "Top Viewed Products",
   "orders": "Orders",
   "product": "Product",
+  "products": "Products",
   "order": "Order",
   "receiver": "Receiver",
   "address": "Address",
@@ -57,5 +58,23 @@
   "cart": "Cart",
   "myOrders": "My Orders",
   "createdAt": "Created at",
-  "details": "Details"
+  "details": "Details",
+  "sortBy": "Sort By",
+  "inStock": "in stock",
+  "viscosityGrade": "Viscosity Grade",
+  "brand": "Brand",
+  "spectification": "Spectification",
+  "view": "View",
+  "likes": "Likes",
+  "addToCart": "Add to cart",
+  "category": "Category",
+  "automotive": "Automotive",
+  "downloadPDF": "Download PDF",
+  "uploadPDF": "Upload PDF",
+  "writeReview": "Write a review",
+  "comment": "Comment",
+  "productVideo": "Product video",
+  "closeModal": "Close modal"
+
+  
 }
