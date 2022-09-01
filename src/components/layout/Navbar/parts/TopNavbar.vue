@@ -31,6 +31,8 @@ const user = reactive({
   password: ''
 })
 
+const currentLang = ref('')
+
 const submitLoginData = () => {
   authStore.loginUser(user).then(() => {
     if (authStore.isLogin) {
@@ -56,6 +58,22 @@ const submitRecoveryEmail = () => {
   authStore.sendRecoveryEmail(recoveryEmail.value)
 }
 
+const changeLang = (lang) => {
+  localStorage.setItem('lang', lang)
+  window.location.reload()
+}
+
+switch (localStorage.getItem('lang')) {
+  case 'uz':
+    currentLang.value = "o'zbek";
+    break;
+  case 'ru':
+    currentLang.value = "русский";
+    break;
+  default:
+    currentLang.value = "english";
+    break;
+}
 </script>
 <template>
   <div class="flex justify-center py-2 bg-gray-900">
@@ -89,21 +107,21 @@ const submitRecoveryEmail = () => {
       <div class="relative col-span-2">
         <button @click="toggleDropDown()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 uppercase md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
-          English
+          {{ currentLang }}
           <ChevronDownIcon />
         </button>
         <div :class="{ 'hidden': !isOpenLanguageDropDown }" ref="dropdown"
           class="absolute z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
-            <li>
+            <li @click="changeLang('uz')">
               <a href="#"
                 class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">O'zbek</a>
             </li>
-            <li>
+            <li @click="changeLang('en')">
               <a href="#"
                 class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">English</a>
             </li>
-            <li>
+            <li @click="changeLang('ru')">
               <a href="#"
                 class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">русский</a>
             </li>
@@ -114,19 +132,19 @@ const submitRecoveryEmail = () => {
         <button @click="store.openModal()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignInIcon class="mr-1" />
-          Login
+          {{ $t('login') }}
         </button>
         <div class="text-gray-300">/</div>
         <button @click="store.openRegisterModal()"
           class="w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
-          Registration
+          {{ $t('registration') }}
         </button>
       </div>
       <div class="flex items-center justify-end space-x-2" v-else>
         <button
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <UserFillIcon class="mr-1" />
-          {{  authStore.user?.username  }}
+          {{ authStore.user?.username }}
         </button>
         <div class="text-gray-300">/</div>
         <a href="/" v-if="authStore.isLogin" @click="authStore.logout()"
