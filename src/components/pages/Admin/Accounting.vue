@@ -9,6 +9,10 @@ import { onMounted } from '@vue/runtime-core';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const orderStore = useOrderStore()
 
+const totalQuantity = () => orderStore.accounting.map(p => p?.quantity).reduce((q,a) => q + a, 0)
+
+const totalPrice = () => orderStore.accounting.map(p => p?.quantity * p?.price).reduce((q,a) => q + a, 0)
+
 onMounted(() => {
   orderStore.getAccounting()
 })
@@ -56,9 +60,9 @@ onMounted(() => {
             </tr>
             <tr class="align-middle">
               <td class="p-3 font-medium text-gray-700 text-md">{{ $t('total') }}:</td>
-              <td class="p-3 font-medium text-gray-700 text-md">{{ orderStore.accounting.map(p => [p?.quantity, p?.price]) }}</td>
+              <td class="p-3 font-medium text-gray-700 text-md">{{ totalQuantity() }}</td>
               <td class="p-3 font-medium text-gray-700 text-md"></td>
-              <td class="p-3 font-medium text-gray-700 text-md">$3423.0</td>
+              <td class="p-3 font-medium text-gray-700 text-md">${{ totalPrice() }}</td>
             </tr>
           </tbody>
         </table>
