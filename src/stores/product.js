@@ -28,6 +28,7 @@ export const useProductStore = defineStore({
     sidebarProducts: [],
     newArrivals: [],
     comments: [],
+    specTypes: [],
   }),
   getters: {},
   actions: {
@@ -134,7 +135,7 @@ export const useProductStore = defineStore({
     },
     async createBrand(data) {
       await axios
-        .post(`${API_URL}/admin/create-brand`, data, {headers: authHeader()})
+        .post(`${API_URL}/admin/create-brand`, data, { headers: authHeader() })
         .then(() => {
           notify.success({
             message: 'Brand added!',
@@ -151,7 +152,7 @@ export const useProductStore = defineStore({
     },
     async createSAEViscosityGrade(data) {
       await axios
-        .post(`${API_URL}/admin/create-sae`, data, {headers: authHeader()})
+        .post(`${API_URL}/admin/create-sae`, data, { headers: authHeader() })
         .then(() => {
           notify.success({
             message: 'SAE Viscosity Grade added!',
@@ -166,9 +167,25 @@ export const useProductStore = defineStore({
           })
         })
     },
+    async getAllSpecTypes() {
+      await axios
+        .get(`${API_URL}/admin/create-sae`, { headers: authHeader() })
+        .then((response) => {
+          this.specTypes = response.data
+        })
+        .catch((err) => {
+          notify.warning({
+            title: 'Error',
+            message: 'While getting spec types!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async createProductOEM(data) {
       await axios
-        .post(`${API_URL}/admin/create-product-oem`, data, {headers: authHeader()})
+        .post(`${API_URL}/admin/create-product-oem`, data, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'OEM added!',
@@ -185,7 +202,9 @@ export const useProductStore = defineStore({
     },
     async createSpecification(data) {
       await axios
-        .post(`${API_URL}/admin/create-product-specification`, data, {headers: authHeader()})
+        .post(`${API_URL}/admin/create-product-specification`, data, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Specification added!',

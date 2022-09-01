@@ -41,7 +41,6 @@ export const useAuthStore = defineStore({
       this.isSSOLogin = token ? true : false
     },
     async logout() {
-      console.log('default logout')
       await axios
         .get(`${API_URL}/auth/logout`, { headers: authHeader() })
         .then(() => {
@@ -67,7 +66,6 @@ export const useAuthStore = defineStore({
       this.isLogin = false
     },
     async ssoLogout() {
-      console.log('sso logout')
       await axios
         .get(`${API_URL}/auth/sso-logout`, { headers: authHeader() })
         .then(() => {
@@ -112,7 +110,14 @@ export const useAuthStore = defineStore({
           sessionStorage.setItem('role', response?.data?.role)
         })
         .catch((err) => {
-          console.log('Error ', err)
+          if (err.message.split(' ').includes('403')) {
+            this.logout()
+          } else {
+            notify.warning({
+              message: msg,
+              position: 'bottomLeft',
+            })
+          }
         })
     },
   },
