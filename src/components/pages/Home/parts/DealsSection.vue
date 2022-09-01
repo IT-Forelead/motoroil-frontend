@@ -7,8 +7,7 @@ import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
   <div class="flex justify-center p-5 bg-gray-100 bg-[url('/bg/bg-deals-new.jpg')] bg-cover">
     <div class="container grid grid-cols-3 gap-20 p-5">
       <div class="relative col-span-2 p-5 bg-white">
-        <div class="absolute top-0 py-2 font-medium text-white uppercase bg-red-500 rounded-b px-7 text-md deal">Deal of
-          the day</div>
+        <div class="absolute top-0 py-2 font-medium text-white uppercase bg-red-500 rounded-b px-7 text-md deal">{{$t('dealOfTheDay')}}</div>
         <div class="flex items-center justify-center h-full p-3 space-x-5">
           <div class="w-full">
             <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="img-responsive" alt="image1">

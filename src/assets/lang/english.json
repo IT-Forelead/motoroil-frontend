@@ -15,5 +15,25 @@
   "affiliates":"Affiliates",
   "groupSales":"Group Sales",
   "ourMember":"Our Member",
-  "happyCustomerSays":"Happy customer says"
+  "happyCustomerSays":"Happy customer says",
+  "latestBlogs": "Latest Blogs",
+  "wheelsAndTires": "Wheels & Tires",
+  "tires": "Tires",
+  "tiresChains": "Tires Chains",
+  "tiresAccessories": "Tires Accessories",
+  "wheels": "Wheels",
+  "wheelsAccessories": "Wheels Accessories",
+  "viewMore": "View More",
+  "topSaleInTheWeek": "Top sale in the week",
+  "newArrivals": "New Arrivals",
+  "bestSeller": "Best Seller",
+  "dealOfTheDay": "Deal of the day",
+  "topFavoriteInTheWeek": "Top favorite in the week",
+  "favoriteProducts": "Favorite Products",
+  "topFeaturedCollections": "Top featured collections",
+  "shopByCategories": "Shop by categories",
+  "selectEngineOilRequirements": "SELECT ENGINE OIL REQUIREMENTS",
+  "topViewedInTheWeek": "Top viewed in the week",
+  "topViewedProducts": "Top Viewed Products"
+  
 }
