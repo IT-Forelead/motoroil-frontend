@@ -7,6 +7,7 @@ import MinusIcon from '../../../assets/icons/MinusIcon.vue';
 import PlusIcon from '../../../assets/icons/PlusIcon.vue';
 import GiftIcon from '../../../assets/icons/GiftIcon.vue';
 import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
+import { formatDateTime } from '../../../mixins/utils.js';
 import { useOrderStore } from '../../../stores/order.js';
 import { onMounted } from '@vue/runtime-core';
 
@@ -54,7 +55,7 @@ onMounted(() => {
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500"><CalendarIcon class="w-4 h-4 mr-1"/></div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.orders?.createdAt }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ formatDateTime(order?.orders?.createdAt) }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
