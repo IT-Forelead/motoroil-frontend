@@ -1,4 +1,19 @@
 {
   "login": "Login",
-  "registration": "Registration"
+  "registration": "Registration",
+  "new": "New",
+  "ourRecentPosts": "Our recent posts",
+  "homePage": "Home Page",
+  "Oops": "Oops!",
+  "404":"Page Not Found",
+  "aboutUs":"About Us",
+  "welcomeToShop":"Welcome To Shop",
+  "whyChooseUs":"Why Choose Us",
+  "shippingAndReturns":"Shipping & Returns",
+  "secureShopping":"Secure Shopping",
+  "internationalShipping":"International Shipping",
+  "affiliates":"Affiliates",
+  "groupSales":"Group Sales",
+  "ourMember":"Our Member",
+  "happyCustomerSays":"Happy customer says"
 }

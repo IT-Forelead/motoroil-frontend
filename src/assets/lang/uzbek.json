@@ -1,4 +1,6 @@
 {
   "login": "Kirish",
-  "registration": "Ro'yhatdan o'tish"
+  "registration": "Ro'yhatdan o'tish",
+  "homePage": "Bosh Sahifa",
+  "new": "Yangi"
 }

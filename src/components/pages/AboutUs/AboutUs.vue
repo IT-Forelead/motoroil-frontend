@@ -2,7 +2,7 @@
 	<div class="main-container container" style="margin-bottom: 3rem;">
 		<ul class="breadcrumb">
 			<li><a href="#"><i class="fa fa-home"></i></a></li>
-			<li><a href="#">About Us</a></li>
+			<li><a href="#">{{$t('aboutUs')}}</a></li>
 		</ul>
 		
 		<div class="row">			
@@ -10,7 +10,7 @@
         <div class="row box-1-about">
           <div class="col-md-9 welcome-about-us">
             <div class="title-about-us">
-              <h2>Welcome To Shop</h2>
+              <h2>{{$t('welcomeToShop')}}</h2>
             </div>
             <div class="content-about-us">
               <div class="image-about-us">
@@ -27,21 +27,21 @@
           </div>
           <div class="col-md-3 why-choose-us">
             <div class="title-about-us">
-              <h2>Why Choose Us</h2>
+              <h2>{{$t('whyChooseUs')}}</h2>
             </div>
             <div class="content-why">
               <ul class="why-list">
-                <li><a title="Shipping &amp; Returns" href="#">Shipping &amp; Returns</a></li>
-                <li><a title="Secure Shopping" href="#">Secure Shopping</a></li>
-                <li><a title="International Shipping" href="#">International Shipping</a></li>
-                <li><a title="Affiliates" href="#">Affiliates</a></li>
-                <li><a title="Group Sales" href="#">Group Sales</a></li>
+                <li><a title="Shipping &amp; Returns" href="#">{{$t('shippingAndReturns')}}</a></li>
+                <li><a title="Secure Shopping" href="#">{{$t('secureShopping')}}</a></li>
+                <li><a title="International Shipping" href="#">{{$t('internationalShipping')}}</a></li>
+                <li><a title="Affiliates" href="#">{{$t('affiliates')}}</a></li>
+                <li><a title="Group Sales" href="#">{{$t('groupSales')}}</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md-12 our-member">
             <div class="title-about-us">
-              <h2>Our Member</h2>
+              <h2>{{$t('ourMember')}}</h2>
             </div>
             <div class="short-des">
               Consectetur adipiscing elit. Donec pellentesque venenatis elit, quis aliquet mauris malesuada vel. Donec vitae libero dolor, eget dapibus justo.
@@ -61,7 +61,7 @@
           <div class="col-md-12 happy-about-us">
             <div id="slider-happy-about-us" class="happy-ab">
               <div class="title-happy-about">
-                <h2>Happy customer says</h2>
+                <h2>{{$t('happyCustomerSays')}}</h2>
               </div>
               <div class="yt-content-slider sm_imageslider slider-happy-client" data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column00="1" data-items_column0="1" data-items_column1="1" data-items_column2="1"  data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
                 <div class="item">
