@@ -17,10 +17,6 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
 const modalStore = useModalStore()
 
-onMounted(() => {
-  store.getAllProducts()
-})
-
 const showProduct = (id) => {
   store.getSingleProduct(id)
   sessionStorage.removeItem('sp_id')
@@ -38,27 +34,38 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
 onMounted(() => {
   store.getProductGroups()
   store.getAllSpecTypes()
+  store.getAllProducts()
 })
 
 const uploadedImageForView = ref([])
 
 function getImage(e) {
   const filteredImages = Object.values(e?.target?.files).filter(i => i.type.includes('image'))
+  console.log(filteredImages);
   uploadedImageForView.value = filteredImages.map(f => URL.createObjectURL(f))
   productData['product-image'] = filteredImages
 }
 
 const productData = reactive({
-  "productGroupId": 'Product Group',
+  "productGroupId": '',
   "product-image": [],
-  "specTypeId": 'Type',
+  "specTypeId": '',
   "capacity": 0,
   "price": 0,
   "quantity": 0
 })
 
 const addProduct = () => {
-  console.log(productData);
+  const formData = new FormData()
+  formData.append('productGroupId', productData.productGroupId)
+  productData['product-image'].map(f => {
+    formData.append('product-image', f)
+  })
+  formData.append('specTypeId', productData.specTypeId)
+  formData.append('capacity', productData.capacity)
+  formData.append('price', productData.price)
+  formData.append('quantity', productData.quantity)
+  store.createProduct(formData)
 }
 </script>
 
@@ -233,7 +240,8 @@ const addProduct = () => {
                   class="flex items-center justify-center p-2 text-gray-600 border border-gray-600 rounded-md cursor-pointer hover:border-red-500 hover:text-red-500">
                   <ImageUploadIcon class="w-6 h-6 mr-3" /> {{ $t('uploadImage') }}
                 </p>
-                <input id="product-images" type="file" class="hidden" @change="getImage" multiple />
+                <input id="product-images" type="file" class="hidden" name="product-image" @change="getImage"
+                  multiple />
               </label>
               <div v-if="uploadedImageForView.length > 0" class="flex flex-wrap items-center justify-center space-x-2">
                 <img v-for="(imageUrl, idx) in uploadedImageForView" :key="idx" :src="imageUrl" alt="Uploaded image"

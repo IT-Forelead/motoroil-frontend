@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import authHeader from '../mixins/auth/auth-header.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import authHeaderForMultipart from '../mixins/auth/auth-header-for-multipart-form.js'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -292,7 +293,9 @@ export const useProductStore = defineStore({
     },
     async deleteProductOEM(id) {
       await axios
-        .get(`${API_URL}/admin/delete-product-oem/${id}`, { headers: authHeader() })
+        .get(`${API_URL}/admin/delete-product-oem/${id}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Product OEM deleted!',
@@ -310,7 +313,9 @@ export const useProductStore = defineStore({
     },
     async deleteSpecification(id) {
       await axios
-        .get(`${API_URL}/admin/delete-product-specification/${id}`, { headers: authHeader() })
+        .get(`${API_URL}/admin/delete-product-specification/${id}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Specification deleted!',
@@ -322,6 +327,29 @@ export const useProductStore = defineStore({
           notify.error({
             title: 'Error',
             message: 'While specification deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async createProduct(data) {
+      await axios
+        .put(`${API_URL}/admin/create-product`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: authHeaderForMultipart(),
+          },
+        })
+        .then(() => {
+          notify.success({
+            message: 'Product added!',
+            position: 'bottomRight',
+          })
+          this.getAllProducts()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While adding product!',
             position: 'bottomRight',
           })
         })
