@@ -23,6 +23,7 @@
   "discount":"Скидка",
   "validityPeriod":"Срок годности",
   "action":"Действие",
+  "active":"Активный",
   "productGroups":"Группы продуктов",
   "addProductGroup":"Добавить группу товаров",
   "productGroup":"Группа товаров",
@@ -132,5 +133,11 @@
   "writeReview": "Написать рецензию",
   "comment": "Комментарий",
   "productVideo": "Видео продукта",
-  "closeModal": "Закрыть модальное окно"
+  "closeModal": "Закрыть модальное окно",
+  "selectProductGroup": "Выберите группу продуктов",
+  "selectProductImage(s)": "Выберите изображение(я) продукта",
+  "uploadImage": "Загрузить изображение",
+  "selectType": "Выберите тип",
+  "capacity": "Вместимость",
+  "blogs": "Блоги"
 }

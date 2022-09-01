@@ -18,15 +18,15 @@ onMounted(() => {
   <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
       <div class="flex items-center justify-between">
-        <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">Accounting</div>
+        <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{$t('accounting')}}</div>
         <div class="flex items-center space-x-3">
           <button class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded hover:bg-gray-100">
             <CalendarIcon class="mr-1" />
-            Filter date
+            {{$t('filterDate')}}
           </button>
           <a class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded cursor-pointer hover:bg-gray-100">
             <PdfFileIcon class="mr-1" />
-            Download PDF
+            {{$t('downloadPDF')}}
           </a>
         </div>
       </div>
@@ -34,10 +34,10 @@ onMounted(() => {
         <table class="min-w-full divide-y divide-gray-300">
           <thead class="bg-gray-50">
             <tr>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Product</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Count</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('product')}}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('count')}}</td>
               <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Unit price</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Total price</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('price')}}</td>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -55,7 +55,7 @@ onMounted(() => {
               <td class="p-3 font-medium text-gray-700 text-md">${{ accounting?.price * accounting?.quantity }}</td>
             </tr>
             <tr class="align-middle">
-              <td class="p-3 font-medium text-gray-700 text-md">Total:</td>
+              <td class="p-3 font-medium text-gray-700 text-md">{{ $t('total') }}:</td>
               <td class="p-3 font-medium text-gray-700 text-md">{{ orderStore.accounting.map(p => [p?.quantity, p?.price]) }}</td>
               <td class="p-3 font-medium text-gray-700 text-md"></td>
               <td class="p-3 font-medium text-gray-700 text-md">$3423.0</td>

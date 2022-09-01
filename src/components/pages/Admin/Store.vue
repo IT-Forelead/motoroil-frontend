@@ -66,46 +66,46 @@ const addProduct = () => {
   <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
       <div class="flex items-center justify-between">
-        <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">Store</div>
+        <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{ $t('store') }}</div>
         <div class="flex items-center">
           <div class="relative mr-3">
             <button @click="toggleDropDown"
               class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
-              <FunnelIcon class="mr-2" /> Sort By
+              <FunnelIcon class="mr-2" /> {{ $t('store') }}
             </button>
             <div :class="{ 'hidden': !isOpenSortDropDown }" ref="sortDropDown"
               class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
               <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
                 <li
                   class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Name (A - Z)
+                  {{ $t('nameUp') }}
                 </li>
                 <li
                   class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Name (Z - A)
+                  {{ $t('nameDown') }}
                 </li>
                 <li
                   class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Price (Low > High)
+                  {{ $t('priceUp') }}
                 </li>
                 <li
                   class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Price (High > Low)
+                  {{ $t('priceDown') }}
                 </li>
                 <li
                   class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Rating (Highest)
+                  {{ $t('ratingUp') }}
                 </li>
                 <li
                   class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Rating (Lowest)
+                  {{ $t('ratingDown') }}
                 </li>
               </ul>
             </div>
           </div>
           <button @click="modalStore.openAddProductModal()"
             class="flex items-center justify-center px-3 py-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
-            Add product
+            {{ $t('addProduct') }}
           </button>
         </div>
       </div>
@@ -113,12 +113,12 @@ const addProduct = () => {
         <table class="min-w-full divide-y divide-gray-300">
           <thead class="bg-gray-50">
             <tr>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Product</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Price</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Discount time</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Quantity</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Deals</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Action</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('product') }}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('price') }}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('discountTime') }}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('deals') }}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('soldProduct') }}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('viewed') }}</td>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -162,15 +162,15 @@ const addProduct = () => {
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Quantity:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{ $t('quantity') }}:</div>
                   <div class="font-medium text-gray-700 text-md">{{ product?.product?.quantity }}</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Sold product:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{ $t('soldProduct') }}:</div>
                   <div class="font-medium text-gray-700 text-md">{{ product?.product?.orders }}</div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Viewed:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{ $t('viewed') }}:</div>
                   <div class="font-medium text-gray-700 text-md">{{ product?.product?.views }}</div>
                 </div>
               </td>
@@ -206,19 +206,19 @@ const addProduct = () => {
     <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
       <div class="relative bg-white rounded shadow dark:bg-gray-700">
         <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Product</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('addProduct') }}</h3>
           <button type="button" @click="modalStore.closeAddProductModal()"
             class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
             data-modal-toggle="defaultModal">
             <CloseIcon />
-            <span class="sr-only">Close modal</span>
+            <span class="sr-only">{{ $t('closeModal') }}</span>
           </button>
         </div>
         <div class="px-6 py-2">
           <form @submit.prevent="addProduct()" method="post" enctype="multipart/form-data" class="my-5">
             <div class="flex flex-col space-y-5">
               <label for="full-name">
-                <p class="pb-2 font-medium text-slate-700">Select product group</p>
+                <p class="pb-2 font-medium text-slate-700">{{ $t('selectProductGroup') }}</p>
                 <select v-model="productData.productGroupId"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
                   <option v-for="(productGroup, idx) in store.productGroups" :key="idx"
@@ -228,10 +228,10 @@ const addProduct = () => {
                 </select>
               </label>
               <label for="product-images">
-                <p class="pb-2 font-medium text-slate-700">Select product image(s)</p>
+                <p class="pb-2 font-medium text-slate-700">{{ $t('selectProductImage') }}</p>
                 <p
                   class="flex items-center justify-center p-2 text-gray-600 border border-gray-600 rounded-md cursor-pointer hover:border-red-500 hover:text-red-500">
-                  <ImageUploadIcon class="w-6 h-6 mr-3" /> Upload image
+                  <ImageUploadIcon class="w-6 h-6 mr-3" /> {{ $t('uploadImage') }}
                 </p>
                 <input id="product-images" type="file" class="hidden" @change="getImage" multiple />
               </label>
@@ -241,7 +241,7 @@ const addProduct = () => {
               </div>
               <div class="grid grid-cols-2 mt-0 gap-x-2">
                 <label for="spec-type">
-                  <p class="pb-2 font-medium text-slate-700">Select type</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('selectType') }}</p>
                   <select v-model="productData.specTypeId"
                     class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
                     <option v-for="(specType, idx) in store.specTypes" :key="idx" :value="specType?.id">{{
@@ -250,24 +250,24 @@ const addProduct = () => {
                   </select>
                 </label>
                 <label for="capacity">
-                  <p class="pb-2 font-medium text-slate-700">Capacity</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('capacity') }}</p>
                   <input type="number" id="capacity" min="0" v-model="productData.capacity"
                     class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
                 </label>
               </div>
               <label for="price">
-                <p class="pb-2 font-medium text-slate-700">Price</p>
+                <p class="pb-2 font-medium text-slate-700">{{ $t('price') }}</p>
                 <input type="number" id="price" min="0" v-model="productData.price"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </label>
               <label for="quantity">
-                <p class="pb-2 font-medium text-slate-700">Quantity</p>
+                <p class="pb-2 font-medium text-slate-700">{{ $t('quantity') }}</p>
                 <input type="number" id="quantity" min="0" v-model="productData.quantity"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </label>
               <button
                 class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                Add Product
+                {{ $t('addProduct') }}
               </button>
             </div>
           </form>

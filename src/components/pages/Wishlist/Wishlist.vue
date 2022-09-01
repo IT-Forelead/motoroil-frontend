@@ -18,13 +18,13 @@ import ProductsSection from './parts/ProductsSection.vue';
             </a>
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
-          <li class="text-gray-700">Wishlist</li>
+          <li class="text-gray-700">{{ $t('wishlist') }}</li>
         </ul>
       </div>
       <div class="grid grid-cols-4 gap-10">
         <Sidebar />
         <div class="col-span-3">
-          <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">My Wishlist</div>
+          <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{ $t('myWishlist') }}</div>
           <ProductsSection />
         </div>
       </div>

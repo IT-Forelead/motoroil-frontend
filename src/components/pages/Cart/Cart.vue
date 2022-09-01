@@ -21,21 +21,21 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
             </a>
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
-          <li class="text-gray-700">Cart</li>
+          <li class="text-gray-700">{{ $t('cart') }}</li>
         </ul>
       </div>
       <div class="grid grid-cols-4 gap-10">
         <Sidebar />
         <div class="col-span-3">
-          <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">My Cart</div>
+          <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{ $t('myCart') }}</div>
           <div class="space-y-5">
             <table class="min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-50">
                 <tr>
-                  <th scope="col" class="px-3 py-3 text-sm font-medium text-left text-gray-700 uppercase">Product</th>
-                  <th scope="col" class="px-3 py-3 text-sm font-medium text-center text-gray-700 uppercase">Price</th>
-                  <th scope="col" class="px-3 py-3 text-sm font-medium text-center text-gray-700 uppercase">Quantity</th>
-                  <th scope="col" class="px-3 py-3 text-sm font-medium text-center text-gray-700 uppercase">Actions</th>
+                  <th scope="col" class="px-3 py-3 text-sm font-medium text-left text-gray-700 uppercase">{{ $t('product') }}</th>
+                  <th scope="col" class="px-3 py-3 text-sm font-medium text-center text-gray-700 uppercase">{{ $t('price') }}</th>
+                  <th scope="col" class="px-3 py-3 text-sm font-medium text-center text-gray-700 uppercase">{{ $t('quantity') }}</th>
+                  <th scope="col" class="px-3 py-3 text-sm font-medium text-center text-gray-700 uppercase">{{ $t('actions') }}</th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
@@ -144,13 +144,13 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
             <div class="grid grid-cols-2 gap-7">
               <div>
                 <div class="flex items-center justify-between py-3.5 font-normal text-gray-700 uppercase bg-gray-50 rounded-full pl-7 pr-4 text-md">
-                  SELECT ADDRESS
+                  {{ $t('selectAdress') }}
                   <button type="submit" class="flex items-center px-3 py-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
                     <PlusIcon class="w-5 h-5 mr-1" />
-                    Add address
+                    {{ $t('addAdress') }}
                   </button>
                 </div>
-                <div class="p-3 text-gray-800">Select the address of the recipient of the order</div>
+                <div class="p-3 text-gray-800">{{ $t('selectTheAddressRecipient') }}</div>
                 <ul class="divide-y">
                   <li class="flex items-center px-3 py-2 space-x-3">
                     <input id="push-nothing" name="push-notifications" type="radio" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
@@ -177,41 +177,41 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
                     </label>
                   </li>
                 </ul>
-                <div class="py-5 font-normal text-gray-700 uppercase rounded-full px-7 text-md bg-gray-50">COUPON CODE</div>
-                <div class="p-3 text-gray-800">To use this coupon you need to buy at least €</div>
+                <div class="py-5 font-normal text-gray-700 uppercase rounded-full px-7 text-md bg-gray-50">{{ $t('couponCode')}}</div>
+                <div class="p-3 text-gray-800">{{ $t('toUseThisCoupon')}}</div>
                 <div class="relative">
                   <input type="text" class="block w-full px-5 py-3 text-gray-900 border border-gray-300 rounded-full text-md bg-gray-50 focus:ring-red-500 focus:border-red-500" placeholder="Enter coupon code...">
                   <button type="submit" class="absolute flex items-center px-4 py-2 text-sm font-medium text-white -translate-y-1/2 bg-red-500 rounded-full right-2 top-1/2 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
                     <GiftIcon class="w-5 h-5 mr-1" />
-                    <p>Apply coupon</p>
+                    <p>{{ $t('applyCoupon')}}</p>
                   </button>
                 </div>
               </div>
               <div>
-                <div class="py-5 font-normal text-gray-700 uppercase rounded-full bg-gray-50 px-7 text-md">ORDER SUMMARY</div>
+                <div class="py-5 font-normal text-gray-700 uppercase rounded-full bg-gray-50 px-7 text-md">{{ $t('orderSummary')}}</div>
                 <div class="p-3 text-gray-800">
-                  Shipping and additional costs are calculated based on values you have entered.
+                  {{ $t('shippingAndAdditionalCosts')}}
                 </div>
                 <ul class="px-5 my-3 divide-y">
                   <li class="flex items-center justify-between py-3 font-medium">
-                    <span class="text-gray-600">Order Subtotal</span>
+                    <span class="text-gray-600">{{ $t('orderSubtotal')}}</span>
                     <span class="text-gray-900">$123.90</span>
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
-                    <span class="text-gray-700">Shipping and handling</span>
+                    <span class="text-gray-700">{{ $t('shippingAndHandling')}}</span>
                     <span class="text-gray-900">$0</span>
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
-                    <span class="text-gray-700">Taxi</span>
+                    <span class="text-gray-700">{{ $t('taxi')}}</span>
                     <span class="text-gray-900">$0</span>
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
-                    <span class="text-gray-600">Total</span>
+                    <span class="text-gray-600">{{ $t('total')}}</span>
                     <span class="text-gray-900">$123.90</span>
                   </li>
                 </ul>
                 <button class="w-1/2 py-2 mx-3 text-lg text-white bg-red-500 rounded-full hover:bg-red-700">
-                  Buy
+                  {{ $t('buy') }}
                 </button>
               </div>
 

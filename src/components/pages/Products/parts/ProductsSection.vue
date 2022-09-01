@@ -21,7 +21,7 @@ const products = computed(() => {
     <ProductCard v-for="(product, idx) in products" :key="idx" :product="product" />
   </div>
   <div v-else class="text-center text-red-500">
-    <p>No results!</p>
+    <p>{{ $t('noResults') }}!</p>
   </div>
 </template>
 

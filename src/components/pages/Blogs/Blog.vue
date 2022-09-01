@@ -32,7 +32,7 @@ onMounted(() => {
 						<CaretRightIcon class="mx-3 text-gray-500" />
 					</li>
 					<li class="flex items-center">
-						<a href="/blogs" class="text-gray-700">Blogs</a>
+						<a href="/blogs" class="text-gray-700">{{ $t('blogs') }}</a>
 						<CaretRightIcon class="mx-3 text-gray-500" />
 					</li>
 					<li class="text-red-700">{{ store.singleBlog.title }}</li>
@@ -49,7 +49,7 @@ onMounted(() => {
 						</li>
 						<li class="flex items-center justify-between">
 							<UserFillIcon class="mr-1" />
-							<span>Post by: {{ store.singleBlog.userName }}</span>
+							<span>{{ $t('author') }}: {{ store.singleBlog.userName }}</span>
 						</li>
 					</ul>
 					<img :src="API_URL + '/image/' + store.singleBlog.imageUrl" class="object-fill" alt="#">

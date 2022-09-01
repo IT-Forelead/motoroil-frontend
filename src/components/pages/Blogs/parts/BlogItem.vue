@@ -26,15 +26,16 @@ const readMore = (id) => {
         <div class="py-3">
             <div class="flex items-center justify-between mb-2 text-xs text-gray-400">
                 <div>{{ formatDateTime(blog.createdAt) }}</div>
-                <div>Post by {{ blog.userName }}</div>
+                <div>{{ $t('author') }} {{ blog.userName }}</div>
             </div>
             <router-link to="/blog" @click="readMore(blog.id)">
                 <h5 class="h-12 mb-2 overflow-hidden font-semibold text-gray-900 text-md">{{ blog.title }}</h5>
             </router-link>
             <p class="h-24 mb-3 overflow-hidden font-normal text-gray-700" v-html="blog.text"></p>
-            <router-link to="/blog" @click="readMore(blog.id)"
-                class="px-5 py-2 text-sm text-center text-white uppercase bg-gray-900 rounded hover:bg-red-500 focus:ring-0">
-                Read More</router-link>
+          <router-link to="/blog" @click="readMore(blog.id)"
+                       class="px-5 py-2 text-sm text-center text-white uppercase bg-gray-900 rounded hover:bg-red-500 focus:ring-0">
+            {{ $t('readMore') }}
+          </router-link>
         </div>
     </div>
 </template>

@@ -16,7 +16,7 @@ import PlusIcon from "../../assets/icons/PlusIcon.vue";
             </a>
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
-          <li class="text-gray-700">FAQ</li>
+          <li class="text-gray-700">{{ $t('faq') }}</li>
         </ul>
       </div>
       <div class="flex flex-col justify-center">
