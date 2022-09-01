@@ -133,6 +133,23 @@ export const useProductStore = defineStore({
       const response = await axios.get(`${API_URL}/products-for-sidebar/5`)
       this.newArrivals = response.data
     },
+    async createSpecType(data) {
+      await axios
+        .post(`${API_URL}/admin/create-spec-type`, data, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Spec type added!',
+            position: 'bottomRight',
+          })
+          this.getAllSpecTypes()
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Spec type not added!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async createBrand(data) {
       await axios
         .post(`${API_URL}/admin/create-brand`, data, { headers: authHeader() })
@@ -305,6 +322,24 @@ export const useProductStore = defineStore({
           notify.error({
             title: 'Error',
             message: 'While specification deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async deleteSpecType(id) {
+      await axios
+        .get(`${API_URL}/admin/delete-spec-type/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Spec type deleted!',
+            position: 'bottomRight',
+          })
+          this.getAllSpecTypes()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While spec type deleting!',
             position: 'bottomRight',
           })
         })
