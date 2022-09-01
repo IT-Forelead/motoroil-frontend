@@ -1,6 +1,8 @@
 {
   "login": "Login",
   "registration": "Registration",
+  "new": "New",
+  "ourRecentPosts": "Our recent posts",
   "homePage": "Home Page",
   "Oops": "Oops!",
   "404":"Page Not Found",
@@ -13,6 +15,7 @@
   "affiliates":"Affiliates",
   "groupSales":"Group Sales",
   "ourMember":"Our Member",
+  "happyCustomerSays":"Happy customer says"
   "happyCustomerSays":"Happy customer says",
   "new": "New",
   "accounting":"Accounting",

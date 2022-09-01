@@ -20,10 +20,10 @@ onMounted(() => {
   <div class="flex justify-center p-5 bg-white">
     <div class="container flex flex-col justify-center">
       <div class="py-5 text-center">
-        <div class="space-x-2 text-red-500 uppercase text-md">Our recent posts</div>
+        <div class="space-x-2 text-red-500 uppercase text-md">{{$t('ourRecentPosts')}}</div>
         <div class="flex items-center justify-center">
           <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-          <div class="mx-3 text-3xl font-bold uppercase">Latest blogs</div>
+          <div class="mx-3 text-3xl font-bold uppercase">{{$t('latestBlogs')}}</div>
           <div class="w-2 h-2 bg-red-500 rounded-full"></div>
         </div>
       </div>
