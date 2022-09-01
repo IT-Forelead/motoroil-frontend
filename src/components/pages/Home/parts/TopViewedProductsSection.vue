@@ -16,10 +16,10 @@
     <div class="flex justify-center p-5 bg-white">
       <div class="container flex flex-col justify-center">
         <div class="py-5 text-center">
-          <div class="space-x-2 text-red-500 uppercase text-md">Top viewed in the week</div>
+          <div class="space-x-2 text-red-500 uppercase text-md">{{$t('topViewedInTheWeek')}}</div>
           <div class="flex items-center justify-center">
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-            <div class="mx-3 text-3xl font-bold uppercase">Top Viewed Products</div>
+            <div class="mx-3 text-3xl font-bold uppercase">{{$t('topViewedProducts')}}</div>
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
           </div>
         </div>

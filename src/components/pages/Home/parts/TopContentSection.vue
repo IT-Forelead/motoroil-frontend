@@ -20,7 +20,7 @@ onMounted(() => {
   <div class="flex justify-center p-5 bg-white">
     <div class="container grid items-center grid-cols-4 gap-3">
       <div class="flex flex-col h-full space-y-20 bg-slate-200 bg-[url('/bg/bg-advanced.jpg')] bg-no-repeat bg-cover">
-        <div class="p-5 text-2xl font-semibold text-white uppercase bg-gray-900/60">ANFORDERUNGEN AN DAS MOTORÖL AUSWÄHLEN</div>
+        <div class="p-5 text-2xl font-semibold text-white uppercase bg-gray-900/60">{{$t('selectEngineOilRequirements')}}</div>
         <div class="px-5 space-y-3">
           <select class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option selected>Brand</option>
