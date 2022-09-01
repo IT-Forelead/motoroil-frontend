@@ -77,5 +77,13 @@
   "orderSubtotal":"Order Subtotal",
   "shippingAndHandling":"Shipping and handling",
   "taxi":"Taxi",
-  "buy":"Buy"
+  "buy":"Buy",
+
+  "noResults":"No results",
+
+  "dbEmpty":"Database is empty!",
+  "wishlist":"Wishlist",
+  "myWishlist":"My Wishlist",
+
+  "faq":"FAQ"
 }
