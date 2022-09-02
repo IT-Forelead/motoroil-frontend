@@ -87,11 +87,15 @@ onMounted(() => {
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('region')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.regionId }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.region }}</div>
+                </div>
+                <div class="flex items-center">
+                  <div class="mr-1 text-sm text-gray-500">City:</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.city }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('street')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.cityId }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.street }}</div>
                 </div>
               </td>
               <td class="p-3">
