@@ -1,4 +1,5 @@
 <script setup>
+import html2pdf from "html2pdf.js";
 import Sidebar from '../../layout/Sidebar/Sidebar.vue'
 import HouseIcon from '../../../assets/icons/HouseIcon.vue'
 import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
@@ -18,11 +19,19 @@ onMounted(() => {
 	})
 	store.getSingleBlog(sessionStorage.getItem('sb_id'))
 })
+
+function exportToPDF() {
+	html2pdf(document.getElementById("element-to-convert"), {
+		margin: 1,
+		filename: "test.pdf",
+	});
+}
 </script>
 
 <template>
 	<div class="flex justify-center px-5 py-2 bg-white">
-		<div class="container flex flex-col justify-center">
+		<button @click="exportToPDF()">Export to PDF</button>
+		<div class="container flex flex-col justify-center" id="element-to-convert">
 			<div class="p-2">
 				<ul class="flex items-center">
 					<li class="flex items-center">
