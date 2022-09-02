@@ -122,7 +122,7 @@ onMounted(() => {
                   <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="discountStore.deleteDiscount(discount?.id)" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <TrashIcon />
                   </button>
                 </div>
