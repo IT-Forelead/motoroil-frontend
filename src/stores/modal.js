@@ -7,6 +7,7 @@ export const useModalStore = defineStore({
     isOpenRegisterModal: false,
     isOpenVideoModal: false,
     isOpenResetPassword: false,
+    isOpenAddDiscountModal: false
     isOpenAddProductModal: false,
     isOpenEditProductModal: false,
   }),
@@ -43,6 +44,12 @@ export const useModalStore = defineStore({
     },
     closeAddProductModal() {
       this.isOpenAddProductModal = false
+    },
+    openAddDiscountModal() {
+      this.isOpenAddDiscountModal = true
+    },
+    closeAddDiscountModal() {
+      this.isOpenAddDiscountModal = false
     },
     openEditProductModal() {
       this.isOpenEditProductModal = true
