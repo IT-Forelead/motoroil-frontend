@@ -22,7 +22,6 @@ onMounted(() => {
 
 <template>
 	<div class="flex justify-center px-5 py-2 bg-white">
-		<button @click="exportToPDF()">Export to PDF</button>
 		<div class="container flex flex-col justify-center">
 			<div class="p-2">
 				<ul class="flex items-center">
