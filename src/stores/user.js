@@ -9,9 +9,23 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
-    wishlist: []
+    addresses: [],
+    regions: [],
+    cities: []
   }),
   actions: {
+    async getUserAddresses() {
+        const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
+        this.addresses = response.data
+    },
+    async getRegions(data) {
+        const response = await axios.post(`${API_URL}/user/regions`, `"${data}"`, {headers: authHeader()})
+        this.regions = response.data
+    },
+    async getCities(data) {
+        const response = await axios.post(`${API_URL}/user/cities`, `"${data}"`, {headers: authHeader()})
+        this.cities = response.data
+    },
     async addWishlist(data) {
       await axios
         .post(`${API_URL}/user/add-wishlist`, data, {headers: authHeader()})
