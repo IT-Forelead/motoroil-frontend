@@ -23,6 +23,8 @@ const showProduct = (id) => {
   sessionStorage.setItem('sp_id', id)
 }
 
+const capacity = ref(1)
+
 const isOpenSortDropDown = ref(false)
 const sortDropDown = ref(null)
 const toggleDropDown = () => {
@@ -66,6 +68,20 @@ const addProduct = () => {
   formData.append('price', productData.price)
   formData.append('quantity', productData.quantity)
   store.createProduct(formData)
+}
+
+const editProductData = reactive({
+  "productGroupId": '',
+  "product-image": [],
+  "specTypeId": '',
+  "capacity": 0,
+  "price": 0,
+  "quantity": 0
+})
+
+const editModal = (id) => {
+  modalStore.openEditProductModal();
+  store.getSingleProduct(id)
 }
 </script>
 
@@ -192,7 +208,8 @@ const addProduct = () => {
               </td>
               <td class="p-3">
                 <div class="flex items-start space-x-2">
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="editModal(product?.product?.id)"
+                    class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
                   <button @click="store.deleteProduct(product?.product?.id)"
@@ -271,6 +288,82 @@ const addProduct = () => {
               <label for="quantity">
                 <p class="pb-2 font-medium text-slate-700">{{ $t('quantity') }}</p>
                 <input type="number" id="quantity" min="0" v-model="productData.quantity"
+                  class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+              </label>
+              <button
+                class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+                {{ $t('addProduct') }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Product Modal -->
+  <div :class="{ 'hidden': !modalStore.isOpenEditProductModal }"
+    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+    <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+      <div class="relative bg-white rounded shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('addProduct') }}</h3>
+          <button type="button" @click="modalStore.closeEditProductModal()"
+            class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+            data-modal-toggle="defaultModal">
+            <CloseIcon />
+            <span class="sr-only">{{ $t('closeModal') }}</span>
+          </button>
+        </div>
+        <div class="px-6 py-2">
+          <form @submit.prevent="editProduct()" method="post" enctype="multipart/form-data" class="my-5">
+            <div class="flex flex-col space-y-5">
+              <label for="product-group">
+                <p class="pb-2 font-medium text-slate-700">{{ $t('selectProductGroup') }}</p>
+                <select v-model="editProductData.productGroupId"
+                  class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                  <option v-for="(productGroup, idx) in store.productGroups" :key="idx"
+                    :value="productGroup?.productGroup?.id">{{
+                        productGroup?.productGroup?.name
+                    }}</option>
+                </select>
+              </label>
+              <label for="product-images1">
+                <p class="pb-2 font-medium text-slate-700">{{ $t('selectProductImage') }}</p>
+                <p
+                  class="flex items-center justify-center p-2 text-gray-600 border border-gray-600 rounded-md cursor-pointer hover:border-red-500 hover:text-red-500">
+                  <ImageUploadIcon class="w-6 h-6 mr-3" /> {{ $t('uploadImage') }}
+                </p>
+                <input id="product-images1" type="file" class="hidden" name="product-image" @change="getImage"
+                  multiple />
+              </label>
+              <div v-if="uploadedImageForView.length > 0" class="flex flex-wrap items-center justify-center space-x-2">
+                <img v-for="(imageUrl, idx) in uploadedImageForView" :key="idx" :src="imageUrl" alt="Uploaded image"
+                  class="h-20 border rounded opacity-75 hover:opacity-100">
+              </div>
+              <div class="grid grid-cols-2 mt-0 gap-x-2">
+                <label for="spec-type1">
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('selectType') }}</p>
+                  <select v-model="productData.specTypeId"
+                    class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    <option v-for="(specType, idx) in store.specTypes" :key="idx" :value="specType?.id">{{
+                        specType?.name
+                    }}</option>
+                  </select>
+                </label>
+                <label for="capacity1">
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('capacity') }}</p>
+                  <input type="number" id="capacity1" min="0" v-model="capacity"
+                    class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+                </label>
+              </div>
+              <label for="price1">
+                <p class="pb-2 font-medium text-slate-700">{{ $t('price') }}</p>
+                <input type="number" id="price1" min="0" v-model="productData.price"
+                  class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+              </label>
+              <label for="quantity1">
+                <p class="pb-2 font-medium text-slate-700">{{ $t('quantity') }}</p>
+                <input type="number" id="quantity1" min="0" v-model="productData.quantity"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </label>
               <button
