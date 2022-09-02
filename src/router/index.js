@@ -49,6 +49,13 @@ const routes = [
     beforeEnter: navigationGuard('user'),
   },
   {
+    path: '/address',
+    name: 'My Address',
+    component: () => import('../components/pages/UserAddress/UserAddress.vue'),
+    meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('user'),
+  },
+  {
     path: '/orders',
     name: 'My orders',
     component: () => import('../components/pages/Orders/OrdersForUsers.vue'),
