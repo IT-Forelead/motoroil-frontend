@@ -1,76 +1,130 @@
 <script setup>
-import TrashIcon from '../../../assets/icons/TrashIcon.vue';
-import StackIcon from '../../../assets/icons/StackIcon.vue';
-import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
-import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
-import { useOrderStore } from '../../../stores/order.js';
-import { onMounted } from '@vue/runtime-core';
+import TrashIcon from '../../../assets/icons/TrashIcon.vue'
+import StackIcon from '../../../assets/icons/StackIcon.vue'
+import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue'
+import CalendarIcon from '../../../assets/icons/CalendarIcon.vue'
+import { useOrderStore } from '../../../stores/order.js'
+import { onMounted } from '@vue/runtime-core'
+import html2pdf from 'html2pdf.js'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const orderStore = useOrderStore()
 
-const totalQuantity = () => orderStore.accounting.map(p => p?.quantity).reduce((q,a) => q + a, 0)
+const totalQuantity = () =>
+  orderStore.accounting.map((p) => p?.quantity).reduce((q, a) => q + a, 0)
 
-const totalPrice = () => orderStore.accounting.map(p => p?.quantity * p?.price).reduce((q,a) => q + a, 0)
+const totalPrice = () =>
+  orderStore.accounting
+    .map((p) => p?.quantity * p?.price)
+    .reduce((q, a) => q + a, 0)
 
 onMounted(() => {
   orderStore.getAccounting()
 })
+
+function exportToPDF() {
+  let elem = document.getElementById('pdf')
+  let opt = {
+    filename: 'sold_products.pdf',
+    image: { type: 'jpeg' },
+    html2canvas: { useCORS: true, scale: 2 }
+  }
+  html2pdf().from(elem).set(opt).save()
+}
 </script>
 
 <template>
   <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
       <div class="flex items-center justify-between">
-        <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{$t('accounting')}}</div>
+        <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">
+          {{ $t('accounting') }}
+        </div>
         <div class="flex items-center space-x-3">
-          <button class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded hover:bg-gray-100">
+          <button
+            class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded hover:bg-gray-100"
+          >
             <CalendarIcon class="mr-1" />
-            {{$t('filterDate')}}
+            {{ $t('filterDate') }}
           </button>
-          <a class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded cursor-pointer hover:bg-gray-100">
+          <button
+            @click="exportToPDF()"
+            class="flex items-center justify-center px-5 py-2 text-blue-500 bg-white border border-blue-500 rounded cursor-pointer hover:bg-gray-100"
+          >
             <PdfFileIcon class="mr-1" />
-            {{$t('downloadPDF')}}
-          </a>
+            {{ $t('downloadPDF') }}
+          </button>
         </div>
       </div>
       <div class="space-y-5">
-        <table class="min-w-full divide-y divide-gray-300">
+        <table class="min-w-full divide-y divide-gray-300" id="pdf">
           <thead class="bg-gray-50">
             <tr>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('product')}}</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('count')}}</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">Unit price</td>
-              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('price')}}</td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">
+                {{ $t('product') }}
+              </td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">
+                {{ $t('count') }}
+              </td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">
+                Unit price
+              </td>
+              <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">
+                {{ $t('price') }}
+              </td>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr v-for="(accounting, idx) in orderStore.accounting" :key="idx" class="align-middle">
+            <tr
+              v-for="(accounting, idx) in orderStore.accounting"
+              :key="idx"
+              class="align-middle"
+            >
               <td class="p-3 text-sm text-gray-700">
                 <div class="flex items-center space-x-2">
                   <div>
-                    <img :src="accounting?.imageUrls[0] ? `${API_URL}/image/${accounting?.imageUrls[0]}` : ''" class="w-full h-12" alt="Product image">
+                    <img
+                      :src="
+                        accounting?.imageUrls[0]
+                          ? `${API_URL}/image/${accounting?.imageUrls[0]}`
+                          : ''
+                      "
+                      class="w-full h-12"
+                      alt="Product image"
+                    />
                   </div>
-                  <div class="font-medium text-gray-700 text-md">{{ accounting?.productName }}</div>
+                  <div class="font-medium text-gray-700 text-md">
+                    {{ accounting?.productName }}
+                  </div>
                 </div>
               </td>
-              <td class="p-3 font-medium text-gray-700 text-md">{{ accounting?.quantity }}</td>
-              <td class="p-3 font-medium text-gray-700 text-md">${{ accounting?.price }}</td>
-              <td class="p-3 font-medium text-gray-700 text-md">${{ accounting?.price * accounting?.quantity }}</td>
+              <td class="p-3 font-medium text-gray-700 text-md">
+                {{ accounting?.quantity }}
+              </td>
+              <td class="p-3 font-medium text-gray-700 text-md">
+                ${{ accounting?.price }}
+              </td>
+              <td class="p-3 font-medium text-gray-700 text-md">
+                ${{ accounting?.price * accounting?.quantity }}
+              </td>
             </tr>
             <tr class="align-middle">
-              <td class="p-3 font-medium text-gray-700 text-md">{{ $t('total') }}:</td>
-              <td class="p-3 font-medium text-gray-700 text-md">{{ totalQuantity() }}</td>
+              <td class="p-3 font-medium text-gray-700 text-md">
+                {{ $t('total') }}:
+              </td>
+              <td class="p-3 font-medium text-gray-700 text-md">
+                {{ totalQuantity() }}
+              </td>
               <td class="p-3 font-medium text-gray-700 text-md"></td>
-              <td class="p-3 font-medium text-gray-700 text-md">${{ totalPrice() }}</td>
+              <td class="p-3 font-medium text-gray-700 text-md">
+                ${{ totalPrice() }}
+              </td>
             </tr>
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
