@@ -11,6 +11,8 @@ import { formatDateTime } from '../../../mixins/utils.js';
 import { useOrderStore } from '../../../stores/order.js';
 import { onMounted } from '@vue/runtime-core';
 
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
+
 const orderStore = useOrderStore()
 
 onMounted(() => {
@@ -38,7 +40,7 @@ onMounted(() => {
               <td class="p-3 text-sm text-gray-700">
                 <div class="flex items-center space-x-2">
                   <div>
-                    <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
+                    <img :src="order?.product?.imageUrl[0] ? `${API_URL}/image/${order?.product?.imageUrl[0]}` : ''" class="w-full h-12" alt="Product image"/>
                   </div>
                   <div>
                     <div class="font-medium text-gray-700 text-md">{{ order?.productGroup?.name }}</div>
