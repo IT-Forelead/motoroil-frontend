@@ -8,6 +8,9 @@ export const useModalStore = defineStore({
     isOpenVideoModal: false,
     isOpenResetPassword: false,
     isOpenAddDiscountModal: false,
+    isOpenEditDiscountModal: false,
+    isOpenAddDiscountToProductModal: false,
+    isOpenRemoveDiscountInProductModal: false,
     isOpenAddProductModal: false,
     isOpenEditProductModal: false,
   }),
@@ -50,6 +53,24 @@ export const useModalStore = defineStore({
     },
     closeAddDiscountModal() {
       this.isOpenAddDiscountModal = false
+    },
+    openEditDiscountModal() {
+      this.isOpenEditDiscountModal = true
+    },
+    closeEditDiscountModal() {
+      this.isOpenEditDiscountModal = false
+    },
+    openAddDiscountToProductModal() {
+      this.isOpenAddDiscountToProductModal = true
+    },
+    closeAddDiscountToProductModal() {
+      this.isOpenAddDiscountToProductModal = false
+    },
+    openRemoveDiscountInProductModal() {
+      this.isOpenRemoveDiscountInProductModal = true
+    },
+    closeRemoveDiscountInProductModal() {
+      this.isOpenRemoveDiscountInProductModal = false
     },
     openEditProductModal() {
       this.isOpenEditProductModal = true

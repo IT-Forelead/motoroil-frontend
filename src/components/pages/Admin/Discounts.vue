@@ -113,16 +113,16 @@ onMounted(() => {
               </td>
               <td class="p-3">
                 <div class="flex items-start space-x-2">
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="modalStore.openAddDiscountToProductModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PlusIcon class="w-4 h-4" />
                   </button>
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="modalStore.openRemoveDiscountInProductModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <MinusIcon class="w-4 h-4" />
                   </button>
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="modalStore.openEditDiscountModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="discountStore.deleteDiscount(discount?.id)" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <TrashIcon />
                   </button>
                 </div>
@@ -139,7 +139,7 @@ onMounted(() => {
     <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
       <div class="relative bg-white rounded shadow dark:bg-gray-700">
         <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('addProduct') }}</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add discount</h3>
           <button type="button" @click="modalStore.closeAddDiscountModal()"
             class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
             data-modal-toggle="defaultModal">
@@ -159,9 +159,9 @@ onMounted(() => {
               <input type="datetime-local" id="started-at" v-model="discount.startedAt"
                 class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
             </label>
-            <label for="started-at">
+            <label for="expired-at">
               <p class="pb-2 font-medium text-slate-700">Expired at</p>
-              <input type="datetime-local" id="started-at" v-model="discount.expiredAt"
+              <input type="datetime-local" id="expired-at" v-model="discount.expiredAt"
                 class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
             </label>
             <label for="name">
@@ -176,6 +176,113 @@ onMounted(() => {
             </label>
             <button @click="createDiscount()" class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
               Create discount
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Discount Modal -->
+  <div :class="{ 'hidden': !modalStore.isOpenEditDiscountModal }"
+    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+    <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+      <div class="relative bg-white rounded shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit discount</h3>
+          <button type="button" @click="modalStore.closeEditDiscountModal()"
+            class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+            data-modal-toggle="defaultModal">
+            <CloseIcon />
+            <span class="sr-only">{{ $t('closeModal') }}</span>
+          </button>
+        </div>
+        <div class="px-6 py-2">
+          <div class="flex flex-col space-y-5">
+            <label for="edit-discountPercent">
+              <p class="pb-2 font-medium text-slate-700">Discount percent</p>
+              <input type="number" id="edit-discountPercent" min="0" 
+                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+            </label>
+            <label for="edit-started-at">
+              <p class="pb-2 font-medium text-slate-700">Started at</p>
+              <input type="datetime-local" id="edit-started-at"
+                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+            </label>
+            <label for="edit-expired-at">
+              <p class="pb-2 font-medium text-slate-700">Expired at</p>
+              <input type="datetime-local" id="edit-expired-at"
+                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+            </label>
+            <label for="edit-name">
+              <p class="pb-2 font-medium text-slate-700">Name</p>
+              <input type="text" id="edit-name"
+                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+            </label>
+            <label for="edit-description">
+              <p class="pb-2 font-medium text-slate-700">Description</p>
+              <input type="text" id="edit-description"
+                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+            </label>
+            <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Discount to Product Modal -->
+  <div :class="{ 'hidden': !modalStore.isOpenAddDiscountToProductModal }"
+    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+    <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+      <div class="relative bg-white rounded shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Discount to Product</h3>
+          <button type="button" @click="modalStore.closeAddDiscountToProductModal()"
+            class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+            data-modal-toggle="defaultModal">
+            <CloseIcon />
+            <span class="sr-only">{{ $t('closeModal') }}</span>
+          </button>
+        </div>
+        <div class="px-6 py-2">
+          <div class="flex flex-col space-y-5">
+            <label for="discountPercent">
+              <p class="pb-2 font-medium text-slate-700">Discount percent</p>
+              <input type="number" id="discountPercent" min="0" v-model="discount.discountPercent"
+                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+            </label>
+            <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Remove Discount in Product Modal -->
+  <div :class="{ 'hidden': !modalStore.isOpenRemoveDiscountInProductModal }"
+    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+    <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+      <div class="relative bg-white rounded shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Remove Discount in Product</h3>
+          <button type="button" @click="modalStore.closeRemoveDiscountInProductModal()"
+            class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+            data-modal-toggle="defaultModal">
+            <CloseIcon />
+            <span class="sr-only">{{ $t('closeModal') }}</span>
+          </button>
+        </div>
+        <div class="px-6 py-2">
+          <div class="flex flex-col space-y-5">
+            <label for="discountPercent">
+              <p class="pb-2 font-medium text-slate-700">Discount percent</p>
+              <input type="number" id="discountPercent" min="0" v-model="discount.discountPercent"
+                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+            </label>
+            <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+              Save
             </button>
           </div>
         </div>

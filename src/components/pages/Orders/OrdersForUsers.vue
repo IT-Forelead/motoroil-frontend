@@ -9,6 +9,17 @@ import StackIcon from '../../../assets/icons/StackIcon.vue';
 import GiftIcon from '../../../assets/icons/GiftIcon.vue';
 import Sidebar from '../../layout/Sidebar/Sidebar.vue'
 import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
+import { formatDateTime } from '../../../mixins/utils.js';
+import { useOrderStore } from '../../../stores/order.js';
+import { onMounted } from '@vue/runtime-core';
+
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
+
+const orderStore = useOrderStore()
+
+onMounted(() => {
+  orderStore.getOrdersForUsers()
+})
 </script>
 
 <template>
@@ -22,7 +33,7 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
             </a>
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
-          <li class="text-gray-700">{{$t('cart')}}</li>
+          <li class="text-gray-700">{{$t('orders')}}</li>
         </ul>
       </div>
       <div class="grid grid-cols-4 gap-3">
@@ -35,68 +46,21 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                 <tr>
                   <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('product')}}</td>
                   <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('createdAt')}}</td>
-                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('order')}}</td>
-                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('details')}}</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{$t('price')}}</td>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="align-middle">
+                <tr v-for="(order, idx) in orderStore.ordersForUsers" :key="idx" class="align-middle">
                   <td class="p-3 text-sm text-gray-700">
                     <div class="flex items-center space-x-2">
                       <div>
-                        <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
+                        <img :src="order?.imageUrls[0] ? `${API_URL}/image/${order?.imageUrls[0]}` : ''" class="w-full h-12" alt="Product image"/>
                       </div>
                       <div>
-                        <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                        <div class="flex items-center text-sm text-gray-500">
-                          <StackIcon class="mr-1"/>
-                          {{$t('automotivation')}}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="p-3 text-sm text-gray-700">
-                    <div class="flex items-center">
-                      <CalendarIcon class="w-4 h-4 mr-1"/>
-                      28.08.2022 17:30
-                    </div>
-                  </td>
-                  <td class="p-3">
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
-                      <div class="font-medium text-gray-700 text-md">#1232421</div>
-                    </div>
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">Shipped</div>
-                    </div>
-                  </td>
-                  <td class="p-3">
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">$246</div>
-                    </div>
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">$123</div>
-                    </div>
-                    <div class="flex items-center">
+                        <div class="font-medium text-gray-700 text-md">{{ order?.productName }}</div>
+                        <div class="flex items-center">
                       <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">2</div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="align-middle">
-                  <td class="p-3 text-sm text-gray-700">
-                    <div class="flex items-center space-x-2">
-                      <div>
-                        <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
-                      </div>
-                      <div>
-                        <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                        <div class="flex items-center text-sm text-gray-500">
-                          <StackIcon class="mr-1"/>
-                          {{$t('automotivation')}}
+                      <div class="font-medium text-gray-700 text-md">{{ order?.quantity }}</div>
                         </div>
                       </div>
                     </div>
@@ -104,77 +68,17 @@ import CalendarIcon from '../../../assets/icons/CalendarIcon.vue';
                   <td class="p-3 text-sm text-gray-700">
                     <div class="flex items-center">
                       <CalendarIcon class="w-4 h-4 mr-1"/>
-                      28.08.2022 17:30
-                    </div>
-                  </td>
-                  <td class="p-3">
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
-                      <div class="font-medium text-gray-700 text-md">#1232421</div>
-                    </div>
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">Shipped</div>
+                      {{ formatDateTime(order?.createdAt) }}
                     </div>
                   </td>
                   <td class="p-3">
                     <div class="flex items-center">
                       <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">$246</div>
+                      <div class="font-medium text-gray-700 text-md">${{ order?.totalPrice * order?.quantity }}</div>
                     </div>
                     <div class="flex items-center">
                       <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">$123</div>
-                    </div>
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}ity:</div>
-                      <div class="font-medium text-gray-700 text-md">2</div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="align-middle">
-                  <td class="p-3 text-sm text-gray-700">
-                    <div class="flex items-center space-x-2">
-                      <div>
-                        <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
-                      </div>
-                      <div>
-                        <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                        <div class="flex items-center text-sm text-gray-500">
-                          <StackIcon class="mr-1"/>
-                          {{$t('automotivation')}}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="p-3 text-sm text-gray-700">
-                    <div class="flex items-center">
-                      <CalendarIcon class="w-4 h-4 mr-1"/>
-                      28.08.2022 17:30
-                    </div>
-                  </td>
-                  <td class="p-3">
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('order')}} ID:</div>
-                      <div class="font-medium text-gray-700 text-md">#1232421</div>
-                    </div>
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('status')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">Shipped</div>
-                    </div>
-                  </td>
-                  <td class="p-3">
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">$246</div>
-                    </div>
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">$123</div>
-                    </div>
-                    <div class="flex items-center">
-                      <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>
-                      <div class="font-medium text-gray-700 text-md">2</div>
+                      <div class="font-medium text-gray-700 text-md">${{ order?.totalPrice }}</div>
                     </div>
                   </td>
                 </tr>
