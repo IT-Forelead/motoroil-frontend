@@ -10,6 +10,7 @@ import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive } from '@vue/runtime-core'
 import { formatDateTime } from '../../../mixins/utils';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
+import { timestamp } from '@vueuse/core';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const discountStore = useDiscountStore()
@@ -32,6 +33,28 @@ const createDiscount = () => {
     discount.description = ''
     discount.discountPercent = 0.0
   })
+}
+
+const discountStatus = (start, end) => {
+  let now = new Date()
+  if ((new Date(start).getTime()) <= now.getTime() && now.getTime() <= (new Date(end).getTime())) {
+    return 'Active'
+  } else if (now.getTime() <= (new Date(start).getTime())) {
+    return 'Waiting'
+  } else if (now.getTime() >= (new Date(end).getTime())) {
+    return 'No active'
+  }
+}
+
+const discountStatusColor = (start, end) => {
+  let now = new Date()
+  if ((new Date(start).getTime()) <= now.getTime() && now.getTime() <= (new Date(end).getTime())) {
+    return 'bg-green-400'
+  } else if (now.getTime() <= (new Date(start).getTime())) {
+    return 'bg-yellow-300'
+  } else if (now.getTime() >= (new Date(end).getTime())) {
+    return 'bg-red-500'
+  }
 }
 
 onMounted(() => {
@@ -83,8 +106,9 @@ onMounted(() => {
                 </div>
               </td>
               <td class="p-3">
-                <div class="w-24 px-2 py-1 text-sm text-center text-white bg-green-500 rounded-full">
-                  active
+                <div class="w-24 px-2 py-1 text-sm text-center text-white rounded-full" 
+                :class="discountStatusColor(discount?.startedAt, discount?.expiredAt)">
+                  {{ discountStatus(discount?.startedAt, discount?.expiredAt) }}
                 </div>
               </td>
               <td class="p-3">
