@@ -7,7 +7,7 @@ export const useModalStore = defineStore({
     isOpenRegisterModal: false,
     isOpenVideoModal: false,
     isOpenResetPassword: false,
-    isOpenAddDiscountModal: false
+    isOpenAddDiscountModal: false,
     isOpenAddProductModal: false,
     isOpenEditProductModal: false,
   }),
