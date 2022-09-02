@@ -42,5 +42,21 @@ export const useUserStore = defineStore({
           })
         })
     },
+    async addCart(data) {
+      await axios
+        .post(`${API_URL}/user/add-cart`, data, {headers: authHeader()})
+        .then(() => {
+          notify.success({
+            message: 'Product added to cart!',
+            position: 'bottomRight',
+          })
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Not added!',
+            position: 'bottomRight',
+          })
+        })
+    },
   },
 })

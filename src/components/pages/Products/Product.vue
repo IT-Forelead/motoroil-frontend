@@ -79,6 +79,20 @@ const comment = reactive({
   rating: 5
 })
 
+const cartForm = reactive({
+  userId: uuid.v4(),
+  productId: sessionStorage.getItem('sp_id'),
+  quantity: 1
+})
+
+const plusMinus = (data, action) => {
+  if (action === '-') {
+    if (cartForm.quantity > 1) cartForm.quantity--
+  } else {
+    if (cartForm.quantity < data) cartForm.quantity++
+  }
+}
+
 const changeActiveTab = (tab) => {
   if (tab === 'desc') {
     isActiveDesc.value = true
@@ -261,13 +275,13 @@ const deleteCurrentProduct = (id) => {
                     </label>
                   </div>
                   <div class="flex items-center border border-gray-300 divide-x divide-gray-300">
-                    <button class="flex justify-center w-1/4 p-3 text-gray-700 rounded-l hover:text-red-500">
+                    <button @click="plusMinus(store.singleProduct?.product?.quantity, '-')" class="flex justify-center w-1/4 p-3 text-gray-700 rounded-l hover:text-red-500">
                       <MinusIcon />
                     </button>
                     <div class="w-2/4 px-4 py-2 text-lg font-normal text-center">
-                      0
+                      {{ cartForm.quantity }}
                     </div>
-                    <button class="flex justify-center w-1/4 p-3 text-gray-700 rounded-r hover:text-red-500">
+                    <button @click="plusMinus(store.singleProduct?.product?.quantity, '+')" class="flex justify-center w-1/4 p-3 text-gray-700 rounded-r hover:text-red-500">
                       <PlusIcon />
                     </button>
                   </div>
@@ -276,7 +290,7 @@ const deleteCurrentProduct = (id) => {
                       class="flex items-center justify-center p-3.5 text-white bg-red-500 hover:bg-red-700">
                       <HeartFillIcon class="w-5 h-5" />
                     </button>
-                    <button class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
+                    <button @click="userStore.addCart(cartForm)" class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
                       <ShoppingCartFillIcon class="mr-2" />
                       {{$t('addToCart')}}
                     </button>
