@@ -372,6 +372,24 @@ export const useProductStore = defineStore({
           })
         })
     },
+    async deleteProductGroup(id) {
+      await axios
+        .get(`${API_URL}/admin/delete-product-group/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Product group deleted!',
+            position: 'bottomRight',
+          })
+          this.getProductGroups()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While product group deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
     setSearchString(str) {
       this.search = str
     },
