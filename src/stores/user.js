@@ -9,11 +9,16 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
+    cart: [],
     addresses: [],
     regions: [],
     cities: []
   }),
   actions: {
+    async getCart() {
+        const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})
+        this.cart = response.data
+    },
     async getUserAddresses() {
         const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
         this.addresses = response.data

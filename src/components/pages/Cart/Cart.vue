@@ -8,6 +8,40 @@ import PlusIcon from '../../../assets/icons/PlusIcon.vue';
 import StackIcon from '../../../assets/icons/StackIcon.vue';
 import GiftIcon from '../../../assets/icons/GiftIcon.vue';
 import Sidebar from '../../layout/Sidebar/Sidebar.vue'
+import { useUserStore } from '../../../stores/user.js';
+import { onMounted, reactive, watch } from '@vue/runtime-core';
+
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
+
+const userStore = useUserStore()
+
+const addressForm = reactive({
+  country: '',
+  regionId: '',
+  cityId: '',
+  street: ''
+})
+
+onMounted(() => {
+  userStore.getCart()
+  userStore.getUserAddresses()
+})
+
+watch(
+  () => addressForm.country,
+  () => {
+    userStore.getRegions(addressForm.country)
+  },
+  { deep: true }
+)
+
+watch(
+  () => addressForm.country,
+  () => {
+    userStore.getCities(addressForm.country)
+  },
+  { deep: true }
+)
 </script>
 
 <template>
@@ -39,94 +73,28 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="align-middle">
+                <tr v-for="(product, idx) in userStore.cart" :key="idx" class="align-middle">
                   <td class="p-3 text-sm text-gray-700">
                     <div class="flex items-center space-x-2">
                       <div>
-                        <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
+                        <img :src=" product?.productImageUrl[0] ? `${API_URL}/image/${product?.productImageUrl[0]}` : '' " class="w-full h-12" alt="Product image" />
                       </div>
                       <div>
-                        <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
+                        <div class="font-medium text-gray-700 text-md">{{ product?.productName }}</div>
                         <div class="flex items-center text-sm text-gray-500">
                           <StackIcon class="mr-1"/>
-                          Automotivation
+                          {{ product?.productCategoryName }}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td class="p-3 text-sm font-medium text-center text-gray-700">$123.00</td>
+                  <td class="p-3 text-sm font-medium text-center text-gray-700">${{ product?.productPrice }}</td>
                   <td class="p-3">
                     <div class="grid items-center w-1/2 grid-cols-3 gap-1 px-1.5 py-1 mx-auto rounded-full shadow">
                       <button class="flex justify-center text-gray-700 rounded-l hover:text-red-500">
                         <MinusIcon class="w-4 h-4" />
                       </button>
-                      <div class="text-lg font-normal text-center">12</div>
-                      <button class="flex justify-center text-gray-700 rounded-r hover:text-red-500">
-                        <PlusIcon class="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                  <td class="p-3">
-                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
-                      <TrashIcon />
-                    </button>
-                  </td>
-                </tr>
-                <tr class="align-middle">
-                  <td class="p-3 text-sm text-gray-700">
-                    <div class="flex items-center space-x-2">
-                      <div>
-                        <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
-                      </div>
-                      <div>
-                        <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                        <div class="flex items-center text-sm text-gray-500">
-                          <StackIcon class="mr-1"/>
-                          Automotivation
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="p-3 text-sm font-medium text-center text-gray-700">$123.00</td>
-                  <td class="p-3">
-                    <div class="grid items-center w-1/2 grid-cols-3 gap-1 px-1.5 py-1 mx-auto rounded-full shadow">
-                      <button class="flex justify-center text-gray-700 rounded-l hover:text-red-500">
-                        <MinusIcon class="w-4 h-4" />
-                      </button>
-                      <div class="text-lg font-normal text-center">12</div>
-                      <button class="flex justify-center text-gray-700 rounded-r hover:text-red-500">
-                        <PlusIcon class="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                  <td class="p-3">
-                    <button class="flex items-center justify-center p-2 mx-auto text-white bg-red-500 rounded hover:bg-red-700">
-                      <TrashIcon />
-                    </button>
-                  </td>
-                </tr>
-                <tr class="align-middle">
-                  <td class="p-3 text-sm text-gray-700">
-                    <div class="flex items-center space-x-2">
-                      <div>
-                        <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="w-full h-12" alt="#">
-                      </div>
-                      <div>
-                        <div class="font-medium text-gray-700 text-md">Prista Extra W10-50</div>
-                        <div class="flex items-center text-sm text-gray-500">
-                          <StackIcon class="mr-1"/>
-                          Automotivation
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="p-3 text-sm font-medium text-center text-gray-700">$123.00</td>
-                  <td class="p-3">
-                    <div class="grid items-center w-1/2 grid-cols-3 gap-1 px-1.5 py-1 mx-auto rounded-full shadow">
-                      <button class="flex justify-center text-gray-700 rounded-l hover:text-red-500">
-                        <MinusIcon class="w-4 h-4" />
-                      </button>
-                      <div class="text-lg font-normal text-center">12</div>
+                      <div class="text-lg font-normal text-center">{{ product?.quantity }}</div>
                       <button class="flex justify-center text-gray-700 rounded-r hover:text-red-500">
                         <PlusIcon class="w-4 h-4" />
                       </button>
@@ -152,28 +120,12 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue'
                 </div>
                 <div class="p-3 text-gray-800">{{ $t('selectTheAddressRecipient') }}</div>
                 <ul class="divide-y">
-                  <li class="flex items-center px-3 py-2 space-x-3">
+                  <li v-for="(address, idx) in userStore.addresses" :key="idx" class="flex items-center px-3 py-2 space-x-3">
                     <input id="push-nothing" name="push-notifications" type="radio" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
                     <label for="push-nothing" class="block ml-3 text-sm font-medium text-gray-700">
-                      <div class="font-normal text-md">Jumaniyozov Suroj, +998937475995</div>
-                      <div class="font-normal text-md">220100, Al Beruniy</div>
-                      <div class="font-normal text-md">City 2, Region 3, Uzbekistan</div>
-                    </label>
-                  </li>
-                  <li class="flex items-center px-3 py-2 space-x-3">
-                    <input id="push-nothing" name="push-notifications" type="radio" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                    <label for="push-nothing" class="block ml-3 text-sm font-medium text-gray-700">
-                      <div class="font-normal text-md">Jumaniyozov Suroj, +998937475995</div>
-                      <div class="font-normal text-md">220100, Al Beruniy</div>
-                      <div class="font-normal text-md">City 2, Region 3, Uzbekistan</div>
-                    </label>
-                  </li>
-                  <li class="flex items-center px-3 py-2 space-x-3">
-                    <input id="push-nothing" name="push-notifications" type="radio" class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                    <label for="push-nothing" class="block ml-3 text-sm font-medium text-gray-700">
-                      <div class="font-normal text-md">Jumaniyozov Suroj, +998937475995</div>
-                      <div class="font-normal text-md">220100, Al Beruniy</div>
-                      <div class="font-normal text-md">City 2, Region 3, Uzbekistan</div>
+                      <div class="font-normal text-md">{{ address?.receiverFullName }}, {{ address?.receiverPhone }}</div>
+                      <div class="font-normal text-md">{{ address?.postalCode }}, {{ address?.street }}</div>
+                      <div class="font-normal text-md">{{ address?.city }}, {{ address?.region }}, {{ address?.country }}</div>
                     </label>
                   </li>
                 </ul>
