@@ -13,6 +13,8 @@ import { onClickOutside } from '@vueuse/core'
 import { useRouter } from "vue-router";
 import UserFillIcon from "../../../../assets/icons/UserFillIcon.vue";
 import SignOutIcon from "../../../../assets/icons/SignOutIcon.vue";
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 const router = useRouter()
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
@@ -73,6 +75,47 @@ switch (localStorage.getItem('lang')) {
   default:
     currentLang.value = "english";
     break;
+}
+
+const userForm = reactive({
+  "confirmPassword": '',
+  "email": '',
+  "name": '',
+  "password": ''
+})
+
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
+const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/
+
+const submitUserData = () => {
+  if (userForm.name === '') {
+    notify.warning({
+      message: 'Please, enter fullname!',
+      position: 'bottomRight',
+    })
+  } else if (!emailRegex.test(userForm.email)) {
+    notify.warning({
+      message: 'Please, enter right email address!',
+      position: 'bottomRight',
+    })
+  } else if (!strongRegex.test(userForm.password)) {
+    notify.warning({
+      message: 'Password must have: one lowercase, one uppercase, one digit, one special character and length greater than 6 character!',
+      position: 'bottomRight',
+    })
+  } else if (userForm.password !== userForm.confirmPassword) {
+    notify.warning({
+      message: 'Password doesn\'t match!',
+      position: 'bottomRight',
+    })
+  } else {
+    authStore.registerUser(userForm).then(() => {
+      userForm.name = ''
+      userForm.email = ''
+      userForm.password = ''
+      userForm.confirmPassword = ''
+    })
+  }
 }
 </script>
 <template>
@@ -192,29 +235,29 @@ switch (localStorage.getItem('lang')) {
                 class="absolute px-3 py-2 text-gray-400 uppercase -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">
                 Or</p>
             </div>
-            <form action="" class="my-10">
+            <form @submit.prevent="submitUserData()" class="my-10">
               <div class="flex flex-col space-y-5">
                 <label for="full-name">
                   <p class="pb-2 font-medium text-slate-700">Full name</p>
-                  <input id="full-name" type="text"
+                  <input id="full-name" v-model="userForm.name" type="text"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter full name">
                 </label>
                 <label for="email">
                   <p class="pb-2 font-medium text-slate-700">Email address</p>
-                  <input id="email" name="email" type="email"
+                  <input id="email" v-model="userForm.email" name="email" type="email"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter email address">
                 </label>
                 <label for="password">
                   <p class="pb-2 font-medium text-slate-700">Password</p>
-                  <input id="password" type="password"
+                  <input id="password" v-model="userForm.password" type="password"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter your password">
                 </label>
                 <label for="confirm-password">
                   <p class="pb-2 font-medium text-slate-700">Confirm password</p>
-                  <input id="confirm-password" type="password"
+                  <input id="confirm-password" v-model="userForm.confirmPassword" type="password"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter confirm password">
                 </label>

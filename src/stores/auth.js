@@ -120,5 +120,22 @@ export const useAuthStore = defineStore({
           }
         })
     },
+    async registerUser(data) {
+      await axios
+        .post(`${API_URL}/auth/user`, data)
+        .then((response) => {
+          notify.success({
+            message:
+              'Registeration progress successfully completed! Please check email!',
+            position: 'bottomLeft',
+          })
+        })
+        .catch((err) => {
+          notify.warning({
+            message: msg,
+            position: 'bottomLeft',
+          })
+        })
+    },
   },
 })
