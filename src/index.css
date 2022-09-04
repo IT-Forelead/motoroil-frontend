@@ -19,6 +19,11 @@
   background: #f00;
 }
 
+/* Scroll Smooth */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Swiper Style */
 .swiper {
   width: 100%;

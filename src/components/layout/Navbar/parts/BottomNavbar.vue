@@ -6,9 +6,11 @@ import { onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../../../stores/auth.js';
 import { useProductStore } from '../../../../stores/product.js';
+import { useMainSearchStore } from '../../../../stores/mainSearch.js';
 
 const authStore = useAuthStore()
 const productStore = useProductStore()
+const mainSearchStore = useMainSearchStore()
 
 const router = useRouter()
 const isOpenMainDropDown = ref(false)
@@ -55,7 +57,8 @@ onMounted(() => {
       <ul class="flex items-center col-span-3 space-x-1">
         <li
           class="px-4 py-2 m-0 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
-          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }" @click="router.push('/')">
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }" 
+          @click="router.push('/'); mainSearchStore.clearMainSearchResults()">
           Home
         </li>
         <li

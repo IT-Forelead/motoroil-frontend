@@ -1,9 +1,11 @@
 <script setup>
 import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 import { useProductStore } from '../../../../stores/product.js'
+import { useMainSearchStore } from '../../../../stores/mainSearch.js';
 import { computed, onMounted, ref } from 'vue';
 import BestSellerItem from './BestSeller/BestSellerItem.vue';
 const store = useProductStore()
+const mainSearchStore = useMainSearchStore()
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 function newProductChecker(productCreatedAt) {
@@ -24,19 +26,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full" id="main-search-result">
     <div class="flex justify-center p-5 bg-white">
       <div class="container flex flex-col justify-center">
         <div class="py-5 text-center">
-          <div class="space-x-2 text-red-500 uppercase text-md">{{$t('topSaleInTheWeek')}}</div>
+          <div v-if="mainSearchStore.searchResults.length > 0" class="space-x-2 text-red-500 uppercase text-md">SEARCH
+            RESULTS ON THE MAIN SEARCH</div>
+          <div v-else class="space-x-2 text-red-500 uppercase text-md">{{ $t('topSaleInTheWeek') }}</div>
           <div class="flex items-center justify-center">
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-            <div class="mx-3 text-3xl font-bold uppercase">{{$t('bestSeller')}}</div>
+            <div v-if="mainSearchStore.searchResults.length > 0" class="mx-3 text-3xl font-bold uppercase">Main Search
+              Result</div>
+            <div v-else class="mx-3 text-3xl font-bold uppercase">{{ $t('bestSeller') }}</div>
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
           </div>
         </div>
         <div class="grid grid-cols-5 gap-8">
-          <BestSellerItem v-for="(product, idx) in store.bestSellerProducts" :key="idx" :product="product" class="relative max-w-sm"></BestSellerItem>
+          <BestSellerItem
+            v-for="(product, idx) in mainSearchStore.searchResults.length > 0 ? mainSearchStore.searchResults : store.bestSellerProducts"
+            :key="idx" :product="product" class="relative max-w-sm"></BestSellerItem>
         </div>
       </div>
     </div>
