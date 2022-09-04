@@ -72,6 +72,14 @@ const likeFunction = () => {
   }
 }
 
+const addToCart = () => {
+  if (authStore.user) {
+    userStore.addCart(cartForm)
+  } else {
+    modalStore.openModal()
+  }
+}
+
 const comment = reactive({
   userId: uuid.v4(),
   productId: sessionStorage.getItem('sp_id'),
@@ -290,7 +298,7 @@ const deleteCurrentProduct = (id) => {
                       class="flex items-center justify-center p-3.5 text-white bg-red-500 hover:bg-red-700">
                       <HeartFillIcon class="w-5 h-5" />
                     </button>
-                    <button @click="userStore.addCart(cartForm)" class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
+                    <button @click="addToCart()" class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
                       <ShoppingCartFillIcon class="mr-2" />
                       {{$t('addToCart')}}
                     </button>
