@@ -31,7 +31,7 @@ onMounted(() => {
           <div class="space-x-2 text-red-500 uppercase text-md">{{$t('topSaleInTheWeek')}}</div>
           <div class="flex items-center justify-center">
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-            <div class="mx-3 text-5xl font-bold uppercase">{{$t('bestSeller')}}</div>
+            <div class="mx-3 text-3xl font-bold uppercase">{{$t('bestSeller')}}</div>
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
           </div>
         </div>

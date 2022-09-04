@@ -3,11 +3,13 @@ import ListPlusIcon from '../../../../assets/icons/ListPlusIcon.vue';
 import CaretRightIcon from '../../../../assets/icons/CaretRightIcon.vue';
 import MinusIcon from '../../../../assets/icons/MinusIcon.vue';
 import { useCategoryStore } from '../../../../stores/category.js'
-import { onMounted, ref } from '@vue/runtime-core';
+import { useProductStore } from '../../../../stores/product.js';
+import { onMounted, reactive, ref, watch } from '@vue/runtime-core';
 import $ from "jquery";
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useCategoryStore()
+const productStore = useProductStore()
 
 onMounted(() => {
   store.getAllCategories()
@@ -33,6 +35,38 @@ function toggleSubCategory(id) {
   $(`#${id}`).slideToggle(500, "linear")
 }
 
+const categriesFilter = reactive({
+  categoryId: '',
+  subCategoryId: '',
+  miniSubCategoryId: ''
+})
+
+watch(
+  () => categriesFilter.categoryId,
+  () => {
+    categriesFilter.subCategoryId = ''
+    categriesFilter.miniSubCategoryId = ''
+    productStore.getProductsByCategoryFilter(categriesFilter)
+  },
+  { deep: true }
+)
+
+watch(
+  () => categriesFilter.subCategoryId,
+  () => {
+    productStore.getProductsByCategoryFilter(categriesFilter)
+  },
+  { deep: true }
+)
+
+watch(
+  () => categriesFilter.miniSubCategoryId,
+  () => {
+    productStore.getProductsByCategoryFilter(categriesFilter)
+  },
+  { deep: true }
+)
+
 </script>
 
 <template>
@@ -40,7 +74,8 @@ function toggleSubCategory(id) {
     <div class="p-3 font-medium text-white uppercase bg-red-500 rounded-t-lg">Categories</div>
     <div class="p-3 bg-white border border-t-0 border-gray-300 rounded-b-lg">
       <ul class="divide-y divide-gray-300">
-        <li class="p-2" v-for="(category, idx) in store.categories" :key="idx" @click="toggleCategory(category?.id)">
+        <li class="p-2" v-for="(category, idx) in store.categories" :key="idx"
+          @click="toggleCategory(category?.id); categriesFilter.categoryId = category?.id">
           <div class="flex justify-between text-gray-700 cursor-pointer text-md hover:text-red-500">
             {{ category?.name }}
             <ListPlusIcon v-if="store.subCategories.filter(sc => sc?.categoryId === category?.id).length > 0" />
@@ -49,7 +84,7 @@ function toggleSubCategory(id) {
             v-if="store.subCategories.filter(sc => sc?.categoryId === category?.id).length > 0" :id="category?.id">
             <li class="p-1"
               v-for="(subCategory, idx) in store.subCategories.filter(sc => sc?.categoryId === category?.id)" :key="idx"
-              @click="toggleSubCategory(subCategory?.id)">
+              @click="toggleSubCategory(subCategory?.id); categriesFilter.subCategoryId = subCategory?.id">
               <div class="flex items-center">
                 <CaretRightIcon class="mr-1" />
                 <div class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">
@@ -61,7 +96,7 @@ function toggleSubCategory(id) {
                 :id="subCategory?.id">
                 <li class="p-1"
                   v-for="(miniSubCategory, idx) in store.miniSubCategories.filter(msc => msc?.subCategoryId === subCategory?.id)"
-                  :key="idx">
+                  :key="idx" @click="categriesFilter.miniSubCategoryId = miniSubCategory?.id">
                   <div class="flex items-center">
                     <MinusIcon class="mr-1" />
                     <div class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-2">{{

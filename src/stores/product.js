@@ -134,9 +134,57 @@ export const useProductStore = defineStore({
       const response = await axios.get(`${API_URL}/products-for-sidebar/5`)
       this.newArrivals = response.data
     },
+    async getProductsByCategoryFilter(data) {
+      if (data.categoryId && data.subCategoryId && data.miniSubCategoryId) {
+        await axios
+          .get(
+            `${API_URL}/products-by-name?cId=${data.categoryId}&scId=${data.subCategoryId}&mscId=${data.miniSubCategoryId}`
+          )
+          .then((response) => {
+            this.products = response.data
+          })
+          .catch((err) => {
+            notify.error({
+              title: 'Error',
+              message: 'Getting product by category!',
+              position: 'bottomRight',
+            })
+          })
+      } else if (data.categoryId && data.subCategoryId) {
+        await axios
+          .get(
+            `${API_URL}/products-by-name?cId=${data.categoryId}&scId=${data.subCategoryId}`
+          )
+          .then((response) => {
+            this.products = response.data
+          })
+          .catch((err) => {
+            notify.error({
+              title: 'Error',
+              message: 'Getting product by category!',
+              position: 'bottomRight',
+            })
+          })
+      } else {
+        await axios
+          .get(`${API_URL}/products-by-name?cId=${data.categoryId}`)
+          .then((response) => {
+            this.products = response.data
+          })
+          .catch((err) => {
+            notify.error({
+              title: 'Error',
+              message: 'Getting product by category!',
+              position: 'bottomRight',
+            })
+          })
+      }
+    },
     async createSpecType(data) {
       await axios
-        .post(`${API_URL}/admin/create-spec-type`, data, { headers: authHeader() })
+        .post(`${API_URL}/admin/create-spec-type`, data, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Spec type added!',
@@ -356,7 +404,9 @@ export const useProductStore = defineStore({
     },
     async deleteSpecType(id) {
       await axios
-        .get(`${API_URL}/admin/delete-spec-type/${id}`, { headers: authHeader() })
+        .get(`${API_URL}/admin/delete-spec-type/${id}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Spec type deleted!',
@@ -374,7 +424,9 @@ export const useProductStore = defineStore({
     },
     async deleteProductGroup(id) {
       await axios
-        .get(`${API_URL}/admin/delete-product-group/${id}`, { headers: authHeader() })
+        .get(`${API_URL}/admin/delete-product-group/${id}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Product group deleted!',

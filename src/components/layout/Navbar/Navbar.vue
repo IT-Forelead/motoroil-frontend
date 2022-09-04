@@ -6,8 +6,8 @@ import BottomNavbar from './parts/BottomNavbar.vue';
 </script>
 <template>
   <header class="w-full">
-    <TopNavbar />
-    <MiddleNavbar />
+    <TopNavbar class="fixed top-0 z-20 w-full"/>
+    <MiddleNavbar class="mt-12" />
     <BottomNavbar />
   </header>
 </template>
