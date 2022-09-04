@@ -154,7 +154,7 @@ const editModal = (id) => {
                       alt="product image">
                   </router-link>
                   <div>
-                    <router-link to="/product" class="font-medium text-gray-700 text-md"
+                    <router-link to="/product" class="block h-12 overflow-hidden font-medium text-gray-700 text-md"
                       @click="showProduct(product?.product?.id)"
                       :title="product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name"
                       target="_self">

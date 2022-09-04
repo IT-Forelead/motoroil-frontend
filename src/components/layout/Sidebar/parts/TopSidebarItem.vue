@@ -32,7 +32,7 @@ function toggleSubCategory(id) {
       $(`#${sc?.id}`).slideUp()
     }
   })
-  $(`#${id}`).slideToggle(500, "linear")
+  $(`#${id}`).slideDown(500, "linear")
 }
 
 const categriesFilter = reactive({

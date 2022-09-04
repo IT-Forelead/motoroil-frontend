@@ -29,7 +29,7 @@ onMounted(() => {
         <img class="w-20" :src="`${API_URL}/image/${product?.product?.imageUrl[0]}`" alt="Latest Product">
         <div class="ml-3">
           <router-link to="/product" @click="showProduct(product?.product?.id)">
-            <div class="text-gray-900 text-md">
+            <div class="block h-12 overflow-hidden text-gray-900 text-md">
               {{ product?.productGroup?.productGroup?.name }} <br>
               {{ product?.productGroup?.viscosityGrade?.name }}
             </div>

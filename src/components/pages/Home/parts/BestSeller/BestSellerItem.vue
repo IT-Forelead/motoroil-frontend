@@ -35,7 +35,7 @@ const { product } = toRefs(props)
       </router-link>
     </div>
     <div class="p-5 py-3 text-center">
-      <router-link to="/product" class="text-gray-900 text-md" @click="showProduct(product?.product?.id)"
+      <router-link to="/product" class="block h-12 overflow-hidden text-gray-900 text-md" @click="showProduct(product?.product?.id)"
         :title="product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name"
         target="_self">
         {{ product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name }}
