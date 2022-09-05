@@ -3,6 +3,8 @@ import {defineStore} from 'pinia'
 import authHeader from '../mixins/auth/auth-header.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import { useProductStore } from './product.js'
+import { useModalStore } from './modal.js'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -31,6 +33,44 @@ export const useDiscountStore = defineStore({
                 position: 'bottomRight',
               })
               this.getDiscounts()
+            })
+            .catch((err) => {
+              notify.warning({
+                message: 'Discount not added!',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async addDiscountToProduct(data) {
+          await axios
+            .post(`${API_URL}/admin/add-discount-to-product`, data, { headers: authHeader() })
+            .then(() => {
+              notify.success({
+                message: 'Discount added to products!',
+                position: 'bottomRight',
+              })
+              useProductStore().multiselectProductIds = []
+              useProductStore().getAllProducts()
+              useModalStore().closeAddDiscountToProductModal()
+            })
+            .catch((err) => {
+              notify.warning({
+                message: 'Discount not added!',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async removeDiscountInProduct(data) {
+          await axios
+            .post(`${API_URL}/admin/delete-discount-in-product`, data, { headers: authHeader() })
+            .then(() => {
+              notify.success({
+                message: 'Discount added to products!',
+                position: 'bottomRight',
+              })
+              useProductStore().multiselectProductIds = []
+              useProductStore().getAllProducts()
+              useModalStore().closeRemoveDiscountInProductModal()
             })
             .catch((err) => {
               notify.warning({

@@ -6,15 +6,19 @@ import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
 import PlusIcon from '../../../assets/icons/PlusIcon.vue';
 import MinusIcon from '../../../assets/icons/MinusIcon.vue';
 import { useDiscountStore } from '../../../stores/discount.js';
+import { useProductStore } from '../../../stores/product.js';
 import { useModalStore } from '../../../stores/modal.js';
-import { onMounted, reactive } from '@vue/runtime-core'
+import { onMounted, reactive, ref } from '@vue/runtime-core'
 import { formatDateTime } from '../../../mixins/utils';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import { timestamp } from '@vueuse/core';
+import MultiSelectForDiscount from '../../MultiSelectForDiscount.vue';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const discountStore = useDiscountStore()
+const productStore = useProductStore()
 const modalStore = useModalStore()
+const selectedDiscountId = ref('')
 
 const discount = reactive({
   startedAt: '',
@@ -113,10 +117,10 @@ onMounted(() => {
               </td>
               <td class="p-3">
                 <div class="flex items-start space-x-2">
-                  <button @click="modalStore.openAddDiscountToProductModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="modalStore.openAddDiscountToProductModal(); selectedDiscountId=discount?.id" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PlusIcon class="w-4 h-4" />
                   </button>
-                  <button @click="modalStore.openRemoveDiscountInProductModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="modalStore.openRemoveDiscountInProductModal(); selectedDiscountId=discount?.id" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <MinusIcon class="w-4 h-4" />
                   </button>
                   <button @click="modalStore.openEditDiscountModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
@@ -247,12 +251,8 @@ onMounted(() => {
         </div>
         <div class="px-6 py-2">
           <div class="flex flex-col space-y-5">
-            <label for="discountPercent">
-              <p class="pb-2 font-medium text-slate-700">{{ $t('discountPercent') }}</p>
-              <input type="number" id="discountPercent" min="0" v-model="discount.discountPercent"
-                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
-            </label>
-            <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+            <MultiSelectForDiscount :id="'addDiscount'" :discountId="selectedDiscountId" />
+            <button @click="discountStore.addDiscountToProduct({discountId: selectedDiscountId, productIds: productStore.multiselectProductIds})" class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
               {{ $t('save') }}
             </button>
           </div>
@@ -276,12 +276,8 @@ onMounted(() => {
         </div>
         <div class="px-6 py-2">
           <div class="flex flex-col space-y-5">
-            <label for="discountPercent">
-              <p class="pb-2 font-medium text-slate-700">{{ $t('discountPercent') }}</p>
-              <input type="number" id="discountPercent" min="0" v-model="discount.discountPercent"
-                class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
-            </label>
-            <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+            <MultiSelectForDiscount :id="'removeDiscount'" :discountId="selectedDiscountId" />
+            <button @click="discountStore.removeDiscountInProduct(productStore.multiselectProductIds)" class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
               {{ $t('save') }}
             </button>
           </div>

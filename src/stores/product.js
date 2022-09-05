@@ -33,6 +33,7 @@ export const useProductStore = defineStore({
     specTypes: [],
     multiselectOEMids: [],
     multiselectSpecids: [],
+    multiselectProductIds: [],
   }),
   getters: {},
   actions: {
@@ -488,6 +489,15 @@ export const useProductStore = defineStore({
         )
       } else {
         this.multiselectSpecids.push(id)
+      }
+    },
+    setSelectedProductId(id) {
+      if (this.multiselectProductIds.includes(id)) {
+        this.multiselectProductIds = this.multiselectProductIds.filter(
+          (i) => i !== id
+        )
+      } else {
+        this.multiselectProductIds.push(id)
       }
     },
   },
