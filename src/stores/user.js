@@ -57,6 +57,24 @@ export const useUserStore = defineStore({
           })
         })
     },
+    async deleteCartItem(id) {
+      await axios
+        .get(`${API_URL}/user/delete-cart/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Cart item deleted!',
+            position: 'bottomRight',
+          })
+          this.getCart()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While cart item deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async addWishlist(data) {
       await axios
         .post(`${API_URL}/user/add-wishlist`, data, {headers: authHeader()})
