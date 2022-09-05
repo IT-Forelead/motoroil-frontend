@@ -475,10 +475,20 @@ export const useProductStore = defineStore({
       this.search = str
     },
     setSelectedId(id) {
-      this.multiselectOEMids.push(id)
+      if (this.multiselectOEMids.includes(id)) {
+        this.multiselectOEMids = this.multiselectOEMids.filter((i) => i !== id)
+      } else {
+        this.multiselectOEMids.push(id)
+      }
     },
     setSelectedSpecId(id) {
-      this.multiselectSpecids.push(id)
+      if (this.multiselectSpecids.includes(id)) {
+        this.multiselectSpecids = this.multiselectSpecids.filter(
+          (i) => i !== id
+        )
+      } else {
+        this.multiselectSpecids.push(id)
+      }
     },
   },
 })

@@ -31,8 +31,8 @@ const productGroupForm = reactive({
   brandId: '',
   viscosityGradeId: '',
   videoUrl: '',
-  productOEMIds: store.multiselectOEMids.join(','),
-  productSpecIds: store.multiselectSpecids.join(','),
+  productOEMIds: '',
+  productSpecIds: '',
   pdfUrl: ''
 })
 
@@ -78,6 +78,23 @@ onMounted(() => {
     }
   })
 })
+
+const closeAndClear = () => {
+  productGroupForm.name = '',
+    productGroupForm.description = '',
+    productGroupForm.categoryId = '',
+    productGroupForm.subCategoryId = '',
+    productGroupForm.miniSubCategoryId = '',
+    productGroupForm.brandId = '',
+    productGroupForm.viscosityGradeId = '',
+    productGroupForm.videoUrl = '',
+    productGroupForm.productOEMIds = '',
+    productGroupForm.productSpecIds = '',
+    productGroupForm.pdfUrl = ''
+  store.multiselectOEMids = []
+  store.multiselectSpecids = []
+  modalStore.closeProductGroupModal()
+}
 
 </script>
 
@@ -176,7 +193,7 @@ onMounted(() => {
       <div class="relative bg-white rounded shadow dark:bg-gray-700">
         <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('productVideo') }}</h3>
-          <button type="button" @click="modalStore.closeProductGroupModal()"
+          <button type="button" @click="closeAndClear()"
             class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
             data-modal-toggle="defaultModal">
             <CloseIcon />
