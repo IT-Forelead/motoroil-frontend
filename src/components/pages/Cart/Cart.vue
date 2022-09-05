@@ -35,11 +35,6 @@ const plusMinus = (id, productCount, quantity, action) => {
   }
 }
 
-const totalPrice = () =>
-  userStore.cart
-    .map((p) => p?.quantity * p?.productPrice)
-    .reduce((q, a) => q + a, 0)
-
 watch(
   () => addressForm.country,
   () => {
@@ -160,7 +155,7 @@ watch(
                 <ul class="px-5 my-3 divide-y">
                   <li class="flex items-center justify-between py-3 font-medium">
                     <span class="text-gray-600">{{ $t('orderSubtotal')}}</span>
-                    <span class="text-gray-900">${{ totalPrice() }}</span>
+                    <span class="text-gray-900">${{ userStore.cartSum }}</span>
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
                     <span class="text-gray-700">{{ $t('shippingAndHandling')}}</span>
@@ -172,7 +167,7 @@ watch(
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
                     <span class="text-gray-600">{{ $t('total')}}</span>
-                    <span class="text-gray-900">${{ totalPrice() }}</span>
+                    <span class="text-gray-900">${{ userStore.cartSum }}</span>
                   </li>
                 </ul>
                 <button class="w-1/2 py-2 mx-3 text-lg text-white bg-red-500 rounded-full hover:bg-red-700">

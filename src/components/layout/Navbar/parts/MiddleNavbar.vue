@@ -7,6 +7,7 @@ import { useProductStore } from '../../../../stores/product.js';
 import { useAuthStore } from '../../../../stores/auth.js';
 import { useModalStore } from '../../../../stores/modal.js';
 import { useUserStore } from '../../../../stores/user.js';
+import { onMounted } from '@vue/runtime-core';
 
 const store = useProductStore()
 const authStore = useAuthStore()
@@ -18,13 +19,11 @@ const search = ref('')
 const searchProducts = () => {
   store.setSearchString(search.value)
   store.getProductsSearchByName(search.value)
-  userStore.getCart()
 }
 
-const totalPrice = () =>
-  userStore.cart
-    .map((p) => p?.quantity * p?.productPrice)
-    .reduce((q, a) => q + a, 0)
+onMounted(() => {
+  userStore.getCart()
+})
 </script>
 
 <template>
@@ -58,7 +57,7 @@ const totalPrice = () =>
           </div>
           <div class="flex items-center justify-center px-4 py-2 border-l">
             {{ $t('myCart') }}:
-            <span class="ml-1 font-medium text-red-500">${{ totalPrice() }}</span>
+            <span class="ml-1 font-medium text-red-500">${{ userStore.cartSum }}</span>
           </div>
         </router-link>
         <button v-else-if="authStore.user?.role === 'admin'" class="hidden"></button>

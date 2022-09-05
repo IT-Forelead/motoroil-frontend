@@ -12,12 +12,14 @@ export const useUserStore = defineStore({
     cart: [],
     addresses: [],
     regions: [],
-    cities: []
+    cities: [],
+    cartSum: 0
   }),
   actions: {
     async getCart() {
         const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})
         this.cart = response.data
+        this.cartSum = this.cart.map((p) => p?.quantity * p?.productPrice).reduce((q, a) => q + a, 0)
     },
     async getUserAddresses() {
         const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
@@ -99,6 +101,7 @@ export const useUserStore = defineStore({
             message: 'Product added to cart!',
             position: 'bottomRight',
           })
+          this.getCart()
         })
         .catch((err) => {
           notify.warning({
