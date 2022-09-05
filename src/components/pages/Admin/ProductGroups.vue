@@ -31,20 +31,17 @@ const productGroupForm = reactive({
   brandId: '',
   viscosityGradeId: '',
   videoUrl: '',
-  productOEMIds: '',
-  productSpecIds: '',
+  productOEMIds: store.multiselectOEMids.join(','),
+  productSpecIds: store.multiselectSpecids.join(','),
   pdfUrl: ''
 })
 
 function getFile(e) {
-  console.log(e?.target?.files[0].type.includes('pdf'));
-  console.log(e?.target?.files[0]);
   productGroupForm.pdfUrl = e?.target?.files[0]
 }
 
 const submitProductGroupData = () => {
   productGroupForm.description = $('#desc .ql-editor').html()
-  console.log(productGroupForm);
   const formData = new FormData()
   formData.append('name', productGroupForm.name)
   formData.append('description', productGroupForm.description)
@@ -54,13 +51,14 @@ const submitProductGroupData = () => {
   formData.append('brandId', productGroupForm.brandId)
   formData.append('viscosityGradeId', productGroupForm.viscosityGradeId)
   formData.append('videoUrl', productGroupForm.videoUrl)
-  formData.append('productOEMIds', productGroupForm.productOEMIds)
-  formData.append('productSpecIds', productGroupForm.productSpecIds)
+  formData.append('productOEMIds', store.multiselectOEMids.join(','))
+  formData.append('productSpecIds', store.multiselectSpecids.join(','))
   formData.append('pdfUrl', productGroupForm.pdfUrl)
   store.createProductGroup(formData)
 }
 
-const options = ref([])
+const oemOptions = ref([])
+const specOptions = ref([])
 
 onMounted(() => {
   store.getProductGroups()
@@ -71,7 +69,12 @@ onMounted(() => {
   store.getSAEViscosityGrades()
   store.getProductOEMs().then(() => {
     if (store.productOEMs.length > 0) {
-      options.value = store.productOEMs
+      oemOptions.value = store.productOEMs
+    }
+  })
+  store.getSpecifications().then(() => {
+    if (store.productSpecifications.length > 0) {
+      specOptions.value = store.productSpecifications
     }
   })
 })
@@ -233,6 +236,8 @@ onMounted(() => {
                     </option>
                   </select>
                 </label>
+              </div>
+              <div>
                 <label for="brand">
                   <p class="mt-2 font-medium text-slate-700">Brand</p>
                   <select v-model="productGroupForm.brandId"
@@ -246,7 +251,7 @@ onMounted(() => {
                 </label>
                 <label for="grade">
                   <p class="mt-2 font-medium text-slate-700">Viscosity grade</p>
-                  <select v-model="productGroupForm.brandId"
+                  <select v-model="productGroupForm.viscosityGradeId"
                     class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
                     <option value="" selected>Select viscosity grade</option>
                     <option v-for="(grade, idx) in store.saeViscosityGrades" :key="idx" :value="grade?.id">{{
@@ -255,13 +260,15 @@ onMounted(() => {
                     </option>
                   </select>
                 </label>
-              </div>
-              <div>
                 <label for="oem">
                   <p class="mt-2 font-medium text-slate-700">Select product OEM</p>
-                  <MultiSelect :options="options" />
+                  <MultiSelect :options="oemOptions" :id="'multiselectOem'" />
                 </label>
-                <label for="oem">
+                <label for="spec">
+                  <p class="mt-2 font-medium text-slate-700">Select product Specification</p>
+                  <MultiSelect :options="specOptions" :id="'multiselectSpec'" />
+                </label>
+                <label for="videoLink">
                   <p class="mt-2 font-medium text-slate-700">Product video link</p>
                   <input id="videoLink" v-model="productGroupForm.videoUrl" type="text"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
