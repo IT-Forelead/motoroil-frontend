@@ -46,7 +46,7 @@ onMounted(() => {
             <p class="h-24 mb-3 overflow-hidden font-normal text-gray-700" v-html="blog.text"></p>
             <router-link to="/blog" @click="readMore(blog.id)"
               class="px-5 py-2 text-sm text-center text-white uppercase bg-gray-900 rounded hover:bg-red-500 focus:ring-0">
-              Read More</router-link>
+              {{ $t('readMore') }}</router-link>
           </div>
         </div>
       </div>
