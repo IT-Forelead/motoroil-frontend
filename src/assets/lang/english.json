@@ -61,7 +61,7 @@
   "selectAddress":"SELECT ADDRESS",
   "addAddress":"Add address",
   "selectTheAddressRecipient":"Select the address of the recipient of the order",
-  "couponCode ":"COUPON CODE",
+  "couponCode":"COUPON CODE",
   "toUseThisCoupon":"To use this coupon you need to buy at least €",
   "applyCoupon":"Apply coupon",
   "orderSummary":"ORDER SUMMARY",
