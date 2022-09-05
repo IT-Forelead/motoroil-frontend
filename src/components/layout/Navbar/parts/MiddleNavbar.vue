@@ -49,7 +49,7 @@ const searchProducts = () => {
             <!-- <div class="absolute -top-3 -right-2 px-1.5 py-0.5 text-xs text-white bg-red-500 rounded-full">1</div> -->
           </div>
           <div class="flex items-center justify-center px-4 py-2 border-l">
-            My cart
+            {{ $t('myCart') }}
             <!-- <span class="ml-1 font-medium text-red-500">$123.00</span> -->
           </div>
         </router-link>
@@ -59,7 +59,7 @@ const searchProducts = () => {
             <ShoppingCartFillIcon />
           </div>
           <div class="flex items-center justify-center px-4 py-2 border-l">
-            My cart
+            {{ $t('myCart') }}
           </div>
         </button>
       </div>

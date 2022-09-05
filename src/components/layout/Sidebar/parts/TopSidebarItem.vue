@@ -71,7 +71,7 @@ watch(
 
 <template>
   <div>
-    <div class="p-3 font-medium text-white uppercase bg-red-500 rounded-t-lg">Categories</div>
+    <div class="p-3 font-medium text-white uppercase bg-red-500 rounded-t-lg">{{ $t('categories') }}</div>
     <div class="p-3 bg-white border border-t-0 border-gray-300 rounded-b-lg">
       <ul class="divide-y divide-gray-300">
         <li class="p-2" v-for="(category, idx) in store.categories" :key="idx"

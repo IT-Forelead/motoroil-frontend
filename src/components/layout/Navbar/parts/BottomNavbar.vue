@@ -40,7 +40,7 @@ onMounted(() => {
       <div class="relative">
         <button @click="toggleDropDown()"
           class="flex items-center justify-between w-full px-5 py-2 uppercase border-0 from-gray-50 via-gray-100 to-gray-300 bg-gradient-to-t rounded-t-md text-md hover:from-red-200 hover:via-red-400 hover:to-red-600">
-          ALL CATEGORIES
+          {{ $t('allCategories') }}
           <ListIcon class="mr-1" />
         </button>
         <div v-if="productStore.brands.length > 0" :class="{ 'hidden': !isOpenMainDropDown }" ref="dropdown"
@@ -59,62 +59,62 @@ onMounted(() => {
           class="px-4 py-2 m-0 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }" 
           @click="router.push('/'); mainSearchStore.clearMainSearchResults()">
-          Home
+          {{ $t('home') }}
         </li>
         <li
           class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/products' || $router.currentRoute.value.path === '/product' }"
           @click="router.push('/products'); productStore.setSearchString(''); productStore.getAllProducts()">
-          Products
+          {{ $t('products') }}
         </li>
         <li
           class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/blogs' || $router.currentRoute.value.path === '/blog' }"
           @click="router.push('/blogs')">
-          Blogs
+          {{ $t('blogs') }}
         </li>
         <li v-if="authStore?.user?.role === 'user'" class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/orders' || $router.currentRoute.value.path === '/orders' }"
           @click="router.push('/orders')">
-          Orders
+          {{ $t('orders') }}
         </li>
         <li v-if="authStore?.user?.role === 'admin'"
           class="relative px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store' || $router.currentRoute.value.path === '/admin/orders' || $router.currentRoute.value.path === '/admin/discount' || $router.currentRoute.value.path === '/admin/accounting' || $router.currentRoute.value.path === '/admin/product-models' || $router.currentRoute.value.path === '/admin/spec-type' }"
           @click="toggleAdminMenus()">
-          Admin Access
+          {{ $t('adminAccess') }}
           <div :class="{ 'hidden': !isOpenAdminMenus }" ref="menus"
             class="absolute left-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-12 w-44">
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
               <li>
                 <router-link to="/admin/store"
                   :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store' }"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Store
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('store') }}
                 </router-link>
               </li>
               <li>
                 <router-link to="/admin/product-groups" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/product-groups'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Product groups</router-link>
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('productGroups')}}</router-link>
               </li>
               <li>
                 <router-link to="/admin/orders" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/orders'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Orders</router-link>
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('orders') }}</router-link>
               </li>
               <li>
                 <router-link to="/admin/discount" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/discount'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Discounts</router-link>
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('discounts') }}</router-link>
               </li>
               <li>
                 <router-link to="/admin/accounting" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/accounting'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Accounting</router-link>
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('accounting') }}</router-link>
               </li>
               <li>
                 <router-link to="/admin/product-models" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/product-models'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Product models</router-link>
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('productModels') }}</router-link>
               </li>
               <li>
                 <router-link to="/admin/spec-type" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/spec-types'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Spec types</router-link>
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('specTypes') }}</router-link>
               </li>
             </ul>
           </div>
