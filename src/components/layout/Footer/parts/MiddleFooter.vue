@@ -15,7 +15,7 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
   <div class="flex justify-center px-5 pt-10 bg-white">
     <div class="container grid grid-cols-4 gap-7">
       <div>
-        <div class="font-semibold uppercase text-mf">Contact us</div>
+        <div class="font-semibold uppercase text-mf">{{ $t('aboutUs') }}</div>
         <ul class="py-5">
           <li class="flex items-center py-3 space-x-3">
             <MapPinIcon class="text-red-500 w-9 h-9" />
@@ -36,71 +36,72 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
         </ul>
       </div>
       <div>
-        <div class="font-semibold uppercase text-mf">INFORMATION</div>
+        <div class="font-semibold uppercase text-mf">{{ $t('information') }}</div>
         <ul class="py-5">
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">About Us</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">
+              {{ $t('aboutUs') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Faq</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('faq') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Warranty And Services</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('warrantyAndServices') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Support 24/7 page</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('supportPage') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Product Registration</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('productRegistration') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Product Support</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('productSupport') }}</a>
           </li>
         </ul>
       </div>
       <div>
-        <div class="font-semibold uppercase text-mf">My Account</div>
+        <div class="font-semibold uppercase text-mf">{{ $t('myAccount') }}</div>
         <ul class="py-5">
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Brands</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('brands') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Gift Certificates</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('giftCertificates') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Affiliates</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('affiliates') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Specials</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('specials') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">FAQs</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('faqs') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Custom Link</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('customLink') }}</a>
           </li>
         </ul>
       </div>
       <div>
-        <div class="font-semibold uppercase text-mf">Categories</div>
+        <div class="font-semibold uppercase text-mf">{{ $t('categories') }}</div>
         <ul class="py-5">
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Event & Party Supplies</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('eventAndPartySupplies') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Home Improvement</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('homeImprovement') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Lamps & Light Fixtures</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('lampsAndLightFixtures') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Kitchen & Bath Fixtures</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('kitchenAndBathFixtures') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Customer Service</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('customerService') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">Kitchen & Dining</a>
+            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('kitchenAndDining') }}</a>
           </li>
         </ul>
       </div>
@@ -128,10 +129,10 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
         </div>
       </div>
       <div class="flex items-center justify-between col-span-2 px-12 bg-gray-800 py-7">
-        <div class="text-xl font-medium text-white uppercase indent-3">Sign Up for Newsletter</div>
+        <div class="text-xl font-medium text-white uppercase indent-3">{{ $t('signUpForNewsletter') }}</div>
         <div class="flex rounded bg-white w-[30rem]">
           <input type="search" class="w-full px-4 py-1 text-gray-900 bg-transparent border-none outline-none focus:outline-none" placeholder="Your email address..." />
-          <button type="button" class="px-4 py-2 text-white uppercase bg-red-500 rounded-r"> Subscribe </button>
+          <button type="button" class="px-4 py-2 text-white uppercase bg-red-500 rounded-r"> {{ $t('subscribe') }} </button>
         </div>
       </div>
     </div>

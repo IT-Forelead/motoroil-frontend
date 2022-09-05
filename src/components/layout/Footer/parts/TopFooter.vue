@@ -14,8 +14,8 @@ import UsersIcon from '../../../../assets/icons/UsersIcon.vue';
           <CarIcon class="w-10 h-10 text-red-500" />
         </div>
         <div>
-          <div class="font-medium uppercase text-md">Free shipping</div>
-          <div class="text-sm text-gray-400">On all orders over $99.00</div>
+          <div class="font-medium uppercase text-md">{{ $t('freeShipping') }}</div>
+          <div class="text-sm text-gray-400">{{ $t('onAllOrdersOver') }}</div>
         </div>
       </div>
       <div class="flex items-center space-x-3">
@@ -23,8 +23,8 @@ import UsersIcon from '../../../../assets/icons/UsersIcon.vue';
           <ArrowsClockwiseIcon class="w-10 h-10 text-red-500" />
         </div>
         <div>
-          <div class="font-medium uppercase text-md">30 days return</div>
-          <div class="text-sm text-gray-400">You have 30 days to return</div>
+          <div class="font-medium uppercase text-md">{{ $t('daysReturn') }}</div>
+          <div class="text-sm text-gray-400">{{ $t('youHaveDaysToReturn') }}</div>
         </div>
       </div>
       <div class="flex items-center space-x-3">
@@ -32,8 +32,8 @@ import UsersIcon from '../../../../assets/icons/UsersIcon.vue';
           <KeyholeIcon class="w-10 h-10 text-red-500" />
         </div>
         <div>
-          <div class="font-medium uppercase text-md">Safe Shopping</div>
-          <div class="text-sm text-gray-400">Payment 100% secure</div>
+          <div class="font-medium uppercase text-md">{{ $t('safeShopping') }}</div>
+          <div class="text-sm text-gray-400">{{ $t('paymentSecure') }}</div>
         </div>
       </div>
       <div class="flex items-center space-x-3">
@@ -41,8 +41,8 @@ import UsersIcon from '../../../../assets/icons/UsersIcon.vue';
           <UsersIcon class="w-10 h-10 text-red-500" />
         </div>
         <div>
-          <div class="font-medium uppercase text-md">Online support</div>
-          <div class="text-sm text-gray-400">Contact us 24 hours a day</div>
+          <div class="font-medium uppercase text-md">{{ $t('onlineSupport') }}</div>
+          <div class="text-sm text-gray-400">{{ $t('contactUsHoursDay') }}</div>
         </div>
       </div>
     </div>

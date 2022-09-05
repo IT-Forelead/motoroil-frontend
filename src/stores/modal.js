@@ -14,6 +14,7 @@ export const useModalStore = defineStore({
     isOpenAddProductModal: false,
     isOpenEditProductModal: false,
     isOpenSlideModal: false,
+    isOpenAddAddressModal: false,
     isOpenProductGroupModal: false,
   }),
   actions: {
@@ -91,6 +92,12 @@ export const useModalStore = defineStore({
     },
     closeEditProductModal() {
       this.isOpenEditProductModal = false
+    },
+    openAddAddressModal() {
+      this.isOpenAddAddressModal = true
+    },
+    closeAddAddressModal() {
+      this.isOpenAddAddressModal = false
     },
   },
 })

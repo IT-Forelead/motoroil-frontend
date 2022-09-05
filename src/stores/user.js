@@ -10,14 +10,21 @@ export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
     cart: [],
+    coupons: [],
     addresses: [],
     regions: [],
-    cities: []
+    cities: [],
+    cartSum: 0
   }),
   actions: {
     async getCart() {
         const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})
         this.cart = response.data
+        this.cartSum = this.cart.map((p) => p?.quantity * p?.productPrice).reduce((q, a) => q + a, 0)
+    },
+    async getCoupons() {
+        const response = await axios.get(`${API_URL}/user/coupons`, {headers: authHeader()})
+        this.coupons = response.data
     },
     async getUserAddresses() {
         const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
@@ -30,6 +37,50 @@ export const useUserStore = defineStore({
     async getCities(data) {
         const response = await axios.post(`${API_URL}/user/cities`, `"${data}"`, {headers: authHeader()})
         this.cities = response.data
+    },
+    async changeCartItemsQuantityPlus(data) {
+        await axios
+        .get(`${API_URL}/user/change-cart-items-quantity-plus/${data}`, {headers: authHeader()})
+        .then(() => {
+          this.getCart()
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Not increased!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async changeCartItemsQuantityMinus(data) {
+        await axios
+        .get(`${API_URL}/user/change-cart-items-quantity-minus/${data}`, {headers: authHeader()})
+        .then(() => {
+          this.getCart()
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Not reduced!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async deleteCartItem(id) {
+      await axios
+        .get(`${API_URL}/user/delete-cart/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Cart item deleted!',
+            position: 'bottomRight',
+          })
+          this.getCart()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While cart item deleting!',
+            position: 'bottomRight',
+          })
+        })
     },
     async addWishlist(data) {
       await axios
@@ -55,6 +106,7 @@ export const useUserStore = defineStore({
             message: 'Product added to cart!',
             position: 'bottomRight',
           })
+          this.getCart()
         })
         .catch((err) => {
           notify.warning({

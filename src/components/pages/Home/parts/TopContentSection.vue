@@ -77,14 +77,14 @@ const submitSlideData = () => {
         <div class="px-5 space-y-3">
           <select v-model="mainFilter.brand"
             class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option value="" selected>Brand</option>
+            <option value="" selected>{{$t('brand')}}</option>
             <option v-for="(brand, idx) in mainSearchStore.mainSearch?.brands" :key="idx" :value="brand?.id">{{
                 brand?.name
             }}</option>
           </select>
           <select v-model="mainFilter.sae"
             class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option value="" selected>SAE Viscosity Grades</option>
+            <option value="" selected>{{$t('saeViscosityGrades')}}</option>
             <option v-for="(sae, idx) in mainSearchStore.mainSearch?.saes" :key="idx" :value="sae?.id">{{ sae?.name }}
             </option>
           </select>
@@ -101,7 +101,7 @@ const submitSlideData = () => {
               :value="specification?.id">{{ specification?.name }}</option>
           </select>
           <a href="#main-search-result" @click="mainSearchStore.getProductsByMainSearch(mainFilter)"
-            class="flex items-center justify-center w-full p-3 text-white uppercase bg-red-600 rounded hover:bg-red-700">Search</a>
+            class="flex items-center justify-center w-full p-3 text-white uppercase bg-red-600 rounded hover:bg-red-700">{{ $t('search') }}</a>
         </div>
       </div>
       <div class="col-span-3 h-auto lg:h-[650px]">
@@ -110,8 +110,7 @@ const submitSlideData = () => {
           <swiper-slide v-for="(slide, idx) in slideStore.slides" :key="idx" class="slide">
             <img :src="`${API_URL}/image/${slide?.imageUrl}`" class="w-full" alt="#">
             <a :href="slide?.link" target="_blank"
-              class="absolute hidden px-5 py-3 text-base font-medium text-white bg-red-600 rounded whitespace-nowrap">Show
-              more</a>
+              class="absolute hidden px-5 py-3 text-base font-medium text-white bg-red-600 rounded whitespace-nowrap">{{$t('showMore')}}</a>
             <div v-if="authStore.user?.role === 'admin'"
               class="absolute top-0 right-0 flex items-center justify-center p-3 space-x-2 text-white rounded bg-black/50">
               <plus-icon @click="modalStore.openSlideModal()"
@@ -127,8 +126,7 @@ const submitSlideData = () => {
           <swiper-slide class="slide">
             <img src="/bg/slider-1.jpg" class="w-full" alt="#">
             <a href="#" target="_blank"
-              class="absolute hidden px-5 py-3 text-base font-medium text-white bg-red-600 rounded whitespace-nowrap">Show
-              more</a>
+              class="absolute hidden px-5 py-3 text-base font-medium text-white bg-red-600 rounded whitespace-nowrap">{{$t('showMore')}}</a>
             <div v-if="authStore.user?.role === 'admin'"
               class="absolute top-0 right-0 flex items-center justify-center p-3 space-x-2 text-white rounded bg-black/50">
               <plus-icon @click="modalStore.openSlideModal()"
@@ -145,31 +143,31 @@ const submitSlideData = () => {
     <div class="relative w-full h-full max-w-xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
       <div class="relative bg-white rounded shadow dark:bg-gray-700">
         <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Slide data</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('slideData') }}</h3>
           <button type="button" @click="modalStore.closeSlideModal()"
             class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
             data-modal-toggle="defaultModal">
             <CloseIcon />
-            <span class="sr-only">Close modal</span>
+            <span class="sr-only">{{ $t('closeModal') }}</span>
           </button>
         </div>
         <div class="px-6 py-3 space-y-6">
           <form @submit.prevent="submitSlideData()" class="my-5">
             <div class="flex flex-col space-y-5">
               <label for="link">
-                <p class="pb-2 font-medium text-slate-700">Link</p>
+                <p class="pb-2 font-medium text-slate-700">{{ ('link') }}</p>
                 <input id="link" v-model="slideLink" type="text"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter link">
               </label>
               <label for="image">
-                <p class="pb-2 font-medium text-slate-700">Image</p>
+                <p class="pb-2 font-medium text-slate-700">{{ ('image') }}</p>
                 <input id="image" @change="getImage" type="file" class="w-full px-3 py-3 focus:outline-none"
                   placeholder="Enter slide image">
               </label>
               <button
                 class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                Create slide
+                {{ $t('createSlide') }}
               </button>
             </div>
           </form>

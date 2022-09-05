@@ -247,12 +247,10 @@ const deleteCurrentProduct = (id) => {
                 <ul class="flex flex-col p-2 space-y-1 border-l-4 border-red-500">
                   <li class="flex items-center space-x-2"
                     @click="deleteCurrentProduct(store.singleProduct?.product?.id)">
-                    <span class="font-medium text-gray-500 cursor-pointer hover:text-red-600 text-md">Delete
-                      product</span>
+                    <span class="font-medium text-gray-500 cursor-pointer hover:text-red-600 text-md">{{$t('deleteProduct')}}</span>
                   </li>
                   <li class="flex items-center space-x-2">
-                    <span class="font-medium text-gray-500 cursor-pointer hover:text-blue-600 text-md">Edit
-                      product</span>
+                    <span class="font-medium text-gray-500 cursor-pointer hover:text-blue-600 text-md">{{$t('editProduct')}}</span>
                   </li>
                 </ul>
               </div>
@@ -357,10 +355,10 @@ const deleteCurrentProduct = (id) => {
             <ul class="flex items-center space-x-3 border-b border-red-500">
               <li class="px-5 py-2 text-gray-700 cursor-pointer hover:text-red-700"
                 :class="{ 'text-red-700 border border-b-0 border-red-500 rounded-t': isActiveDesc }"
-                @click="changeActiveTab('desc')">Description</li>
+                @click="changeActiveTab('desc')">{{ $t('description') }}</li>
               <li class="px-3 py-2 text-gray-700 cursor-pointer hover:text-red-700"
                 :class="{ 'text-red-700 border border-b-0 border-red-500 rounded-t': isActiveRew }"
-                @click="changeActiveTab('rew')">Reviews</li>
+                @click="changeActiveTab('rew')">{{ $t('reviews') }}</li>
             </ul>
             <div id="tab-contents" class="px-1 py-3">
               <div id="desc" class="text-gray-700" v-if="isActiveDesc"
@@ -373,7 +371,7 @@ const deleteCurrentProduct = (id) => {
                       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Your review..."></textarea>
                     <div class="flex items-center space-x-2">
-                      <span class="text-sm text-gray-500">Rating:</span>
+                      <span class="text-sm text-gray-500">{{ $t('rating') }}:</span>
                       <ul class="flex items-center py-2">
                         <li v-for="i in 5" :key="i" @click="comment.rating = i; currentRating = comment.rating"
                           class="cursor-pointer">

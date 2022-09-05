@@ -23,7 +23,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="my-3">
-    <div class="p-3 font-medium text-white uppercase bg-red-500 rounded-t-lg">Latest products</div>
+    <div class="p-3 font-medium text-white uppercase bg-red-500 rounded-t-lg">{{ $t('latestProducts') }}</div>
     <div class="p-3 bg-white border border-t-0 border-gray-300 rounded-b-lg">
       <div class="flex items-center p-3" v-for="(product, idx) in store.sidebarProducts" :key="idx">
         <img class="w-20" :src="`${API_URL}/image/${product?.product?.imageUrl[0]}`" alt="Latest Product">

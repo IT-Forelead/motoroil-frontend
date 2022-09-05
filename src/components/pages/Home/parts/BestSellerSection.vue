@@ -30,13 +30,11 @@ onMounted(() => {
     <div class="flex justify-center p-5 bg-white">
       <div class="container flex flex-col justify-center">
         <div class="py-5 text-center">
-          <div v-if="mainSearchStore.searchResults.length > 0" class="space-x-2 text-red-500 uppercase text-md">SEARCH
-            RESULTS ON THE MAIN SEARCH</div>
+          <div v-if="mainSearchStore.searchResults.length > 0" class="space-x-2 text-red-500 uppercase text-md">{{$t('searchResultsOnTheMainSearch')}}</div>
           <div v-else class="space-x-2 text-red-500 uppercase text-md">{{ $t('topSaleInTheWeek') }}</div>
           <div class="flex items-center justify-center">
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-            <div v-if="mainSearchStore.searchResults.length > 0" class="mx-3 text-3xl font-bold uppercase">Main Search
-              Result</div>
+            <div v-if="mainSearchStore.searchResults.length > 0" class="mx-3 text-3xl font-bold uppercase">{{$t('mainSearchResult')}}</div>
             <div v-else class="mx-3 text-3xl font-bold uppercase">{{ $t('bestSeller') }}</div>
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
           </div>

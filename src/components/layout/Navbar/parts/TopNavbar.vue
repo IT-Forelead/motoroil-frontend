@@ -166,7 +166,7 @@ const submitUserData = () => {
             </li>
             <li @click="changeLang('ru')">
               <a href="#"
-                class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">русский</a>
+                class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Русский</a>
             </li>
           </ul>
         </div>
@@ -193,12 +193,12 @@ const submitUserData = () => {
         <a href="/" v-if="authStore.isLogin" @click="authStore.logout()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignOutIcon class="mr-1" />
-          Logout
+          {{ $t('logout') }}
         </a>
         <p v-else @click="authStore.ssoLogout()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignOutIcon class="mr-1" />
-          Logout
+          {{ $t('logout') }}
         </p>
       </div>
     </div>
@@ -209,25 +209,22 @@ const submitUserData = () => {
       <div class="relative w-full h-full max-w-xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
         <div class="relative bg-white rounded shadow dark:bg-gray-700">
           <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Register</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('register') }}</h3>
             <button type="button" @click="store.closeRegisterModal()"
               class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
               data-modal-toggle="defaultModal">
               <CloseIcon />
-              <span class="sr-only">Close modal</span>
+              <span class="sr-only">{{ $t('closeModal') }}</span>
             </button>
           </div>
           <div class="px-6 py-3 space-y-6">
             <a :href="`${API_URL}/auth/google`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
-              <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>Login with
-                Google</span>
+              <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>{{ $t('loginWithGoogle') }}</span>
             </a>
             <a :href="`${API_URL}/auth/facebook`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
-              <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
-                with
-                Facebook</span>
+              <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>{{ $t('loginWithFacebook') }}</span>
             </a>
             <div class="relative mx-auto">
               <hr />
@@ -238,38 +235,38 @@ const submitUserData = () => {
             <form @submit.prevent="submitUserData()" class="my-10">
               <div class="flex flex-col space-y-5">
                 <label for="full-name">
-                  <p class="pb-2 font-medium text-slate-700">Full name</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('fullName') }}</p>
                   <input id="full-name" v-model="userForm.name" type="text"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter full name">
                 </label>
                 <label for="email">
-                  <p class="pb-2 font-medium text-slate-700">Email address</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('emailAddress') }}</p>
                   <input id="email" v-model="userForm.email" name="email" type="email"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter email address">
                 </label>
                 <label for="password">
-                  <p class="pb-2 font-medium text-slate-700">Password</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('password') }}</p>
                   <input id="password" v-model="userForm.password" type="password"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter your password">
                 </label>
                 <label for="confirm-password">
-                  <p class="pb-2 font-medium text-slate-700">Confirm password</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('confirmPassword') }}</p>
                   <input id="confirm-password" v-model="userForm.confirmPassword" type="password"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter confirm password">
                 </label>
                 <button
                   class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                  Registration
+                  {{ $t('registration') }}
                 </button>
                 <p class="text-center">
-                  Already have account?
+                  {{ $t('alreadyHaveAccount') }}
                   <a @click="store.openModal()"
                     class="inline-flex items-center space-x-1 font-medium text-indigo-600 cursor-pointer">
-                    Login
+                    {{ $t('login') }}
                   </a>
                 </p>
               </div>
@@ -285,42 +282,39 @@ const submitUserData = () => {
       <div class="relative w-full h-full max-w-xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
         <div class="relative bg-white rounded shadow dark:bg-gray-700">
           <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Login</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('login') }}</h3>
             <button type="button" @click="store.closeModal()"
               class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
               data-modal-toggle="defaultModal">
               <CloseIcon />
-              <span class="sr-only">Close modal</span>
+              <span class="sr-only">{{ $t('closeModal') }}</span>
             </button>
           </div>
           <div class="px-6 py-3 space-y-6">
             <a :href="`${API_URL}/auth/google`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
-              <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>Login with
-                Google</span>
+              <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt=""> <span>{{ $t('loginWithGoogle') }}</span>
             </a>
             <a :href="`${API_URL}/auth/facebook`"
               class="flex items-center justify-center w-full py-3 my-3 space-x-2 text-center transition duration-150 border rounded border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow">
-              <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>Login
-                with
-                Facebook</span>
+              <img src="https://www.svgrepo.com/show/303117/facebook-2-logo.svg" class="w-6 h-6" alt=""> <span>{{ $t('loginWithFacebook') }}</span>
             </a>
             <div class="relative mx-auto">
               <hr />
               <p
                 class="absolute px-3 py-2 text-gray-400 uppercase -translate-x-1/2 -translate-y-1/2 bg-white top-1/2 left-1/2 whitespace-nowrap">
-                Or</p>
+                {{ $t('or') }}</p>
             </div>
             <form action="" class="my-10">
               <div class="flex flex-col space-y-5">
                 <label for="email-input">
-                  <p class="pb-2 font-medium text-slate-700">Email address</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('emailAddress') }}</p>
                   <input id="email-input" name="email" type="email" v-model="user.email"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter email address">
                 </label>
                 <label for="password-input">
-                  <p class="pb-2 font-medium text-slate-700">Password</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('password') }}</p>
                   <input id="password-input" name="password" type="password" v-model="user.password"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter your password">
@@ -329,19 +323,18 @@ const submitUserData = () => {
                   <div>
                   </div>
                   <div>
-                    <a href="#" @click="store.openResetPasswordModal" class="font-medium text-blue-600">Forgot
-                      Password?</a>
+                    <a href="#" @click="store.openResetPasswordModal" class="font-medium text-blue-600">{{ $t('forgotPassword') }}</a>
                   </div>
                 </div>
                 <button @click.prevent="submitLoginData()"
                   class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                  <span>Login</span>
+                  <span>{{ $t('login') }}</span>
                 </button>
                 <p class="text-center">
-                  Not registered yet?
+                  {{ $t('notRegisteredYet') }}
                   <a @click="store.openRegisterModal()"
                     class="inline-flex items-center space-x-1 font-medium text-indigo-600 cursor-pointer">
-                    Register now
+                    {{ $t('registerNow') }}
                   </a>
                 </p>
               </div>
@@ -357,25 +350,25 @@ const submitUserData = () => {
       <div class="relative w-full h-full max-w-xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
         <div class="relative bg-white rounded shadow dark:bg-gray-700">
           <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recovery Password</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('recoveryPassword') }}</h3>
             <button type="button" @click="store.closeResetPasswordModal()"
               class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900">
               <CloseIcon />
-              <span class="sr-only">Close modal</span>
+              <span class="sr-only">{{ $t('closeModal') }}</span>
             </button>
           </div>
           <div class="px-6 py-3 space-y-6">
             <form action="" class="mb-5">
               <div class="flex flex-col space-y-5">
                 <label for="recovery-email">
-                  <p class="pb-2 font-medium text-slate-700">Email address</p>
+                  <p class="pb-2 font-medium text-slate-700">{{ $t('emailAddress') }}</p>
                   <input id="recovery-email" name="email" type="email" v-model="recoveryEmail"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter email address">
                 </label>
                 <button @click.prevent="submitRecoveryEmail()"
                   class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                  <span>Recovery</span>
+                  <span>{{ $t('recovery') }}</span>
                 </button>
               </div>
             </form>
