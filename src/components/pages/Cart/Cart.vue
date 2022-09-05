@@ -123,7 +123,7 @@ watch(
                   {{ $t('selectAdress') }}
                   <button type="submit" class="flex items-center px-3 py-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
                     <PlusIcon class="w-5 h-5 mr-1" />
-                    {{ $t('addAdress') }}
+                    {{ $t('addAddress') }}
                   </button>
                 </div>
                 <div class="p-3 text-gray-800">{{ $t('selectTheAddressRecipient') }}</div>
