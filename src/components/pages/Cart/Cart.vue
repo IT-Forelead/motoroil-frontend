@@ -9,11 +9,14 @@ import StackIcon from '../../../assets/icons/StackIcon.vue';
 import GiftIcon from '../../../assets/icons/GiftIcon.vue';
 import Sidebar from '../../layout/Sidebar/Sidebar.vue'
 import { useUserStore } from '../../../stores/user.js';
+import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive, watch } from '@vue/runtime-core';
+import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 const userStore = useUserStore()
+const modalStore = useModalStore()
 
 const addressForm = reactive({
   country: '',
@@ -121,7 +124,7 @@ watch(
               <div>
                 <div class="flex items-center justify-between py-3.5 font-normal text-gray-700 uppercase bg-gray-50 rounded-full pl-7 pr-4 text-md">
                   {{ $t('selectAdress') }}
-                  <button type="submit" class="flex items-center px-3 py-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
+                  <button @click="modalStore.openAddAddressModal()" type="submit" class="flex items-center px-3 py-2 text-sm text-white bg-red-500 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
                     <PlusIcon class="w-5 h-5 mr-1" />
                     {{ $t('addAddress') }}
                   </button>
@@ -177,6 +180,74 @@ watch(
 
             </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Address Modal -->
+  <div :class="{ 'hidden': !modalStore.isOpenAddAddressModal }"
+    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+    <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+      <div class="relative bg-white rounded shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('addAddress') }}</h3>
+          <button type="button" @click="modalStore.closeAddAddressModal()"
+            class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+            data-modal-toggle="defaultModal">
+            <CloseIcon />
+            <span class="sr-only">{{ $t('closeModal') }}</span>
+          </button>
+        </div>
+        <div class="px-6 py-2">
+          <div class="flex flex-col space-y-5">
+            <label for="receiver-fullname">
+              <p class="pb-2 font-medium text-slate-700">Receiver fullname</p>
+              <input type="text" id="receiver-fullname"
+                class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" placeholder="Enter your fullname" />
+            </label>
+            <label for="receiver-phone">
+              <p class="pb-2 font-medium text-slate-700">Receiver phone</p>
+              <input type="text" id="receiver-phone"
+                class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" placeholder="Enter your phone" />
+            </label>
+            <label for="country">
+              <p class="pb-2 font-medium text-slate-700">Country</p>
+              <select id="country" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
+                <option value="" selected>Choose a country</option>
+                <option value="uz">Uzbekistan</option>
+                <option value="de">Germany</option>
+              </select>
+            </label>
+            <label for="region">
+              <p class="pb-2 font-medium text-slate-700">Region</p>
+              <select id="region" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
+                <option value="" selected>Choose a region</option>
+                <option value="region1">Region1</option>
+                <option value="region2">Region2</option>
+              </select>
+            </label>
+            <label for="city">
+              <p class="pb-2 font-medium text-slate-700">City</p>
+              <select id="city" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
+                <option value="" selected>Choose a city</option>
+                <option value="city1">City1</option>
+                <option value="city2">City2</option>
+              </select>
+            </label>
+            <label for="street">
+              <p class="pb-2 font-medium text-slate-700">Street</p>
+              <input type="text" id="street" 
+                class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" placeholder="Enter your your street" />
+            </label>
+            <label for="postal-code">
+              <p class="pb-2 font-medium text-slate-700">ZIP/Postal code</p>
+              <input type="text" id="postal-code"
+                class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" placeholder="Enter your postal code" />
+            </label>
+            <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+              {{ $t('save') }}
+            </button>
           </div>
         </div>
       </div>
