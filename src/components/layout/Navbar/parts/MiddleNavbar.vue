@@ -7,7 +7,6 @@ import { useProductStore } from '../../../../stores/product.js';
 import { useAuthStore } from '../../../../stores/auth.js';
 import { useModalStore } from '../../../../stores/modal.js';
 import { useUserStore } from '../../../../stores/user.js';
-import { onMounted } from '@vue/runtime-core';
 
 const store = useProductStore()
 const authStore = useAuthStore()
@@ -20,10 +19,6 @@ const searchProducts = () => {
   store.setSearchString(search.value)
   store.getProductsSearchByName(search.value)
 }
-
-onMounted(() => {
-  userStore.getCart()
-})
 </script>
 
 <template>

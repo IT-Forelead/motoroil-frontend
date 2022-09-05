@@ -9,6 +9,8 @@ import money from 'v-money3'
 import DashboardLayout from './components/layout/DashboardLayout.vue'
 import withUUID from 'vue-uuid'
 import i18n from './i18n.js'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 const vMaskV2 = VueMaskDirective
 const vMaskV3 = {
@@ -27,4 +29,5 @@ app.use(withUUID)
 app.use(i18n)
 app.directive('mask', vMaskV3)
 app.component('dashboard-layout', DashboardLayout)
+app.component('QuillEditor', QuillEditor)
 app.mount('#app')

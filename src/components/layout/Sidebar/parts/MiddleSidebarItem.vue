@@ -1,15 +1,11 @@
 <script setup>
 import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 import { useProductStore } from '../../../../stores/product.js'
-import { onMounted, ref } from '@vue/runtime-core';
+import { onMounted } from '@vue/runtime-core';
+import Rating from '../../../Rating.vue';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
-const rating = ref(0)
-
-const ratingCalc = (rate) => {
-  rating.value = Number(rate)
-}
 
 const showProduct = (id) => {
   store.getSingleProduct(id)
@@ -34,15 +30,7 @@ onMounted(() => {
               {{ product?.productGroup?.viscosityGrade?.name }}
             </div>
           </router-link>
-          <div>{{ ratingCalc(product?.product?.rating) }}</div>
-          <ul class="flex items-center py-2">
-            <li v-for="r1 in rating" :key="r1">
-              <StarFillIcon class="text-yellow-300" />
-            </li>
-            <li v-for="r2 in (5 - rating)" :key="r2">
-              <StarFillIcon class="text-gray-300" />
-            </li>
-          </ul>
+          <Rating :rating="product?.product?.rating" />
           <div class="flex items-center justify-center">
             <div v-if="!product?.discount" class="mb-2 mr-3 text-lg font-semibold text-red-500">€
               {{ product?.product?.price }}</div>

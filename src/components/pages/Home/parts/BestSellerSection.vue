@@ -2,7 +2,7 @@
 import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 import { useProductStore } from '../../../../stores/product.js'
 import { useMainSearchStore } from '../../../../stores/mainSearch.js';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import BestSellerItem from './BestSeller/BestSellerItem.vue';
 const store = useProductStore()
 const mainSearchStore = useMainSearchStore()
@@ -11,12 +11,6 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 function newProductChecker(productCreatedAt) {
   let today = new Date()
   return new Date(today.setDate(today.getDate() - 3)) <= new Date(productCreatedAt)
-}
-
-const rating = ref(0)
-
-const ratingCalc = (rate) => {
-  rating.value = Number(rate)
 }
 
 onMounted(() => {

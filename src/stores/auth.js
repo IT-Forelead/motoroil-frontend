@@ -4,6 +4,8 @@ import authHeader from '../mixins/auth/auth-header.js'
 import { useModalStore } from './modal.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import { useUserStore } from './user.js'
+
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 export const useAuthStore = defineStore({
@@ -108,6 +110,7 @@ export const useAuthStore = defineStore({
         .then((response) => {
           this.user = response?.data
           sessionStorage.setItem('role', response?.data?.role)
+          if (response?.data?.role === 'user') useUserStore().getCart()
         })
         .catch((err) => {
           if (err.message.split(' ').includes('403')) {

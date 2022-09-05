@@ -43,7 +43,6 @@ const uploadedImageForView = ref([])
 
 function getImage(e) {
   const filteredImages = Object.values(e?.target?.files).filter(i => i.type.includes('image'))
-  console.log(filteredImages);
   uploadedImageForView.value = filteredImages.map(f => URL.createObjectURL(f))
   productData['product-image'] = filteredImages
 }

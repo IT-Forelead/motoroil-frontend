@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import authHeader from '../mixins/auth/auth-header.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import { useModalStore } from './modal.js'
 import authHeaderForMultipart from '../mixins/auth/auth-header-for-multipart-form.js'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
@@ -30,6 +31,8 @@ export const useProductStore = defineStore({
     newArrivals: [],
     comments: [],
     specTypes: [],
+    multiselectOEMids: [],
+    multiselectSpecids: [],
   }),
   getters: {},
   actions: {
@@ -402,6 +405,32 @@ export const useProductStore = defineStore({
           })
         })
     },
+    async createProductGroup(data) {
+      await axios
+        .put(`${API_URL}/admin/create-product-group`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: authHeaderForMultipart(),
+          },
+        })
+        .then(() => {
+          notify.success({
+            message: 'Product Group added!',
+            position: 'bottomRight',
+          })
+          this.getProductGroups()
+          this.multiselectOEMids = []
+          this.multiselectSpecids = []
+          useModalStore().closeProductGroupModal()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While adding product group!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async deleteSpecType(id) {
       await axios
         .get(`${API_URL}/admin/delete-spec-type/${id}`, {
@@ -444,6 +473,22 @@ export const useProductStore = defineStore({
     },
     setSearchString(str) {
       this.search = str
+    },
+    setSelectedId(id) {
+      if (this.multiselectOEMids.includes(id)) {
+        this.multiselectOEMids = this.multiselectOEMids.filter((i) => i !== id)
+      } else {
+        this.multiselectOEMids.push(id)
+      }
+    },
+    setSelectedSpecId(id) {
+      if (this.multiselectSpecids.includes(id)) {
+        this.multiselectSpecids = this.multiselectSpecids.filter(
+          (i) => i !== id
+        )
+      } else {
+        this.multiselectSpecids.push(id)
+      }
     },
   },
 })

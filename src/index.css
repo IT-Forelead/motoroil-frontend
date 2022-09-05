@@ -57,3 +57,6 @@ html {
   object-fit: cover;
 }
 
+.ql-container {
+  height: max-content !important;
+}
