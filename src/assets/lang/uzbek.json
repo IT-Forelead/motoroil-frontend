@@ -205,5 +205,17 @@
   "slideData": "Slayd ma'lumotlari",
   "link": "Havola",
   "image": "Rasm",
-  "createSlide": "Slayd yaratish"
+  "createSlide": "Slayd yaratish",
+  "deleteProduct": "Mahsulotni o'chirish",
+  "editProduct": "Mahsulotni o'zgartirish",
+  "reviews": "Sharhlar",
+  "rating": "Reyting",
+  "addresses": "Manzillar",
+  "receiverPhone": "Qabul qiluvchining telefoni",
+  "city": "Shahar",
+  "receiverFullname": "Qabul qiluvchining to'liq ismi",
+  "chooseACountry": "Mamlakatni tanlang",
+  "chooseARegion": "Mintaqani tanlang",
+  "chooseACity": "Shaharni tanlang",
+  "zipPostalCode": "ZIP/Pochta indeksi"
 }

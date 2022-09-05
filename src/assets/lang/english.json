@@ -205,5 +205,17 @@
   "slideData": "Slide data",
   "link": "Link",
   "image": "Image",
-  "createSlide": "Create slide"
+  "createSlide": "Create slide",
+  "deleteProduct": "Delete product",
+  "editProduct": "Edit product",
+  "reviews": "Reviews",
+  "rating": "Rating",
+  "addresses": "Addresses",
+  "receiverPhone": "Receiver phone",
+  "city": "City",
+  "receiverFullname": "Receiver fullname",
+  "chooseACountry": "Choose a country",
+  "chooseARegion": "Choose a region",
+  "chooseACity": "Choose a city",
+  "zipPostalCode": "ZIP/Postal code"
 }

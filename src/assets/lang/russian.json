@@ -205,5 +205,17 @@
   "slideData": "Данные слайда",
   "link": "Ссылка",
   "image": "Изображение",
-  "createSlide": "Создать слайд"
+  "createSlide": "Создать слайд",
+  "deleteProduct": "Удалить продукт",
+  "editProduct": "Изменить продукт",
+  "reviews": "Отзывы",
+  "rating": "Рейтинг",
+  "addresses": "Адреса",
+  "receiverPhone": "Телефон получателя",
+  "city": "Город",
+  "receiverFullname": "Полное имя получателя",
+  "chooseACountry": "Выберите страну",
+  "chooseARegion": "Выберите регион",
+  "chooseACity": "Выберите город",
+  "zipPostalCode": "Почтовый индекс"
 }
