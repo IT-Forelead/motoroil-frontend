@@ -218,5 +218,19 @@
   "chooseARegion": "Выберите регион",
   "chooseACity": "Выберите город",
   "zipPostalCode": "Почтовый индекс",
-  "chooseACoupon": "Выберите купон"
+  "chooseACoupon": "Выберите купон",
+  "selectCategory": "Выбрать категорию",
+  "subCategory": "Подкатегория",
+  "selectSubcategory": "Выберите подкатегорию",
+  "minisubcategory": "Миниподкатегория",
+  "selectMinisubcategory": "Выберите миниподкатегорию",
+  "selectBrand": "Выберите марку",
+  "selectOEM": "Выберите OEM-производитель продукта",
+  "selectSpecification": "Выберите спецификацию продукта",
+  "productVideoLink": "Ссылка на видео о продукте",
+  "productPdfFile": "PDF-файл продукта",
+  "createProductGroup": "Создать группу продуктов",
+  "specification": "Технические характеристики",
+  "oemApproval": "OEM-одобрение"
+
 }

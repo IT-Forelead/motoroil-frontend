@@ -218,5 +218,18 @@
   "chooseARegion": "Choose a region",
   "chooseACity": "Choose a city",
   "zipPostalCode": "ZIP/Postal code",
-  "chooseACoupon": "Choose a coupon"
+  "chooseACoupon": "Choose a coupon",
+  "selectCategory": "Select category",
+  "subCategory": "Sub category",
+  "selectSubcategory": "Select subcategory",
+  "minisubcategory": "Minisubcategory",
+  "selectMinisubcategory": "Select minisubcategory",
+  "selectBrand": "Select brand",
+  "selectOEM": "Select product OEM",
+  "selectSpecification": "Select product Specification",
+  "productVideoLink": "Product video link",
+  "productPdfFile": "Product PDF file",
+  "createProductGroup": "Create Product Group",
+  "specification": "Specification",
+  "oemApproval": "OEM approval"
 }

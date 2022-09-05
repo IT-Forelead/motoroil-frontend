@@ -145,12 +145,12 @@ const closeAndClear = () => {
               </td>
               <td class="p-3">
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">OEM-Freigabe:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{ $t('oemApproval') }}:</div>
                   <div class="font-medium text-gray-700 text-md">{{ productGroup?.oems.map(o => o.name).join(', ') }}
                   </div>
                 </div>
                 <div class="flex items-center">
-                  <div class="mr-1 text-sm text-gray-500">Spezifikation:</div>
+                  <div class="mr-1 text-sm text-gray-500">{{ $t('specification') }}:</div>
                   <div class="font-medium text-gray-700 text-md">{{ productGroup?.specifications.map(o =>
                       o.name).join(', ')
                   }}</div>
@@ -205,20 +205,20 @@ const closeAndClear = () => {
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label for="productName">
-                  <p class="mt-2 font-medium text-slate-700">Name</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('name') }}</p>
                   <input id="productName" v-model="productGroupForm.name" type="text"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter product name">
                 </label>
                 <label for="desc">
-                  <p class="mt-2 font-medium text-slate-700">Description</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('description') }}</p>
                   <QuillEditor theme="snow" id="desc" />
                 </label>
                 <label for="category">
-                  <p class="mt-2 font-medium text-slate-700">Category</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('category') }}</p>
                   <select v-model="productGroupForm.categoryId"
                     class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
-                    <option value="" selected>Select category</option>
+                    <option value="" selected>{{ $t('selectCategory') }}</option>
                     <option v-for="(category, idx) in categoryStore.categories" :key="idx" :value="category?.id">{{
                         category?.name
                     }}
@@ -227,10 +227,10 @@ const closeAndClear = () => {
                 </label>
                 <label for="subcategory"
                   v-if="categoryStore.subCategories.filter(sc => sc?.categoryId === productGroupForm.categoryId).length > 0">
-                  <p class="mt-2 font-medium text-slate-700">Sub category</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('subCategory') }}</p>
                   <select v-model="productGroupForm.subCategoryId"
                     class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
-                    <option value="" selected>Select subcategory</option>
+                    <option value="" selected>{{ ('selectSubcategory') }}</option>
                     <option
                       v-for="(subcategory, idx) in categoryStore.subCategories.filter(sc => sc?.categoryId === productGroupForm.categoryId)"
                       :key="idx" :value="subcategory?.id">{{
@@ -241,10 +241,10 @@ const closeAndClear = () => {
                 </label>
                 <label for="subcategory"
                   v-if="categoryStore.miniSubCategories.filter(sc => sc?.subCategoryId === productGroupForm.subCategoryId).length > 0">
-                  <p class="mt-2 font-medium text-slate-700">Minisubcategory</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('minisubcategory') }}</p>
                   <select v-model="productGroupForm.miniSubCategoryId"
                     class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
-                    <option value="" selected>Select minisubcategory</option>
+                    <option value="" selected>{{ $t('selectMinisubcategory') }}</option>
                     <option
                       v-for="(minisubcategory, idx) in categoryStore.miniSubCategories.filter(sc => sc?.subCategoryId === productGroupForm.subCategoryId)"
                       :key="idx" :value="minisubcategory?.id">{{
@@ -256,10 +256,10 @@ const closeAndClear = () => {
               </div>
               <div>
                 <label for="brand">
-                  <p class="mt-2 font-medium text-slate-700">Brand</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('brand') }}</p>
                   <select v-model="productGroupForm.brandId"
                     class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
-                    <option value="" selected>Select brand</option>
+                    <option value="" selected>{{ $t('selectBrand') }}</option>
                     <option v-for="(brand, idx) in store.brands" :key="idx" :value="brand?.id">{{
                         brand?.name
                     }}
@@ -278,26 +278,26 @@ const closeAndClear = () => {
                   </select>
                 </label>
                 <label for="oem">
-                  <p class="mt-2 font-medium text-slate-700">Select product OEM</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('selectOEM') }}</p>
                   <MultiSelect :options="oemOptions" :id="'multiselectOem'" />
                 </label>
                 <label for="spec">
-                  <p class="mt-2 font-medium text-slate-700">Select product Specification</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('selectSpecification') }} </p>
                   <MultiSelect :options="specOptions" :id="'multiselectSpec'" />
                 </label>
                 <label for="videoLink">
-                  <p class="mt-2 font-medium text-slate-700">Product video link</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('productVideoLink') }}</p>
                   <input id="videoLink" v-model="productGroupForm.videoUrl" type="text"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                     placeholder="Enter product video link">
                 </label>
                 <label for="productPdf">
-                  <p class="mt-2 font-medium text-slate-700">Product PDF file</p>
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('productPdfFile') }}</p>
                   <input id="productPdf" type="file" class="w-full px-3 py-3" @change="getFile">
                 </label>
                 <button
                   class="inline-flex items-center justify-center w-full py-3 my-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                  Create Product Group
+                  {{ $t('createProductGroup') }}
                 </button>
               </div>
             </div>
