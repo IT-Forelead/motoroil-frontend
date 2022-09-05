@@ -217,5 +217,6 @@
   "chooseACountry": "Choose a country",
   "chooseARegion": "Choose a region",
   "chooseACity": "Choose a city",
-  "zipPostalCode": "ZIP/Postal code"
+  "zipPostalCode": "ZIP/Postal code",
+  "chooseACoupon": "Choose a coupon"
 }

@@ -260,7 +260,7 @@ watch(
                     v-model="selectedCouponId"
                     class="block w-full px-5 py-3 text-gray-900 border border-gray-300 rounded-full text-md bg-gray-50 focus:ring-red-500 focus:border-red-500"
                   >
-                    <option value="" selected>Choose a coupon</option>
+                    <option value="" selected>{{ $t('chooseACoupon') }}</option>
                     <option
                       v-for="(coupon, idx) in userStore.coupons"
                       :key="idx"
@@ -355,7 +355,7 @@ watch(
         <div class="px-6 py-2">
           <div class="flex flex-col space-y-5">
             <label for="receiver-fullname">
-              <p class="pb-2 font-medium text-slate-700">Receiver fullname</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('receiverFullname') }}</p>
               <input
                 type="text"
                 id="receiver-fullname"
@@ -364,7 +364,7 @@ watch(
               />
             </label>
             <label for="receiver-phone">
-              <p class="pb-2 font-medium text-slate-700">Receiver phone</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('receiverPhone') }}</p>
               <input
                 type="text"
                 id="receiver-phone"
@@ -373,40 +373,40 @@ watch(
               />
             </label>
             <label for="country">
-              <p class="pb-2 font-medium text-slate-700">Country</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('country') }}</p>
               <select
                 id="country"
                 class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500"
               >
-                <option value="" selected>Choose a country</option>
+                <option value="" selected>{{ $t('chooseACountry') }}</option>
                 <option value="uz">Uzbekistan</option>
                 <option value="de">Germany</option>
               </select>
             </label>
             <label for="region">
-              <p class="pb-2 font-medium text-slate-700">Region</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('region') }}</p>
               <select
                 id="region"
                 class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500"
               >
-                <option value="" selected>Choose a region</option>
+                <option value="" selected>{{ $t('chooseARegion') }}</option>
                 <option value="region1">Region1</option>
                 <option value="region2">Region2</option>
               </select>
             </label>
             <label for="city">
-              <p class="pb-2 font-medium text-slate-700">City</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('city') }}</p>
               <select
                 id="city"
                 class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500"
               >
-                <option value="" selected>Choose a city</option>
+                <option value="" selected>{{ $t('chooseACity') }}</option>
                 <option value="city1">City1</option>
                 <option value="city2">City2</option>
               </select>
             </label>
             <label for="street">
-              <p class="pb-2 font-medium text-slate-700">Street</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('street') }}</p>
               <input
                 type="text"
                 id="street"
@@ -415,7 +415,7 @@ watch(
               />
             </label>
             <label for="postal-code">
-              <p class="pb-2 font-medium text-slate-700">ZIP/Postal code</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('zipPostalCode') }}</p>
               <input
                 type="text"
                 id="postal-code"

@@ -217,5 +217,6 @@
   "chooseACountry": "Выберите страну",
   "chooseARegion": "Выберите регион",
   "chooseACity": "Выберите город",
-  "zipPostalCode": "Почтовый индекс"
+  "zipPostalCode": "Почтовый индекс",
+  "chooseACoupon": "Выберите купон"
 }
