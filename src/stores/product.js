@@ -30,6 +30,7 @@ export const useProductStore = defineStore({
     newArrivals: [],
     comments: [],
     specTypes: [],
+    multiselectOEMids: []
   }),
   getters: {},
   actions: {
@@ -402,6 +403,29 @@ export const useProductStore = defineStore({
           })
         })
     },
+    async createProductGroup(data) {
+      await axios
+        .put(`${API_URL}/admin/create-product-group`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: authHeaderForMultipart(),
+          },
+        })
+        .then(() => {
+          notify.success({
+            message: 'Product Group added!',
+            position: 'bottomRight',
+          })
+          this.getProductGroups()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While adding product group!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async deleteSpecType(id) {
       await axios
         .get(`${API_URL}/admin/delete-spec-type/${id}`, {
@@ -444,6 +468,9 @@ export const useProductStore = defineStore({
     },
     setSearchString(str) {
       this.search = str
+    },
+    setSelectedId(id) {
+      this.multiselectOEMids.push(id)
     },
   },
 })

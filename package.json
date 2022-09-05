@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueup/vue-quill": "^1.0.0-beta.10",
     "@vueuse/core": "^8.9.0",
     "axios": "^0.27.2",
     "flowbite": "^1.5.2",
