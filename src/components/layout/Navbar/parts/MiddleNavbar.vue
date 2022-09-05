@@ -6,17 +6,25 @@ import { ref } from '@vue/reactivity';
 import { useProductStore } from '../../../../stores/product.js';
 import { useAuthStore } from '../../../../stores/auth.js';
 import { useModalStore } from '../../../../stores/modal.js';
+import { useUserStore } from '../../../../stores/user.js';
 
 const store = useProductStore()
 const authStore = useAuthStore()
 const modalStore = useModalStore()
+const userStore = useUserStore()
 
 const search = ref('')
 
 const searchProducts = () => {
   store.setSearchString(search.value)
   store.getProductsSearchByName(search.value)
+  userStore.getCart()
 }
+
+const totalPrice = () =>
+  userStore.cart
+    .map((p) => p?.quantity * p?.productPrice)
+    .reduce((q, a) => q + a, 0)
 </script>
 
 <template>
@@ -46,11 +54,11 @@ const searchProducts = () => {
         <router-link to="/cart" v-if="authStore.user?.role === 'user'" class="inline-flex items-center text-gray-700 border rounded hover:text-red-500">
           <div class="relative flex items-center justify-center p-2">
             <ShoppingCartFillIcon />
-            <!-- <div class="absolute -top-3 -right-2 px-1.5 py-0.5 text-xs text-white bg-red-500 rounded-full">1</div> -->
+            <div class="absolute -top-3 -right-2 px-1.5 py-0.5 text-xs text-white bg-red-500 rounded-full">{{ userStore.cart.length }}</div>
           </div>
           <div class="flex items-center justify-center px-4 py-2 border-l">
-            {{ $t('myCart') }}
-            <!-- <span class="ml-1 font-medium text-red-500">$123.00</span> -->
+            {{ $t('myCart') }}:
+            <span class="ml-1 font-medium text-red-500">${{ totalPrice() }}</span>
           </div>
         </router-link>
         <button v-else-if="authStore.user?.role === 'admin'" class="hidden"></button>
