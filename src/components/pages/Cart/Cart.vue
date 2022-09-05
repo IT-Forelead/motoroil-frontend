@@ -27,6 +27,14 @@ onMounted(() => {
   userStore.getUserAddresses()
 })
 
+const plusMinus = (id, productCount, quantity, action) => {
+  if (action === '-') {
+    if (quantity > 1) userStore.changeCartItemsQuantityMinus(id)
+  } else {
+    if (quantity < productCount) userStore.changeCartItemsQuantityPlus(id)
+  }
+}
+
 watch(
   () => addressForm.country,
   () => {
@@ -91,11 +99,11 @@ watch(
                   <td class="p-3 text-sm font-medium text-center text-gray-700">${{ product?.productPrice }}</td>
                   <td class="p-3">
                     <div class="grid items-center w-1/2 grid-cols-3 gap-1 px-1.5 py-1 mx-auto rounded-full shadow">
-                      <button class="flex justify-center text-gray-700 rounded-l hover:text-red-500">
+                      <button @click="plusMinus(product?.id, product?.productCount, product?.quantity, '-')" class="flex justify-center text-gray-700 rounded-l hover:text-red-500">
                         <MinusIcon class="w-4 h-4" />
                       </button>
                       <div class="text-lg font-normal text-center">{{ product?.quantity }}</div>
-                      <button class="flex justify-center text-gray-700 rounded-r hover:text-red-500">
+                      <button @click="plusMinus(product?.id, product?.productCount, product?.quantity, '+')" class="flex justify-center text-gray-700 rounded-r hover:text-red-500">
                         <PlusIcon class="w-4 h-4" />
                       </button>
                     </div>

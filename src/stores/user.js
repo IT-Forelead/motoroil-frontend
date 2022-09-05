@@ -31,6 +31,32 @@ export const useUserStore = defineStore({
         const response = await axios.post(`${API_URL}/user/cities`, `"${data}"`, {headers: authHeader()})
         this.cities = response.data
     },
+    async changeCartItemsQuantityPlus(data) {
+        await axios
+        .get(`${API_URL}/user/change-cart-items-quantity-plus/${data}`, {headers: authHeader()})
+        .then(() => {
+          this.getCart()
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Not increased!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async changeCartItemsQuantityMinus(data) {
+        await axios
+        .get(`${API_URL}/user/change-cart-items-quantity-minus/${data}`, {headers: authHeader()})
+        .then(() => {
+          this.getCart()
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Not reduced!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async addWishlist(data) {
       await axios
         .post(`${API_URL}/user/add-wishlist`, data, {headers: authHeader()})
