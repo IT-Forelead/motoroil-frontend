@@ -50,7 +50,7 @@ watch(
           </a>
           <CaretRightIcon class="mx-3 text-gray-500" />
         </li>
-        <li class="text-gray-700">Addresses</li>
+        <li class="text-gray-700">{{ $t('addresses') }}</li>
       </ul>
     </div>
     <div class="grid grid-cols-4 gap-3">
@@ -63,7 +63,7 @@ watch(
                 <div class="flex items-center justify-between pb-2 text-lg font-medium text-gray-700 border-b">
                   <div class="flex items-center">
                     <MapPinIcon class="w-6 h-6 mr-2"/>
-                    Address
+                    {{ $t('address') }}
                   </div>
                   <div class="flex items-center space-x-2">
                     <PencilDuotoneIcon class="w-5 h-5 text-blue-700"/>
@@ -72,31 +72,31 @@ watch(
                 </div>
                 <ul class="space-y-1">
                   <li class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">Receiver:</div>
+                    <div class="text-sm text-gray-500">{{ $t('receiver') }}:</div>
                     <div class="text-gray-800 text-md">{{ address?.receiverFullName }}</div>
                   </li>
                   <li class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">Receiver phone:</div>
+                    <div class="text-sm text-gray-500">{{ $t('receiverPhone') }}:</div>
                     <div class="text-gray-800 text-md">{{ address?.receiverPhone }}</div>
                   </li>
                   <li class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">Country:</div>
+                    <div class="text-sm text-gray-500">{{ $t('country') }}:</div>
                     <div class="text-gray-800 text-md">{{ address?.country }}</div>
                   </li>
                   <li class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">Region:</div>
+                    <div class="text-sm text-gray-500">{{ $t('region') }}:</div>
                     <div class="text-gray-800 text-md">{{ address?.region }}</div>
                   </li>
                   <li class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">City:</div>
+                    <div class="text-sm text-gray-500">{{ $t('city') }}:</div>
                     <div class="text-gray-800 text-md">{{ address?.city }}</div>
                   </li>
                   <li class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">Street:</div>
+                    <div class="text-sm text-gray-500">{{ $t('street') }}:</div>
                     <div class="text-gray-800 text-md">{{ address?.street }}</div>
                   </li>
                   <li class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">Postal Code:</div>
+                    <div class="text-sm text-gray-500">{{ $t('postalCode') }}:</div>
                     <div class="text-gray-800 text-md">{{ address?.postalCode }}</div>
                   </li>
                 </ul>
@@ -104,43 +104,43 @@ watch(
             </div>
           </div>
           <div class="p-3 space-y-3 bg-white rounded shadow">
-            <div class="pb-2 font-medium text-gray-700 border-b text-md">Add address</div>
+            <div class="pb-2 font-medium text-gray-700 border-b text-md">{{ $t('addAddress') }}</div>
             <div class="space-y-1">
-              <label for="receiver-fullname" class="text-sm text-gray-700">Receiver fullname</label>
+              <label for="receiver-fullname" class="text-sm text-gray-700">{{$t('receiverFullname')}}</label>
               <input id="receiver-fullname" type="text" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Enter your fullname">
             </div>
             <div class="space-y-1">
-              <label for="receiver-phone" class="text-sm text-gray-700">Receiver phone</label>
+              <label for="receiver-phone" class="text-sm text-gray-700">{{ $t('receiverPhone') }}</label>
               <input id="receiver-phone" type="text" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Enter your phone">
             </div>
             <div class="space-y-1">
-              <label for="country" class="text-sm text-gray-700">Country</label>
+              <label for="country" class="text-sm text-gray-700">{{ $t('country') }}</label>
               <select v-model="address.country" id="country" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="" selected>Choose a country</option>
+                <option value="" selected>{{ $t('chooseACountry') }}</option>
                 <option value="uz">Uzbekistan</option>
                 <option value="de">Germany</option>
               </select>
             </div>
             <div class="space-y-1" v-if="userStore.regions.length > 0">
-              <label for="region" class="text-sm text-gray-700">Region</label>
+              <label for="region" class="text-sm text-gray-700">{{ $t('region') }}</label>
               <select id="country" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option selected>Choose a region</option>
+                <option selected>{{ $t('chooseARegion') }}</option>
                 <option v-for="(region, idx) in userStore.regions" :key="idx" :value="region?.id">{{ region?.name }}</option>
               </select>
             </div>
             <div class="space-y-1" v-if="userStore.cities.length > 0 && userStore.regions.length > 0 && address.country.length > 0">
-              <label for="city" class="text-sm text-gray-700">City</label>
+              <label for="city" class="text-sm text-gray-700">{{ $t('city') }}</label>
               <select id="country" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option selected>Choose a city</option>
+                <option selected>{{ $t('chooseACity') }}</option>
                 <option v-for="(city, idx) in userStore.cities" :key="idx" :value="city?.id">{{ city?.name }}</option>
               </select>
             </div>
             <div class="space-y-1">
-              <label for="street" class="text-sm text-gray-700">Street</label>
+              <label for="street" class="text-sm text-gray-700">{{ $t('street') }}</label>
               <input id="street" type="text" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Enter your street">
             </div>
             <div class="space-y-1">
-              <label for="postal-code" class="text-sm text-gray-700">ZIP/Postal code</label>
+              <label for="postal-code" class="text-sm text-gray-700">{{ $t('zipPostalCode') }}</label>
               <input id="postal-code" type="text" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Enter your postal code">
             </div>
             <button class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">{{ $t('save') }}</button>

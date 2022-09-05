@@ -204,7 +204,7 @@ watch(
                 <div
                   class="flex items-center justify-between py-3.5 font-normal text-gray-700 uppercase bg-gray-50 rounded-full pl-7 pr-4 text-md"
                 >
-                  {{ $t('selectAdress') }}
+                  {{ $t('selectAddress') }}
                   <button
                     @click="modalStore.openAddAddressModal()"
                     type="submit"
