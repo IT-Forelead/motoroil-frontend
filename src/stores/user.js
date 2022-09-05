@@ -10,6 +10,7 @@ export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
     cart: [],
+    wishlist: [],
     coupons: [],
     addresses: [],
     regions: [],
@@ -21,6 +22,10 @@ export const useUserStore = defineStore({
         const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})
         this.cart = response.data
         this.cartSum = this.cart.map((p) => p?.quantity * p?.productPrice).reduce((q, a) => q + a, 0)
+    },
+    async getWishlist() {
+        const response = await axios.get(`${API_URL}/user/wishlist`, {headers: authHeader()})
+        this.wishlist = response.data
     },
     async getCoupons() {
         const response = await axios.get(`${API_URL}/user/coupons`, {headers: authHeader()})

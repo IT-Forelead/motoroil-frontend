@@ -83,9 +83,9 @@ watch(
           <li class="text-gray-700">{{ $t('cart') }}</li>
         </ul>
       </div>
-      <div class="grid grid-cols-4 gap-10">
+      <div class="grid grid-cols-4 gap-3">
         <Sidebar />
-        <div class="col-span-3">
+        <div class="col-span-3 ml-3">
           <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">
             {{ $t('myCart') }}
           </div>

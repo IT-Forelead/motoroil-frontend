@@ -11,7 +11,7 @@ import PlusIcon from '../../../assets/icons/PlusIcon.vue';
 import ShoppingCartFillIcon from '../../../assets/icons/ShoppingCartFillIcon.vue';
 import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
 import CheckCircleFillIcon from '../../../assets/icons/CheckCircleFillIcon.vue';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useProductStore } from '../../../stores/product.js'
 import { useModalStore } from '../../../stores/modal.js'
 import { useUserStore } from '../../../stores/user.js';
