@@ -9,6 +9,7 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
+    notifications: [],
     cart: [],
     wishlist: [],
     coupons: [],
@@ -18,6 +19,10 @@ export const useUserStore = defineStore({
     cartSum: 0
   }),
   actions: {
+    async getNotifications() {
+        const response = await axios.get(`${API_URL}/user/notifications`, {headers: authHeader()})
+        this.notifications = response.data
+    },
     async getCart() {
         const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})
         this.cart = response.data
@@ -134,6 +139,19 @@ export const useUserStore = defineStore({
         .catch((err) => {
           notify.warning({
             message: 'Not added!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async viewNotification(id) {
+        await axios
+        .get(`${API_URL}/user/view-notification/${id}`, {headers: authHeader()})
+        .then(() => {
+          this.getNotifications()
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Not marked as read!',
             position: 'bottomRight',
           })
         })

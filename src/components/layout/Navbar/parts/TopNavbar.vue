@@ -8,6 +8,7 @@ import ChevronDownIcon from '../../../../assets/icons/ChevronDownIcon.vue';
 import SignInIcon from '../../../../assets/icons/SignInIcon.vue';
 import { useModalStore } from '../../../../stores/modal.js'
 import { useAuthStore } from '../../../../stores/auth.js'
+import { useUserStore } from '../../../../stores/user.js'
 import { computed, onMounted, reactive, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { useRouter } from "vue-router";
@@ -19,11 +20,15 @@ import HeartFillIcon from "../../../../assets/icons/HeartFillIcon.vue";
 import ShoppingCartFillIcon from "../../../../assets/icons/ShoppingCartFillIcon.vue";
 import MapPinFillIcon from "../../../../assets/icons/MapPinFillIcon.vue";
 import ShoppingBagOpenFillIcon from "../../../../assets/icons/ShoppingBagOpenFillIcon.vue";
+import BellFillIcon from "../../../../assets/icons/BellFillIcon.vue";
+import BellIcon from "../../../../assets/icons/BellIcon.vue";
+import { formatDateTime } from "../../../../mixins/utils.js";
 
 const router = useRouter()
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useModalStore()
 const authStore = useAuthStore()
+const userStore = useUserStore()
 
 const isOpenLanguageDropDown = ref(false)
 const dropdown = ref(null)
@@ -38,6 +43,13 @@ const toggleUserActionDropDown = () => {
   isOpenUserActionDropDown.value = !isOpenUserActionDropDown.value
 }
 onClickOutside(userActionDropDown, () => isOpenUserActionDropDown.value = false)
+
+const isOpenNotificationDropDown = ref(false)
+const notificationDropDown = ref(null)
+const toggleNotificationDropDown = () => {
+  isOpenNotificationDropDown.value = !isOpenNotificationDropDown.value
+}
+onClickOutside(notificationDropDown, () => isOpenNotificationDropDown.value = false)
 
 const user = reactive({
   email: '',
@@ -63,6 +75,7 @@ onMounted(() => {
   if (authStore.token) {
     authStore.getUser()
   }
+  userStore.getNotifications()
 })
 
 const recoveryEmail = ref('')
@@ -196,6 +209,31 @@ const submitUserData = () => {
         </button>
       </div>
       <div class="flex items-center justify-end space-x-2" v-else>
+        <div class="relative">
+          <button @click="toggleNotificationDropDown()" class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+            <BellFillIcon class="w-5 h-5 mx-3" />
+          </button>
+          <div :class="{ 'hidden': !isOpenNotificationDropDown }" ref="dropdown"
+            class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow w-96 top-10">
+            <div v-for="(notification, idx) in userStore.notifications" :key="idx" class="flex items-center justify-between px-5 py-3 text-md">
+              <div class="flex items-center px-1 mr-3">
+                <div v-if="notification?.viewed === false" class="relative bottom-1.5 mr-3">
+                  <div class="absolute top-0 right-0 animate-ping rounded-full bg-blue-500 p-1.5"></div>
+                  <div class="absolute top-0 right-0 rounded-full bg-blue-500 p-1.5"></div>
+                </div>
+                <div class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div class="pt-1 text-lg font-bold text-center text-gray-600 dark:text-gray-300">
+                    <BellIcon class="h-7 w-7" />
+                  </div>
+                </div>
+              </div>
+              <div @click="userStore.viewNotification(notification?.id)" :class="{'cursor-pointer':notification?.viewed === false}">
+                <p class="font-semibold text-gray-900 dark:text-gray-300">{{ formatDateTime(notification?.createdAt) }}</p>
+                <p class="text-gray-600 text-md dark:text-gray-400">{{ notification?.text }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="relative">
           <button @click="toggleUserActionDropDown()" class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
             <UserFillIcon class="mr-1" />
