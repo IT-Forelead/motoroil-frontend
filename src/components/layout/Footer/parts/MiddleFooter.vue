@@ -39,11 +39,14 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
         <div class="font-semibold uppercase text-mf">{{ $t('information') }}</div>
         <ul class="py-5">
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">
-              {{ $t('aboutUs') }}</a>
+            <router-link to="/about-us" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">
+              {{ $t('aboutUs') }}
+            </router-link>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('faq') }}</a>
+            <router-link to="/faq" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">
+              {{ $t('faq') }}
+            </router-link>
           </li>
           <li class="py-1.5">
             <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('warrantyAndServices') }}</a>
@@ -75,7 +78,9 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
             <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('specials') }}</a>
           </li>
           <li class="py-1.5">
-            <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('faqs') }}</a>
+            <router-link to="/faq" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">
+              {{ $t('faqs') }}
+            </router-link>
           </li>
           <li class="py-1.5">
             <a href="#" class="text-gray-500 transition-all duration-300 hover:text-red-500 text-md hover:ml-3">{{ $t('customLink') }}</a>
