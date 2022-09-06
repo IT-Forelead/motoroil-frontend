@@ -5,7 +5,7 @@
     <div class="inner">
       <div class="parent-cat">
         <div class="image-cat">
-          <a href="#"><img src="/src/assets/image/catalog/demo/category/cate1.jpg" alt="image" /></a>
+          <!-- <a href="#"><img src="/src/assets/image/catalog/demo/category/cate1.jpg" alt="image" /></a> -->
         </div>
       </div>
       <div class="cat-title"><a href="#">{{$t('wheelsAndTires')}}</a></div>
