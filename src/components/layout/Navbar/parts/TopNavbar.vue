@@ -15,6 +15,10 @@ import UserFillIcon from "../../../../assets/icons/UserFillIcon.vue";
 import SignOutIcon from "../../../../assets/icons/SignOutIcon.vue";
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import HeartFillIcon from "../../../../assets/icons/HeartFillIcon.vue";
+import ShoppingCartFillIcon from "../../../../assets/icons/ShoppingCartFillIcon.vue";
+import MapPinFillIcon from "../../../../assets/icons/MapPinFillIcon.vue";
+import ShoppingBagOpenFillIcon from "../../../../assets/icons/ShoppingBagOpenFillIcon.vue";
 
 const router = useRouter()
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
@@ -27,6 +31,13 @@ const toggleDropDown = () => {
   isOpenLanguageDropDown.value = !isOpenLanguageDropDown.value
 }
 onClickOutside(dropdown, () => isOpenLanguageDropDown.value = false)
+
+const isOpenUserActionDropDown = ref(false)
+const userActionDropDown = ref(null)
+const toggleUserActionDropDown = () => {
+  isOpenUserActionDropDown.value = !isOpenUserActionDropDown.value
+}
+onClickOutside(userActionDropDown, () => isOpenUserActionDropDown.value = false)
 
 const user = reactive({
   email: '',
@@ -118,6 +129,7 @@ const submitUserData = () => {
   }
 }
 </script>
+
 <template>
   <div class="flex justify-center py-2 bg-gray-900">
     <div class="container grid items-center grid-cols-4 gap-3">
@@ -184,11 +196,45 @@ const submitUserData = () => {
         </button>
       </div>
       <div class="flex items-center justify-end space-x-2" v-else>
-        <button
-          class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
-          <UserFillIcon class="mr-1" />
-          {{ authStore.user?.username }}
-        </button>
+        <div class="relative">
+          <button @click="toggleUserActionDropDown()" class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
+            <UserFillIcon class="mr-1" />
+            {{ authStore.user?.username }}
+          </button>
+          <div :class="{ 'hidden': !isOpenUserActionDropDown }" ref="dropdown"
+            class="absolute right-0 z-10 w-56 bg-white divide-y divide-gray-100 rounded shadow top-10">
+            <div class="p-2">
+              <p class="text-sm text-gray-700">Hello, <span class="font-medium text-md">{{ authStore.user?.username }}</span></p>
+              <p class="text-sm text-gray-700">Your email: <span class="font-medium text-md">{{ authStore.user?.email }}</span></p>
+            </div>
+            <ul class="py-1 text-sm text-gray-700">
+              <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
+                <router-link to="/wishlist" class="flex items-center">
+                  <HeartFillIcon class="w-4 h-4 mr-1"/>
+                  My wishlist
+                </router-link>
+              </li>
+              <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
+                <router-link to="/cart" class="flex items-center">
+                  <ShoppingCartFillIcon class="w-4 h-4 mr-1"/>
+                  My cart
+                </router-link>
+              </li>
+              <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
+                <router-link to="/orders" class="flex items-center">
+                  <ShoppingBagOpenFillIcon class="w-4 h-4 mr-1"/>
+                  My orders
+                </router-link>
+              </li>
+              <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
+                <router-link to="/address" class="flex items-center">
+                  <MapPinFillIcon class="w-4 h-4 mr-1"/>
+                  My addresses
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div class="text-gray-300">/</div>
         <a href="/" v-if="authStore.isLogin" @click="authStore.logout()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
