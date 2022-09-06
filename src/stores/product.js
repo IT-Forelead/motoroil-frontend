@@ -37,8 +37,8 @@ export const useProductStore = defineStore({
   }),
   getters: {},
   actions: {
-    async getAllProducts() {
-      const response = await axios.get(`${API_URL}/get-products/`)
+    async getAllProducts(sortBy) {
+      const response = await axios.get(`${API_URL}/get-products/${sortBy}`)
       this.products = response.data
     },
     async getProductsByGroupId(productId) {

@@ -36,7 +36,7 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
 onMounted(() => {
   store.getProductGroups()
   store.getAllSpecTypes()
-  store.getAllProducts()
+  store.getAllProducts('')
 })
 
 const uploadedImageForView = ref([])
@@ -95,32 +95,25 @@ const editModal = (id) => {
               class="flex items-center justify-between w-full px-3 py-2 text-gray-700 border-0 hover:bg-transparent hover:text-red-500 md:w-auto">
               <FunnelIcon class="mr-2" /> {{ $t('store') }}
             </button>
-            <div :class="{ 'hidden': !isOpenSortDropDown }" ref="sortDropDown"
-              class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
-              <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
-                <li
-                  class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  {{ $t('nameUp') }}
+            <div :class="{ 'hidden': !isOpenSortDropDown }" ref="sortDropDown" class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
+              <ul class="py-1 text-sm text-gray-700">
+                <li @click="store.getAllProducts('name-az')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+                  {{$t('nameUp')}}
                 </li>
-                <li
-                  class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  {{ $t('nameDown') }}
+                <li @click="store.getAllProducts('name-za')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+                  {{$t('nameDown')}}
                 </li>
-                <li
-                  class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  {{ $t('priceUp') }}
+                <li @click="store.getAllProducts('price-low')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+                  {{$t('priceUp')}}
                 </li>
-                <li
-                  class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  {{ $t('priceDown') }}
+                <li @click="store.getAllProducts('price-high')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+                  {{$t('priceDown')}}
                 </li>
-                <li
-                  class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  {{ $t('ratingUp') }}
+                <li @click="store.getAllProducts('rating-high')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+                  {{$t('ratingUp')}}
                 </li>
-                <li
-                  class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  {{ $t('ratingDown') }}
+                <li @click="store.getAllProducts('rating-low')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+                  {{$t('ratingDown')}}
                 </li>
               </ul>
             </div>
