@@ -5,7 +5,7 @@
                 <div class="w-image-box">
                     <div class="item-image">
                         <a title="Jennifer lawrence" href="#">
-                            <img src="/src/assets/image/catalog/about/cl-image-1.jpg" alt="Image Client">
+                            <!-- <img src="/src/assets/image/catalog/about/cl-image-1.jpg" alt="Image Client"> -->
                         </a>
                     </div>
                 </div>

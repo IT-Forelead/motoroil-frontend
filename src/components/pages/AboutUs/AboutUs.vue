@@ -1,5 +1,5 @@
 <template>
-	<div class="main-container container" style="margin-bottom: 3rem;">
+	<div class="container main-container" style="margin-bottom: 3rem;">
 		<ul class="breadcrumb">
 			<li><a href="#"><i class="fa fa-home"></i></a></li>
 			<li><a href="#">{{$t('aboutUs')}}</a></li>
@@ -14,7 +14,7 @@
             </div>
             <div class="content-about-us">
               <div class="image-about-us">
-                <img src="/src/assets/image/catalog/about/about-us.jpg" alt="Image Client">
+                <!-- <img src="/src/assets/image/catalog/about/about-us.jpg" alt="Image Client"> -->
               </div>
               <div class="des-about-us">
                 Nulla auctor mauris ut dui luctus semper. In hac habitasse platea dictumst. Duis pellentesque ligula a risus suscipit dignissim. Nunc non nisl lacus. Integer pharetra lacinia dapibus. Donec eu dolor dui, vel posuere mauris.
