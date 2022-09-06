@@ -9,6 +9,7 @@ import { onMounted, ref } from 'vue';
 import Rating from '../../Rating.vue';
 import DotsThreeVerticalFillIcon from '../../../assets/icons/DotsThreeVerticalFillIcon.vue';
 import { onClickOutside } from '@vueuse/core';
+import DropDown from '../../DropDown.vue';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const userStore = useUserStore()
@@ -57,17 +58,7 @@ const showProduct = (id) => {
               <div v-if="product?.productDiscountId" class="absolute font-normal text-center text-white top-4 sale">
                 - {{ product?.productDiscountPercent }} %
               </div>
-              <div @click="toggleDropDown()" class="absolute z-10 p-1 font-normal text-center text-gray-900 rounded cursor-pointer hover:bg-gray-100 top-2 right-1">
-                <DotsThreeVerticalFillIcon class="w-5 h-5"/>
-              </div>
-              <div :class="{ 'hidden': !isOpenWishlistActionDropDown }" ref="dropdown"
-                class="absolute z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
-                <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
-                  <li>
-                    <a href="#" class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">O'zbek</a>
-                  </li>
-                </ul>
-              </div>
+              <DropDown :options="['delete']" :productId="product?.productId" :wishlistId="product?.id"/>
               <div class="relative h-[200px] border-b overflow-hidden">
                 <router-link to="/product" @click="showProduct(product?.productId)" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                   <img :src="API_URL + '/image/' + (product?.productImageUrl[0] ? product?.productImageUrl[0] : '')" alt="product image">

@@ -87,6 +87,24 @@ export const useUserStore = defineStore({
           })
         })
     },
+    async deleteWishlist(data) {
+      await axios
+        .post(`${API_URL}/user/delete-wishlist`, data, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Wishlist deleted!',
+            position: 'bottomRight',
+          })
+          this.getWishlist()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While wishlist deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async addWishlist(data) {
       await axios
         .post(`${API_URL}/user/add-wishlist`, data, {headers: authHeader()})

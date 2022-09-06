@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, reactive, ref, toRefs } from 'vue'
-import StarFillIcon from '../assets/icons/StarFillIcon.vue';
 import OutlineCircleIcon from '../assets/icons/OutlineCircleIcon.vue';
 import CheckCircleOutlineIcon from '../assets/icons/CheckCircleOutlineIcon.vue';
 import $ from 'jquery'
