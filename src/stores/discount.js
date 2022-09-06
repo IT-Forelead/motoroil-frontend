@@ -42,42 +42,56 @@ export const useDiscountStore = defineStore({
             })
         },
         async addDiscountToProduct(data) {
-          await axios
-            .post(`${API_URL}/admin/add-discount-to-product`, data, { headers: authHeader() })
-            .then(() => {
-              notify.success({
-                message: 'Discount added to products!',
-                position: 'bottomRight',
+          if (data.productIds.length > 0){
+            await axios
+              .post(`${API_URL}/admin/add-discount-to-product`, data, { headers: authHeader() })
+              .then(() => {
+                notify.success({
+                  message: 'Discount added to products!',
+                  position: 'bottomRight',
+                })
+                useProductStore().multiselectProductIds = []
+                useProductStore().getAllProducts()
+                useModalStore().closeAddDiscountToProductModal()
               })
-              useProductStore().multiselectProductIds = []
-              useProductStore().getAllProducts()
-              useModalStore().closeAddDiscountToProductModal()
-            })
-            .catch((err) => {
-              notify.warning({
-                message: 'Discount not added!',
-                position: 'bottomRight',
+              .catch((err) => {
+                notify.warning({
+                  message: 'Discount not added!',
+                  position: 'bottomRight',
+                })
               })
+          } else {
+            notify.warning({
+              message: 'Please select product!',
+              position: 'bottomRight',
             })
+          }
         },
         async removeDiscountInProduct(data) {
-          await axios
-            .post(`${API_URL}/admin/delete-discount-in-product`, data, { headers: authHeader() })
-            .then(() => {
-              notify.success({
-                message: 'Discount added to products!',
-                position: 'bottomRight',
+          if (data.length > 0){
+            await axios
+              .post(`${API_URL}/admin/delete-discount-in-product`, data, { headers: authHeader() })
+              .then(() => {
+                notify.success({
+                  message: 'Discount added to products!',
+                  position: 'bottomRight',
+                })
+                useProductStore().multiselectProductIds = []
+                useProductStore().getAllProducts()
+                useModalStore().closeRemoveDiscountInProductModal()
               })
-              useProductStore().multiselectProductIds = []
-              useProductStore().getAllProducts()
-              useModalStore().closeRemoveDiscountInProductModal()
-            })
-            .catch((err) => {
-              notify.warning({
-                message: 'Discount not added!',
-                position: 'bottomRight',
+              .catch((err) => {
+                notify.warning({
+                  message: 'Discount not added!',
+                  position: 'bottomRight',
+                })
               })
+          } else {
+            notify.warning({
+              message: 'Please select product!',
+              position: 'bottomRight',
             })
+          }
         },
         async deleteDiscount(id) {
           await axios
