@@ -105,7 +105,7 @@ const submitSlideData = () => {
         </div>
       </div>
       <div class="col-span-3 h-auto lg:h-[650px]">
-        <swiper v-if="slideStore.slides.length > 0" :spaceBetween="30" :centeredSlides="true" :navigation="true"
+        <swiper v-if="slideStore.slides.length > 0" :spaceBetween="30" :loop="true" :centeredSlides="true" :navigation="true"
           :modules="modules" :autoplay="{ delay: 2500, disableOnInteraction: false }" class="mySwiper">
           <swiper-slide v-for="(slide, idx) in slideStore.slides" :key="idx" class="slide">
             <img :src="`${API_URL}/image/${slide?.imageUrl}`" class="w-full" alt="#">
