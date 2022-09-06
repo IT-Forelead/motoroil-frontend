@@ -157,8 +157,7 @@ const editModal = (id) => {
                       @click="showProduct(product?.product?.id)"
                       :title="product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name"
                       target="_self">
-                      {{ product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name
-                      }}
+                      {{ product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name }}
                     </router-link>
                     <div class="flex items-center text-sm text-gray-500">
                       <StackIcon class="mr-1" />
@@ -199,9 +198,8 @@ const editModal = (id) => {
               <td class="p-3">
                 <label for="holiday-toggle" class="relative inline-flex items-center mr-3 cursor-pointer"
                   v-if="product?.discount">
-                  <input type="checkbox" id="holiday-toggle" class="sr-only peer" />
-                  <div
-                    class="h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:border-gray-600 dark:bg-gray-700">
+                  <input @click="store.changeSpecialOfferStatus(product?.product?.id)" type="checkbox" id="holiday-toggle" class="sr-only peer" :checked="product?.product?.specialOffer" />
+                  <div class="h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:border-gray-600 dark:bg-gray-700">
                   </div>
                 </label>
               </td>

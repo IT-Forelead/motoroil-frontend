@@ -74,8 +74,8 @@ onMounted(() => {
   }
   if (authStore.token) {
     authStore.getUser()
+    userStore.getNotifications()
   }
-  userStore.getNotifications()
 })
 
 const recoveryEmail = ref('')

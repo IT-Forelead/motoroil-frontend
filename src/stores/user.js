@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import authHeader from '../mixins/auth/auth-header.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import { useAuthStore } from './auth.js'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -20,8 +21,10 @@ export const useUserStore = defineStore({
   }),
   actions: {
     async getNotifications() {
+      if (useAuthStore().user?.role === 'user'){
         const response = await axios.get(`${API_URL}/user/notifications`, {headers: authHeader()})
         this.notifications = response.data
+      }
     },
     async getCart() {
         const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})

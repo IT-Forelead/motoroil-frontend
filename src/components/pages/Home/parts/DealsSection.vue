@@ -1,6 +1,15 @@
 <script setup>
+import { onMounted } from '@vue/runtime-core';
 import { Countdown } from 'vue3-flip-countdown'
 import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
+import { useProductStore } from '../../../../stores/product.js';
+
+const store = useProductStore()
+
+onMounted(() => {
+  store.getTimerSpecialOffers()
+})
+
 </script>
 
 <template>

@@ -119,10 +119,26 @@ export const useProductStore = defineStore({
       this.saeViscosityGrades = response.data
     },
     async getOemsAndSpecsByProductId(productId) {
-      const response = await axios.get(
-        `${API_URL}/oems-and-specs-by-product-id/${productId}`
-      )
+      const response = await axios.get(`${API_URL}/oems-and-specs-by-product-id/${productId}`)
       this.oemsAndSpecsByProductId = response.data
+    },
+    async changeSpecialOfferStatus(productId) {
+      await axios
+      .get(`${API_URL}/admin/update-special-offer/${productId}`, {headers: authHeader()})
+      .then(() => {
+        notify.success({
+          message: 'Offer activeted!',
+          position: 'bottomRight',
+        })
+        this.getTimerSpecialOffers()
+      })
+      .catch(() => {
+        notify.error({
+          title: 'Error',
+          message: 'While Offer activeting!',
+          position: 'bottomRight',
+        })
+      })
     },
     async getSingleProduct(id) {
       await axios.get(`${API_URL}/product-by-id/${id}`).then((response) => {
