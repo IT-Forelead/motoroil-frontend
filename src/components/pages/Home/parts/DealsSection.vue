@@ -3,8 +3,16 @@ import { onMounted } from '@vue/runtime-core';
 import { Countdown } from 'vue3-flip-countdown'
 import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 import { useProductStore } from '../../../../stores/product.js';
+import Rating from '../../../Rating.vue';
 
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
+
+const showProduct = (id) => {
+  store.getSingleProduct(id)
+  sessionStorage.removeItem('sp_id')
+  sessionStorage.setItem('sp_id', id)
+}
 
 onMounted(() => {
   store.getTimerSpecialOffers()
@@ -17,41 +25,31 @@ onMounted(() => {
     <div class="container grid grid-cols-3 gap-20 p-5">
       <div class="relative col-span-2 p-5 bg-white">
         <div class="absolute top-0 py-2 font-medium text-white uppercase bg-red-500 rounded-b px-7 text-md deal">{{$t('dealOfTheDay')}}</div>
-        <div class="flex items-center justify-center h-full p-3 space-x-5">
-          <div class="w-full">
-            <img src="https://flowbite.com/docs/images/blog/image-1.jpg" class="img-responsive" alt="image1">
+        <div v-for="(product, idx) in store.timerSpecialOffers" :key="idx" class="flex items-center justify-center h-full p-3 space-x-5">
+          <div class="max-w- ">
+            <router-link to="/product" @click="showProduct(product?.product?.id)">
+              <img :src="API_URL + '/image/' + (product?.product?.imageUrl[0] ? product?.product?.imageUrl[0] : '')" class="img-responsive" alt="product image">
+            </router-link>
           </div>
           <div>
-            <div class="text-gray-900 text-md">Prista Extra W10-53</div>
+            <router-link to="/product" @click="showProduct(product?.product?.id)" class="text-gray-900 text-md" target="_self">
+              {{ product?.productGroup?.productGroup?.name + ' ' + product?.productGroup?.viscosityGrade?.name }}
+            </router-link>
             <div class="flex items-center py-2">
-              <ul class="flex">
-                <li>
-                  <StarFillIcon class="text-yellow-300" />
-                </li>
-                <li>
-                  <StarFillIcon class="text-yellow-300" />
-                </li>
-                <li>
-                  <StarFillIcon class="text-yellow-300" />
-                </li>
-                <li>
-                  <StarFillIcon class="text-gray-300" />
-                </li>
-                <li>
-                  <StarFillIcon class="text-gray-300" />
-                </li>
-              </ul>
+              <Rating :rating="product?.product?.rating" />
             </div>
             <div class="flex items-center">
-              <div class="mb-2 mr-3 text-lg font-semibold text-red-500">$50.00</div>
-              <div class="mb-2 text-gray-500 line-through text-md">$50.00</div>
+              <div v-if="!product?.discount" class="mb-2 mr-3 text-lg font-semibold text-red-500">
+                €{{ product?.product?.price }}
+              </div>
+              <div v-else class="flex items-center justify-center">
+                <div class="mb-2 mr-3 text-lg font-semibold text-red-500">
+                  €{{ (product?.product?.price - product?.product?.price * (product?.discount?.discountPercent / 100)) }}
+                </div>
+                <div class="mb-2 text-gray-500 line-through text-md">€{{ product?.product?.price }}</div>
+              </div>
             </div>
-            <div class="text-sm text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis reiciendis voluptates pariatur
-              libero quam doloremque deleniti earum illum provident quo error repudiandae enim, eius repellendus cum?
-              Tempore fuga at aut. Fugiat maxime exercitationem odit quia adipisci enim nesciunt nulla! Eaque
-              necessitatibus inventore minus ad! Fugit vitae delectus sunt veritatis iure!
-            </div>
+            <div class="text-sm text-gray-500" v-html="product?.productGroup?.productGroup?.description"></div>
             <Countdown class="float-left" :flipAnimation="false" />
             <div class="clear-both"></div>
           </div>
