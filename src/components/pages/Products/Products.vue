@@ -48,28 +48,22 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
               <div :class="{ 'hidden': !isOpenSortDropDown }" ref="sortDropDown"
                 class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded shadow top-10 w-44">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
-                  <li
-                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <li @click="store.getAllProducts('name-az')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     {{$t('nameUp')}}
                   </li>
-                  <li
-                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <li @click="store.getAllProducts('name-za')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     {{$t('nameDown')}}
                   </li>
-                  <li
-                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <li @click="store.getAllProducts('price-low')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     {{$t('priceUp')}}
                   </li>
-                  <li
-                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <li @click="store.getAllProducts('price-high')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     {{$t('priceDown')}}
                   </li>
-                  <li
-                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <li @click="store.getAllProducts('rating-high')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     {{$t('ratingUp')}}
                   </li>
-                  <li
-                    class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <li @click="store.getAllProducts('rating-low')" class="block px-4 py-2 capitalize cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     {{$t('ratingDown')}}
                   </li>
                 </ul>
