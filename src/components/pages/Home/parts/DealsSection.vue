@@ -26,7 +26,7 @@ onMounted(() => {
       <div class="relative col-span-2 p-5 bg-white">
         <div class="absolute top-0 py-2 font-medium text-white uppercase bg-red-500 rounded-b px-7 text-md deal">{{$t('dealOfTheDay')}}</div>
         <div v-for="(product, idx) in store.timerSpecialOffers" :key="idx" class="flex items-center justify-center h-full p-3 space-x-5">
-          <div class="max-w- ">
+          <div class="w-36">
             <router-link to="/product" @click="showProduct(product?.product?.id)">
               <img :src="API_URL + '/image/' + (product?.product?.imageUrl[0] ? product?.product?.imageUrl[0] : '')" class="img-responsive" alt="product image">
             </router-link>
