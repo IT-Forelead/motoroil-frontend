@@ -88,7 +88,7 @@ const submitBlogData = () => {
           class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600"
         >
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Add blog modal
+            {{$t('addBlog')}}
           </h3>
           <button
             type="button"
@@ -104,7 +104,7 @@ const submitBlogData = () => {
           <form class="my-3">
             <div class="flex flex-col space-y-5">
               <label for="blog-title">
-                <p class="pb-2 font-medium text-slate-700">Blog title</p>
+                <p class="pb-2 font-medium text-slate-700">{{ $t('blogTitle') }}</p>
                 <input
                   id="blog-title"
                   type="text"
@@ -114,11 +114,11 @@ const submitBlogData = () => {
                 />
               </label>
               <label for="blog-text">
-                <p class="mt-2 font-medium text-slate-700">Blog content</p>
+                <p class="mt-2 font-medium text-slate-700">{{ $t('blogContent') }}</p>
                 <QuillEditor theme="snow" id="blog-text" />
               </label>
               <label for="blog-text">
-                <p class="mt-2 font-medium text-slate-700">Blog image</p>
+                <p class="mt-2 font-medium text-slate-700">{{ $t('blogImage') }}</p>
                 <input
                   type="file"
                   class="w-full px-3 py-3"
@@ -129,7 +129,7 @@ const submitBlogData = () => {
                 @click.prevent="submitBlogData()"
                 class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow"
               >
-                <span>Add blog</span>
+                <span>{{$t('addBlog')}}</span>
               </button>
             </div>
           </form>
