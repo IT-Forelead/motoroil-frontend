@@ -84,6 +84,13 @@ const routes = [
     beforeEnter: navigationGuard('admin'),
   },
   {
+    path: '/admin/coupon',
+    name: 'Coupon',
+    component: () => import('../components/pages/Admin/Coupons.vue'),
+    meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('admin'),
+  },
+  {
     path: '/admin/product-groups',
     name: 'Product group',
     component: () => import('../components/pages/Admin/ProductGroups.vue'),

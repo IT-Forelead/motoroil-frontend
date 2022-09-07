@@ -10,6 +10,7 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
+    users: [],
     notifications: [],
     cart: [],
     wishlist: [],
@@ -26,6 +27,10 @@ export const useUserStore = defineStore({
         const response = await axios.get(`${API_URL}/user/notifications`, {headers: authHeader()})
         this.notifications = response.data
       }
+    },
+    async getUsers() {
+      const response = await axios.get(`${API_URL}/user/users`, {headers: authHeader()})
+      this.users = response.data
     },
     async getCart() {
         const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})
@@ -147,6 +152,23 @@ export const useUserStore = defineStore({
         .catch((err) => {
           notify.warning({
             message: 'Not added!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async addCoupon(data) {
+      await axios
+        .post(`${API_URL}/admin/coupon`, data, {headers: authHeader()})
+        .then(() => {
+          notify.success({
+            message: 'Coupon added!',
+            position: 'bottomRight',
+          })
+          this.getCoupons()
+        })
+        .catch((err) => {
+          notify.warning({
+            message: 'Whikle coupon adding!',
             position: 'bottomRight',
           })
         })
