@@ -8,9 +8,9 @@ docker container rm app_frontend_1
 echo '--------------------------------------------------------------------'
 echo 'Removing Frontend image...'
 echo '--------------------------------------------------------------------'
-docker rmi -f workout-frontend:latest
+docker rmi -f motoroel-frontend:latest
 echo '===================================================================='
 echo 'Building Frontend image...'
 echo '--------------------------------------------------------------------'
-docker build -t workout-frontend .
+docker build -t motoroel-frontend .
 echo '--------------------------------------------------------------------'
