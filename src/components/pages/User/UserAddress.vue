@@ -11,7 +11,7 @@ import { onMounted, reactive, watch } from '@vue/runtime-core';
 const userStore = useUserStore()
 
 const address = reactive({
-  country: '',
+  countryId: '',
   regionId: '',
   cityId: '',
   street: ''
@@ -19,20 +19,21 @@ const address = reactive({
 
 onMounted(() => {
   userStore.getUserAddresses()
+  userStore.getCountries()
 })
 
 watch(
-  () => address.country,
+  () => address.countryId,
   () => {
-    userStore.getRegions(address.country)
+    userStore.getRegions(address.countryId)
   },
   { deep: true }
 )
 
 watch(
-  () => address.country,
+  () => address.regionId,
   () => {
-    userStore.getCities(address.country)
+    userStore.getCities(address.regionId)
   },
   { deep: true }
 )
@@ -115,23 +116,22 @@ watch(
             </div>
             <div class="space-y-1">
               <label for="country" class="text-sm text-gray-700">{{ $t('country') }}</label>
-              <select v-model="address.country" id="country" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+              <select v-model="address.countryId" id="country" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
                 <option value="" selected>{{ $t('chooseACountry') }}</option>
-                <option value="uz">Uzbekistan</option>
-                <option value="de">Germany</option>
+                <option v-for="(country, idx) in userStore.countries" :key="idx" :value="country?.id">{{ country?.name }}</option>
               </select>
             </div>
             <div class="space-y-1" v-if="userStore.regions.length > 0">
               <label for="region" class="text-sm text-gray-700">{{ $t('region') }}</label>
-              <select id="country" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option selected>{{ $t('chooseARegion') }}</option>
+              <select v-model="address.regionId" id="region" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="" selected>{{ $t('chooseARegion') }}</option>
                 <option v-for="(region, idx) in userStore.regions" :key="idx" :value="region?.id">{{ region?.name }}</option>
               </select>
             </div>
-            <div class="space-y-1" v-if="userStore.cities.length > 0 && userStore.regions.length > 0 && address.country.length > 0">
+            <div class="space-y-1" v-if="userStore.cities.length > 0">
               <label for="city" class="text-sm text-gray-700">{{ $t('city') }}</label>
-              <select id="country" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option selected>{{ $t('chooseACity') }}</option>
+              <select v-model="address.cityId" id="city" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="" selected>{{ $t('chooseACity') }}</option>
                 <option v-for="(city, idx) in userStore.cities" :key="idx" :value="city?.id">{{ city?.name }}</option>
               </select>
             </div>

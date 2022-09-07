@@ -15,6 +15,7 @@ export const useUserStore = defineStore({
     wishlist: [],
     coupons: [],
     addresses: [],
+    countries: [],
     regions: [],
     cities: [],
     cartSum: 0
@@ -43,12 +44,16 @@ export const useUserStore = defineStore({
         const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
         this.addresses = response.data
     },
-    async getRegions(data) {
-        const response = await axios.post(`${API_URL}/user/regions`, `"${data}"`, {headers: authHeader()})
+    async getCountries() {
+        const response = await axios.get(`${API_URL}/user/countries`, {headers: authHeader()})
+        this.countries = response.data
+    },
+    async getRegions(countryId) {
+        const response = await axios.post(`${API_URL}/user/regions`, `"${countryId}"`, {headers: authHeader()})
         this.regions = response.data
     },
-    async getCities(data) {
-        const response = await axios.post(`${API_URL}/user/cities`, `"${data}"`, {headers: authHeader()})
+    async getCities(regionId) {
+        const response = await axios.post(`${API_URL}/user/cities`, `"${regionId}"`, {headers: authHeader()})
         this.cities = response.data
     },
     async changeCartItemsQuantityPlus(data) {
