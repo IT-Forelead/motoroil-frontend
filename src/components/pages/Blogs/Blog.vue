@@ -61,59 +61,52 @@ onMounted(() => {
 				<ul class="flex p-2 space-x-3 border-t border-gray-600">
 					<li @click="useModalStore().openEditBlogModal()" class="flex items-center text-gray-600 cursor-pointer">
 						<PencilDuotoneIcon class="w-5 h-5 mr-1"/>
-						Edit
+						<span>Edit</span>
 					</li>
-					<li class="flex items-center text-gray-600 cursor-pointer">
+					<li @click="store.deleteBlog(store.singleBlog.id)" class="flex items-center text-gray-600 cursor-pointer">
 						<TrashIcon class="w-5 h-5 mr-1"/>
-						Delete
+						<span>Delete</span>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
 </div>
-  <!-- Add Blog Modal -->
-  <div :class="{ hidden: !useModalStore().isOpenEditBlogModal }"
-    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
-    <div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
-      <div class="relative bg-white rounded shadow dark:bg-gray-700">
-        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Edit blog
-          </h3>
-          <button type="button"
-            @click="useModalStore().closeEditBlogModal()"
-            class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
-            data-modal-toggle="defaultModal">
-            <CloseIcon />
-            <span class="sr-only">{{ $t('closeModal') }}</span>
-          </button>
-        </div>
-        <div class="px-6 py-3 space-y-6">
-          <form class="my-3">
-            <div class="flex flex-col space-y-5">
-              <label for="blog-title">
-                <p class="pb-2 font-medium text-slate-700">{{ $t('blogTitle') }}</p>
-                <input id="blog-title" type="text" class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter blog title" />
-              </label>
-              <label for="blog-text">
-                <p class="mt-2 font-medium text-slate-700">{{ $t('blogContent') }}</p>
-                <QuillEditor theme="snow" id="blog-text" />
-              </label>
-              <label for="blog-text">
-                <p class="mt-2 font-medium text-slate-700">{{ $t('blogImage') }}</p>
-                <input type="file" class="w-full px-3 py-3"/>
-              </label>
-              <button 
-                class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                <span>{{$t('save')}}</span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Add Blog Modal -->
+<div :class="{ hidden: !useModalStore().isOpenEditBlogModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+	<div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+		<div class="relative bg-white rounded shadow dark:bg-gray-700">
+			<div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+				<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit blog</h3>
+				<button type="button" @click="useModalStore().closeEditBlogModal()" class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900" data-modal-toggle="defaultModal">
+					<CloseIcon />
+					<span class="sr-only">{{ $t('closeModal') }}</span>
+				</button>
+			</div>
+			<div class="px-6 py-3 space-y-6">
+				<form class="my-3">
+					<div class="flex flex-col space-y-5">
+						<label for="blog-title">
+							<p class="pb-2 font-medium text-slate-700">{{ $t('blogTitle') }}</p>
+							<input id="blog-title" type="text" class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter blog title" />
+						</label>
+						<label for="blog-text">
+							<p class="mt-2 font-medium text-slate-700">{{ $t('blogContent') }}</p>
+							<QuillEditor theme="snow" id="blog-text" />
+						</label>
+						<label for="blog-text">
+							<p class="mt-2 font-medium text-slate-700">{{ $t('blogImage') }}</p>
+							<input type="file" class="w-full px-3 py-3"/>
+						</label>
+						<button class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+							<span>{{$t('save')}}</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 </template>
 
 <style scoped>

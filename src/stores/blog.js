@@ -5,6 +5,7 @@ import authHeader from '../mixins/auth/auth-header.js'
 import { useModalStore } from './modal.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import { useRouter } from 'vue-router'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -50,6 +51,25 @@ export const useBlogStore = defineStore({
           notify.error({
             title: 'Error',
             message: 'While adding blog!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async deleteBlog(id) {
+      await axios
+        .get(`${API_URL}/admin/delete-blog/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Blog deleted!',
+            position: 'bottomRight',
+          })
+          this.getAllBlogs()
+          useRouter().push('/blogs')
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While blog deleting!',
             position: 'bottomRight',
           })
         })
