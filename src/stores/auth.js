@@ -35,12 +35,12 @@ export const useAuthStore = defineStore({
     },
     checkLogin() {
       this.token = sessionStorage.getItem('Authorization')
-      this.isLogin = sessionStorage.getItem('Authorization') ? true : false
+      this.isLogin = !!sessionStorage.getItem('Authorization')
     },
     checkSSOLogin(token) {
       sessionStorage.setItem('Authorization', token)
       this.token = token
-      this.isSSOLogin = token ? true : false
+      this.isSSOLogin = !!token
     },
     async logout() {
       await axios

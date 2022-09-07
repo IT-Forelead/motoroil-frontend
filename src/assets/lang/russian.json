@@ -231,6 +231,10 @@
   "productPdfFile": "PDF-файл продукта",
   "createProductGroup": "Создать группу продуктов",
   "specification": "Технические характеристики",
-  "oemApproval": "OEM-одобрение"
-
+  "oemApproval": "OEM-одобрение",
+  "selectViscosityGrade": "Выберите класс вязкости",
+  "addBlog": "Добавить блог",
+  "blogTitle": "Заголовок блога",
+  "blogContent": "Содержание блога",
+  "blogImage": "Изображение блога"
 }

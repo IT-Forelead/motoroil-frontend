@@ -59,7 +59,7 @@ onMounted(() => {
           class="px-4 py-2 m-0 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }" 
           @click="router.push('/'); mainSearchStore.clearMainSearchResults()">
-          {{ $t('home') }}
+          {{ $t('homePage') }}
         </li>
         <li
           class="px-4 py-2 font-medium uppercase cursor-pointer text-md rounded-t-md hover:bg-red-500 hover:text-white"

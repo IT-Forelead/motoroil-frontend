@@ -18,14 +18,14 @@ import Sidebar from '../../layout/Sidebar/Sidebar.vue';
           <CaretRightIcon class="mx-3 text-gray-500" />
         </li>
         <li class="flex items-center">
-          <a href="/about-us" class="text-red-600">About Us</a>
+          <a href="/about-us" class="text-red-600">{{ $t('aboutUs') }}</a>
         </li>
       </ul>
     </div>
     <div class="grid grid-cols-4 gap-3">
       <Sidebar />
       <div class="col-span-3 ml-3">
-        <div class="p-3 text-2xl font-semibold text-gray-700">Welcome To Shop</div>
+        <div class="p-3 text-2xl font-semibold text-gray-700">{{ $t('welcomeToShop') }}</div>
         <div>
           <img class="float-left" src="path/to/image.jpg">
           <p>

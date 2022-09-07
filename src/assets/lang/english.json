@@ -231,5 +231,10 @@
   "productPdfFile": "Product PDF file",
   "createProductGroup": "Create Product Group",
   "specification": "Specification",
-  "oemApproval": "OEM approval"
+  "oemApproval": "OEM approval",
+  "selectViscosityGrade": "Select viscosity grade",
+  "addBlog": "Add blog",
+  "blogTitle": "Blog title",
+  "blogContent": "Blog content",
+  "blogImage": "Blog image"
 }

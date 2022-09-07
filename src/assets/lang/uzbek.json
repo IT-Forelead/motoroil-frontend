@@ -231,5 +231,10 @@
   "productPdfFile": "Mahsulot PDF fayli",
   "createProductGroup": "Mahsulotlar guruhini yaratish",
   "specification": "Spetsifikatsiya",
-  "oemApproval": "OEM-tasdiq"
+  "oemApproval": "OEM-tasdiq",
+  "selectViscosityGrade": "Yopishqoqlik darajasini tanlang",
+  "addBlog": "Blog qo'shish",
+  "blogTitle": "Blog sarlavhasi",
+  "blogContent": "Blog tarkibi",
+  "blogImage": "Blog tasviri"
 }
