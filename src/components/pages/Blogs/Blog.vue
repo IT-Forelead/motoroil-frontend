@@ -79,7 +79,7 @@ onMounted(() => {
 	<div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
 		<div class="relative bg-white rounded shadow dark:bg-gray-700">
 			<div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-				<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit blog</h3>
+				<h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('editBlog') }}</h3>
 				<button type="button" @click="useModalStore().closeEditBlogModal()" class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900" data-modal-toggle="defaultModal">
 					<CloseIcon />
 					<span class="sr-only">{{ $t('closeModal') }}</span>

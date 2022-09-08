@@ -59,11 +59,11 @@ const couponStatusColor = (start, end) => {
     <div class="container flex flex-col justify-center">
         <div class="grid grid-cols-3 gap-3">
             <div class="col-span-2 ml-3">
-                <div class="p-3 text-2xl font-semibold text-gray-700">Add coupon</div>
+                <div class="p-3 text-2xl font-semibold text-gray-700">{{ $t('addCoupon') }}</div>
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead class="bg-gray-50">
                         <tr>
-                            <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">User</td>
+                            <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('user') }}</td>
                             <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('validityPeriod') }}</td>
                             <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('price') }}</td>
                             <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('status') }}</td>
@@ -90,11 +90,11 @@ const couponStatusColor = (start, end) => {
                             </td>
                             <td class="p-3 text-sm text-gray-700">
                                 <div class="flex items-center">
-                                    <div class="mr-2 text-sm text-gray-500">Minimum spend:</div>
+                                    <div class="mr-2 text-sm text-gray-500">{{ $t('minimumSpend') }}:</div>
                                     <div class="font-medium text-gray-700 text-md">€{{ coupon?.minPrice }}</div>
                                 </div>
                                 <div class="flex items-center">
-                                    <div class="mr-2 text-sm text-gray-500">Discount money:</div>
+                                    <div class="mr-2 text-sm text-gray-500">{{ $t('discountMoney') }}:</div>
                                     <div class="font-medium text-gray-700 text-md">€{{ coupon?.price }}</div>
                                 </div>
                             </td>
@@ -108,27 +108,28 @@ const couponStatusColor = (start, end) => {
                 </table>
             </div>
             <div class="p-5 space-y-4 bg-white rounded shadow">
-                <div class="p-3 font-medium text-gray-700 border-b text-md">Add coupon</div>
+                <div class="p-3 font-medium text-gray-700 border-b text-md">{{ $t('addCoupon') }}</div>
                 <div class="space-y-1">
-                    <label for="user" class="text-gray-700 text-md">User</label>
+                    <label for="user" class="text-gray-700 text-md">{{ $t('User') }}</label>
                     <select v-model="coupon.userId" id="user" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="" selected>Choose a user</option>
+                        <option value="" selected>{{ $t('chooseAUser') }}</option>
                         <option v-for="(user, idx) in userStore.users" :key="idx" :value="user?.uuid">{{ user?.name }}</option>
                     </select>
                 </div>
                 <div class="space-y-1">
-                    <label for="price" class="text-gray-700 text-md">Price</label>
+                    <label for="price" class="text-gray-700 text-md">{{ $t('price') }}</label>
                     <input v-model="coupon.price" id="price" type="number" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="0">
                 </div>
                 <div class="space-y-1">
-                    <label for="price" class="text-gray-700 text-md">Started at</label>
+                    <label for="price" class="text-gray-700 text-md">{{ $t('startedAt') }}</label>
                     <input v-model="coupon.startedAt" id="price" type="datetime-local" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 </div>
                 <div class="space-y-1">
-                    <label for="price" class="text-gray-700 text-md">Expired at</label>
+                    <label for="price" class="text-gray-700 text-md">{{ $t('expiredAt') }}</label>
                     <input v-model="coupon.expiredAt" id="price" type="datetime-local" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 </div>
-                <button @click="create()" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Add</button>
+                <button @click="create()" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                  {{ $t('add') }}</button>
             </div>
         </div>
     </div>

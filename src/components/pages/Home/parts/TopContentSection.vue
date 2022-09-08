@@ -90,13 +90,13 @@ const submitSlideData = () => {
           </select>
           <select v-model="mainFilter.oem"
             class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option value="" selected>OEM-Freigabe</option>
+            <option value="" selected>{{ $t('oemApproval') }}</option>
             <option v-for="(oem, idx) in mainSearchStore.mainSearch?.oems" :key="idx" :value="oem?.id">{{ oem?.name }}
             </option>
           </select>
           <select v-model="mainFilter.specification"
             class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option value="" selected>Specifications</option>
+            <option value="" selected>{{ $t('specifications') }}</option>
             <option v-for="(specification, idx) in mainSearchStore.mainSearch?.specifications" :key="idx"
               :value="specification?.id">{{ specification?.name }}</option>
           </select>

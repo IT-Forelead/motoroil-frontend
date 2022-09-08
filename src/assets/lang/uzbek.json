@@ -236,5 +236,21 @@
   "addBlog": "Blog qo'shish",
   "blogTitle": "Blog sarlavhasi",
   "blogContent": "Blog tarkibi",
-  "blogImage": "Blog tasviri"
+  "blogImage": "Blog tasviri",
+  "addInformation": "Ma'lumot qo'shing",
+  "title": "Sarlavha",
+  "text": "Matn",
+  "add": "Qo'shish",
+  "coupons": "Kuponlar",
+  "addMember": "A'zo qo'shing",
+  "from" : "dan",
+  "to" : "gacha",
+  "filter": "Filtr",
+  "unitPrice": "Donasining narxi",
+  "addCoupon": "Kupon qo'shish",
+  "user": "Foydalanuvchi",
+  "minimumSpend":"Minimal xarajat",
+  "discountMoney":"Chegirmali pul",
+  "chooseAUser":"Foydalanuvchini tanlang",
+  "editBlog":"Blogni tahrirlash"
 }

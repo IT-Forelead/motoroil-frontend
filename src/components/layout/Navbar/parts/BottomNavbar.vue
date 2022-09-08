@@ -111,7 +111,8 @@ onMounted(() => {
               </li>
               <li>
                 <router-link to="/admin/coupon" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/coupon'}"
-                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Coupons</router-link>
+                  class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  {{ $t('coupons') }}</router-link>
               </li>
               <li>
                 <router-link to="/admin/accounting" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/accounting'}"

@@ -1,6 +1,4 @@
 <script setup>
-import TrashIcon from '../../../assets/icons/TrashIcon.vue'
-import StackIcon from '../../../assets/icons/StackIcon.vue'
 import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue'
 import CalendarIcon from '../../../assets/icons/CalendarIcon.vue'
 import { useOrderStore } from '../../../stores/order.js'
@@ -56,16 +54,17 @@ function exportToPDF() {
             </button>
             <div :class="{ 'hidden': !isOpenFilterDropDown }" ref="dropdown" class="absolute right-0 z-10 p-2 space-y-2 bg-white rounded shadow w-72 top-12">
               <div class="relative">
-                <div aria-hidden="true" class="absolute inset-y-0 flex items-center px-4 text-sm text-gray-400 uppercase pointer-events-none">from</div>
+                <div aria-hidden="true" class="absolute inset-y-0 flex items-center px-4 text-sm text-gray-400 uppercase pointer-events-none">
+                  {{ $t('from') }}</div>
                 <input type="datetime-local" class="block w-full p-2 pl-16 mt-1 text-sm bg-white border-gray-300 rounded shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </div>
               <div class="relative">
-                <div aria-hidden="true" class="absolute inset-y-0 flex items-center px-4 text-gray-400 uppercase pointer-events-none">to</div>
+                <div aria-hidden="true" class="absolute inset-y-0 flex items-center px-4 text-gray-400 uppercase pointer-events-none">{{ $t('to') }}</div>
                 <input type="datetime-local" class="block w-full p-2 pl-16 mt-1 bg-white border-gray-300 rounded shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </div>
               <button
                 class="w-full p-2 text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                Filter
+                {{ $t('filter') }}
               </button>
             </div>
           </div>
@@ -86,7 +85,7 @@ function exportToPDF() {
                 {{ $t('count') }}
               </td>
               <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">
-                Unit price
+                {{ $t('unitPrice') }}
               </td>
               <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">
                 {{ $t('price') }}
