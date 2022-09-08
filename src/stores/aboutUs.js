@@ -92,19 +92,18 @@ export const useAboutUsStore = defineStore({
         },
         async deleteInformation(id) {
           await axios
-            .get(`${API_URL}/admin/delete-blog/${id}`, { headers: authHeader() })
+            .get(`${API_URL}/admin/delete-about-us/${id}`, { headers: authHeader() })
             .then(() => {
               notify.success({
-                message: 'Blog deleted!',
+                message: 'Information deleted!',
                 position: 'bottomRight',
               })
-              this.getAllBlogs()
-              useRouter().push('/blogs')
+              this.getAllAboutUsInfos()
             })
             .catch(() => {
               notify.error({
                 title: 'Error',
-                message: 'While blog deleting!',
+                message: 'While information deleting!',
                 position: 'bottomRight',
               })
             })

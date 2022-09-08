@@ -13,6 +13,7 @@ import { useAboutUsStore } from '../../../stores/aboutUs.js';
 import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive, ref } from '@vue/runtime-core';
 import $ from 'jquery'
+import DropDown from './parts/DropDown.vue'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const authStore = useAuthStore()
@@ -100,7 +101,7 @@ const submitWorkerData = () => {
         </li>
       </ul>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
       <Sidebar />
       <div class="col-span-3 ml-3">
         <div v-if="authStore.user?.role === 'admin'" class="flex justify-end">
@@ -111,9 +112,7 @@ const submitWorkerData = () => {
         <div v-for="(information, idx) in aboutUsStore.aboutUsInfos" :key="idx">
           <div class="flex items-center justify-between">
             <div class="p-3 text-2xl font-semibold text-gray-700">{{ information?.title }}</div>
-            <div v-if="authStore.user?.role === 'admin'">
-              <DotsThreeVerticalFillIcon/>
-            </div>
+            <DropDown :id="information?.id"/>
           </div>
           <div>
             <img :src="API_URL + '/image/' + information?.imageUrl" class="float-left mb-5 mr-5" alt="#"/>
