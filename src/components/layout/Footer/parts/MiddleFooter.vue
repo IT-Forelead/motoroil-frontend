@@ -13,7 +13,7 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
 
 <template>
   <div class="flex justify-center px-5 pt-10 bg-white">
-    <div class="container grid grid-cols-4 gap-7">
+    <div class="container grid grid-cols-1 md:grid-cols-4 gap-7">
       <div>
         <div class="font-semibold uppercase text-mf">{{ $t('aboutUs') }}</div>
         <ul class="py-5">
@@ -113,9 +113,9 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
     </div>
   </div>
   <div class="flex justify-center py-3">
-    <div class="container grid grid-cols-3">
-      <div class="col-span-1 px-5 bg-gray-700 py-7">
-        <div class="flex">
+    <div class="container grid grid-cols-1 md:grid-cols-3 md:mb-0">
+      <div class="flex items-center justify-center px-5 bg-gray-700 py-4 md:py-7">
+        <div class="flex justify-center">
           <div class="flex items-center justify-center w-10 h-10 mx-1 text-gray-700 bg-white rounded hover:bg-red-500 hover:text-white">
             <FacebookFIcon/>
           </div>
@@ -133,7 +133,7 @@ import YoutubeIcon from '../../../../assets/icons/YoutubeIcon.vue';
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-between col-span-2 px-12 bg-gray-800 py-7">
+      <div class="hidden md:flex items-center justify-between col-span-2 px-12 bg-gray-800 py-7">
         <div class="text-xl font-medium text-white uppercase indent-3">{{ $t('signUpForNewsletter') }}</div>
         <div class="flex rounded bg-white w-[30rem]">
           <input type="search" class="w-full px-4 py-1 text-gray-900 bg-transparent border-none outline-none focus:outline-none" placeholder="Your email address..." />

@@ -132,7 +132,7 @@ onMounted(() => {
     </div>
   </div>
 <!-- Mobile Navbar -->
-  <div class="flex justify-center bg-gray-900 w-full p-2 border-b-2 border-t-2 border-red-500 fixed z-30 bottom-0 md:hidden">
+  <div class="flex justify-center bg-gray-900 w-full p-2 border-t-2 border-red-500 fixed z-30 bottom-0 md:hidden">
     <div class="flex justify-center w-full container items-center text-white">
       <ul class="grid items-center grid-cols-3 justify-center gap-4" :class="{'grid-cols-4':authStore.user}">
         <li

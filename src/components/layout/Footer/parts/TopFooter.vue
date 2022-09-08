@@ -8,7 +8,7 @@ import UsersIcon from '../../../../assets/icons/UsersIcon.vue';
 
 <template>
   <div class="flex justify-center p-5 bg-gray-100">
-    <div class="container grid grid-cols-4 gap-5">    
+    <div class="container grid grid-cols-1 md:grid-cols-4 gap-5">
       <div class="flex items-center space-x-3">
         <div class="p-3 bg-white border border-gray-200 rounded-full shadow">
           <CarIcon class="w-10 h-10 text-red-500" />
