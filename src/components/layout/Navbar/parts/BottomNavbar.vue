@@ -44,7 +44,7 @@ onMounted(() => {
     <div class="container grid items-center grid-cols-4 gap-x-3">
       <div class="relative">
         <button @click="toggleDropDown()"
-          class="flex items-center justify-between w-full px-5 py-2 uppercase border-0 from-gray-50 via-gray-100 to-gray-300 bg-gradient-to-t rounded-t-md text-md hover:from-red-200 hover:via-red-400 hover:to-red-600">
+          class="flex items-center whitespace-nowrap justify-between w-full px-5 py-2 uppercase border-0 from-gray-50 via-gray-100 to-gray-300 bg-gradient-to-t rounded-t-md text-md hover:from-red-200 hover:via-red-400 hover:to-red-600">
           {{ $t('allCategories') }}
           <ListIcon class="mr-1" />
         </button>
@@ -132,7 +132,7 @@ onMounted(() => {
     </div>
   </div>
 <!-- Mobile Navbar -->
-  <div class="flex justify-center bg-gray-900 w-full p-2 border-b-2 border-t-2 border-red-500 fixed z-30 bottom-0 md:hidden">
+  <div class="flex justify-center bg-gray-900 w-full p-2 border-t-2 border-red-500 fixed z-30 bottom-0 md:hidden">
     <div class="flex justify-center w-full container items-center text-white">
       <ul class="grid items-center grid-cols-3 justify-center gap-4" :class="{'grid-cols-4':authStore.user}">
         <li

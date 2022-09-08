@@ -100,7 +100,7 @@ const submitWorkerData = () => {
         </li>
       </ul>
     </div>
-    <div class="grid grid-cols-4 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
       <Sidebar />
       <div class="col-span-3 ml-3">
         <div v-if="authStore.user?.role === 'admin'" class="flex justify-end">

@@ -4,7 +4,7 @@ import MiddleSidebarItem from './parts/MiddleSidebarItem.vue';
 
 </script>
 <template>
-  <div class="w-full">
+  <div class="w-full hidden md:block">
     <TopSidebarItem/>
     <MiddleSidebarItem/>
   </div>

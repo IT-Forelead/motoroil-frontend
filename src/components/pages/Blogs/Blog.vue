@@ -44,7 +44,7 @@ onMounted(() => {
 				<li class="text-red-700">{{ store.singleBlog.title }}</li>
 			</ul>
 		</div>
-		<div class="grid grid-cols-4 gap-10">
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-10">
 			<Sidebar />
 			<div class="col-span-3 px-3">
 				<div class="py-3 text-2xl font-semibold text-gray-700">{{ store.singleBlog.title }}</div>
