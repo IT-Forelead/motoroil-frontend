@@ -9,7 +9,7 @@ import SignInIcon from '../../../../assets/icons/SignInIcon.vue';
 import { useModalStore } from '../../../../stores/modal.js'
 import { useAuthStore } from '../../../../stores/auth.js'
 import { useUserStore } from '../../../../stores/user.js'
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { useRouter } from "vue-router";
 import UserFillIcon from "../../../../assets/icons/UserFillIcon.vue";
@@ -109,7 +109,7 @@ const userForm = reactive({
 })
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
-const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/
+const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})/
 
 const submitUserData = () => {
   if (userForm.name === '') {
@@ -144,8 +144,8 @@ const submitUserData = () => {
 </script>
 
 <template>
-  <div class="flex justify-center py-2 bg-gray-900">
-    <div class="container grid items-center grid-cols-4 gap-3">
+  <div class="flex justify-between md:justify-center py-2 bg-gray-900">
+    <div class="flex w-full justify-between md:container md:grid items-center md:grid-cols-4 gap-3">
       <ul class="items-center hidden space-x-2 md:flex">
         <li
           class="p-1 text-lg text-gray-400 border border-gray-400 rounded hover:bg-red-500 hover:text-white hover:border-red-500">
@@ -172,7 +172,7 @@ const submitUserData = () => {
           </a>
         </li>
       </ul>
-      <div class="relative col-span-2">
+      <div class="relative md:col-span-2">
         <button @click="toggleDropDown()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 uppercase md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           {{ currentLang }}
@@ -196,7 +196,7 @@ const submitUserData = () => {
           </ul>
         </div>
       </div>
-      <div class="flex items-center justify-end space-x-2" v-if="!(authStore.isLogin || authStore.isSSOLogin)">
+      <div class="flex items-center md:justify-end space-x-2" v-if="!(authStore.isLogin || authStore.isSSOLogin)">
         <button @click="store.openModal()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignInIcon class="mr-1" />
@@ -208,7 +208,7 @@ const submitUserData = () => {
           {{ $t('registration') }}
         </button>
       </div>
-      <div class="flex items-center justify-end space-x-2" v-else>
+      <div class="flex items-center md:justify-end space-x-2" v-else>
         <div class="relative">
           <button @click="toggleNotificationDropDown()" class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
             <BellFillIcon class="w-5 h-5 mx-3" />
