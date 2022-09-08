@@ -16,9 +16,13 @@ export const useModalStore = defineStore({
     isOpenSlideModal: false,
     isOpenAddAddressModal: false,
     isOpenProductGroupModal: false,
+    isOpenEditProductGroupModal: false,
     isOpenAddBlogModal: false,
     isOpenEditBlogModal: false,
     isOpenAddAboutUsInfoModal: false,
+    isOpenEditAboutUsInfoModal: false,
+    isOpenAddWorkerModal: false,
+    isOpenEditWorkerModal: false,
   }),
   actions: {
     openModal() {
@@ -46,6 +50,24 @@ export const useModalStore = defineStore({
     closeAddAboutUsInfoModal() {
       this.isOpenAddAboutUsInfoModal = false
     },
+    openEditAboutUsInfoModal() {
+      this.isOpenEditAboutUsInfoModal = true
+    },
+    closeEditAboutUsInfoModal() {
+      this.isOpenEditAboutUsInfoModal = false
+    },
+    openAddWorkerModal() {
+      this.isOpenAddWorkerModal = true
+    },
+    closeAddWorkerModal() {
+      this.isOpenAddWorkerModal = false
+    },
+    openEditWorkerModal() {
+      this.isOpenEditWorkerModal = true
+    },
+    closeEditWorkerModal() {
+      this.isOpenEditWorkerModal = false
+    },
     openRegisterModal() {
       this.isOpenRegisterModal = true
       this.isOpen = false
@@ -58,6 +80,12 @@ export const useModalStore = defineStore({
     },
     closeProductGroupModal() {
       this.isOpenProductGroupModal = false
+    },
+    openEditProductGroupModal() {
+      this.isOpenEditProductGroupModal = true
+    },
+    closeEditProductGroupModal() {
+      this.isOpenEditProductGroupModal = false
     },
     openSlideModal() {
       this.isOpenSlideModal = true

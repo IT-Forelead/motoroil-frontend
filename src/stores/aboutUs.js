@@ -2,6 +2,7 @@ import axios from 'axios'
 import {defineStore} from 'pinia'
 import authHeaderForMultipart from '../mixins/auth/auth-header-for-multipart-form.js'
 import authHeader from '../mixins/auth/auth-header.js'
+import { useModalStore } from './modal.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
@@ -47,21 +48,62 @@ export const useAboutUsStore = defineStore({
               })
             })
         },
-        async deleteInformation(id) {
+        async createWorker(data) {
           await axios
-            .get(`${API_URL}/admin/delete-blog/${id}`, { headers: authHeader() })
+            .put(`${API_URL}/admin/create-worker`, data, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: authHeaderForMultipart(),
+              },
+            })
             .then(() => {
               notify.success({
-                message: 'Blog deleted!',
+                message: 'Worker added!',
                 position: 'bottomRight',
               })
-              this.getAllBlogs()
-              useRouter().push('/blogs')
+              this.getAllWorkers()
+              useModalStore().closeAddWorkerModal()
             })
             .catch(() => {
               notify.error({
                 title: 'Error',
-                message: 'While blog deleting!',
+                message: 'While worker adding',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async deleteWorker(id) {
+          await axios
+            .get(`${API_URL}/admin/delete-worker/${id}`, { headers: authHeader() })
+            .then(() => {
+              notify.success({
+                message: 'Worker deleted!',
+                position: 'bottomRight',
+              })
+              this.getAllWorkers()
+            })
+            .catch(() => {
+              notify.error({
+                title: 'Error',
+                message: 'While worker deleting!',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async deleteInformation(id) {
+          await axios
+            .get(`${API_URL}/admin/delete-about-us/${id}`, { headers: authHeader() })
+            .then(() => {
+              notify.success({
+                message: 'Information deleted!',
+                position: 'bottomRight',
+              })
+              this.getAllAboutUsInfos()
+            })
+            .catch(() => {
+              notify.error({
+                title: 'Error',
+                message: 'While information deleting!',
                 position: 'bottomRight',
               })
             })

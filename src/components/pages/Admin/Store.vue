@@ -12,6 +12,7 @@ import { onMounted } from '@vue/runtime-core';
 import { useModalStore } from '../../../stores/modal';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import ImageUploadIcon from '../../../assets/icons/ImageUploadIcon.vue';
+import { formatDateTime } from '../../../mixins/utils';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useProductStore()
@@ -165,13 +166,13 @@ const editModal = (id) => {
                   <div class="mr-1 text-sm text-gray-500">
                     <CalendarCheckIcon class="w-4 h-4 mr-1" />
                   </div>
-                  <div class="font-medium text-gray-700 text-md">{{ product?.discount?.startedAt }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ formatDateTime(product?.discount?.startedAt) }}</div>
                 </div>
                 <div class="flex items-center" v-if="product?.discount">
                   <div class="mr-1 text-sm text-gray-500">
                     <CalendarXIcon class="w-4 h-4 mr-1" />
                   </div>
-                  <div class="font-medium text-gray-700 text-md">{{ product?.discount?.expiredAt }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ formatDateTime(product?.discount?.expiredAt) }}</div>
                 </div>
               </td>
               <td class="p-3">
