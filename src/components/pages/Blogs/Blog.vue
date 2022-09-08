@@ -60,7 +60,7 @@ onMounted(() => {
 				</ul>
 				<img :src="API_URL + '/image/' + store.singleBlog.imageUrl" class="object-fill" alt="#">
 				<div class="py-3 font-normal text-gray-700 text-md" v-html="store.singleBlog?.text"></div>
-				<ul  v-if="authStore.user?.role === 'admin'" class="flex p-2 space-x-3 border-t border-gray-600">
+				<ul v-if="authStore.user?.role === 'admin'" class="flex p-2 space-x-3 border-t border-gray-600">
 					<li @click="useModalStore().openEditBlogModal()" class="flex items-center text-gray-600 cursor-pointer">
 						<PencilDuotoneIcon class="w-5 h-5 mr-1"/>
 						<span>Edit</span>
