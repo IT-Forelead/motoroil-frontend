@@ -15,6 +15,7 @@ export const useAuthStore = defineStore({
     isLogin: false,
     isSSOLogin: false,
     user: '',
+    userId: '',
   }),
   actions: {
     async loginUser(data) {
@@ -109,6 +110,7 @@ export const useAuthStore = defineStore({
         .get(`${API_URL}/user`, { headers: authHeader() })
         .then((response) => {
           this.user = response?.data
+          this.userId = response?.data?.id
           sessionStorage.setItem('role', response?.data?.role)
           if (response?.data?.role === 'user') useUserStore().getCart()
         })
