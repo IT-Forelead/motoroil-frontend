@@ -245,7 +245,7 @@ const submitUserData = () => {
               <p class="text-sm text-gray-700">Hello, <span class="font-medium text-md">{{ authStore.user?.username }}</span></p>
               <p class="text-sm text-gray-700">Your email: <span class="font-medium text-md">{{ authStore.user?.email }}</span></p>
             </div>
-            <ul class="py-1 text-sm text-gray-700">
+            <ul v-if="authStore.user?.role === 'user'" class="py-1 text-sm text-gray-700">
               <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
                 <router-link to="/wishlist" class="flex items-center">
                   <HeartFillIcon class="w-4 h-4 mr-1"/>
