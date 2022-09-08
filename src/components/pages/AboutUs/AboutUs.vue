@@ -7,18 +7,39 @@ import TwitterIcon from '../../../assets/icons/TwitterIcon.vue';
 import SkyprIcon from '../../../assets/icons/SkyprIcon.vue';
 import AtBoldIcon from '../../../assets/icons/AtBoldIcon.vue';
 import DotsThreeVerticalFillIcon from '../../../assets/icons/DotsThreeVerticalFillIcon.vue';
+import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import { useAuthStore } from '../../../stores/auth.js';
 import { useAboutUsStore } from '../../../stores/aboutUs.js';
-import { onMounted } from '@vue/runtime-core';
+import { useModalStore } from '../../../stores/modal.js';
+import { onMounted, ref } from '@vue/runtime-core';
+import $ from 'jquery'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const authStore = useAuthStore()
 const aboutUsStore = useAboutUsStore()
+const modalStore = useModalStore()
 
 onMounted(() => {
 	aboutUsStore.getAllAboutUsInfos()
 	aboutUsStore.getAllWorkers()
 })
+
+const informationTitle = ref('')
+const informationImage = ref('')
+
+function getImage(e) {
+  if (e?.target?.files[0].type.includes('image')) {
+    informationImage.value = e?.target?.files[0]
+  }
+}
+
+const submitInformationData = () => {
+  const formData = new FormData()
+  formData.append('aboutUsTitle', informationTitle.value)
+  formData.append('aboutUsText', $('#information-text .ql-editor').html())
+  formData.append('aboutUsImage', informationImage.value)
+  aboutUsStore.createInformation(formData)
+}
 </script>
 
 <template>
@@ -41,7 +62,7 @@ onMounted(() => {
       <Sidebar />
       <div class="col-span-3 ml-3">
         <div v-if="authStore.user?.role === 'admin'" class="flex justify-end">
-          <button class="px-3 py-2 text-white bg-red-500 rounded hover:bg-red-700">
+          <button @click="modalStore.openAddAboutUsInfoModal()" class="px-3 py-2 text-white bg-red-500 rounded hover:bg-red-700">
             Add information
           </button>
         </div>
@@ -54,8 +75,9 @@ onMounted(() => {
           </div>
           <div>
             <img :src="API_URL + '/image/' + information?.imageUrl" class="float-left mb-5 mr-5" alt="#"/>
-            <p class="text-gray-700 text-md">{{ information?.text }}</p>
+            <p class="text-gray-700 text-md" v-html="information?.text"></p>
           </div>
+          <div class="clear-both"></div>
         </div>
         <div class="flex justify-between p-3 mt-3">
           <div class="text-2xl font-semibold text-gray-700">Our Member</div>
@@ -102,6 +124,47 @@ onMounted(() => {
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Information Modal -->
+<div :class="{ hidden: !modalStore.isOpenAddAboutUsInfoModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+  <div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+    <div class="relative bg-white rounded shadow dark:bg-gray-700">
+      <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Information</h3>
+        <button type="button" @click="modalStore.closeAddAboutUsInfoModal()" class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900" data-modal-toggle="defaultModal">
+          <CloseIcon />
+          <span class="sr-only">{{ $t('closeModal') }}</span>
+        </button>
+      </div>
+      <div class="px-6 py-3 space-y-6">
+        <form class="my-3">
+          <div class="flex flex-col space-y-5">
+            <label for="information-title">
+              <p class="pb-2 font-medium text-slate-700">Title</p>
+              <input
+                id="information-title"
+                type="text"
+                v-model="informationTitle"
+                class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                placeholder="Enter title"
+              />
+            </label>
+            <label for="information-text">
+              <p class="mt-2 font-medium text-slate-700">Text</p>
+              <QuillEditor theme="snow" id="information-text" />
+            </label>
+            <label for="information-text">
+              <p class="mt-2 font-medium text-slate-700">Image</p>
+              <input type="file" class="w-full px-3 py-3" @change="getImage"/>
+            </label>
+            <button @click.prevent="submitInformationData()" class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+              <span>Add</span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
