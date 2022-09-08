@@ -3,11 +3,13 @@ import {ref, toRefs } from 'vue'
 import $ from 'jquery'
 import { onClickOutside } from '@vueuse/core';
 import { useAboutUsStore } from '../../../../stores/aboutUs.js';
+import { useModalStore } from '../../../../stores/modal.js';
 import TrashIcon from '../../../../assets/icons/TrashIcon.vue';
 import DotsThreeVerticalFillIcon from '../../../../assets/icons/DotsThreeVerticalFillIcon.vue';
 import PencilDuotoneIcon from '../../../../assets/icons/PencilDuotoneIcon.vue';
 
 const aboutUsStore = useAboutUsStore()
+const modalStore = useModalStore()
 
 const props = defineProps({
     id: String
@@ -33,7 +35,7 @@ onClickOutside(drop, () => $(`#${id.value}`).hide('fast'))
         </div>
     </div>
     <ul :id="id" class="absolute z-10 hidden w-32 py-1 text-sm text-gray-700 bg-white rounded shadow right-1 top-9">
-        <li class="flex items-center px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+        <li @click="modalStore.openEditAboutUsInfoModal()" class="flex items-center px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
             <PencilDuotoneIcon class="w-5 h-5 mr-2"/>
             <span>Edit</span>
         </li>

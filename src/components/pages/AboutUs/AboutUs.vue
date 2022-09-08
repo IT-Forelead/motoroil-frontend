@@ -216,6 +216,46 @@ const submitWorkerData = () => {
     </div>
   </div>
 </div>
+<!-- edit Information Modal -->
+<div :class="{ hidden: !modalStore.isOpenEditAboutUsInfoModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+  <div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+    <div class="relative bg-white rounded shadow dark:bg-gray-700">
+      <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit Information</h3>
+        <button type="button" @click="modalStore.closeEditAboutUsInfoModal()" class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900" data-modal-toggle="defaultModal">
+          <CloseIcon />
+          <span class="sr-only">{{ $t('closeModal') }}</span>
+        </button>
+      </div>
+      <div class="px-6 py-3 space-y-6">
+        <form class="my-3">
+          <div class="flex flex-col space-y-5">
+            <label for="edit-information-title">
+              <p class="pb-2 font-medium text-slate-700">{{ $t('title') }}</p>
+              <input
+                id="edit-information-title"
+                type="text"
+                class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                placeholder="Enter title"
+              />
+            </label>
+            <label for="information-text">
+              <p class="mt-2 font-medium text-slate-700">{{ $t('text') }}</p>
+              <QuillEditor theme="snow" id="information-text" />
+            </label>
+            <label for="information-text">
+              <p class="mt-2 font-medium text-slate-700">{{ $t('image') }}</p>
+              <input type="file" class="w-full px-3 py-3"/>
+            </label>
+            <button class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+              <span>{{ $t('save') }}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Add Information Modal -->
 <div :class="{ hidden: !modalStore.isOpenAddWorkerModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
   <div class="relative w-full h-full max-w-5xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
@@ -312,6 +352,102 @@ const submitWorkerData = () => {
           <div class="flex justify-end pt-3 mt-3 border-t border-gray-300">
             <button @click.prevent="submitWorkerData()" class="inline-flex items-center justify-center py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded w-28 hover:bg-red-400 hover:shadow">
               <span>Add</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Information Modal -->
+<div :class="{ hidden: !modalStore.isOpenEditWorkerModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+  <div class="relative w-full h-full max-w-5xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+    <div class="relative bg-white rounded shadow dark:bg-gray-700">
+      <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit worker</h3>
+        <button type="button" @click="modalStore.closeEditWorkerModal()" class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900" data-modal-toggle="defaultModal">
+          <CloseIcon />
+          <span class="sr-only">{{ $t('closeModal') }}</span>
+        </button>
+      </div>
+      <div class="px-6 py-3">
+        <form class="my-3">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="flex flex-col space-y-5">
+              <label for="edit-worker-fullname">
+                <p class="pb-2 font-medium text-slate-700">Full name</p>
+                <input
+                  id="edit-worker-fullname"
+                  type="text"
+                  class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                  placeholder="Enter title"
+                />
+              </label>
+              <label for="edit-worker-position">
+                <p class="pb-2 font-medium text-slate-700">Position</p>
+                <input
+                  id="edit-worker-position"
+                  type="text"
+                  class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                  placeholder="Enter Position"
+                />
+              </label>
+              <label for="edit-worker-description">
+                <p class="pb-2 font-medium text-slate-700">Description</p>
+                <input
+                  id="edit-worker-description"
+                  type="text"
+                  class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                  placeholder="Enter description"
+                />
+              </label>
+              <label for="edit-worker-image">
+                <p class="mt-2 font-medium text-slate-700">Image</p>
+                <input id="edit-worker-image" type="file" class="w-full px-3 py-3"/>
+              </label>
+            </div>
+            <div class="flex flex-col space-y-5">
+              <label for="edit-worker-email">
+                <p class="pb-2 font-medium text-slate-700">Email</p>
+                <input
+                  id="edit-worker-email"
+                  type="email"
+                  class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                  placeholder="Enter worker's email"
+                />
+              </label>
+              <label for="edit-worker-facebook">
+                <p class="pb-2 font-medium text-slate-700">Facebook</p>
+                <input
+                  id="edit-worker-facebook"
+                  type="text"
+                  class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                  placeholder="Enter facebook username"
+                />
+              </label>
+              <label for="edit-worker-twitter">
+                <p class="pb-2 font-medium text-slate-700">Twitter</p>
+                <input
+                  id="edit-worker-twitter"
+                  type="text"
+                  class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                  placeholder="Enter twitter username"
+                />
+              </label>
+              <label for="edit-worker-skype">
+                <p class="pb-2 font-medium text-slate-700">Skype</p>
+                <input
+                  id="edit-worker-skype"
+                  type="text"
+                  class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                  placeholder="Enter skype username"
+                />
+              </label>
+            </div>
+          </div>
+          <div class="flex justify-end pt-3 mt-3 border-t border-gray-300">
+            <button class="inline-flex items-center justify-center py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded w-28 hover:bg-red-400 hover:shadow">
+              <span>{{ $t('save') }}</span>
             </button>
           </div>
         </form>
