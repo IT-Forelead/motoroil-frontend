@@ -70,11 +70,11 @@ const submitSlideData = () => {
 
 <template>
   <div class="flex justify-center p-5 bg-white">
-    <div class="container grid items-center grid-cols-4 gap-3">
-      <div class="flex flex-col h-full space-y-20 bg-slate-200 bg-[url('/bg/bg-advanced.jpg')] bg-no-repeat bg-cover">
+    <div class="container grid items-center grid-cols-1 lg:grid-cols-4 gap-3">
+      <div class="flex flex-col h-full md:space-y-20 bg-slate-200 bg-[url('/bg/bg-advanced.jpg')] bg-no-repeat bg-cover">
         <div class="p-5 text-2xl font-semibold text-white uppercase bg-gray-900/60">
           {{ $t('selectEngineOilRequirements') }}</div>
-        <div class="px-5 space-y-3">
+        <div class="px-5 space-y-3 py-3">
           <select v-model="mainFilter.brand"
             class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option value="" selected>{{$t('brand')}}</option>
@@ -104,7 +104,7 @@ const submitSlideData = () => {
             class="flex items-center justify-center w-full p-3 text-white uppercase bg-red-600 rounded hover:bg-red-700">{{ $t('search') }}</a>
         </div>
       </div>
-      <div class="col-span-3 h-auto lg:h-[650px]">
+      <div class="hidden md:block col-span-3 h-auto lg:h-[650px]">
         <swiper v-if="slideStore.slides.length > 0" :spaceBetween="30" :loop="true" :centeredSlides="true" :navigation="true"
           :modules="modules" :autoplay="{ delay: 2500, disableOnInteraction: false }" class="mySwiper">
           <swiper-slide v-for="(slide, idx) in slideStore.slides" :key="idx" class="slide">

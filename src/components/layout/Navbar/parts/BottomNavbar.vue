@@ -44,7 +44,7 @@ onMounted(() => {
     <div class="container grid items-center grid-cols-4 gap-x-3">
       <div class="relative">
         <button @click="toggleDropDown()"
-          class="flex items-center justify-between w-full px-5 py-2 uppercase border-0 from-gray-50 via-gray-100 to-gray-300 bg-gradient-to-t rounded-t-md text-md hover:from-red-200 hover:via-red-400 hover:to-red-600">
+          class="flex items-center whitespace-nowrap justify-between w-full px-5 py-2 uppercase border-0 from-gray-50 via-gray-100 to-gray-300 bg-gradient-to-t rounded-t-md text-md hover:from-red-200 hover:via-red-400 hover:to-red-600">
           {{ $t('allCategories') }}
           <ListIcon class="mr-1" />
         </button>
