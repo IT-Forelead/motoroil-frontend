@@ -1,5 +1,4 @@
 <script setup>
-import MemberItem from './parts/MemberItem.vue';
 import HouseIcon from '../../../assets/icons/HouseIcon.vue';
 import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
 import Sidebar from '../../layout/Sidebar/Sidebar.vue';
@@ -8,6 +7,9 @@ import TwitterIcon from '../../../assets/icons/TwitterIcon.vue';
 import SkyprIcon from '../../../assets/icons/SkyprIcon.vue';
 import AtBoldIcon from '../../../assets/icons/AtBoldIcon.vue';
 import DotsThreeVerticalFillIcon from '../../../assets/icons/DotsThreeVerticalFillIcon.vue';
+import { useAuthStore } from '../../../stores/auth.js';
+
+const authStore = useAuthStore()
 
 </script>
 
@@ -30,14 +32,14 @@ import DotsThreeVerticalFillIcon from '../../../assets/icons/DotsThreeVerticalFi
     <div class="grid grid-cols-4 gap-3">
       <Sidebar />
       <div class="col-span-3 ml-3">
-        <div class="flex justify-end">
+        <div v-if="authStore.user?.role === 'admin'" class="flex justify-end">
           <button class="px-3 py-2 text-white bg-red-500 rounded hover:bg-red-700">
             Add information
           </button>
         </div>
         <div class="flex items-center justify-between">
           <div class="p-3 text-2xl font-semibold text-gray-700">{{ $t('welcomeToShop') }}</div>
-          <div>
+          <div v-if="authStore.user?.role === 'admin'">
             <DotsThreeVerticalFillIcon/>
           </div>
         </div>
@@ -77,7 +79,7 @@ import DotsThreeVerticalFillIcon from '../../../assets/icons/DotsThreeVerticalFi
         </div>
         <div class="flex justify-between p-3 mt-3">
           <div class="text-2xl font-semibold text-gray-700">Our Member</div>
-          <button class="px-3 py-2 text-white bg-red-500 rounded hover:bg-red-700">
+          <button v-if="authStore.user?.role === 'admin'" class="px-3 py-2 text-white bg-red-500 rounded hover:bg-red-700">
             Add member
           </button>
         </div>
