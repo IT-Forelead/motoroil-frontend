@@ -54,7 +54,7 @@ watch(
         <li class="text-gray-700">{{ $t('addresses') }}</li>
       </ul>
     </div>
-    <div class="grid grid-cols-4 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
       <Sidebar />
       <div class="col-span-3">
         <div class="grid grid-cols-3 gap-3">
