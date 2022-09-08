@@ -93,7 +93,7 @@ const submitWorkerData = () => {
       <ul class="flex items-center">
         <li class="flex items-center">
           <a href="/" class="text-gray-700">
-              <HouseIcon class="w-4 h-4" />
+            <HouseIcon class="w-4 h-4" />
           </a>
           <CaretRightIcon class="mx-3 text-gray-500" />
         </li>
