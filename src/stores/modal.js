@@ -16,6 +16,7 @@ export const useModalStore = defineStore({
     isOpenSlideModal: false,
     isOpenAddAddressModal: false,
     isOpenProductGroupModal: false,
+    isOpenEditProductGroupModal: false,
     isOpenAddBlogModal: false,
     isOpenEditBlogModal: false,
     isOpenAddAboutUsInfoModal: false,
@@ -79,6 +80,12 @@ export const useModalStore = defineStore({
     },
     closeProductGroupModal() {
       this.isOpenProductGroupModal = false
+    },
+    openEditProductGroupModal() {
+      this.isOpenEditProductGroupModal = true
+    },
+    closeEditProductGroupModal() {
+      this.isOpenEditProductGroupModal = false
     },
     openSlideModal() {
       this.isOpenSlideModal = true

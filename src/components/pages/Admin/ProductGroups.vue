@@ -81,19 +81,23 @@ onMounted(() => {
 
 const closeAndClear = () => {
   productGroupForm.name = '',
-    productGroupForm.description = '',
-    productGroupForm.categoryId = '',
-    productGroupForm.subCategoryId = '',
-    productGroupForm.miniSubCategoryId = '',
-    productGroupForm.brandId = '',
-    productGroupForm.viscosityGradeId = '',
-    productGroupForm.videoUrl = '',
-    productGroupForm.productOEMIds = '',
-    productGroupForm.productSpecIds = '',
-    productGroupForm.pdfUrl = ''
+  productGroupForm.description = '',
+  productGroupForm.categoryId = '',
+  productGroupForm.subCategoryId = '',
+  productGroupForm.miniSubCategoryId = '',
+  productGroupForm.brandId = '',
+  productGroupForm.viscosityGradeId = '',
+  productGroupForm.videoUrl = '',
+  productGroupForm.productOEMIds = '',
+  productGroupForm.productSpecIds = '',
+  productGroupForm.pdfUrl = ''
   store.multiselectOEMids = []
   store.multiselectSpecids = []
   modalStore.closeProductGroupModal()
+}
+
+const closeEditModal = () => {
+  modalStore.closeEditProductGroupModal()
 }
 
 </script>
@@ -170,7 +174,7 @@ const closeAndClear = () => {
               </td>
               <td class="p-3">
                 <div class="flex items-start space-x-2">
-                  <button class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="modalStore.openEditProductGroupModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
                   <button @click="store.deleteProductGroup(productGroup?.productGroup?.id)"
@@ -192,7 +196,7 @@ const closeAndClear = () => {
     <div class="relative w-full p-4 -translate-x-1/2 -translate-y-1/2 max-w-7xl md:h-auto top-1/2 left-1/2">
       <div class="relative bg-white rounded shadow dark:bg-gray-700">
         <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('productVideo') }}</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('createProductGroup') }}</h3>
           <button type="button" @click="closeAndClear()"
             class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
             data-modal-toggle="defaultModal">
@@ -298,6 +302,121 @@ const closeAndClear = () => {
                 <button
                   class="inline-flex items-center justify-center w-full py-3 my-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
                   {{ $t('createProductGroup') }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Product Group Modal -->
+  <div :class="{ 'hidden': !modalStore.isOpenEditProductGroupModal }"
+    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+    <div class="relative w-full p-4 -translate-x-1/2 -translate-y-1/2 max-w-7xl md:h-auto top-1/2 left-1/2">
+      <div class="relative bg-white rounded shadow dark:bg-gray-700">
+        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t">
+          <h3 class="text-lg font-semibold text-gray-900">Edit product group</h3>
+          <button type="button" @click="closeEditModal()"
+            class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+            data-modal-toggle="defaultModal">
+            <CloseIcon />
+            <span class="sr-only">{{ $t('closeModal') }}</span>
+          </button>
+        </div>
+        <div class="px-6 py-3 space-y-6">
+          <form class="mb-5">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="editProductName">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('name') }}</p>
+                  <input id="editProductName" type="text"
+                    class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                    placeholder="Enter product name">
+                </label>
+                <label for="editProductDesc">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('description') }}</p>
+                  <QuillEditor theme="snow" id="editProductDesc" />
+                </label>
+                <label for="editCategory">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('category') }}</p>
+                  <select id="editCategory" class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                    <option value="" selected>{{ $t('selectCategory') }}</option>
+                    <option v-for="(category, idx) in categoryStore.categories" :key="idx" :value="category?.id">{{
+                        category?.name
+                    }}
+                    </option>
+                  </select>
+                </label>
+                <label for="editSubCategory"
+                  v-if="categoryStore.subCategories.filter(sc => sc?.categoryId === productGroupForm.categoryId).length > 0">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('subCategory') }}</p>
+                  <select id="editSubCategory" class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                    <option value="" selected>{{ ('selectSubcategory') }}</option>
+                    <option
+                      v-for="(subcategory, idx) in categoryStore.subCategories.filter(sc => sc?.categoryId === productGroupForm.categoryId)"
+                      :key="idx" :value="subcategory?.id">{{
+                          subcategory?.name
+                      }}
+                    </option>
+                  </select>
+                </label>
+                <label for="editMiniSubCategory"
+                  v-if="categoryStore.miniSubCategories.filter(sc => sc?.subCategoryId === productGroupForm.subCategoryId).length > 0">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('minisubcategory') }}</p>
+                  <select id="editMiniSubCategory" class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                    <option value="" selected>{{ $t('selectMinisubcategory') }}</option>
+                    <option
+                      v-for="(minisubcategory, idx) in categoryStore.miniSubCategories.filter(sc => sc?.subCategoryId === productGroupForm.subCategoryId)"
+                      :key="idx" :value="minisubcategory?.id">{{
+                          minisubcategory?.name
+                      }}
+                    </option>
+                  </select>
+                </label>
+              </div>
+              <div>
+                <label for="editBrand">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('brand') }}</p>
+                  <select id="editBrand"
+                    class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                    <option value="" selected>{{ $t('selectBrand') }}</option>
+                    <option v-for="(brand, idx) in store.brands" :key="idx" :value="brand?.id">
+                      {{ brand?.name }}
+                    </option>
+                  </select>
+                </label>
+                <label for="editGrade">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('viscosityGrade') }}</p>
+                  <select id="editGrade"
+                    class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+                    <option value="" selected>{{ ('') }}</option>
+                    <option v-for="(grade, idx) in store.saeViscosityGrades" :key="idx" :value="grade?.id">
+                      {{ grade?.name }}
+                    </option>
+                  </select>
+                </label>
+                <label for="edit-oem">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('selectOEM') }}</p>
+                  <MultiSelect :options="oemOptions" :id="'multiselectOem'" />
+                </label>
+                <label for="edit-spec">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('selectSpecification') }} </p>
+                  <MultiSelect :options="specOptions" :id="'multiselectSpec'" />
+                </label>
+                <label for="editVideoLink">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('productVideoLink') }}</p>
+                  <input id="editVideoLink" v-model="productGroupForm.videoUrl" type="text"
+                    class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
+                    placeholder="Enter product video link">
+                </label>
+                <label for="editProductPdf">
+                  <p class="mt-2 font-medium text-slate-700">{{ $t('productPdfFile') }}</p>
+                  <input id="editProductPdf" type="file" class="w-full px-3 py-3" @change="getFile">
+                </label>
+                <button class="inline-flex items-center justify-center w-full py-3 my-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+                  {{ $t('save') }}
                 </button>
               </div>
             </div>
