@@ -1,6 +1,9 @@
 import axios from 'axios'
 import {defineStore} from 'pinia'
+import authHeaderForMultipart from '../mixins/auth/auth-header-for-multipart-form.js'
 import authHeader from '../mixins/auth/auth-header.js'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -22,7 +25,7 @@ export const useAboutUsStore = defineStore({
         },
         async createInformation(data) {
           await axios
-            .put(`${API_URL}/admin/create-blog`, data, {
+            .put(`${API_URL}/admin/create-information`, data, {
               headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: authHeaderForMultipart(),
@@ -30,16 +33,16 @@ export const useAboutUsStore = defineStore({
             })
             .then(() => {
               notify.success({
-                message: 'Blog added!',
+                message: 'Information added!',
                 position: 'bottomRight',
               })
-              this.getAllBlogs()
-              useModalStore().closeAddBlogModal()
+              this.getAllAboutUsInfos()
+              useModalStore().closeAddAboutUsInfoModal()
             })
             .catch(() => {
               notify.error({
                 title: 'Error',
-                message: 'While adding blog!',
+                message: 'While adding information!',
                 position: 'bottomRight',
               })
             })
