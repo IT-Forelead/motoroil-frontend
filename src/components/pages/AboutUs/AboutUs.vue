@@ -14,6 +14,7 @@ import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive, ref } from '@vue/runtime-core';
 import $ from 'jquery'
 import DropDown from './parts/DropDown.vue'
+import WorkerDropDown from './parts/WorkerDropDown.vue';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const authStore = useAuthStore()
@@ -132,8 +133,8 @@ const submitWorkerData = () => {
           Aenean facilisis aliquet feugiat. Suspendisse lacinia congue est ac semper. Nulla ut elit magna, vitae volutpat magna.
         </div>
         <div class="grid grid-cols-2 gap-5 mt-2">
-          <div v-for="(worker, idx) in aboutUsStore.workers" :key="idx" class="flex p-3 border border-red-500 rounded">
-            <div>
+          <div v-for="(worker, idx) in aboutUsStore.workers" :key="idx" class="relative flex p-3 border border-red-500 rounded">
+            <div class="flex items-center justify-center w-56">
               <img :src="API_URL + '/image/' + worker?.imageUrl" alt="#"/>
             </div>
             <div class="flex flex-col pl-3 space-y-2">
@@ -162,6 +163,9 @@ const submitWorkerData = () => {
                   </a>
                 </li>
               </ul>
+              <div class="absolute right-0 top-1">
+                <WorkerDropDown :id="worker?.id"/>
+              </div>
             </div>
           </div>
         </div>
@@ -210,7 +214,6 @@ const submitWorkerData = () => {
     </div>
   </div>
 </div>
-
 <!-- Add Information Modal -->
 <div :class="{ hidden: !modalStore.isOpenAddWorkerModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
   <div class="relative w-full h-full max-w-5xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
