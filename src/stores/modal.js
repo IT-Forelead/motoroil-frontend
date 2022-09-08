@@ -19,6 +19,7 @@ export const useModalStore = defineStore({
     isOpenAddBlogModal: false,
     isOpenEditBlogModal: false,
     isOpenAddAboutUsInfoModal: false,
+    isOpenAddWorkerModal: false,
   }),
   actions: {
     openModal() {
@@ -45,6 +46,12 @@ export const useModalStore = defineStore({
     },
     closeAddAboutUsInfoModal() {
       this.isOpenAddAboutUsInfoModal = false
+    },
+    openAddWorkerModal() {
+      this.isOpenAddWorkerModal = true
+    },
+    closeAddWorkerModal() {
+      this.isOpenAddWorkerModal = false
     },
     openRegisterModal() {
       this.isOpenRegisterModal = true
