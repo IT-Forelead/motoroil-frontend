@@ -116,8 +116,10 @@ const submitWorkerData = () => {
             <DropDown :id="information?.id"/>
           </div>
           <div>
-            <img :src="API_URL + '/image/' + information?.imageUrl" class="float-left mb-5 mr-5" alt="#"/>
-            <p class="text-gray-700 text-md" v-html="information?.text"></p>
+            <div class="float-left mb-5 mr-5 w-[30rem]">
+              <img :src="API_URL + '/image/' + information?.imageUrl" alt="#"/>
+            </div>
+            <p class="text-justify text-gray-700 text-md" v-html="information?.text"></p>
           </div>
           <div class="clear-both"></div>
         </div>
