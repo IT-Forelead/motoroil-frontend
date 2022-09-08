@@ -145,7 +145,7 @@ const submitUserData = () => {
 
 <template>
   <div class="flex justify-between md:justify-center py-2 bg-gray-900">
-    <div class="flex w-full justify-between md:container md:grid items-center md:grid-cols-4 gap-3">
+    <div class="flex w-full justify-between md:container md:grid items-center md:grid-cols-4 gap-3 mx-2">
       <ul class="items-center hidden space-x-2 md:flex">
         <li
           class="p-1 text-lg text-gray-400 border border-gray-400 rounded hover:bg-red-500 hover:text-white hover:border-red-500">
