@@ -7,6 +7,7 @@ import CalendarFillIcon from '../../../assets/icons/CalendarFillIcon.vue';
 import { onMounted } from 'vue';
 import { useBlogStore } from '../../../stores/blog.js'
 import { useModalStore } from '../../../stores/modal.js'
+import { useAuthStore } from '../../../stores/auth.js';
 import { formatDateTime } from '../../../mixins/utils.js';
 import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
 import TrashIcon from '../../../assets/icons/TrashIcon.vue';
@@ -14,6 +15,7 @@ import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useBlogStore()
+const authStore = useAuthStore()
 
 onMounted(() => {
 	window.scrollTo({
@@ -58,7 +60,7 @@ onMounted(() => {
 				</ul>
 				<img :src="API_URL + '/image/' + store.singleBlog.imageUrl" class="object-fill" alt="#">
 				<div class="py-3 font-normal text-gray-700 text-md" v-html="store.singleBlog?.text"></div>
-				<ul class="flex p-2 space-x-3 border-t border-gray-600">
+				<ul  v-if="authStore.user?.role === 'admin'" class="flex p-2 space-x-3 border-t border-gray-600">
 					<li @click="useModalStore().openEditBlogModal()" class="flex items-center text-gray-600 cursor-pointer">
 						<PencilDuotoneIcon class="w-5 h-5 mr-1"/>
 						<span>Edit</span>
