@@ -107,7 +107,7 @@ const submitWorkerData = () => {
       <div class="col-span-3 ml-3">
         <div v-if="authStore.user?.role === 'admin'" class="flex justify-end">
           <button @click="modalStore.openAddAboutUsInfoModal()" class="px-3 py-2 text-white bg-red-500 rounded hover:bg-red-700">
-            Add information
+            {{$t('addInformation')}}
           </button>
         </div>
         <div v-for="(information, idx) in aboutUsStore.aboutUsInfos" :key="idx">
@@ -122,9 +122,9 @@ const submitWorkerData = () => {
           <div class="clear-both"></div>
         </div>
         <div class="flex justify-between p-3 mt-3">
-          <div class="text-2xl font-semibold text-gray-700">Our Member</div>
+          <div class="text-2xl font-semibold text-gray-700">{{ $t('ourMember') }}</div>
           <button v-if="authStore.user?.role === 'admin'" @click="modalStore.openAddWorkerModal()" class="px-3 py-2 text-white bg-red-500 rounded hover:bg-red-700">
-            Add member
+            {{ $t('addMember') }}
           </button>
         </div>
         <div class="px-3 py-1 text-center text-gray-500 text-md">
@@ -178,7 +178,7 @@ const submitWorkerData = () => {
   <div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
     <div class="relative bg-white rounded shadow dark:bg-gray-700">
       <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Information</h3>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{$t('addInformation')}}</h3>
         <button type="button" @click="modalStore.closeAddAboutUsInfoModal()" class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900" data-modal-toggle="defaultModal">
           <CloseIcon />
           <span class="sr-only">{{ $t('closeModal') }}</span>
@@ -188,7 +188,7 @@ const submitWorkerData = () => {
         <form class="my-3">
           <div class="flex flex-col space-y-5">
             <label for="information-title">
-              <p class="pb-2 font-medium text-slate-700">Title</p>
+              <p class="pb-2 font-medium text-slate-700">{{ $t('title') }}</p>
               <input
                 id="information-title"
                 type="text"
@@ -198,15 +198,15 @@ const submitWorkerData = () => {
               />
             </label>
             <label for="information-text">
-              <p class="mt-2 font-medium text-slate-700">Text</p>
+              <p class="mt-2 font-medium text-slate-700">{{ $t('text') }}</p>
               <QuillEditor theme="snow" id="information-text" />
             </label>
             <label for="information-text">
-              <p class="mt-2 font-medium text-slate-700">Image</p>
+              <p class="mt-2 font-medium text-slate-700">{{ $t('image') }}</p>
               <input type="file" class="w-full px-3 py-3" @change="getImage"/>
             </label>
             <button @click.prevent="submitInformationData()" class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-              <span>Add</span>
+              <span>{{ $t('add') }}</span>
             </button>
           </div>
         </form>

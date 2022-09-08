@@ -61,7 +61,7 @@ const submitBlogData = () => {
               @click="useModalStore().openAddBlogModal()"
               class="px-3 py-2 text-white bg-red-500 rounded shadow"
             >
-              Add Blog
+              {{ $t('addBlog') }}
             </button>
           </div>
           <div class="grid grid-cols-4 gap-7">

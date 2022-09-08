@@ -236,5 +236,21 @@
   "addBlog": "Add blog",
   "blogTitle": "Blog title",
   "blogContent": "Blog content",
-  "blogImage": "Blog image"
+  "blogImage": "Blog image",
+  "addInformation": "Add information",
+  "title": "Title",
+  "text": "Text",
+  "add": "Add",
+  "coupons": "Coupons",
+  "addMember": "Add member",
+  "from" : "from",
+  "to" : "to",
+  "filter": "Filter",
+  "unitPrice": "Unit price",
+  "addCoupon": "Add Coupon",
+  "user": "User",
+  "minimumSpend":"Minimum spend",
+  "discountMoney":"Discount money",
+  "chooseAUser":"Choose a user",
+  "editBlog":"Edit blog"
 }
