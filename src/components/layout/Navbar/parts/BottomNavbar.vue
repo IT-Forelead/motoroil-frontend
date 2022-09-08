@@ -1,6 +1,11 @@
 <script setup>
 import ListIcon from '../../../../assets/icons/ListIcon.vue';
+import HouseIcon from '../../../../assets/icons/HouseIcon.vue';
+import AppsIcon from '../../../../assets/icons/AppsIcon.vue';
+import BlogsIcon from '../../../../assets/icons/BlogsIcon.vue';
 import CaretRightIcon from '../../../../assets/icons/CaretRightIcon.vue';
+import OrderIcon from '../../../../assets/icons/OrderIcon.vue';
+import MenuIcon from '../../../../assets/icons/MenuIcon.vue';
 import { onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { useRouter } from 'vue-router';
@@ -35,7 +40,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-center px-5 pt-5 bg-white border-b-2 border-red-500">
+  <div class="md:flex justify-center px-5 pt-5 bg-white border-b-2 border-red-500 hidden">
     <div class="container grid items-center grid-cols-4 gap-x-3">
       <div class="relative">
         <button @click="toggleDropDown()"
@@ -119,6 +124,83 @@ onMounted(() => {
               <li>
                 <router-link to="/admin/spec-type" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/spec-types'}"
                   class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('specTypes') }}</router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<!-- Mobile Navbar -->
+  <div class="flex justify-center bg-gray-900 w-full p-2 border-b-2 border-t-2 border-red-500 fixed z-30 bottom-0 md:hidden">
+    <div class="flex justify-center w-full container items-center text-white">
+      <ul class="grid items-center grid-cols-3 justify-center gap-4" :class="{'grid-cols-4':authStore.user}">
+        <li
+          class="p-2 m-0 font-medium uppercase cursor-pointer text-md rounded-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }"
+          @click="router.push('/'); mainSearchStore.clearMainSearchResults()">
+          <HouseIcon class="w-8 h-8 mx-auto"/>
+        </li>
+        <li
+          class="p-2 m-0 font-medium uppercase cursor-pointer text-md rounded-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/products' || $router.currentRoute.value.path === '/product' }"
+          @click="router.push('/products'); productStore.setSearchString(''); productStore.getAllProducts()">
+          <AppsIcon class="w-8 h-8 mx-auto"/>
+        </li>
+        <li
+          class="p-2 m-0 font-medium uppercase cursor-pointer text-md rounded-md hover:bg-red-500 hover:text-white"
+          :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/blogs' || $router.currentRoute.value.path === '/blog' }"
+          @click="router.push('/blogs')">
+          <BlogsIcon class="w-9 h-9 mx-auto"/>
+        </li>
+        <li v-if="authStore?.user?.role === 'user'"
+            class="p-2 m-0 font-medium uppercase cursor-pointer text-md rounded-md hover:bg-red-500 hover:text-white"
+            :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/orders' || $router.currentRoute.value.path === '/orders' }"
+            @click="router.push('/orders')">
+           <OrderIcon class="w-9 h-9 mx-auto"/>
+        </li>
+        <li v-if="authStore?.user?.role === 'admin'"
+            class="relative p-2 m-0 font-medium uppercase cursor-pointer text-md rounded-md hover:bg-red-500 hover:text-white"
+            :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store' || $router.currentRoute.value.path === '/admin/orders' || $router.currentRoute.value.path === '/admin/discount' || $router.currentRoute.value.path === '/admin/accounting' || $router.currentRoute.value.path === '/admin/product-models' || $router.currentRoute.value.path === '/admin/spec-type' || $router.currentRoute.value.path === '/admin/product-groups'}"
+            @click="toggleAdminMenus()">
+          <MenuIcon class="w-9 h-9 mx-auto"/>
+
+          <div :class="{ 'hidden': !isOpenAdminMenus }" ref="menus"
+               class="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded bottom-16 shadow w-44">
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-400">
+              <li>
+                <router-link to="/admin/store"
+                             :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/store' }"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('store') }}
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/admin/product-groups" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/product-groups'}"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('productGroups')}}</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/orders" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/orders'}"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('orders') }}</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/discount" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/discount'}"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('discounts') }}</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/coupon" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/coupon'}"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">Coupons</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/accounting" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/accounting'}"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('accounting') }}</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/product-models" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/product-models'}"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('productModels') }}</router-link>
+              </li>
+              <li>
+                <router-link to="/admin/spec-type" :class="{'bg-red-500 text-white': $router.currentRoute.value.path === '/admin/spec-types'}"
+                             class="block px-4 py-2 capitalize hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ $t('specTypes') }}</router-link>
               </li>
             </ul>
           </div>
