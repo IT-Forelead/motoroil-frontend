@@ -45,7 +45,7 @@ export const useUserStore = defineStore({
         const response = await axios.get(`${API_URL}/user/coupons`, {headers: authHeader()})
         this.coupons = response.data
     },
-    async getUserAddresses() {
+    async getUserAddresses() { 
         const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
         this.addresses = response.data
     },
@@ -105,6 +105,24 @@ export const useUserStore = defineStore({
           })
         })
     },
+    async deleteUserAddress(id) {
+      await axios
+        .get(`${API_URL}/user/delete-user-address/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Address deleted!',
+            position: 'bottomRight',
+          })
+          this.getUserAddresses()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While address deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async deleteWishlist(data) {
       await axios
         .post(`${API_URL}/user/delete-wishlist`, data, { headers: authHeader() })
@@ -152,6 +170,23 @@ export const useUserStore = defineStore({
         .catch((err) => {
           notify.warning({
             message: 'Not added!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async addUserAddress(data) {
+      await axios
+        .post(`${API_URL}/user/add-user-address`, data, {headers: authHeader()})
+        .then(() => {
+          notify.success({
+            message: 'Address added!',
+            position: 'bottomRight',
+          })
+          this.getUserAddresses()
+        })
+        .catch(() => {
+          notify.warning({
+            message: 'While address adding!',
             position: 'bottomRight',
           })
         })

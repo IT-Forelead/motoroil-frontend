@@ -10,6 +10,7 @@ import GiftIcon from '../../../assets/icons/GiftIcon.vue'
 import Sidebar from '../../layout/Sidebar/Sidebar.vue'
 import { useUserStore } from '../../../stores/user.js'
 import { useModalStore } from '../../../stores/modal.js'
+import { uuid } from 'vue-uuid';
 import { onMounted, reactive, ref, watch } from '@vue/runtime-core'
 import CloseIcon from '../../../assets/icons/CloseIcon.vue'
 
@@ -22,17 +23,35 @@ const selectedCouponId = ref('')
 const couponMinPrice = ref('')
 
 const addressForm = reactive({
-  country: '',
+  userId: uuid.v4(),
+  receiverFullName: '',
+  receiverPhone: '',
+  countryId: '',
   regionId: '',
   cityId: '',
   street: '',
+  postalCode: ''
 })
 
 onMounted(() => {
   userStore.getCart()
   userStore.getCoupons()
   userStore.getUserAddresses()
+  userStore.getCountries()
 })
+
+const addUserAddress = () => {
+  userStore.addUserAddress(addressForm)
+  modalStore.closeAddAddressModal()
+  addressForm.userId = ''
+  addressForm.receiverFullName = ''
+  addressForm.receiverPhone = ''
+  addressForm.countryId = ''
+  addressForm.regionId = ''
+  addressForm.cityId = ''
+  addressForm.street = ''
+  addressForm.postalCode = ''
+}
 
 const plusMinus = (id, productCount, quantity, action) => {
   if (action === '-') {
@@ -43,17 +62,17 @@ const plusMinus = (id, productCount, quantity, action) => {
 }
 
 watch(
-  () => addressForm.country,
+  () => addressForm.countryId,
   () => {
-    userStore.getRegions(addressForm.country)
+    userStore.getRegions(addressForm.countryId)
   },
   { deep: true }
 )
 
 watch(
-  () => addressForm.country,
+  () => addressForm.regionId,
   () => {
-    userStore.getCities(addressForm.country)
+    userStore.getCities(addressForm.regionId)
   },
   { deep: true }
 )
@@ -83,7 +102,7 @@ watch(
           <li class="text-gray-700">{{ $t('cart') }}</li>
         </ul>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <Sidebar />
         <div class="col-span-3 ml-3">
           <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">
@@ -328,20 +347,11 @@ watch(
     </div>
   </div>
   <!-- Add Address Modal -->
-  <div
-    :class="{ hidden: !modalStore.isOpenAddAddressModal }"
-    class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50"
-  >
-    <div
-      class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2"
-    >
+  <div :class="{ hidden: !modalStore.isOpenAddAddressModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+    <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
       <div class="relative bg-white rounded shadow dark:bg-gray-700">
-        <div
-          class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600"
-        >
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            {{ $t('addAddress') }}
-          </h3>
+        <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('addAddress') }}</h3>
           <button
             type="button"
             @click="modalStore.closeAddAddressModal()"
@@ -358,6 +368,7 @@ watch(
               <p class="pb-2 font-medium text-slate-700">{{ $t('receiverFullname') }}</p>
               <input
                 type="text"
+                v-model="addressForm.receiverFullName"
                 id="receiver-fullname"
                 class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
                 placeholder="Enter your fullname"
@@ -367,6 +378,7 @@ watch(
               <p class="pb-2 font-medium text-slate-700">{{ $t('receiverPhone') }}</p>
               <input
                 type="text"
+                v-model="addressForm.receiverPhone"
                 id="receiver-phone"
                 class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
                 placeholder="Enter your phone"
@@ -374,41 +386,30 @@ watch(
             </label>
             <label for="country">
               <p class="pb-2 font-medium text-slate-700">{{ $t('country') }}</p>
-              <select
-                id="country"
-                class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500"
-              >
+              <select v-model="addressForm.countryId" id="country" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
                 <option value="" selected>{{ $t('chooseACountry') }}</option>
-                <option value="uz">Uzbekistan</option>
-                <option value="de">Germany</option>
+                <option v-for="(country, idx) in userStore.countries" :key="idx" :value="country?.id">{{ country?.name }}</option>
               </select>
             </label>
-            <label for="region">
+            <label for="region" v-if="userStore.regions.length > 0">
               <p class="pb-2 font-medium text-slate-700">{{ $t('region') }}</p>
-              <select
-                id="region"
-                class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500"
-              >
+              <select v-model="addressForm.regionId" id="region" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
                 <option value="" selected>{{ $t('chooseARegion') }}</option>
-                <option value="region1">Region1</option>
-                <option value="region2">Region2</option>
+                <option v-for="(region, idx) in userStore.regions" :key="idx" :value="region?.id">{{ region?.name }}</option>
               </select>
             </label>
-            <label for="city">
+            <label for="city" v-if="userStore.cities.length > 0">
               <p class="pb-2 font-medium text-slate-700">{{ $t('city') }}</p>
-              <select
-                id="city"
-                class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500"
-              >
+              <select v-model="addressForm.cityId" id="city" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
                 <option value="" selected>{{ $t('chooseACity') }}</option>
-                <option value="city1">City1</option>
-                <option value="city2">City2</option>
+                <option v-for="(city, idx) in userStore.cities" :key="idx" :value="city?.id">{{ city?.name }}</option>
               </select>
             </label>
             <label for="street">
               <p class="pb-2 font-medium text-slate-700">{{ $t('street') }}</p>
               <input
                 type="text"
+                v-model="addressForm.street"
                 id="street"
                 class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
                 placeholder="Enter your your street"
@@ -418,12 +419,13 @@ watch(
               <p class="pb-2 font-medium text-slate-700">{{ $t('zipPostalCode') }}</p>
               <input
                 type="text"
+                v-model="addressForm.postalCode"
                 id="postal-code"
                 class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
                 placeholder="Enter your postal code"
               />
             </label>
-            <button
+            <button @click="addUserAddress()"
               class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow"
             >
               {{ $t('save') }}
