@@ -156,6 +156,23 @@ export const useUserStore = defineStore({
           })
         })
     },
+    async addUserAddress(data) {
+      await axios
+        .post(`${API_URL}/user/add-user-address`, data, {headers: authHeader()})
+        .then(() => {
+          notify.success({
+            message: 'Address added!',
+            position: 'bottomRight',
+          })
+          this.getUserAddresses()
+        })
+        .catch(() => {
+          notify.warning({
+            message: 'While address adding!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async addCoupon(data) {
       await axios
         .post(`${API_URL}/admin/coupon`, data, {headers: authHeader()})
