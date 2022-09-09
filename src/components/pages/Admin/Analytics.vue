@@ -1,0 +1,163 @@
+<script setup>
+import { defineComponent, onMounted, reactive } from 'vue'
+import { DoughnutChart, BarChart } from 'vue-chart-3'
+import { Chart, registerables } from 'chart.js'
+import { useAnalyticsStore } from '../../../stores/analytics'
+import { useSkeletonStore } from '../../../stores/skeleton';
+import { useDiscountStore } from '../../../stores/discount';
+import MoneyBagIcon from '../../../assets/icons/MoneyBagIcon.vue';
+import DiscountCircleIcon from '../../../assets/icons/DiscountCircleIcon.vue';
+import UsersIcon from '../../../assets/icons/UsersIcon.vue';
+import OrderIcon from '../../../assets/icons/OrderIcon.vue';
+import { useProductStore } from '../../../stores/product';
+import { useOrderStore } from '../../../stores/order';
+
+Chart.register(...registerables)
+
+const viewData = {
+  labels: ['Home page', 'Products Page', 'Blogs page'],
+  datasets: [
+    {
+      label: 'User',
+      data: [30, 40, 60, 70, 5],
+      backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+    },
+    {
+      label: 'Ghost',
+      data: [10, 40, 60, 70, 5],
+      backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+    },
+  ],
+}
+const donut = {
+  labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
+  datasets: [
+    {
+      label: 'User',
+      data: [30, 40, 60, 70, 5],
+      backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+    },
+  ],
+}
+
+const discountStatusSum = reactive({
+  active: 0,
+  waiting: 0,
+  notActive: 0
+})
+
+onMounted(() => {
+  useAnalyticsStore().getAnalytics()
+  useAnalyticsStore().getUsersByRole()
+  useDiscountStore().getDiscounts().then(() => {
+    useDiscountStore().discounts?.map(d => {
+      let now = new Date()
+      if ((new Date(d?.startedAt).getTime()) <= now.getTime() && now.getTime() <= (new Date(d?.expiredAt).getTime())) {
+        discountStatusSum.active++
+      } else if (now.getTime() <= (new Date(d?.startedAt).getTime())) {
+        discountStatusSum.waiting++
+      } else if (now.getTime() >= (new Date(d?.expiredAt).getTime())) {
+        discountStatusSum.notActive++
+      }
+    })
+  })
+  useOrderStore().getOrdersForAdmins()
+})
+</script>
+
+<template>
+  <div class="flex justify-center px-5 py-2 bg-white">
+    <div class="container">
+      <h3 class="pb-2 mb-3 text-2xl font-bold border-b ">Analytics</h3>
+      <div v-if="!useSkeletonStore().isContentLoaded" role="status" class="max-w-sm p-4 animate-pulse md:p-6 dark:border-gray-700">
+        <div class="h-2.5 bg-gray-200 rounded-full  w-32 mb-2.5"></div>
+        <div class="w-48 h-2 mb-10 bg-gray-200 rounded-full "></div>
+        <div class="flex items-baseline mt-4 space-x-6">
+            <div class="w-full bg-gray-200 rounded-t-lg h-72 "></div>
+            <div class="w-full h-56 bg-gray-200 rounded-t-lg "></div>
+            <div class="w-full bg-gray-200 rounded-t-lg h-72 "></div>
+            <div class="w-full h-64 bg-gray-200 rounded-t-lg "></div>
+            <div class="w-full bg-gray-200 rounded-t-lg h-80 "></div>
+            <div class="w-full bg-gray-200 rounded-t-lg h-72 "></div>
+            <div class="w-full bg-gray-200 rounded-t-lg h-80 "></div>
+        </div>
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div v-else>
+        <div class="grid grid-cols-4 gap-10">
+          <div class="p-3 border rounded-xl">
+            <div class="flex justify-between">
+              <div>
+                <p class="text-3xl font-bold">$120</p>
+                <p>Last 30 days income</p>  
+              </div>
+              <MoneyBagIcon class="w-10 h-10"/>
+            </div>
+            <div class="mt-10">
+              <p class="text-right"><span class="text-green-400">40%</span> $350</p>
+              <div class="relative w-full h-5 rounded progressbar bg-slate-200">
+                <div class="absolute left-0 bg-green-400 rounded h-5 w-[10%]"></div>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 border rounded-xl">
+            <div class="flex justify-between">
+             <div>
+               <p class="text-3xl font-bold">{{ useAnalyticsStore().users?.length }}</p>
+               <p>All users</p>
+             </div>
+             <UsersIcon class="w-9 h-9"/> 
+            </div>
+            <div class="flex items-baseline w-1/2 mt-4 space-x-3">
+              <div class="w-full h-5 bg-gray-200 rounded-md"></div>
+              <div class="w-full h-16 bg-blue-500 rounded-md shadow-xl"></div>
+              <div class="w-full bg-gray-200 rounded-md h-14"></div>
+              <div class="w-full h-10 bg-gray-200 rounded-md"></div>
+            </div>
+          </div>
+          <div class="p-3 border rounded-xl">
+            <div class="flex justify-between">
+             <div>
+               <p class="text-3xl font-bold">{{ useOrderStore().ordersForAdmins?.length }}</p>
+               <p>All orders</p>
+             </div>
+             <OrderIcon class="w-9 h-9"/> 
+            </div>
+            <div class="flex items-center justify-between w-full mt-7">
+              <img src="/chart.png" alt="chart">
+              <div class="space-y-3">
+                <div class="w-10 h-3 ml-auto bg-gray-100 rounded-full"></div>
+                <div class="w-24 h-3 bg-gray-100 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+          <div class="h-full p-3 space-y-2 border rounded-xl">
+            <div class="flex justify-between">
+             <div>
+               <p class="text-3xl font-bold">{{ useDiscountStore().discounts?.length }}</p>
+               <p>All discounts</p>
+             </div>
+             <DiscountCircleIcon class="w-9 h-9"/> 
+            </div>
+            <div class="flex flex-col items-center mt-auto space-y-1 overflow-hidden text-white">
+              <div title="Active" class="flex items-end justify-center w-full transition-all duration-300 bg-green-400 rounded-full cursor-pointer hover:scale-110">{{ discountStatusSum.active }} (active)</div>
+              <div title="Waiting" class="flex items-end justify-center w-full transition-all duration-300 bg-yellow-300 rounded-full cursor-pointer hover:scale-110"> {{ discountStatusSum.waiting }} (waiting)</div>
+              <div title="Inactive" class="flex items-end justify-center w-full transition-all duration-300 bg-red-500 rounded-full cursor-pointer hover:scale-110">{{ discountStatusSum.notActive }} (inactive)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-10 mt-10">
+        <div class="p-3 border rounded-xl">
+          <BarChart :chartData="viewData" />
+        </div>
+        <div class="grid items-center grid-cols-2 p-3 border divide-x rounded-xl">
+          <DoughnutChart :chartData="donut" />
+          <DoughnutChart :chartData="donut" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped></style>

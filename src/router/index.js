@@ -119,6 +119,13 @@ const routes = [
     beforeEnter: navigationGuard('admin'),
   },
   {
+    path: '/admin/analytics',
+    name: 'Analytics',
+    component: () => import('../components/pages/Admin/Analytics.vue'),
+    meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('admin'),
+  },
+  {
     path: '/about-us',
     name: 'AboutUs',
     component: () => import('../components/pages/AboutUs/AboutUs.vue'),
