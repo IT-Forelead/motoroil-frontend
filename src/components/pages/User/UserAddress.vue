@@ -6,12 +6,26 @@ import TrashIcon from '../../../assets/icons/TrashIcon.vue';
 import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
 import MapPinIcon from '../../../assets/icons/MapPinIcon.vue';
 import { useUserStore } from '../../../stores/user.js';
+import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive, watch } from '@vue/runtime-core';
 import { uuid } from 'vue-uuid';
+import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 
 const userStore = useUserStore()
+const modalStore = useModalStore()
 
 const address = reactive({
+  userId: uuid.v4(),
+  receiverFullName: '',
+  receiverPhone: '',
+  countryId: '',
+  regionId: '',
+  cityId: '',
+  street: '',
+  postalCode: ''
+})
+
+const editAddress = reactive({
   userId: uuid.v4(),
   receiverFullName: '',
   receiverPhone: '',
@@ -39,6 +53,22 @@ watch(
   () => address.regionId,
   () => {
     userStore.getCities(address.regionId)
+  },
+  { deep: true }
+)
+
+watch(
+  () => editAddress.countryId,
+  () => {
+    userStore.getRegions(editAddress.countryId)
+  },
+  { deep: true }
+)
+
+watch(
+  () => editAddress.regionId,
+  () => {
+    userStore.getCities(editAddress.regionId)
   },
   { deep: true }
 )
@@ -72,8 +102,12 @@ watch(
                     {{ $t('address') }}
                   </div>
                   <div class="flex items-center space-x-2">
-                    <PencilDuotoneIcon class="w-5 h-5 text-blue-700"/>
-                    <TrashIcon class="w-5 h-5 text-red-500"/>
+                    <div @click="modalStore.openEditAddressModal()" class="cursor-pointer">
+                      <PencilDuotoneIcon class="w-5 h-5 text-blue-700"/>
+                    </div>
+                    <div @click="userStore.deleteUserAddress(address?.id)" class="cursor-pointer">
+                      <TrashIcon class="w-5 h-5 text-red-500"/>
+                    </div>
                   </div>
                 </div>
                 <ul class="space-y-1">
@@ -150,6 +184,88 @@ watch(
             </div>
             <button @click="userStore.addUserAddress(address)" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">{{ $t('save') }}</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Address Modal -->
+<div :class="{ hidden: !modalStore.isOpenEditAddressModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
+  <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
+    <div class="relative bg-white rounded shadow dark:bg-gray-700">
+      <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit address</h3>
+        <button
+          type="button"
+          @click="modalStore.closeEditAddressModal()"
+          class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
+          data-modal-toggle="defaultModal">
+          <CloseIcon />
+          <span class="sr-only">{{ $t('closeModal') }}</span>
+        </button>
+      </div>
+      <div class="px-6 py-2">
+        <div class="flex flex-col space-y-5">
+          <label for="edit-receiver-fullname">
+            <p class="pb-2 font-medium text-slate-700">{{ $t('receiverFullname') }}</p>
+            <input
+              type="text"
+              id="edit-receiver-fullname"
+              class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+              placeholder="Enter your fullname"
+            />
+          </label>
+          <label for="edit-receiver-phone">
+            <p class="pb-2 font-medium text-slate-700">{{ $t('receiverPhone') }}</p>
+            <input
+              type="text"
+              id="edit-receiver-phone"
+              class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+              placeholder="Enter your phone"
+            />
+          </label>
+          <label for="edit-country">
+            <p class="pb-2 font-medium text-slate-700">{{ $t('country') }}</p>
+            <select v-model="editAddress.countryId" id="edit-country" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
+              <option value="" selected>{{ $t('chooseACountry') }}</option>
+              <option v-for="(country, idx) in userStore.countries" :key="idx" :value="country?.id">{{ country?.name }}</option>
+            </select>
+          </label>
+          <label for="edit-region" v-if="userStore.regions.length > 0">
+            <p class="pb-2 font-medium text-slate-700">{{ $t('region') }}</p>
+            <select v-model="editAddress.regionId" id="edit-region" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
+              <option value="" selected>{{ $t('chooseARegion') }}</option>
+              <option v-for="(region, idx) in userStore.regions" :key="idx" :value="region?.id">{{ region?.name }}</option>
+            </select>
+          </label>
+          <label for="edit-city" v-if="userStore.cities.length > 0">
+            <p class="pb-2 font-medium text-slate-700">{{ $t('city') }}</p>
+            <select v-model="editAddress.cityId" id="edit-city" class="block w-full p-2 px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm focus:ring-red-500 focus:border-red-500">
+              <option value="" selected>{{ $t('chooseACity') }}</option>
+              <option v-for="(city, idx) in userStore.cities" :key="idx" :value="city?.id">{{ city?.name }}</option>
+            </select>
+          </label>
+          <label for="edit-street">
+            <p class="pb-2 font-medium text-slate-700">{{ $t('street') }}</p>
+            <input
+              type="text"
+              id="edit-street"
+              class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+              placeholder="Enter your your street"
+            />
+          </label>
+          <label for="edit-postal-code">
+            <p class="pb-2 font-medium text-slate-700">{{ $t('zipPostalCode') }}</p>
+            <input
+              type="text"
+              id="edit-postal-code"
+              class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+              placeholder="Enter your postal code"
+            />
+          </label>
+          <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+            {{ $t('save') }}
+          </button>
         </div>
       </div>
     </div>

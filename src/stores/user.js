@@ -45,7 +45,7 @@ export const useUserStore = defineStore({
         const response = await axios.get(`${API_URL}/user/coupons`, {headers: authHeader()})
         this.coupons = response.data
     },
-    async getUserAddresses() {
+    async getUserAddresses() { 
         const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
         this.addresses = response.data
     },
@@ -101,6 +101,24 @@ export const useUserStore = defineStore({
           notify.error({
             title: 'Error',
             message: 'While cart item deleting!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async deleteUserAddress(id) {
+      await axios
+        .get(`${API_URL}/user/delete-user-address/${id}`, { headers: authHeader() })
+        .then(() => {
+          notify.success({
+            message: 'Address deleted!',
+            position: 'bottomRight',
+          })
+          this.getUserAddresses()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While address deleting!',
             position: 'bottomRight',
           })
         })
