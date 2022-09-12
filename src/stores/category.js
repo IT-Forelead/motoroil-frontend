@@ -11,9 +11,7 @@ export const useCategoryStore = defineStore({
         subCategories: [],
         miniSubCategories: [],
     }),
-    getters: {},
     actions: {
-        // APIs
         async getAllCategories() {
             const response = await axios.get(`${API_URL}/categories`)
             this.categories = response.data

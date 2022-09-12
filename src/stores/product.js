@@ -35,7 +35,6 @@ export const useProductStore = defineStore({
     multiselectSpecids: [],
     multiselectProductIds: [],
   }),
-  getters: {},
   actions: {
     async getAllProducts(sortBy) {
       const response = await axios.get(`${API_URL}/get-products/${sortBy}`)
