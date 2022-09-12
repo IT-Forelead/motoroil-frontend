@@ -9,6 +9,8 @@ import { useAuthStore } from '../../../stores/auth.js'
 import { useModalStore } from '../../../stores/modal.js'
 import { useAnalyticsStore } from '../../../stores/analytics.js'
 import CloseIcon from '../../../assets/icons/CloseIcon.vue'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import $ from 'jquery'
 
 const store = useBlogStore()
@@ -21,24 +23,24 @@ const blogImage = ref('')
 onMounted(() => {
   store.getAllBlogs()
 
-let eventData = {}
-if (authStore.userId) {
-  eventData = {
-    name: 'pageVisited',
-    visitorId:
-      localStorage.getItem('visitorId') || analyticsStore.visitorId,
-    userId: authStore.userId,
-    page: 'blogs',
+  let eventData = {}
+  if (authStore.userId) {
+    eventData = {
+      name: 'pageVisited',
+      visitorId:
+        localStorage.getItem('visitorId') || analyticsStore.visitorId,
+      userId: authStore.userId,
+      page: 'blogs',
+    }
+  } else {
+    eventData = {
+      name: 'pageVisited',
+      visitorId:
+        localStorage.getItem('visitorId') || analyticsStore.visitorId,
+      page: 'blogs',
+    }
   }
-} else {
-  eventData = {
-    name: 'pageVisited',
-    visitorId:
-      localStorage.getItem('visitorId') || analyticsStore.visitorId,
-    page: 'blogs',
-  }
-}
-analyticsStore.saveEvent(eventData)
+  analyticsStore.saveEvent(eventData)
 })
 
 function getImage(e) {
@@ -49,10 +51,28 @@ function getImage(e) {
 
 const submitBlogData = () => {
   const formData = new FormData()
-  formData.append('blogTitle', blogTitle.value)
-  formData.append('blogText', $('#blog-text .ql-editor').html())
-  formData.append('blogImage', blogImage.value)
-  store.createBlog(formData)
+  if (blogTitle.value === ''){
+		notify.error({
+			message: 'Enter a title!',
+			position: 'bottomRight'
+		})
+	} else if ($('#blog-text .ql-editor').html().length < 100){
+		notify.error({              
+			message: 'Enter a longger description!',
+			position: 'bottomRight'
+		})
+	} else if (blogImage.value === ''){
+		notify.error({              
+			message: 'Choose a blog image!',
+			position: 'bottomRight'
+		})
+	} else {
+    formData.append('blogTitle', blogTitle.value)
+    formData.append('blogText', $('#blog-text .ql-editor').html())
+    formData.append('blogImage', blogImage.value)
+    store.createBlog(formData)
+  }
+  
 }
 </script>
 <template>
