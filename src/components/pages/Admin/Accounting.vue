@@ -24,8 +24,11 @@ const totalPrice = () =>
     .map((p) => p?.quantity * p?.price)
     .reduce((q, a) => q + a, 0)
 
+const fromDate = ref('')
+const toDate = ref('')
+
 onMounted(() => {
-  orderStore.getAccounting()
+  orderStore.getAccounting(fromDate.value, toDate.value)
 })
 
 function exportToPDF() {
@@ -37,6 +40,13 @@ function exportToPDF() {
   }
   html2pdf().from(elem).set(opt).save()
 }
+
+const getAccountingByDate = () => {
+  orderStore.getAccounting(fromDate.value, toDate.value).then(() => {
+    fromDate.value = ''
+    toDate.value = ''
+  })
+} 
 </script>
 
 <template>
@@ -56,13 +66,13 @@ function exportToPDF() {
               <div class="relative">
                 <div aria-hidden="true" class="absolute inset-y-0 flex items-center px-4 text-sm text-gray-400 uppercase pointer-events-none">
                   {{ $t('from') }}</div>
-                <input type="datetime-local" class="block w-full p-2 pl-16 mt-1 text-sm bg-white border-gray-300 rounded shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+                <input type="date" v-model="fromDate" class="block w-full p-2 pl-16 mt-1 text-sm bg-white border-gray-300 rounded shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </div>
               <div class="relative">
                 <div aria-hidden="true" class="absolute inset-y-0 flex items-center px-4 text-gray-400 uppercase pointer-events-none">{{ $t('to') }}</div>
-                <input type="datetime-local" class="block w-full p-2 pl-16 mt-1 bg-white border-gray-300 rounded shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
+                <input type="date" v-model="toDate" class="block w-full p-2 pl-16 mt-1 bg-white border-gray-300 rounded shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </div>
-              <button
+              <button @click="getAccountingByDate()"
                 class="w-full p-2 text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
                 {{ $t('filter') }}
               </button>
