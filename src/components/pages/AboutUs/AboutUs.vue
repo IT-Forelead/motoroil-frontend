@@ -12,6 +12,8 @@ import { useAuthStore } from '../../../stores/auth.js';
 import { useAboutUsStore } from '../../../stores/aboutUs.js';
 import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive, ref } from '@vue/runtime-core';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import $ from 'jquery'
 import DropDown from './parts/DropDown.vue'
 import WorkerDropDown from './parts/WorkerDropDown.vue';
@@ -54,35 +56,79 @@ function getWorkerImage(e) {
 
 const submitInformationData = () => {
   const formData = new FormData()
-  formData.append('aboutUsTitle', informationTitle.value)
-  formData.append('aboutUsText', $('#information-text .ql-editor').html())
-  formData.append('aboutUsImage', informationImage.value)
-  aboutUsStore.createInformation(formData).then(() => {
-    informationTitle.value = ''
-    informationImage.value = ''
-  })
+  if (informationTitle.value === ''){
+		notify.error({
+			message: 'Enter a title!',
+			position: 'bottomRight'
+		})
+	} else if ($('#information-text .ql-editor').html().length < 100){
+		notify.error({              
+			message: 'Enter a longger description!',
+			position: 'bottomRight'
+		})
+	} else if (informationImage.value === ''){
+		notify.error({              
+			message: 'Choose a blog image!',
+			position: 'bottomRight'
+		})
+	} else {
+    formData.append('aboutUsTitle', informationTitle.value)
+    formData.append('aboutUsText', $('#information-text .ql-editor').html())
+    formData.append('aboutUsImage', informationImage.value)
+    aboutUsStore.createInformation(formData).then(() => {
+      informationTitle.value = ''
+      informationImage.value = ''
+    })
+  }
 }
 
 const submitWorkerData = () => {
   const formData = new FormData()
-  formData.append('workerFullName', workerData.fullname)
-  formData.append('workerPosition', workerData.position)
-  formData.append('workerDesc', workerData.description)
-  formData.append('workerImage', workerData.image)
-  formData.append('workerEmail', workerData.email)
-  formData.append('workerFacebook', workerData.facebook)
-  formData.append('workerTwitter', workerData.twitter)
-  formData.append('workerSkype', workerData.skype)
-  aboutUsStore.createWorker(formData).then(() => {
-    workerData.fullname = ''
-    workerData.position = ''
-    workerData.description = ''
-    workerData.image = ''
-    workerData.email = ''
-    workerData.facebook = ''
-    workerData.twitter = ''
-    workerData.skype = ''
-  })
+  if (workerData.fullname === ''){
+		notify.error({
+			message: 'Please, enter fullname!',
+			position: 'bottomRight'
+		})
+	} else if (workerData.position === ''){
+		notify.error({              
+			message: 'Please, enter position!',
+			position: 'bottomRight'
+		})
+	} else if (workerData.description === ''){
+		notify.error({              
+			message: 'Please, enter description!',
+			position: 'bottomRight'
+		})
+	} else if (workerData.image === ''){
+		notify.error({              
+			message: 'Please, choose a image!',
+			position: 'bottomRight'
+		})
+	} else if (workerData.email === ''){
+		notify.error({              
+			message: 'Please, enter email!',
+			position: 'bottomRight'
+		})
+	} else {
+    formData.append('workerFullName', workerData.fullname)
+    formData.append('workerPosition', workerData.position)
+    formData.append('workerDesc', workerData.description)
+    formData.append('workerImage', workerData.image)
+    formData.append('workerEmail', workerData.email)
+    formData.append('workerFacebook', workerData.facebook)
+    formData.append('workerTwitter', workerData.twitter)
+    formData.append('workerSkype', workerData.skype)
+    aboutUsStore.createWorker(formData).then(() => {
+      workerData.fullname = ''
+      workerData.position = ''
+      workerData.description = ''
+      workerData.image = ''
+      workerData.email = ''
+      workerData.facebook = ''
+      workerData.twitter = ''
+      workerData.skype = ''
+    })
+  }
 }
 </script>
 
