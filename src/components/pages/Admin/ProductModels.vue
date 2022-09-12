@@ -3,6 +3,8 @@
 import TrashIcon from '../../../assets/icons/TrashIcon.vue';
 import { useProductStore } from '../../../stores/product.js'
 import { onMounted, reactive } from '@vue/runtime-core';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import { uuid } from 'vue-uuid';
 
 const store = useProductStore()
@@ -28,23 +30,55 @@ const specification = reactive({
 })
 
 const addBrand = () => {
-    store.createBrand(brand)
-    brand.name = ''
+    if (brand.name === ''){
+        notify.error({
+			message: 'Please, enter brand name!',
+			position: 'bottomRight'
+		})
+    } else {
+        store.createBrand(brand).then(() => {
+            brand.name = ''
+        })
+    }
 }
 
 const addSAEViscosityGrade = () => {
-    store.createSAEViscosityGrade(saeViscosityGrade)
-    saeViscosityGrade.name = ''
+    if (saeViscosityGrade.name === ''){
+        notify.error({
+			message: 'Please, enter SAE ViscosityGrade name!',
+			position: 'bottomRight'
+		})
+    } else {
+        store.createSAEViscosityGrade(saeViscosityGrade).then(() => {
+            saeViscosityGrade.name = ''
+        })
+    }
 }
 
 const addProductOEM = () => {
-    store.createProductOEM(productOEM)
-    productOEM.name = ''
+    if (productOEM.name === ''){
+        notify.error({
+			message: 'Please, enter OEM name!',
+			position: 'bottomRight'
+		})
+    } else {
+        store.createProductOEM(productOEM).then(() => {
+            productOEM.name = ''
+        })
+    }
 }
 
 const addSpecification = () => {
-    store.createSpecification(specification)
-    specification.name = ''
+    if (specification.name === ''){
+        notify.error({
+			message: 'Please, enter specification name!',
+			position: 'bottomRight'
+		})
+    } else {
+        store.createSpecification(specification).then(() => {
+            specification.name = ''
+        })
+    }
 }
 
 onMounted(() => {
@@ -58,7 +92,7 @@ onMounted(() => {
 <template>
     <div class="flex justify-center px-5 py-2 bg-white">
         <div class="container flex flex-col justify-center">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
                 <div class="space-y-2">
                     <div class="p-5 space-y-4 bg-white rounded shadow">
                         <div class="p-3 font-medium text-gray-700 border-b text-md">{{ $t('addBrand') }}</div>

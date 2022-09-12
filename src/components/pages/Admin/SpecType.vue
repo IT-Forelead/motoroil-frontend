@@ -3,6 +3,8 @@
 import TrashIcon from '../../../assets/icons/TrashIcon.vue';
 import { useProductStore } from '../../../stores/product.js'
 import { onMounted, reactive } from '@vue/runtime-core';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import { uuid } from 'vue-uuid';
 
 const store = useProductStore()
@@ -13,8 +15,16 @@ const specType = reactive({
 })
 
 const addSpecType = () => {
-    store.createSpecType(specType)
-    specType.name = ''
+    if (specType.name === ''){
+        notify.error({
+			message: 'Please, enter specification types!',
+			position: 'bottomRight'
+		})
+    } else {
+        store.createSpecType(specType).then(() => {
+            specType.name = ''
+        })
+    }
 }
 
 onMounted(() => {
@@ -25,7 +35,7 @@ onMounted(() => {
 <template>
     <div class="flex justify-center px-5 py-2 bg-white">
         <div class="container flex flex-col justify-center">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
                 <div class="col-span-2 ml-3">
                     <div class="p-3 text-2xl font-semibold text-gray-700">{{ $t('specificationTypes') }}</div>
                     <ul class="flex flex-col divide-y">
