@@ -317,7 +317,7 @@ const closeEditModal = () => {
                   <p class="mt-2 font-medium text-slate-700">{{ $t('viscosityGrade') }}</p>
                   <select v-model="productGroupForm.viscosityGradeId"
                     class="block w-full px-5 py-3 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
-                    <option value="" selected>{{ ('') }}</option>
+                    <option value="" selected>Select a viscosity grade</option>
                     <option v-for="(grade, idx) in store.saeViscosityGrades" :key="idx" :value="grade?.id">{{
                         grade?.name
                     }}

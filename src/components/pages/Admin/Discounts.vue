@@ -9,6 +9,8 @@ import { useDiscountStore } from '../../../stores/discount.js';
 import { useProductStore } from '../../../stores/product.js';
 import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive, ref } from '@vue/runtime-core'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import { formatDateTime } from '../../../mixins/utils';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import { timestamp } from '@vueuse/core';
@@ -29,14 +31,41 @@ const discount = reactive({
 })
 
 const createDiscount = () => {
-  discountStore.createDiscount(discount).then(() => {
-    modalStore.closeAddDiscountModal()
-    discount.startedAt = ''
-    discount.expiredAt = ''
-    discount.name = ''
-    discount.description = ''
-    discount.discountPercent = 0.0
-  })
+  if (discount.discountPercent === 0){
+    notify.error({
+			message: 'Enter discount percent!',
+			position: 'bottomRight'
+		})
+  } else if (discount.startedAt === ''){
+    notify.error({
+			message: 'Enter discount started at!',
+			position: 'bottomRight'
+		})
+  } else if (discount.expiredAt === ''){
+    notify.error({
+			message: 'Enter discount expired at!',
+			position: 'bottomRight'
+		})
+  } else if (discount.name === ''){
+    notify.error({
+			message: 'Enter discount name!',
+			position: 'bottomRight'
+		})
+  } else if (discount.description === ''){
+    notify.error({
+			message: 'Enter discount description!',
+			position: 'bottomRight'
+		})
+  } else {
+    discountStore.createDiscount(discount).then(() => {
+      modalStore.closeAddDiscountModal()
+      discount.startedAt = ''
+      discount.expiredAt = ''
+      discount.name = ''
+      discount.description = ''
+      discount.discountPercent = 0.0
+    })
+  }
 }
 
 const discountStatus = (start, end) => {
