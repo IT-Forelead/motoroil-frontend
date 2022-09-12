@@ -33,7 +33,7 @@ onMounted(() => {
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
           </div>
         </div>
-        <div class="grid grid-cols-5 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
           <BestSellerItem
             v-for="(product, idx) in mainSearchStore.searchResults.length > 0 ? mainSearchStore.searchResults : store.bestSellerProducts"
             :key="idx" :product="product" class="relative max-w-sm"></BestSellerItem>

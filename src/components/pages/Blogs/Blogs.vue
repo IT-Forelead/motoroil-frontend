@@ -64,7 +64,7 @@ const submitBlogData = () => {
               {{ $t('addBlog') }}
             </button>
           </div>
-          <div class="grid grid-cols-4 gap-7">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
             <BlogItem
               v-for="(blog, idx) in store.blogs"
               :key="idx"

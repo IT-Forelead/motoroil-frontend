@@ -57,60 +57,61 @@ const couponStatusColor = (start, end) => {
 <template>
 <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
-        <div class="grid grid-cols-3 gap-3">
-            <div class="col-span-2 ml-3">
-                <div class="p-3 text-2xl font-semibold text-gray-700">{{ $t('addCoupon') }}</div>
-                <table class="min-w-full divide-y divide-gray-300">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('user') }}</td>
-                            <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('validityPeriod') }}</td>
-                            <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('price') }}</td>
-                            <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('status') }}</td>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <tr v-for="(coupon, idx) in userStore.coupons" :key="idx" class="align-middle">
-                            <td class="p-3 text-sm text-gray-700">
-                                <div class="font-medium text-gray-700 text-md">{{ coupon?.userName }}</div>
-                                <div class="flex items-center text-gray-500">
-                                    <div class="mr-2 text-sm">Promo code:</div>
-                                    <div class="font-medium text-md">{{ coupon?.code }}</div>
-                                </div>
-                            </td>
-                            <td class="p-3">
-                                <div class="flex items-center">
-                                    <div class="mr-1 text-sm text-gray-500"><CalendarCheckIcon class="w-4 h-4 mr-1"/></div>
-                                    <div class="font-medium text-gray-700 text-md">{{ formatDateTime(coupon?.startedAt) }}</div>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="mr-1 text-sm text-gray-500"><CalendarXIcon class="w-4 h-4 mr-1"/></div>
-                                    <div class="font-medium text-gray-700 text-md">{{ formatDateTime(coupon?.expiredAt) }}</div>
-                                </div>
-                            </td>
-                            <td class="p-3 text-sm text-gray-700">
-                                <div class="flex items-center">
-                                    <div class="mr-2 text-sm text-gray-500">{{ $t('minimumSpend') }}:</div>
-                                    <div class="font-medium text-gray-700 text-md">€{{ coupon?.minPrice }}</div>
-                                </div>
-                                <div class="flex items-center">
-                                    <div class="mr-2 text-sm text-gray-500">{{ $t('discountMoney') }}:</div>
-                                    <div class="font-medium text-gray-700 text-md">€{{ coupon?.price }}</div>
-                                </div>
-                            </td>
-                            <td class="p-3">
-                                <div class="w-24 px-2 py-1 text-sm text-center text-white rounded-full" :class="couponStatusColor(coupon?.startedAt, coupon?.expiredAt)">
-                                    {{ couponStatus(coupon?.startedAt, coupon?.expiredAt) }}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div class="flex flex-col md:col-span-2 ml-3">
+            <div class="p-3 text-2xl font-semibold text-gray-700 overflow-x-auto overflow-y-hidden">{{ $t('addCoupon') }}</div>
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                <tr>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('user') }}</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('validityPeriod') }}</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('price') }}</td>
+                  <td class="px-3 py-3 text-sm font-medium text-gray-700 uppercase">{{ $t('status') }}</td>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                <tr v-for="(coupon, idx) in userStore.coupons" :key="idx" class="align-middle">
+                  <td class="p-3 text-sm text-gray-700">
+                    <div class="font-medium text-gray-700 text-md">{{ coupon?.userName }}</div>
+                    <div class="flex items-center text-gray-500">
+                      <div class="mr-2 text-sm">Promo code:</div>
+                      <div class="font-medium text-md">{{ coupon?.code }}</div>
+                    </div>
+                  </td>
+                  <td class="p-3">
+                    <div class="flex items-center">
+                      <div class="mr-1 text-sm text-gray-500"><CalendarCheckIcon class="w-4 h-4 mr-1"/></div>
+                      <div class="font-medium text-gray-700 text-md">{{ formatDateTime(coupon?.startedAt) }}</div>
+                    </div>
+                    <div class="flex items-center">
+                      <div class="mr-1 text-sm text-gray-500"><CalendarXIcon class="w-4 h-4 mr-1"/></div>
+                      <div class="font-medium text-gray-700 text-md">{{ formatDateTime(coupon?.expiredAt) }}</div>
+                    </div>
+                  </td>
+                  <td class="p-3 text-sm text-gray-700">
+                    <div class="flex items-center">
+                      <div class="mr-2 text-sm text-gray-500">{{ $t('minimumSpend') }}:</div>
+                      <div class="font-medium text-gray-700 text-md">€{{ coupon?.minPrice }}</div>
+                    </div>
+                    <div class="flex items-center">
+                      <div class="mr-2 text-sm text-gray-500">{{ $t('discountMoney') }}:</div>
+                      <div class="font-medium text-gray-700 text-md">€{{ coupon?.price }}</div>
+                    </div>
+                  </td>
+                  <td class="p-3">
+                    <div class="w-24 px-2 py-1 text-sm text-center text-white rounded-full"
+                         :class="couponStatusColor(coupon?.startedAt, coupon?.expiredAt)">
+                      {{ couponStatus(coupon?.startedAt, coupon?.expiredAt) }}
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
             <div class="p-5 space-y-4 bg-white rounded shadow">
                 <div class="p-3 font-medium text-gray-700 border-b text-md">{{ $t('addCoupon') }}</div>
                 <div class="space-y-1">
-                    <label for="user" class="text-gray-700 text-md">{{ $t('User') }}</label>
+                  <label for="user" class="text-gray-700 text-md">{{ $t('user') }}</label>
                     <select v-model="coupon.userId" id="user" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
                         <option value="" selected>{{ $t('chooseAUser') }}</option>
                         <option v-for="(user, idx) in userStore.users" :key="idx" :value="user?.uuid">{{ user?.name }}</option>

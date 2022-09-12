@@ -23,7 +23,7 @@
             <div class="w-2 h-2 bg-red-500 rounded-full"></div>
           </div>
         </div>
-        <div class="grid grid-cols-5 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
           <FavoriteProductItem v-for="(product, idx) in store.productsByViews" :key="idx" :product="product" />
         </div>
       </div>

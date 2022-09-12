@@ -277,7 +277,7 @@ const submitUserData = () => {
         <a href="/" v-if="authStore.isLogin" @click="authStore.logout()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
           <SignOutIcon class="mr-1" />
-          {{ $t('logout') }}
+          <span class="hidden md:block">{{ $t('logout') }}</span>
         </a>
         <p v-else @click="authStore.ssoLogout()"
           class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">

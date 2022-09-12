@@ -27,7 +27,7 @@ onMounted(() => {
           <div class="w-2 h-2 bg-red-500 rounded-full"></div>
         </div>
       </div>
-      <div class="grid grid-cols-4 gap-7">
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-7">
         <div v-for="(blog, idx) in store.latestBlogs" :key="idx" class="max-w-sm">
           <div class="w-full h-[250px] relative overflow-hidden">
             <router-link to="/blog" @click="readMore(blog.id)"

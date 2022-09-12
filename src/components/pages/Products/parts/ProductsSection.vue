@@ -17,7 +17,7 @@ const products = computed(() => {
 })
 </script>
 <template>
-  <div v-if="store.products.length > 0" class="grid grid-cols-4 gap-7">
+  <div v-if="store.products.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
     <ProductCard v-for="(product, idx) in products" :key="idx" :product="product" />
   </div>
   <div v-else class="text-center text-red-500">

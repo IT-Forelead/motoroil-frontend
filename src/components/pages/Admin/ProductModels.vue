@@ -58,7 +58,7 @@ onMounted(() => {
 <template>
     <div class="flex justify-center px-5 py-2 bg-white">
         <div class="container flex flex-col justify-center">
-            <div class="grid grid-cols-4 gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div class="space-y-2">
                     <div class="p-5 space-y-4 bg-white rounded shadow">
                         <div class="p-3 font-medium text-gray-700 border-b text-md">{{ $t('addBrand') }}</div>

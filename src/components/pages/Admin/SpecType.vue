@@ -25,7 +25,7 @@ onMounted(() => {
 <template>
     <div class="flex justify-center px-5 py-2 bg-white">
         <div class="container flex flex-col justify-center">
-            <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 <div class="col-span-2 ml-3">
                     <div class="p-3 text-2xl font-semibold text-gray-700">{{ $t('specificationTypes') }}</div>
                     <ul class="flex flex-col divide-y">

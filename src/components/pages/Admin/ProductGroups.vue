@@ -5,13 +5,15 @@ import StackIcon from '../../../assets/icons/StackIcon.vue';
 import OilCanIcon from '../../../assets/icons/OilCanIcon.vue';
 import YoutubeIcon from '../../../assets/icons/YoutubeIcon.vue';
 import PdfFileIcon from '../../../assets/icons/PdfFileIcon.vue';
-import { useProductStore } from '../../../stores/product.js'
-import { useCategoryStore } from '../../../stores/category.js';
-import { useModalStore } from '../../../stores/modal.js';
-import { onMounted, reactive, ref } from '@vue/runtime-core';
+import {useProductStore} from '../../../stores/product.js'
+import {useCategoryStore} from '../../../stores/category.js';
+import {useModalStore} from '../../../stores/modal.js';
+import {onMounted, reactive, ref} from '@vue/runtime-core';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import $ from 'jquery'
 import MultiSelect from '../../MultiSelect.vue';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -31,8 +33,6 @@ const productGroupForm = reactive({
   brandId: '',
   viscosityGradeId: '',
   videoUrl: '',
-  productOEMIds: '',
-  productSpecIds: '',
   pdfUrl: ''
 })
 
@@ -41,20 +41,63 @@ function getFile(e) {
 }
 
 const submitProductGroupData = () => {
+
   productGroupForm.description = $('#desc .ql-editor').html()
   const formData = new FormData()
   formData.append('name', productGroupForm.name)
   formData.append('description', productGroupForm.description)
   formData.append('categoryId', productGroupForm.categoryId)
-  formData.append('subCategoryId', productGroupForm.subCategoryId)
-  formData.append('miniSubCategoryId', productGroupForm.miniSubCategoryId)
+  if (productGroupForm.subCategoryId) {
+    formData.append('subCategoryId', productGroupForm.subCategoryId)
+  }
+  if (productGroupForm.miniSubCategoryId) {
+    formData.append('miniSubCategoryId', productGroupForm.miniSubCategoryId)
+  }
   formData.append('brandId', productGroupForm.brandId)
   formData.append('viscosityGradeId', productGroupForm.viscosityGradeId)
   formData.append('videoUrl', productGroupForm.videoUrl)
   formData.append('productOEMIds', store.multiselectOEMids.join(','))
   formData.append('productSpecIds', store.multiselectSpecids.join(','))
   formData.append('pdfUrl', productGroupForm.pdfUrl)
-  store.createProductGroup(formData)
+
+  if (!productGroupForm?.name) {
+    notify.warning({
+      message: 'Please enter product group Name',
+      position: 'bottomRight',
+    })
+  } else if (!productGroupForm?.description.length < 100) {
+    notify.warning({
+      message: 'Please enter longer product group Description',
+      position: 'bottomRight',
+    })
+  } else if (!productGroupForm?.categoryId) {
+    notify.warning({
+      message: 'Please select product group Category',
+      position: 'bottomRight',
+    })
+  } else if (!productGroupForm?.brandId) {
+    notify.warning({
+      message: 'Please select product group Brand',
+      position: 'bottomRight',
+    })
+  } else if (!productGroupForm?.viscosityGradeId) {
+    notify.warning({
+      message: 'Please select product group Viscosity Grade',
+      position: 'bottomRight',
+    })
+  } else if (store.multiselectOEMids.length === 0) {
+    notify.warning({
+      message: 'Please select at least one product OEM',
+      position: 'bottomRight',
+    })
+  } else if (store.multiselectSpecids.length === 0) {
+    notify.warning({
+      message: 'Please select at least one product Specification',
+      position: 'bottomRight',
+    })
+  } else {
+    store.createProductGroup(formData)
+  }
 }
 
 const oemOptions = ref([])
@@ -112,7 +155,7 @@ const closeEditModal = () => {
           {{ $t('addProductGroup') }}
         </button>
       </div>
-      <div class="space-y-5">
+      <div class="space-y-5 overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-300">
           <thead class="bg-gray-50">
             <tr>

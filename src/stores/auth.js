@@ -119,7 +119,7 @@ export const useAuthStore = defineStore({
             this.logout()
           } else {
             notify.warning({
-              message: msg,
+              message: err.message,
               position: 'bottomLeft',
             })
           }
@@ -137,7 +137,7 @@ export const useAuthStore = defineStore({
         })
         .catch((err) => {
           notify.warning({
-            message: msg,
+            message: err.message,
             position: 'bottomLeft',
           })
         })

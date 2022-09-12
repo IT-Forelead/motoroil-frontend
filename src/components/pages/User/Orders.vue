@@ -40,7 +40,7 @@ onMounted(() => {
         <Sidebar />
         <div class="col-span-3">
           <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{$t('myOrders')}}</div>
-          <div class="space-y-5">
+          <div class="space-y-5 overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-50">
                 <tr>

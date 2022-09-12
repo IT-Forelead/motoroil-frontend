@@ -27,14 +27,14 @@ store.getTimerSpecialOffers()
 
 <template>
   <div class="flex justify-center p-5 bg-gray-100 bg-[url('/bg/bg-deals-new.jpg')] bg-cover">
-    <div class="container grid grid-cols-3 gap-20 p-5">
+    <div class="container grid grid-cols-1 md:grid-cols-3 md:gap-20 p-2 md:p-5">
       <div class="relative col-span-2 p-5 bg-white">
         <div class="absolute top-0 py-2 font-medium text-white uppercase bg-red-500 rounded-b px-7 text-md deal">
           {{$t('dealOfTheDay')}}</div>
         <swiper :spaceBetween="30" :centeredSlides="true" :navigation="false" :loop="true" :modules="modules"
           :autoplay="{ delay: 5000, disableOnInteraction: false }" class="mySwiper">
           <swiper-slide v-for="(product, idx) in store.timerSpecialOffers" :key="idx" class="slide">
-            <div class="mt-4 mr-5 w-96 h-96">
+            <div class="mt-4 mr-5 w-96 h-96 block">
               <router-link to="/product" @click="showProduct(product?.product?.id)">
                 <img :src="API_URL + '/image/' + (product?.product?.imageUrl[0] ? product?.product?.imageUrl[0] : '')"
                   class="img-responsive" alt="product image">
@@ -61,14 +61,14 @@ store.getTimerSpecialOffers()
                 </div>
               </div>
               <div class="mb-5 text-sm text-gray-500" v-html="product?.productGroup?.productGroup?.description"></div>
-              <Countdown :deadlineDate="new Date(product?.discount?.expiredAt)" class="float-left"
+              <Countdown :deadlineDate="new Date(product?.discount?.expiredAt)" class="float-left hidden md:block"
                 :flipAnimation="false" />
               <div class="clear-both"></div>
             </div>
           </swiper-slide>
         </swiper>
       </div>
-      <div>
+      <div class="hidden md:block">
         <swiper :spaceBetween="30" :centeredSlides="true" :navigation="false" :loop="true" :modules="modules"
           :autoplay="{ delay: 5000, disableOnInteraction: false }" class="mySwiper">
           <swiper-slide v-for="(product, idx) in store.timerSpecialOffers" :key="idx" class="slide">

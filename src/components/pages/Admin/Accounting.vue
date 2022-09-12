@@ -42,7 +42,7 @@ function exportToPDF() {
 <template>
   <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
-      <div class="flex items-center justify-between">
+      <div class="flex flex-col md:flex-row md:items-center justify-between">
         <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">
           {{ $t('accounting') }}
         </div>
