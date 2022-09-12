@@ -412,6 +412,7 @@ export const useProductStore = defineStore({
             position: 'bottomRight',
           })
           this.getAllProducts()
+          useModalStore().closeAddProductModal()
         })
         .catch(() => {
           notify.error({

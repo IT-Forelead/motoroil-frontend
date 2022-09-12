@@ -9,7 +9,9 @@ import { useProductStore } from '../../../stores/product.js'
 import { reactive, ref } from '@vue/reactivity';
 import { onClickOutside } from '@vueuse/core'
 import { onMounted } from '@vue/runtime-core';
-import { useModalStore } from '../../../stores/modal';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+import { useModalStore } from '../../../stores/modal.js';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import ImageUploadIcon from '../../../assets/icons/ImageUploadIcon.vue';
 import { formatDateTime } from '../../../mixins/utils';
@@ -45,12 +47,12 @@ const uploadedImageForView = ref([])
 function getImage(e) {
   const filteredImages = Object.values(e?.target?.files).filter(i => i.type.includes('image'))
   uploadedImageForView.value = filteredImages.map(f => URL.createObjectURL(f))
-  productData['product-image'] = filteredImages
+  productData['productImage'] = filteredImages
 }
 
 const productData = reactive({
   "productGroupId": '',
-  "product-image": [],
+  "productImage": [],
   "specTypeId": '',
   "capacity": 0,
   "price": 0,
@@ -59,20 +61,59 @@ const productData = reactive({
 
 const addProduct = () => {
   const formData = new FormData()
-  formData.append('productGroupId', productData.productGroupId)
-  productData['product-image'].map(f => {
-    formData.append('product-image', f)
-  })
-  formData.append('specTypeId', productData.specTypeId)
-  formData.append('capacity', productData.capacity)
-  formData.append('price', productData.price)
-  formData.append('quantity', productData.quantity)
-  store.createProduct(formData)
+  if (productData.productGroupId === ''){
+		notify.error({
+			message: 'Choose a product group!',
+			position: 'bottomRight'
+		})
+  } else if (productData.productImage.length === 0){
+		notify.error({
+			message: 'Choose a product image!',
+			position: 'bottomRight'
+		})
+  } else if (productData.specTypeId === ''){
+		notify.error({
+			message: 'Choose a product type!',
+			position: 'bottomRight'
+		})
+  } else if (productData.capacity === 0){
+		notify.error({
+			message: 'Enter product capacity!',
+			position: 'bottomRight'
+		})
+  } else if (productData.price === 0){
+		notify.error({
+			message: 'Enter product price!',
+			position: 'bottomRight'
+		})
+  } else if (productData.quantity === 0){
+		notify.error({
+			message: 'Enter product quantity!',
+			position: 'bottomRight'
+		})
+  } else {
+    formData.append('productGroupId', productData.productGroupId)
+    productData['productImage'].map(f => {
+      formData.append('productImage', f)
+    })
+    formData.append('specTypeId', productData.specTypeId)
+    formData.append('capacity', productData.capacity)
+    formData.append('price', productData.price)
+    formData.append('quantity', productData.quantity)
+    store.createProduct(formData).then(() => {
+      productData.productGroupId = ''
+      productData.productImage = []
+      productData.specTypeId = ''
+      productData.capacity = 0
+      productData.price = 0
+      productData.quantity = 0
+    })
+  }
 }
 
 const editProductData = reactive({
   "productGroupId": '',
-  "product-image": [],
+  "productImage": [],
   "specTypeId": '',
   "capacity": 0,
   "price": 0,
@@ -236,6 +277,7 @@ const editModal = (id) => {
                 <p class="pb-2 font-medium text-slate-700">{{ $t('selectProductGroup') }}</p>
                 <select v-model="productData.productGroupId"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                  <option value="" selected>Choose a product group</option>
                   <option v-for="(productGroup, idx) in store.productGroups" :key="idx"
                     :value="productGroup?.productGroup?.id">{{
                         productGroup?.productGroup?.name
@@ -248,7 +290,7 @@ const editModal = (id) => {
                   class="flex items-center justify-center p-2 text-gray-600 border border-gray-600 rounded-md cursor-pointer hover:border-red-500 hover:text-red-500">
                   <ImageUploadIcon class="w-6 h-6 mr-3" /> {{ $t('uploadImage') }}
                 </p>
-                <input id="product-images" type="file" class="hidden" name="product-image" @change="getImage"
+                <input id="product-images" type="file" class="hidden" name="productImage" @change="getImage"
                   multiple />
               </label>
               <div v-if="uploadedImageForView.length > 0" class="flex flex-wrap items-center justify-center space-x-2">
@@ -260,6 +302,7 @@ const editModal = (id) => {
                   <p class="pb-2 font-medium text-slate-700">{{ $t('selectType') }}</p>
                   <select v-model="productData.specTypeId"
                     class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    <option value="" selected>Choose a product type</option>
                     <option v-for="(specType, idx) in store.specTypes" :key="idx" :value="specType?.id">{{
                         specType?.name
                     }}</option>
@@ -324,7 +367,7 @@ const editModal = (id) => {
                   class="flex items-center justify-center p-2 text-gray-600 border border-gray-600 rounded-md cursor-pointer hover:border-red-500 hover:text-red-500">
                   <ImageUploadIcon class="w-6 h-6 mr-3" /> {{ $t('uploadImage') }}
                 </p>
-                <input id="product-images1" type="file" class="hidden" name="product-image" @change="getImage"
+                <input id="product-images1" type="file" class="hidden" name="productImage" @change="getImage"
                   multiple />
               </label>
               <div v-if="uploadedImageForView.length > 0" class="flex flex-wrap items-center justify-center space-x-2">
