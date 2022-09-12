@@ -58,7 +58,7 @@ onMounted(() => {
   let eventData = {}
   if (authStore.userId) {
     eventData = {
-      name: 'pageVisited',
+      name: 'productViewed',
       visitorId:
         localStorage.getItem('visitorId') || analyticsStore.visitorId,
       productId: sessionStorage.getItem('sp_id'),
@@ -67,7 +67,7 @@ onMounted(() => {
     }
   } else {
     eventData = {
-      name: 'pageVisited',
+      name: 'productViewed',
       visitorId:
         localStorage.getItem('visitorId') || analyticsStore.visitorId,
       productId: sessionStorage.getItem('sp_id'),
