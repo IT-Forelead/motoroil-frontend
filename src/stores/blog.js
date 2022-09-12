@@ -16,9 +16,21 @@ export const useBlogStore = defineStore({
     blogs: [],
     singleBlog: {},
   }),
-  getters: {},
+  getters: {
+    getBlogId(){
+      return this.singleBlog?.id
+    },
+    getBlogTitle(){
+      return this.singleBlog?.title
+    },
+    getBlogText(){
+      return this.singleBlog?.text
+    },
+    getBlogDefaultKey(){
+      return this.singleBlog?.imageUrl
+    }
+  },
   actions: {
-    // APIs
     async getAllLatestBlogs() {
       const response = await axios.get(`${API_URL}/new-blogs`)
       this.latestBlogs = response.data
@@ -51,6 +63,29 @@ export const useBlogStore = defineStore({
           notify.error({
             title: 'Error',
             message: 'While adding blog!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async editBlog(data) {
+      await axios
+        .put(`${API_URL}/admin/edit-blog`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: authHeaderForMultipart(),
+          },
+        })
+        .then(() => {
+          notify.success({
+            message: 'Blog edited!',
+            position: 'bottomRight',
+          })
+          useModalStore().closeEditBlogModal()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While editing blog!',
             position: 'bottomRight',
           })
         })

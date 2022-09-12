@@ -4,11 +4,14 @@ import HouseIcon from '../../../assets/icons/HouseIcon.vue'
 import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
 import UserFillIcon from '../../../assets/icons/UserFillIcon.vue';
 import CalendarFillIcon from '../../../assets/icons/CalendarFillIcon.vue';
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useBlogStore } from '../../../stores/blog.js'
 import { useModalStore } from '../../../stores/modal.js'
 import { useAuthStore } from '../../../stores/auth.js';
 import { useAnalyticsStore } from '../../../stores/analytics.js';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+import $ from 'jquery'
 import { formatDateTime } from '../../../mixins/utils.js';
 import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
 import TrashIcon from '../../../assets/icons/TrashIcon.vue';
@@ -19,12 +22,63 @@ const store = useBlogStore()
 const authStore = useAuthStore()
 const analyticsStore = useAnalyticsStore()
 
+const blog = reactive({
+	id: store.getBlogId,
+	title: store.getBlogTitle,
+	text: store.getBlogText,
+	defaultImageUrl: store.getBlogDefaultKey,
+	image: ''
+})
+
+function getImage(e) {
+  if (e?.target?.files[0].type.includes('image')) {
+    blog.image = e?.target?.files[0]
+  }
+}
+
+const submitEditBlogData = () => {
+	const formData = new FormData()
+	if (blog.id === ''){
+		notify.success({
+			message: 'Blog id not found!',
+			position: 'bottomRight'
+		})
+	} else if (blog.title === ''){
+		notify.success({
+			message: 'Enter a title!',
+			position: 'bottomRight'
+		})
+	} else if ($('#blog-text .ql-editor').html().length < 100){
+		notify.success({              
+			message: 'Enter a longger description!',
+			position: 'bottomRight'
+		})
+	} else {
+		if (blog.image){
+			formData.append('blogImage', blog.image)
+		} else {
+			formData.append('defaultFileKey', blog.defaultImageUrl)
+		}
+		formData.append('id', blog.id)
+		formData.append('blogTitle', blog.title)
+		formData.append('blogText', $('#blog-text .ql-editor').html())
+		store.editBlog(formData).then(() => {
+			store.getSingleBlog(sessionStorage.getItem('sb_id'))
+		})
+	}
+}
+
 onMounted(() => {
 	window.scrollTo({
 		top: 0,
 		behavior: 'smooth'
 	})
-	store.getSingleBlog(sessionStorage.getItem('sb_id'))
+	store.getSingleBlog(sessionStorage.getItem('sb_id')).then(() => {
+		$('#blog-text .ql-editor').html(store.getBlogText)
+		store.getBlogId
+		store.getBlogTitle
+		store.getBlogDefaultKey
+	})
 
 	let eventData = {}
 	if (authStore.userId) {
@@ -95,7 +149,7 @@ onMounted(() => {
 		</div>
 	</div>
 </div>
-<!-- Add Blog Modal -->
+<!-- Edit Blog Modal -->
 <div :class="{ hidden: !useModalStore().isOpenEditBlogModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
 	<div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
 		<div class="relative bg-white rounded shadow dark:bg-gray-700">
@@ -107,11 +161,11 @@ onMounted(() => {
 				</button>
 			</div>
 			<div class="px-6 py-3 space-y-6">
-				<form class="my-3">
+				<form @submit.prevent="submitEditBlogData()" class="my-3">
 					<div class="flex flex-col space-y-5">
 						<label for="blog-title">
 							<p class="pb-2 font-medium text-slate-700">{{ $t('blogTitle') }}</p>
-							<input id="blog-title" type="text" class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter blog title" />
+							<input v-model="blog.title" id="blog-title" type="text" class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter blog title" />
 						</label>
 						<label for="blog-text">
 							<p class="mt-2 font-medium text-slate-700">{{ $t('blogContent') }}</p>
@@ -119,7 +173,7 @@ onMounted(() => {
 						</label>
 						<label for="blog-text">
 							<p class="mt-2 font-medium text-slate-700">{{ $t('blogImage') }}</p>
-							<input type="file" class="w-full px-3 py-3"/>
+							<input type="file" @change="getImage" class="w-full px-3 py-3"/>
 						</label>
 						<button class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
 							<span>{{$t('save')}}</span>
