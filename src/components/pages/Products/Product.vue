@@ -62,7 +62,7 @@ onMounted(() => {
       visitorId:
         localStorage.getItem('visitorId') || analyticsStore.visitorId,
       productId: sessionStorage.getItem('sp_id'),
-      userId: authStore.userId || '',
+      userId: authStore.userId,
       page: 'products',
     }
   } else {

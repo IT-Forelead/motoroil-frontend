@@ -7,16 +7,38 @@ import HouseIcon from '../../../assets/icons/HouseIcon.vue'
 import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue'
 import { useAuthStore } from '../../../stores/auth.js'
 import { useModalStore } from '../../../stores/modal.js'
+import { useAnalyticsStore } from '../../../stores/analytics.js'
 import CloseIcon from '../../../assets/icons/CloseIcon.vue'
 import $ from 'jquery'
 
 const store = useBlogStore()
+const authStore = useAuthStore()
+const analyticsStore = useAnalyticsStore()
 
 const blogTitle = ref('')
 const blogImage = ref('')
 
 onMounted(() => {
   store.getAllBlogs()
+
+let eventData = {}
+if (authStore.userId) {
+  eventData = {
+    name: 'pageVisited',
+    visitorId:
+      localStorage.getItem('visitorId') || analyticsStore.visitorId,
+    userId: authStore.userId,
+    page: 'blogs',
+  }
+} else {
+  eventData = {
+    name: 'pageVisited',
+    visitorId:
+      localStorage.getItem('visitorId') || analyticsStore.visitorId,
+    page: 'blogs',
+  }
+}
+analyticsStore.saveEvent(eventData)
 })
 
 function getImage(e) {
@@ -49,7 +71,7 @@ const submitBlogData = () => {
           </li>
         </ul>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <Sidebar />
         <div class="col-span-3 ml-3">
           <div class="flex items-center justify-between">

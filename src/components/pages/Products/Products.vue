@@ -28,7 +28,7 @@ onMounted(() => {
       name: 'pageVisited',
       visitorId:
         localStorage.getItem('visitorId') || useAnalyticsStore().visitorId,
-      userId: useAuthStore().userId || '',
+      userId: useAuthStore().userId,
       page: 'products',
     }
   } else {
