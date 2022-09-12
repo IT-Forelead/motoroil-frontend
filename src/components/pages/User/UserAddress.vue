@@ -8,6 +8,8 @@ import MapPinIcon from '../../../assets/icons/MapPinIcon.vue';
 import { useUserStore } from '../../../stores/user.js';
 import { useModalStore } from '../../../stores/modal.js';
 import { onMounted, reactive, watch } from '@vue/runtime-core';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import { uuid } from 'vue-uuid';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 
@@ -40,6 +42,55 @@ onMounted(() => {
   userStore.getUserAddresses()
   userStore.getCountries()
 })
+
+const addUserAddress = () => {
+  if (address.receiverFullName === ''){
+    notify.error({              
+			message: 'Please, enter receiver\'s fullname!',
+			position: 'bottomRight'
+		})
+  } else if(address.receiverPhone === '') {
+    notify.error({              
+			message: 'Please, enter receiver\'s phone!',
+			position: 'bottomRight'
+		})
+  } else if(address.countryId === '') {
+    notify.error({              
+			message: 'Please, select a country!',
+			position: 'bottomRight'
+		})
+  } else if(address.regionId === '') {
+    notify.error({              
+			message: 'Please, select a region!',
+			position: 'bottomRight'
+		})
+  } else if(address.cityId === '') {
+    notify.error({              
+			message: 'Please, select a city!',
+			position: 'bottomRight'
+		})
+  } else if(address.street === '') {
+    notify.error({              
+			message: 'Please, enter street!',
+			position: 'bottomRight'
+		})
+  } else if(address.postalCode === '') {
+    notify.error({              
+			message: 'Please, enter postal code!',
+			position: 'bottomRight'
+		})
+  } else {
+    userStore.addUserAddress(address).then(() => {
+      address.receiverFullName = ''
+      address.receiverPhone = ''
+      address.countryId = ''
+      address.regionId = ''
+      address.cityId = ''
+      address.street = ''
+      address.postalCode = ''
+    })
+  }
+}
 
 watch(
   () => address.countryId,
@@ -182,7 +233,7 @@ watch(
               <label for="postal-code" class="text-sm text-gray-700">{{ $t('zipPostalCode') }}</label>
               <input v-model="address.postalCode" id="postal-code" type="text" class="block w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Enter your postal code">
             </div>
-            <button @click="userStore.addUserAddress(address)" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">{{ $t('save') }}</button>
+            <button @click="addUserAddress()" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">{{ $t('save') }}</button>
           </div>
         </div>
       </div>
