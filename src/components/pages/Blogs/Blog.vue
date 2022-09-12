@@ -8,6 +8,7 @@ import { onMounted } from 'vue';
 import { useBlogStore } from '../../../stores/blog.js'
 import { useModalStore } from '../../../stores/modal.js'
 import { useAuthStore } from '../../../stores/auth.js';
+import { useAnalyticsStore } from '../../../stores/analytics.js';
 import { formatDateTime } from '../../../mixins/utils.js';
 import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
 import TrashIcon from '../../../assets/icons/TrashIcon.vue';
@@ -16,6 +17,7 @@ import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const store = useBlogStore()
 const authStore = useAuthStore()
+const analyticsStore = useAnalyticsStore()
 
 onMounted(() => {
 	window.scrollTo({
@@ -23,6 +25,25 @@ onMounted(() => {
 		behavior: 'smooth'
 	})
 	store.getSingleBlog(sessionStorage.getItem('sb_id'))
+
+	let eventData = {}
+	if (authStore.userId) {
+	eventData = {
+		name: 'pageVisited',
+		visitorId:
+		localStorage.getItem('visitorId') || analyticsStore.visitorId,
+		userId: authStore.userId,
+		page: 'blogs',
+	} 
+	} else {
+	eventData = {
+		name: 'pageVisited',
+		visitorId:
+		localStorage.getItem('visitorId') || analyticsStore.visitorId,
+		page: 'blogs',
+	}
+	}
+	analyticsStore.saveEvent(eventData)
 })
 </script>
 
@@ -44,7 +65,7 @@ onMounted(() => {
 				<li class="text-red-700">{{ store.singleBlog.title }}</li>
 			</ul>
 		</div>
-		<div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+		<div class="grid grid-cols-1 gap-10 md:grid-cols-4">
 			<Sidebar />
 			<div class="col-span-3 px-3">
 				<div class="py-3 text-2xl font-semibold text-gray-700">{{ store.singleBlog.title }}</div>
