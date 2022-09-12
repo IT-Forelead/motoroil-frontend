@@ -55,11 +55,11 @@ export const useAuthStore = defineStore({
           this.isLogin = false
         })
         .catch((err) => {
-          notify.error({
-            title: 'Error',
-            message: 'While logging out. Please try again!',
-            position: 'bottomRight',
-          })
+          // notify.error({
+          //   title: 'Error',
+          //   message: 'While logging out. Please try again!',
+          //   position: 'bottomRight',
+          // })
         })
       this.token = ''
       sessionStorage.removeItem('Authorization')
@@ -80,11 +80,11 @@ export const useAuthStore = defineStore({
           sessionStorage.removeItem('sb_id')
         })
         .catch((err) => {
-          notify.error({
-            title: 'Error',
-            message: 'While logging out. Please try again!',
-            position: 'bottomRight',
-          })
+          // notify.error({
+          //   title: 'Error',
+          //   message: 'While logging out. Please try again!',
+          //   position: 'bottomRight',
+          // })
         })
     },
     async sendRecoveryEmail(email) {
@@ -110,7 +110,7 @@ export const useAuthStore = defineStore({
         .get(`${API_URL}/user`, { headers: authHeader() })
         .then((response) => {
           this.user = response?.data
-          this.userId = response?.data?.id
+          this.userId = response?.data?.uuid
           sessionStorage.setItem('role', response?.data?.role)
           if (response?.data?.role === 'user') useUserStore().getCart()
         })

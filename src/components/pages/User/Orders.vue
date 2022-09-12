@@ -36,7 +36,7 @@ onMounted(() => {
           <li class="text-gray-700">{{$t('orders')}}</li>
         </ul>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <Sidebar />
         <div class="col-span-3">
           <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{$t('myOrders')}}</div>

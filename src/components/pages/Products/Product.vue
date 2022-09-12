@@ -26,6 +26,7 @@ import HeartFillIcon from '../../../assets/icons/HeartFillIcon.vue';
 import YoutubeIcon from '../../../assets/icons/YoutubeIcon.vue';
 import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import { useRouter } from 'vue-router';
+import { useAnalyticsStore } from '../../../stores/analytics.js';
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 const router = useRouter()
@@ -33,6 +34,7 @@ const store = useProductStore()
 const authStore = useAuthStore()
 const modalStore = useModalStore()
 const userStore = useUserStore()
+const analyticsStore = useAnalyticsStore()
 
 const selectedImage = ref('')
 const currentRating = ref(5)
@@ -52,6 +54,27 @@ onMounted(() => {
     top: 0,
     behavior: 'smooth'
   })
+
+  let eventData = {}
+  if (authStore.userId) {
+    eventData = {
+      name: 'productViewed',
+      visitorId:
+        localStorage.getItem('visitorId') || analyticsStore.visitorId,
+      productId: sessionStorage.getItem('sp_id'),
+      userId: authStore.userId,
+      page: 'products',
+    }
+  } else {
+    eventData = {
+      name: 'productViewed',
+      visitorId:
+        localStorage.getItem('visitorId') || analyticsStore.visitorId,
+      productId: sessionStorage.getItem('sp_id'),
+      page: 'products',
+    }
+  }
+  analyticsStore.saveEvent(eventData)
 })
 
 const setImageFull = (img) => selectedImage.value = img
@@ -144,7 +167,7 @@ const deleteCurrentProduct = (id) => {
           }}</li>
         </ul>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <Sidebar />
         <div class="col-span-3 px-3">
           <div class="grid grid-cols-2 gap-7">

@@ -8,6 +8,9 @@ import ProductsSection from './parts/ProductsSection.vue';
 import { ref } from '@vue/reactivity';
 import { onClickOutside } from '@vueuse/core'
 import { useProductStore } from '../../../stores/product.js';
+import { onMounted } from '@vue/runtime-core';
+import { useAnalyticsStore } from '../../../stores/analytics.js';
+import { useAuthStore } from '../../../stores/auth.js';
 
 const store = useProductStore()
 const isOpenSortDropDown = ref(false)
@@ -17,6 +20,27 @@ const toggleDropDown = () => {
 }
 
 onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
+
+onMounted(() => {
+  let eventData = {}
+  if (useAuthStore().userId) {
+    eventData = {
+      name: 'pageVisited',
+      visitorId:
+        localStorage.getItem('visitorId') || useAnalyticsStore().visitorId,
+      userId: useAuthStore().userId,
+      page: 'products',
+    }
+  } else {
+    eventData = {
+      name: 'pageVisited',
+      visitorId:
+        localStorage.getItem('visitorId') || useAnalyticsStore().visitorId,
+      page: 'products',
+    }
+  }
+  useAnalyticsStore().saveEvent(eventData)
+})
 </script>
 
 <template>
@@ -35,7 +59,7 @@ onClickOutside(sortDropDown, () => isOpenSortDropDown.value = false)
           </li>
         </ul>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <Sidebar />
         <div class="col-span-3 ml-3">
           <div class="flex items-center justify-between mb-2">
