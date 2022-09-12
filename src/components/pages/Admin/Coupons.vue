@@ -3,6 +3,8 @@
 import { useProductStore } from '../../../stores/product.js'
 import { useUserStore } from '../../../stores/user.js'
 import { onMounted, reactive } from '@vue/runtime-core';
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import CalendarCheckIcon from '../../../assets/icons/CalendarCheckIcon.vue';
 import CalendarXIcon from '../../../assets/icons/CalendarXIcon.vue';
 import { formatDateTime } from '../../../mixins/utils.js';
@@ -18,11 +20,34 @@ const coupon = reactive({
 })
 
 const create = () => {
-    userStore.addCoupon(coupon)
-    coupon.userId = ''
-    coupon.startedAt = ''
-    coupon.expiredAt = ''
-    coupon.price = ''
+  if (coupon.userId === ''){
+    notify.error({
+			message: 'Please, select a user!',
+			position: 'bottomRight'
+		})
+  } else if (coupon.price === ''){
+    notify.error({
+			message: 'Please, enter coupon price!',
+			position: 'bottomRight'
+		})
+  } else if (coupon.startedAt === ''){
+    notify.error({
+			message: 'Please, enter coupon started at!',
+			position: 'bottomRight'
+		})
+  } else if (coupon.expiredAt === ''){
+    notify.error({
+			message: 'Please, enter coupon expired at!',
+			position: 'bottomRight'
+		})
+  } else {
+    userStore.addCoupon(coupon).then(() => {
+      coupon.userId = ''
+      coupon.startedAt = ''
+      coupon.expiredAt = ''
+      coupon.price = ''
+    })
+  }
 }
 
 onMounted(() => {
@@ -57,9 +82,9 @@ const couponStatusColor = (start, end) => {
 <template>
 <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          <div class="flex flex-col md:col-span-2 ml-3">
-            <div class="p-3 text-2xl font-semibold text-gray-700 overflow-x-auto overflow-y-hidden">{{ $t('addCoupon') }}</div>
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div class="flex flex-col ml-3 md:col-span-2">
+            <div class="p-3 overflow-x-auto overflow-y-hidden text-2xl font-semibold text-gray-700">{{ $t('addCoupon') }}</div>
               <table class="min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-50">
                 <tr>
