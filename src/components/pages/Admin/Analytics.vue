@@ -19,13 +19,13 @@ const viewData = {
   datasets: [
     {
       label: 'User',
-      data: [30, 40, 60, 70, 5],
-      backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+      data: [60, 70, 5],
+      backgroundColor: ['#77CEFF'],
     },
     {
       label: 'Ghost',
-      data: [10, 40, 60, 70, 5],
-      backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+      data: [10, 40, 60],
+      backgroundColor: ['#f00'],
     },
   ],
 }
@@ -69,9 +69,9 @@ onMounted(() => {
   <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container">
       <h3 class="pb-2 mb-3 text-2xl font-bold border-b ">Analytics</h3>
-      <div v-if="!useSkeletonStore().isContentLoaded" role="status" class="max-w-sm p-4 animate-pulse md:p-6 dark:border-gray-700">
+      <div v-if="!useSkeletonStore().isContentLoaded" role="status" class="w-full max-w-sm p-4 mx-auto animate-pulse md:p-6 dark:border-gray-700">
         <div class="h-2.5 bg-gray-200 rounded-full  w-32 mb-2.5"></div>
-        <div class="w-48 h-2 mb-10 bg-gray-200 rounded-full "></div>
+        <div class="w-1/2 h-2 mb-10 bg-gray-200 rounded-full "></div>
         <div class="flex items-baseline mt-4 space-x-6">
             <div class="w-full bg-gray-200 rounded-t-lg h-72 "></div>
             <div class="w-full h-56 bg-gray-200 rounded-t-lg "></div>
@@ -81,7 +81,6 @@ onMounted(() => {
             <div class="w-full bg-gray-200 rounded-t-lg h-72 "></div>
             <div class="w-full bg-gray-200 rounded-t-lg h-80 "></div>
         </div>
-        <span class="sr-only">Loading...</span>
       </div>
       <div v-else>
         <div class="grid grid-cols-4 gap-10">
@@ -146,14 +145,14 @@ onMounted(() => {
             </div>
           </div>
         </div>
-      </div>
-      <div class="grid grid-cols-2 gap-10 mt-10">
-        <div class="p-3 border rounded-xl">
-          <BarChart :chartData="viewData" />
-        </div>
-        <div class="grid items-center grid-cols-2 p-3 border divide-x rounded-xl">
-          <DoughnutChart :chartData="donut" />
-          <DoughnutChart :chartData="donut" />
+        <div class="grid grid-cols-2 gap-10 mt-10">
+          <div class="p-3 border rounded-xl">
+            <BarChart :chartData="viewData" />
+          </div>
+          <div class="grid items-center grid-cols-2 p-3 border divide-x rounded-xl">
+            <DoughnutChart :chartData="donut" />
+            <DoughnutChart :chartData="donut" />
+          </div>
         </div>
       </div>
     </div>
