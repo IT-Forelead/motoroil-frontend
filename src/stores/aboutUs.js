@@ -14,7 +14,6 @@ export const useAboutUsStore = defineStore({
         aboutUsInfos: [],
         workers: [],
     }),
-    getters: {},
     actions: {
         async getAllAboutUsInfos() {
             const response = await axios.get(`${API_URL}/get-about-us`)
@@ -44,6 +43,30 @@ export const useAboutUsStore = defineStore({
               notify.error({
                 title: 'Error',
                 message: 'While adding information!',
+                position: 'bottomRight',
+              })
+            })
+        },
+        async editInformation(data) {
+          await axios
+            .put(`${API_URL}/admin/edit-information`, data, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: authHeaderForMultipart(),
+              },
+            })
+            .then(() => {
+              notify.success({
+                message: 'Information edited!',
+                position: 'bottomRight',
+              })
+              this.getAllAboutUsInfos()
+              useModalStore().closeEditAboutUsInfoModal()
+            })
+            .catch(() => {
+              notify.error({
+                title: 'Error',
+                message: 'While editing information!',
                 position: 'bottomRight',
               })
             })

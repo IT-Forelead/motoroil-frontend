@@ -39,17 +39,17 @@ function getImage(e) {
 const submitEditBlogData = () => {
 	const formData = new FormData()
 	if (blog.id === ''){
-		notify.success({
+		notify.error({
 			message: 'Blog id not found!',
 			position: 'bottomRight'
 		})
 	} else if (blog.title === ''){
-		notify.success({
+		notify.error({
 			message: 'Enter a title!',
 			position: 'bottomRight'
 		})
 	} else if ($('#blog-text .ql-editor').html().length < 100){
-		notify.success({              
+		notify.error({              
 			message: 'Enter a longger description!',
 			position: 'bottomRight'
 		})

@@ -256,7 +256,7 @@ const submitWorkerData = () => {
     </div>
   </div>
 </div>
-<!-- Add Information Modal -->
+<!-- Add Worker Modal -->
 <div :class="{ hidden: !modalStore.isOpenAddWorkerModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
   <div class="relative w-full h-full max-w-5xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
     <div class="relative bg-white rounded shadow dark:bg-gray-700">
@@ -359,7 +359,7 @@ const submitWorkerData = () => {
     </div>
   </div>
 </div>
-<!-- Add Information Modal -->
+<!-- Edit Worker Modal -->
 <div :class="{ hidden: !modalStore.isOpenEditWorkerModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
   <div class="relative w-full h-full max-w-5xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
     <div class="relative bg-white rounded shadow dark:bg-gray-700">
