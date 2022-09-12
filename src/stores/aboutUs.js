@@ -95,6 +95,30 @@ export const useAboutUsStore = defineStore({
               })
             })
         },
+        async editWorker(data) {
+          await axios
+            .put(`${API_URL}/admin/edit-worker`, data, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: authHeaderForMultipart(),
+              },
+            })
+            .then(() => {
+              notify.success({
+                message: 'Worker edited!',
+                position: 'bottomRight',
+              })
+              this.getAllWorkers()
+              useModalStore().closeEditWorkerModal()
+            })
+            .catch(() => {
+              notify.error({
+                title: 'Error',
+                message: 'While worker editing',
+                position: 'bottomRight',
+              })
+            })
+        },
         async deleteWorker(id) {
           await axios
             .get(`${API_URL}/admin/delete-worker/${id}`, { headers: authHeader() })

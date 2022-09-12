@@ -41,6 +41,24 @@ export const useDiscountStore = defineStore({
               })
             })
         },
+        async editDiscount(data) {
+          await axios
+            .post(`${API_URL}/admin/edit-discount`, data, { headers: authHeader() })
+            .then(() => {
+              notify.success({
+                message: 'Discount edited!',
+                position: 'bottomRight',
+              })
+              this.getDiscounts()
+              useModalStore().closeEditDiscountModal()
+            })
+            .catch(() => {
+              notify.warning({
+                message: 'Discount not editing!',
+                position: 'bottomRight',
+              })
+            })
+        },
         async addDiscountToProduct(data) {
           if (data.productIds.length > 0){
             await axios

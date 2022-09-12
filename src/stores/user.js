@@ -4,6 +4,7 @@ import authHeader from '../mixins/auth/auth-header.js'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { useAuthStore } from './auth.js'
+import { useModalStore } from './modal.js'
 
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
@@ -187,6 +188,24 @@ export const useUserStore = defineStore({
         .catch(() => {
           notify.warning({
             message: 'While address adding!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async editUserAddress(data) {
+      await axios
+        .post(`${API_URL}/user/edit-user-address`, data, {headers: authHeader()})
+        .then(() => {
+          notify.success({
+            message: 'Address edited!',
+            position: 'bottomRight',
+          })
+          this.getUserAddresses()
+          useModalStore().closeEditAddressModal()
+        })
+        .catch(() => {
+          notify.warning({
+            message: 'While address editing!',
             position: 'bottomRight',
           })
         })
