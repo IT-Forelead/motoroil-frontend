@@ -110,7 +110,7 @@ export const useAuthStore = defineStore({
         .get(`${API_URL}/user`, { headers: authHeader() })
         .then((response) => {
           this.user = response?.data
-          this.userId = response?.data?.id
+          this.userId = response?.data?.uuid
           sessionStorage.setItem('role', response?.data?.role)
           if (response?.data?.role === 'user') useUserStore().getCart()
         })

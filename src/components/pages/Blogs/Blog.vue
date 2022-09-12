@@ -28,20 +28,20 @@ onMounted(() => {
 
 	let eventData = {}
 	if (authStore.userId) {
-	eventData = {
-		name: 'pageVisited',
-		visitorId:
-		localStorage.getItem('visitorId') || analyticsStore.visitorId,
-		userId: authStore.userId,
-		page: 'blogs',
-	} 
+		eventData = {
+			name: 'pageVisited',
+			visitorId:
+			localStorage.getItem('visitorId') || analyticsStore.visitorId,
+			userId: authStore.userId,
+			page: 'blogs',
+		} 
 	} else {
-	eventData = {
-		name: 'pageVisited',
-		visitorId:
-		localStorage.getItem('visitorId') || analyticsStore.visitorId,
-		page: 'blogs',
-	}
+		eventData = {
+			name: 'pageVisited',
+			visitorId:
+			localStorage.getItem('visitorId') || analyticsStore.visitorId,
+			page: 'blogs',
+		}
 	}
 	analyticsStore.saveEvent(eventData)
 })
