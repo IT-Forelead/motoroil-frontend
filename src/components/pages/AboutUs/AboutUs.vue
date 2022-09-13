@@ -11,7 +11,7 @@ import CloseIcon from '../../../assets/icons/CloseIcon.vue';
 import { useAuthStore } from '../../../stores/auth.js';
 import { useAboutUsStore } from '../../../stores/aboutUs.js';
 import { useModalStore } from '../../../stores/modal.js';
-import { onMounted, reactive, ref } from '@vue/runtime-core';
+import { computed, onMounted, reactive, ref, watch } from '@vue/runtime-core';
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import $ from 'jquery'
@@ -30,6 +30,30 @@ onMounted(() => {
 
 const informationTitle = ref('')
 const informationImage = ref('')
+
+const editInformation = reactive({
+  id: '',
+  title: '',
+  defaultKey: '',
+  image: ''
+})
+watch(
+  () => aboutUsStore.singleAboutUs,
+  () => {
+    editInformation.id = aboutUsStore.getAboutUsId
+    editInformation.title = aboutUsStore.getAboutUsTitle
+    $('#edit-information-text .ql-editor').html(aboutUsStore.getAboutUsText)
+    editInformation.defaultKey = aboutUsStore.getAboutUsDefaultKey
+  },
+  { deep: true }
+)
+
+editInformation.title = aboutUsStore.getAboutUsTitle
+function getEditImage(e) {
+  if (e?.target?.files[0].type.includes('image')) {
+    editInformation.image = e?.target?.files[0]
+  }
+}
 
 const workerData = reactive({
   "fullname": '',
@@ -78,6 +102,36 @@ const submitInformationData = () => {
     aboutUsStore.createInformation(formData).then(() => {
       informationTitle.value = ''
       informationImage.value = ''
+    })
+  }
+}
+
+const submitEditInformation = () => {
+  const formData = new FormData()
+  if (editInformation.title === ''){
+		notify.error({
+			message: 'Enter a title!',
+			position: 'bottomRight'
+		})
+	} else if ($('#edit-information-text .ql-editor').html().length < 100){
+		notify.error({              
+			message: 'Enter a longger description!',
+			position: 'bottomRight'
+		})
+	} else {
+    formData.append('id', editInformation.id)
+    formData.append('aboutUsTitle', editInformation.title)
+    formData.append('aboutUsText', $('#edit-information-text .ql-editor').html())
+    if (editInformation.image){
+      formData.append('aboutUsImage', editInformation.image)
+    } else {
+      formData.append('defaultImageUrl', editInformation.defaultKey)
+    }
+    aboutUsStore.editInformation(formData).then(() => {
+      editInformation.id = ''
+      editInformation.title = ''
+      editInformation.defaultKey = ''
+      editInformation.image = ''
     })
   }
 }
@@ -262,7 +316,7 @@ const submitWorkerData = () => {
     </div>
   </div>
 </div>
-<!-- edit Information Modal -->
+<!-- Edit Information Modal -->
 <div :class="{ hidden: !modalStore.isOpenEditAboutUsInfoModal }" class="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur bg-gray-900/50">
   <div class="relative w-full h-full max-w-3xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
     <div class="relative bg-white rounded shadow dark:bg-gray-700">
@@ -274,24 +328,27 @@ const submitWorkerData = () => {
         </button>
       </div>
       <div class="px-6 py-3 space-y-6">
-        <form class="my-3">
+        <form @submit.prevent="submitEditInformation()" class="my-3">
           <div class="flex flex-col space-y-5">
             <label for="edit-information-title">
               <p class="pb-2 font-medium text-slate-700">{{ $t('title') }}</p>
               <input
                 id="edit-information-title"
+                v-model="editInformation.title"
                 type="text"
                 class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                 placeholder="Enter title"
               />
             </label>
-            <label for="information-text">
+            <label for="edit-information-text">
               <p class="mt-2 font-medium text-slate-700">{{ $t('text') }}</p>
-              <QuillEditor theme="snow" id="information-text" />
+              <div class="overflow-y-auto max-h-96">
+                <QuillEditor theme="snow" id="edit-information-text" />
+              </div>
             </label>
-            <label for="information-text">
+            <label for="edit-information-image">
               <p class="mt-2 font-medium text-slate-700">{{ $t('image') }}</p>
-              <input type="file" class="w-full px-3 py-3"/>
+              <input type="file" @change="getEditImage" class="w-full px-3 py-3"/>
             </label>
             <button class="inline-flex items-center justify-center w-full py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
               <span>{{ $t('save') }}</span>

@@ -13,11 +13,29 @@ export const useAboutUsStore = defineStore({
     state: () => ({
         aboutUsInfos: [],
         workers: [],
+        singleAboutUs: {}
     }),
+    getters: {
+      getAboutUsId(){
+        return this.singleAboutUs?.id
+      },
+      getAboutUsTitle(){
+        return this.singleAboutUs?.title
+      },
+      getAboutUsText(){
+        return this.singleAboutUs?.text
+      },
+      getAboutUsDefaultKey(){
+        return this.singleAboutUs?.imageUrl
+      }
+    },
     actions: {
         async getAllAboutUsInfos() {
             const response = await axios.get(`${API_URL}/get-about-us`)
             this.aboutUsInfos = response.data
+        },
+        async getSingleAboutUsInfo(id) {
+            this.singleAboutUs = this.aboutUsInfos.filter(i => i?.id === id)[0]
         },
         async getAllWorkers() {
             const response = await axios.get(`${API_URL}/workers`)
