@@ -11,6 +11,7 @@ import UsersIcon from '../../../assets/icons/UsersIcon.vue'
 import OrderIcon from '../../../assets/icons/OrderIcon.vue'
 import { useProductStore } from '../../../stores/product'
 import { useOrderStore } from '../../../stores/order'
+import MoneyBillTrendUpIcon from '../../../assets/icons/MoneyBillTrendUpIcon.vue'
 
 const analyticsStore = useAnalyticsStore()
 
@@ -201,14 +202,11 @@ onMounted(() => {
               </div>
               <MoneyBagIcon class="w-10 h-10" />
             </div>
-            <div class="mt-10">
-              <p class="text-right">
-                <span class="text-green-400">40%</span> $350
-              </p>
-              <div class="relative w-full h-5 rounded progressbar bg-slate-200">
-                <div
-                  class="absolute left-0 bg-green-400 rounded h-5 w-[10%]"
-                ></div>
+            <div class="flex items-center justify-between w-full mt-7">
+              <MoneyBillTrendUpIcon class="w-10 h-10"/>
+              <div class="space-y-3">
+                <div class="w-10 h-3 ml-auto bg-gray-100 rounded-full"></div>
+                <div class="w-24 h-3 bg-gray-100 rounded-full"></div>
               </div>
             </div>
           </div>
