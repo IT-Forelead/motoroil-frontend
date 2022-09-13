@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineComponent, onMounted, reactive, ref, watch } from 'vue'
-import { DoughnutChart, BarChart } from 'vue-chart-3'
+import { DoughnutChart, BarChart, PieChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { useAnalyticsStore } from '../../../stores/analytics'
 import { useSkeletonStore } from '../../../stores/skeleton'
@@ -16,15 +16,16 @@ const analyticsStore = useAnalyticsStore()
 
 Chart.register(...registerables)
 
+const pages = ref([])
 const userView = ref([])
 const ghostView = ref([])
+const productUserView = ref([])
+const productGhostView = ref([])
 
 function newProductChecker(createdAt) {
   let today = new Date()
   return new Date(today.setDate(today.getDate() - 30)) <= new Date(createdAt)
 }
-
-const pages = ref([])
 
 watch(
   () => analyticsStore.events,
@@ -36,22 +37,54 @@ watch(
       new Set(events?.map((e) => e?.page).filter((p) => p))
     )
     userView.value.push(
-      events?.filter((e) => e?.page === pages.value[0] && e?.userId && e?.name === 'pageVisited').length
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[0] && e?.userId && e?.name === 'pageVisited'
+      ).length
     )
     userView.value.push(
-      events?.filter((e) => e?.page === pages.value[1] && e?.userId && e?.name === 'pageVisited').length
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[1] && e?.userId && e?.name === 'pageVisited'
+      ).length
     )
     userView.value.push(
-      events?.filter((e) => e?.page === pages.value[2] && e?.userId && e?.name === 'pageVisited').length
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[2] && e?.userId && e?.name === 'pageVisited'
+      ).length
     )
     ghostView.value.push(
-      events?.filter((e) => e?.page === pages.value[0] && !e?.userId && e?.name === 'pageVisited').length
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[0] && !e?.userId && e?.name === 'pageVisited'
+      ).length
     )
     ghostView.value.push(
-      events?.filter((e) => e?.page === pages.value[1] && !e?.userId && e?.name === 'pageVisited').length
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[1] && !e?.userId && e?.name === 'pageVisited'
+      ).length
     )
     ghostView.value.push(
-      events?.filter((e) => e?.page === pages.value[2] && !e?.userId && e?.name === 'pageVisited').length
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[2] && !e?.userId && e?.name === 'pageVisited'
+      ).length
+    )
+    productUserView.value.push(
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[1] && e?.userId && e?.name === 'productViewed'
+      ).length
+    )
+    productGhostView.value.push(
+      events?.filter(
+        (e) =>
+          e?.page === pages.value[1] &&
+          !e?.userId &&
+          e?.name === 'productViewed'
+      ).length
     )
   },
   { deep: true }
@@ -74,16 +107,37 @@ const viewData = computed(() => {
     ],
   }
 })
-const donut = {
-  labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
-  datasets: [
-    {
-      label: 'User',
-      data: [30, 40, 60, 70, 5],
-      backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
-    },
-  ],
-}
+const donut = computed(() => {
+  return {
+    labels: ['User', 'Ghost'],
+    datasets: [
+      {
+        label: 'User',
+        data: [...productUserView.value, ...productGhostView.value],
+        backgroundColor: ['#77CEFF', '#123E6B'],
+      },
+    ],
+  }
+})
+const donut2 = computed(() => {
+  return {
+    labels: ['Products', 'Orders'],
+    datasets: [
+      {
+        label: 'User',
+        data: [
+          useProductStore()
+            .products?.map((p) => p?.product?.quantity)
+            .reduce((q, a) => q + a, 0),
+          useProductStore()
+            .products?.map((p) => p?.product?.orders)
+            .reduce((q, a) => q + a, 0),
+        ],
+        backgroundColor: ['#FACA15', '#31C48D'],
+      },
+    ],
+  }
+})
 
 const discountStatusSum = reactive({
   active: 0,
@@ -93,6 +147,7 @@ const discountStatusSum = reactive({
 
 onMounted(() => {
   useAnalyticsStore().getAnalytics()
+  useProductStore().getAllProducts()
   useAnalyticsStore().getUsersByRole()
   useDiscountStore()
     .getDiscounts()
@@ -228,13 +283,18 @@ onMounted(() => {
         </div>
         <div class="grid grid-cols-2 gap-10 mt-10">
           <div class="p-3 border rounded-xl">
+            <p class="text-lg font-bold text-center text-gray-600 capitalize">Pages visited report</p>
             <BarChart :chartData="viewData" />
           </div>
-          <div
-            class="grid items-center grid-cols-2 p-3 border divide-x rounded-xl"
-          >
-            <DoughnutChart :chartData="donut" />
-            <DoughnutChart :chartData="donut" />
+          <div class="grid items-center grid-cols-2 p-3 border divide-x rounded-xl">
+            <div>
+              <p class="text-lg font-bold text-center text-gray-600 capitalize">Product Viewed reports</p>
+              <DoughnutChart :chartData="donut" />
+            </div>
+            <div>
+              <p class="text-lg font-bold text-center text-gray-600 capitalize">Product order report</p>
+              <PieChart :chartData="donut2" />
+            </div>
           </div>
         </div>
       </div>
