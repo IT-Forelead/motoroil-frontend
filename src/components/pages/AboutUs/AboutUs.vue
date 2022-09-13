@@ -49,13 +49,6 @@ watch(
   { deep: true }
 )
 
-editInformation.title = aboutUsStore.getAboutUsTitle
-function getEditImage(e) {
-  if (e?.target?.files[0].type.includes('image')) {
-    editInformation.image = e?.target?.files[0]
-  }
-}
-
 const workerData = reactive({
   "fullname": '',
   "position": '',
@@ -67,15 +60,56 @@ const workerData = reactive({
   "skype": '',
 })
 
+const editWorker = reactive({
+  id: '',
+  fullname: '',
+  position: '',
+  description: '',
+  defaultImage: '',
+  image: '',
+  email: '',
+  facebook: '',
+  twitter: '',
+  skype: '',
+})
+
+watch(
+  () => aboutUsStore.singleWorker,
+  () => {
+    editWorker.id = aboutUsStore.getWorkerId
+    editWorker.defaultImage = aboutUsStore.getWorkerDefaultImage
+    editWorker.fullname = aboutUsStore.getWorkerFullName
+    editWorker.position = aboutUsStore.getWorkerPosition
+    editWorker.description = aboutUsStore.getWorkerDesc
+    editWorker.email = aboutUsStore.getWorkerEmail
+    editWorker.facebook = aboutUsStore.getWorkerFacebook
+    editWorker.twitter = aboutUsStore.getWorkerTwitter
+    editWorker.skype = aboutUsStore.getWorkerSkype
+  },
+  { deep: true }
+)
+
 function getImage(e) {
   if (e?.target?.files[0].type.includes('image')) {
     informationImage.value = e?.target?.files[0]
   }
 }
 
+function getEditImage(e) {
+  if (e?.target?.files[0].type.includes('image')) {
+    editInformation.image = e?.target?.files[0]
+  }
+}
+
 function getWorkerImage(e) {
   if (e?.target?.files[0].type.includes('image')) {
     workerData.image = e?.target?.files[0]
+  }
+}
+
+function getEditWorkerImage(e) {
+  if (e?.target?.files[0].type.includes('image')) {
+    editWorker.image = e?.target?.files[0]
   }
 }
 
@@ -185,6 +219,57 @@ const submitWorkerData = () => {
     })
   }
 }
+
+const submitEditWorker = () => {
+  const formData = new FormData()
+  if (editWorker.fullname === ''){
+		notify.error({
+			message: 'Please, enter fullname!',
+			position: 'bottomRight'
+		})
+	} else if (editWorker.position === ''){
+		notify.error({              
+			message: 'Please, enter position!',
+			position: 'bottomRight'
+		})
+	} else if (editWorker.description === ''){
+		notify.error({              
+			message: 'Please, enter description!',
+			position: 'bottomRight'
+		})
+	} else if (editWorker.email === ''){
+		notify.error({              
+			message: 'Please, enter email!',
+			position: 'bottomRight'
+		})
+	} else {
+    formData.append('id', editWorker.id)
+    formData.append('workerFullName', editWorker.fullname)
+    formData.append('workerPosition', editWorker.position)
+    formData.append('workerDesc', editWorker.description)
+    if (editWorker.image){
+      formData.append('workerImage', editWorker.image)
+    } else {
+      formData.append('defaultWorkerImage', editWorker.defaultImage)
+    }
+    formData.append('workerEmail', editWorker.email)
+    formData.append('workerFacebook', editWorker.facebook)
+    formData.append('workerTwitter', editWorker.twitter)
+    formData.append('workerSkype', editWorker.skype)
+    aboutUsStore.editWorker(formData).then(() => {
+      editWorker.id = ''
+      editWorker.fullname = ''
+      editWorker.position = ''
+      editWorker.description = ''
+      editWorker.defaultImage = ''
+      editWorker.image = ''
+      editWorker.email = ''
+      editWorker.facebook = ''
+      editWorker.twitter = ''
+      editWorker.skype = ''
+    })
+  }
+}
 </script>
 
 <template>
@@ -214,7 +299,9 @@ const submitWorkerData = () => {
         <div v-for="(information, idx) in aboutUsStore.aboutUsInfos" :key="idx">
           <div class="flex items-center justify-between">
             <div class="p-3 text-2xl font-semibold text-gray-700">{{ information?.title }}</div>
-            <DropDown :id="information?.id"/>
+            <div v-if="authStore.user?.role === 'admin'">
+              <DropDown :id="information?.id"/>
+            </div>
           </div>
           <div>
             <div class="float-left mb-5 mr-5 w-[30rem]">
@@ -266,7 +353,7 @@ const submitWorkerData = () => {
                   </a>
                 </li>
               </ul>
-              <div class="absolute right-0 top-1">
+              <div v-if="authStore.user?.role === 'admin'" class="absolute right-0 top-1">
                 <WorkerDropDown :id="worker?.id"/>
               </div>
             </div>
@@ -482,6 +569,7 @@ const submitWorkerData = () => {
                 <p class="pb-2 font-medium text-slate-700">Full name</p>
                 <input
                   id="edit-worker-fullname"
+                  v-model="editWorker.fullname"
                   type="text"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter title"
@@ -491,6 +579,7 @@ const submitWorkerData = () => {
                 <p class="pb-2 font-medium text-slate-700">Position</p>
                 <input
                   id="edit-worker-position"
+                  v-model="editWorker.position"
                   type="text"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter Position"
@@ -500,6 +589,7 @@ const submitWorkerData = () => {
                 <p class="pb-2 font-medium text-slate-700">Description</p>
                 <input
                   id="edit-worker-description"
+                  v-model="editWorker.description"
                   type="text"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter description"
@@ -507,7 +597,7 @@ const submitWorkerData = () => {
               </label>
               <label for="edit-worker-image">
                 <p class="mt-2 font-medium text-slate-700">Image</p>
-                <input id="edit-worker-image" type="file" class="w-full px-3 py-3"/>
+                <input @change="getEditWorkerImage" id="edit-worker-image" type="file" class="w-full px-3 py-3"/>
               </label>
             </div>
             <div class="flex flex-col space-y-5">
@@ -515,6 +605,7 @@ const submitWorkerData = () => {
                 <p class="pb-2 font-medium text-slate-700">Email</p>
                 <input
                   id="edit-worker-email"
+                  v-model="editWorker.email"
                   type="email"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter worker's email"
@@ -524,6 +615,7 @@ const submitWorkerData = () => {
                 <p class="pb-2 font-medium text-slate-700">Facebook</p>
                 <input
                   id="edit-worker-facebook"
+                  v-model="editWorker.facebook"
                   type="text"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter facebook username"
@@ -533,6 +625,7 @@ const submitWorkerData = () => {
                 <p class="pb-2 font-medium text-slate-700">Twitter</p>
                 <input
                   id="edit-worker-twitter"
+                  v-model="editWorker.twitter"
                   type="text"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter twitter username"
@@ -542,6 +635,7 @@ const submitWorkerData = () => {
                 <p class="pb-2 font-medium text-slate-700">Skype</p>
                 <input
                   id="edit-worker-skype"
+                  v-model="editWorker.skype"
                   type="text"
                   class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
                   placeholder="Enter skype username"
@@ -550,7 +644,7 @@ const submitWorkerData = () => {
             </div>
           </div>
           <div class="flex justify-end pt-3 mt-3 border-t border-gray-300">
-            <button class="inline-flex items-center justify-center py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded w-28 hover:bg-red-400 hover:shadow">
+            <button @click.prevent="submitEditWorker()" class="inline-flex items-center justify-center py-3 space-x-2 font-medium text-white bg-red-500 border-red-500 rounded w-28 hover:bg-red-400 hover:shadow">
               <span>{{ $t('save') }}</span>
             </button>
           </div>

@@ -13,8 +13,31 @@ export const useDiscountStore = defineStore({
     state: () => ({
         discountsByDate: [],
         discounts: [],
+        singleDiscount: {},
     }),
-    getters: {},
+    getters: {
+      getDiscountId(){
+        return this.singleDiscount?.id
+      },
+      getDiscountCreatedAt(){
+        return this.singleDiscount?.createdAt
+      },
+      getDiscountDesc(){
+        return this.singleDiscount?.description
+      },
+      getDiscountPercent(){
+        return this.singleDiscount?.discountPercent
+      },
+      getDiscountExpiredAt(){
+        return this.singleDiscount?.expiredAt
+      },
+      getDiscountName(){
+        return this.singleDiscount?.name
+      },
+      getDiscountStartedAt(){
+        return this.singleDiscount?.startedAt
+      }
+    },
     actions: {
         async getDiscountsByDate() {
             const response = await axios.get(`${API_URL}/discounts-by-date`)
@@ -23,6 +46,9 @@ export const useDiscountStore = defineStore({
         async getDiscounts() {
             const response = await axios.get(`${API_URL}/admin/discounts`, {headers: authHeader()})
             this.discounts = response.data
+        },
+        async getSingleDiscount(id) {
+            this.singleDiscount = this.discounts.filter(i => i?.id === id)[0]
         },
         async createDiscount(data) {
           await axios

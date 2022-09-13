@@ -35,7 +35,7 @@ onClickOutside(drop, () => $(`#${id.value}`).hide('fast'))
         </div>
     </div>
     <ul :id="id" class="absolute z-10 hidden w-32 py-1 text-sm text-gray-700 bg-white rounded shadow right-1 top-9">
-        <li @click="modalStore.openEditWorkerModal()" class="flex items-center px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
+        <li @click="modalStore.openEditWorkerModal(); aboutUsStore.getSingleWorker(id)" class="flex items-center px-4 py-2 capitalize cursor-pointer hover:bg-gray-100">
             <PencilDuotoneIcon class="w-5 h-5 mr-2"/>
             <span>Edit</span>
         </li>

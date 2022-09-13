@@ -17,11 +17,41 @@ export const useUserStore = defineStore({
     wishlist: [],
     coupons: [],
     addresses: [],
+    singleAddress: {},
     countries: [],
     regions: [],
     cities: [],
     cartSum: 0
   }),
+  getters: {
+    getAddressId(){
+      return this.singleAddress?.id
+    },
+    getAddressUserId(){
+      return this.singleAddress?.userId
+    },
+    getAddressReceiverFullName(){
+      return this.singleAddress?.receiverFullName
+    },
+    getAddressReceiverPhone(){
+      return this.singleAddress?.receiverPhone
+    },
+    getAddressCountryId(){
+      return this.singleAddress?.countryId
+    },
+    getAddressRegionId(){
+      return this.singleAddress?.regionId
+    },
+    getAddressCityId(){
+      return this.singleAddress?.cityId
+    },
+    getAddressStreet(){
+      return this.singleAddress?.street
+    },
+    getAddressPostalCode(){
+      return this.singleAddress?.postalCode
+    }
+  },
   actions: {
     async getNotifications() {
       if (useAuthStore().user?.role === 'user'){
@@ -49,6 +79,9 @@ export const useUserStore = defineStore({
     async getUserAddresses() { 
         const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
         this.addresses = response.data
+    },
+    async getSingleUserAddress(id) {
+        this.singleAddress = this.addresses.filter(i => i?.id === id)[0]
     },
     async getCountries() {
         const response = await axios.get(`${API_URL}/user/countries`, {headers: authHeader()})

@@ -13,7 +13,8 @@ export const useAboutUsStore = defineStore({
     state: () => ({
         aboutUsInfos: [],
         workers: [],
-        singleAboutUs: {}
+        singleAboutUs: {},
+        singleWorker: {}
     }),
     getters: {
       getAboutUsId(){
@@ -27,7 +28,34 @@ export const useAboutUsStore = defineStore({
       },
       getAboutUsDefaultKey(){
         return this.singleAboutUs?.imageUrl
-      }
+      },
+      getWorkerId(){
+        return this.singleWorker?.id
+      },
+      getWorkerDefaultImage(){
+        return this.singleWorker?.imageUrl
+      },
+      getWorkerFullName(){
+        return this.singleWorker?.fullName
+      },
+      getWorkerPosition(){
+        return this.singleWorker?.position
+      },
+      getWorkerDesc(){
+        return this.singleWorker?.description
+      },
+      getWorkerEmail(){
+        return this.singleWorker?.email
+      },
+      getWorkerFacebook(){
+        return this.singleWorker?.facebook
+      },
+      getWorkerTwitter(){
+        return this.singleWorker?.twitter
+      },
+      getWorkerSkype(){
+        return this.singleWorker?.skype
+      },
     },
     actions: {
         async getAllAboutUsInfos() {
@@ -38,8 +66,11 @@ export const useAboutUsStore = defineStore({
             this.singleAboutUs = this.aboutUsInfos.filter(i => i?.id === id)[0]
         },
         async getAllWorkers() {
-            const response = await axios.get(`${API_URL}/workers`)
-            this.workers = response.data
+          const response = await axios.get(`${API_URL}/workers`)
+          this.workers = response.data
+        },
+        async getSingleWorker(id) {
+            this.singleWorker = this.workers.filter(i => i?.id === id)[0]
         },
         async createInformation(data) {
           await axios

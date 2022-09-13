@@ -8,7 +8,7 @@ import MinusIcon from '../../../assets/icons/MinusIcon.vue';
 import { useDiscountStore } from '../../../stores/discount.js';
 import { useProductStore } from '../../../stores/product.js';
 import { useModalStore } from '../../../stores/modal.js';
-import { onMounted, reactive, ref } from '@vue/runtime-core'
+import { onMounted, reactive, ref, watch } from '@vue/runtime-core'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { formatDateTime } from '../../../mixins/utils';
@@ -29,6 +29,30 @@ const discount = reactive({
   description: '',
   discountPercent: 0.0
 })
+
+const editDiscount = reactive({
+  id: '',
+  createdAt: '',
+  startedAt: '',
+  expiredAt: '',
+  name: '',
+  description: '',
+  discountPercent: 0.0
+})
+
+watch(
+  () => discountStore.singleDiscount,
+  () => {
+    editDiscount.id = discountStore.getDiscountId
+    editDiscount.createdAt = discountStore.getDiscountCreatedAt
+    editDiscount.startedAt = discountStore.getDiscountStartedAt
+    editDiscount.expiredAt = discountStore.getDiscountExpiredAt
+    editDiscount.name = discountStore.getDiscountName
+    editDiscount.description = discountStore.getDiscountDesc
+    editDiscount.discountPercent = discountStore.getDiscountPercent
+  },
+  { deep: true }
+)
 
 const createDiscount = () => {
   if (discount.discountPercent === 0){
@@ -64,6 +88,46 @@ const createDiscount = () => {
       discount.name = ''
       discount.description = ''
       discount.discountPercent = 0.0
+    })
+  }
+}
+
+const submitEditDiscount = () => {
+  if (editDiscount.discountPercent === 0){
+    notify.error({
+			message: 'Enter discount percent!',
+			position: 'bottomRight'
+		})
+  } else if (editDiscount.startedAt === ''){
+    notify.error({
+			message: 'Enter discount started at!',
+			position: 'bottomRight'
+		})
+  } else if (editDiscount.expiredAt === ''){
+    notify.error({
+			message: 'Enter discount expired at!',
+			position: 'bottomRight'
+		})
+  } else if (editDiscount.name === ''){
+    notify.error({
+			message: 'Enter discount name!',
+			position: 'bottomRight'
+		})
+  } else if (editDiscount.description === ''){
+    notify.error({
+			message: 'Enter discount description!',
+			position: 'bottomRight'
+		})
+  } else {
+    discountStore.editDiscount(editDiscount).then(() => {
+      modalStore.closeEditDiscountModal()
+      editDiscount.id = ''
+      editDiscount.createdAt = ''
+      editDiscount.startedAt = ''
+      editDiscount.expiredAt = ''
+      editDiscount.name = ''
+      editDiscount.description = ''
+      editDiscount.discountPercent = 0.0
     })
   }
 }
@@ -152,7 +216,7 @@ onMounted(() => {
                   <button @click="modalStore.openRemoveDiscountInProductModal(); selectedDiscountId=discount?.id" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <MinusIcon class="w-4 h-4" />
                   </button>
-                  <button @click="modalStore.openEditDiscountModal()" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
+                  <button @click="modalStore.openEditDiscountModal(); discountStore.getSingleDiscount(discount?.id)" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
                   <button @click="discountStore.deleteDiscount(discount?.id)" class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
@@ -233,30 +297,30 @@ onMounted(() => {
           <div class="flex flex-col space-y-5">
             <label for="edit-discountPercent">
               <p class="pb-2 font-medium text-slate-700">{{ $t('discountPercent') }}</p>
-              <input type="number" id="edit-discountPercent" min="0" 
+              <input v-model="editDiscount.discountPercent" type="number" id="edit-discountPercent" min="0" 
                 class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
             </label>
             <label for="edit-started-at">
               <p class="pb-2 font-medium text-slate-700">{{ $t('startedAt') }}</p>
-              <input type="datetime-local" id="edit-started-at"
+              <input v-model="editDiscount.startedAt" type="datetime-local" id="edit-started-at"
                 class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
             </label>
             <label for="edit-expired-at">
               <p class="pb-2 font-medium text-slate-700">{{ $t('expiredAt') }}</p>
-              <input type="datetime-local" id="edit-expired-at"
+              <input v-model="editDiscount.expiredAt" type="datetime-local" id="edit-expired-at"
                 class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
             </label>
             <label for="edit-name">
               <p class="pb-2 font-medium text-slate-700">{{ $t('name') }}</p>
-              <input type="text" id="edit-name"
+              <input v-model="editDiscount.name" type="text" id="edit-name"
                 class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
             </label>
             <label for="edit-description">
               <p class="pb-2 font-medium text-slate-700">{{ $t('description') }}</p>
-              <input type="text" id="edit-description"
+              <input v-model="editDiscount.description" type="text" id="edit-description"
                 class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
             </label>
-            <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+            <button @click="submitEditDiscount()" class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
               {{ $t('save') }}
             </button>
           </div>

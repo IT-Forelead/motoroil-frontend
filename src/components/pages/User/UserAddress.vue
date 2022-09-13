@@ -28,7 +28,8 @@ const address = reactive({
 })
 
 const editAddress = reactive({
-  userId: uuid.v4(),
+  id: '',
+  userId: '',
   receiverFullName: '',
   receiverPhone: '',
   countryId: '',
@@ -37,6 +38,22 @@ const editAddress = reactive({
   street: '',
   postalCode: ''
 })
+
+watch(
+  () => userStore.singleAddress,
+  () => {
+    editAddress.id = userStore.getAddressId
+    editAddress.userId = userStore.getAddressUserId
+    editAddress.receiverFullName = userStore.getAddressReceiverFullName
+    editAddress.receiverPhone = userStore.getAddressReceiverPhone
+    editAddress.countryId = userStore.getAddressCountryId
+    editAddress.regionId = userStore.getAddressRegionId
+    editAddress.cityId = userStore.getAddressCityId
+    editAddress.street = userStore.getAddressStreet
+    editAddress.postalCode = userStore.getAddressPostalCode
+  },
+  { deep: true }
+)
 
 onMounted(() => {
   userStore.getUserAddresses()
@@ -88,6 +105,57 @@ const addUserAddress = () => {
       address.cityId = ''
       address.street = ''
       address.postalCode = ''
+    })
+  }
+}
+
+const editUserAddress = () => {
+  if (editAddress.receiverFullName === ''){
+    notify.error({              
+			message: 'Please, enter receiver\'s fullname!',
+			position: 'bottomRight'
+		})
+  } else if(editAddress.receiverPhone === '') {
+    notify.error({              
+			message: 'Please, enter receiver\'s phone!',
+			position: 'bottomRight'
+		})
+  } else if(editAddress.countryId === '') {
+    notify.error({              
+			message: 'Please, select a country!',
+			position: 'bottomRight'
+		})
+  } else if(editAddress.regionId === '') {
+    notify.error({              
+			message: 'Please, select a region!',
+			position: 'bottomRight'
+		})
+  } else if(editAddress.cityId === '') {
+    notify.error({              
+			message: 'Please, select a city!',
+			position: 'bottomRight'
+		})
+  } else if(editAddress.street === '') {
+    notify.error({              
+			message: 'Please, enter street!',
+			position: 'bottomRight'
+		})
+  } else if(editAddress.postalCode === '') {
+    notify.error({              
+			message: 'Please, enter postal code!',
+			position: 'bottomRight'
+		})
+  } else {
+    userStore.editUserAddress(editAddress).then(() => {
+      editAddress.id = ''
+      editAddress.userId = ''
+      editAddress.receiverFullName = ''
+      editAddress.receiverPhone = ''
+      editAddress.countryId = ''
+      editAddress.regionId = ''
+      editAddress.cityId = ''
+      editAddress.street = ''
+      editAddress.postalCode = ''
     })
   }
 }
@@ -153,7 +221,7 @@ watch(
                     {{ $t('address') }}
                   </div>
                   <div class="flex items-center space-x-2">
-                    <div @click="modalStore.openEditAddressModal()" class="cursor-pointer">
+                    <div @click="modalStore.openEditAddressModal(); userStore.getSingleUserAddress(address?.id)" class="cursor-pointer">
                       <PencilDuotoneIcon class="w-5 h-5 text-blue-700"/>
                     </div>
                     <div @click="userStore.deleteUserAddress(address?.id)" class="cursor-pointer">
@@ -261,6 +329,7 @@ watch(
             <p class="pb-2 font-medium text-slate-700">{{ $t('receiverFullname') }}</p>
             <input
               type="text"
+              v-model="editAddress.receiverFullName"
               id="edit-receiver-fullname"
               class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
               placeholder="Enter your fullname"
@@ -270,6 +339,7 @@ watch(
             <p class="pb-2 font-medium text-slate-700">{{ $t('receiverPhone') }}</p>
             <input
               type="text"
+              v-model="editAddress.receiverPhone"
               id="edit-receiver-phone"
               class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
               placeholder="Enter your phone"
@@ -300,6 +370,7 @@ watch(
             <p class="pb-2 font-medium text-slate-700">{{ $t('street') }}</p>
             <input
               type="text"
+              v-model="editAddress.street"
               id="edit-street"
               class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
               placeholder="Enter your your street"
@@ -309,12 +380,13 @@ watch(
             <p class="pb-2 font-medium text-slate-700">{{ $t('zipPostalCode') }}</p>
             <input
               type="text"
+              v-model="editAddress.postalCode"
               id="edit-postal-code"
               class="block w-full px-5 py-3 mt-1 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
               placeholder="Enter your postal code"
             />
           </label>
-          <button class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
+          <button @click="editUserAddress()" class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
             {{ $t('save') }}
           </button>
         </div>
