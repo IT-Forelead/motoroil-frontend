@@ -237,37 +237,39 @@ const submitUserData = () => {
         <div class="relative">
           <button @click="toggleUserActionDropDown()" class="flex items-center justify-between w-full px-3 py-2 text-gray-300 text-md md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 md:w-auto ">
             <UserFillIcon class="mr-1" />
-            {{ authStore.user?.username }}
+            <span class="hidden md:block">{{ authStore.user?.username }}</span>
           </button>
           <div :class="{ 'hidden': !isOpenUserActionDropDown }" ref="dropdown"
-            class="absolute right-0 z-10 w-56 bg-white divide-y divide-gray-100 rounded shadow top-10">
+               class="absolute right-0 z-10 w-72 bg-white divide-y divide-gray-100 rounded shadow top-10">
             <div class="p-2">
-              <p class="text-sm text-gray-700">Hello, <span class="font-medium text-md">{{ authStore.user?.username }}</span></p>
-              <p class="text-sm text-gray-700">Your email: <span class="font-medium text-md">{{ authStore.user?.email }}</span></p>
+              <p class="text-sm text-gray-700">{{ $t('hello') }}, <span
+                  class="font-medium text-md">{{ authStore.user?.username }}</span></p>
+              <p class="text-sm text-gray-700">{{ $t('yourEmail') }}: <span
+                  class="font-medium text-md">{{ authStore.user?.email }}</span></p>
             </div>
             <ul v-if="authStore.user?.role === 'user'" class="py-1 text-sm text-gray-700">
               <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
                 <router-link to="/wishlist" class="flex items-center">
                   <HeartFillIcon class="w-4 h-4 mr-1"/>
-                  My wishlist
+                  <span>{{ $t('myWishlist') }}</span>
                 </router-link>
               </li>
               <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
                 <router-link to="/cart" class="flex items-center">
                   <ShoppingCartFillIcon class="w-4 h-4 mr-1"/>
-                  My cart
+                  <span>{{ $t('myCart') }}</span>
                 </router-link>
               </li>
               <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
                 <router-link to="/orders" class="flex items-center">
                   <ShoppingBagOpenFillIcon class="w-4 h-4 mr-1"/>
-                  My orders
+                  <span>{{ $t('myOrders') }}</span>
                 </router-link>
               </li>
               <li @click="toggleUserActionDropDown()" class="block p-2 capitalize hover:bg-gray-100">
                 <router-link to="/address" class="flex items-center">
                   <MapPinFillIcon class="w-4 h-4 mr-1"/>
-                  My addresses
+                  <span>{{ $t('myAddresses') }}</span>
                 </router-link>
               </li>
             </ul>

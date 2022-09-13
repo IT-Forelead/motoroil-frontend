@@ -252,5 +252,9 @@
   "minimumSpend":"Minimum spend",
   "discountMoney":"Discount money",
   "chooseAUser":"Choose a user",
-  "editBlog":"Edit blog"
+  "editBlog":"Edit blog",
+  "postBy": "Post by:",
+  "search...": "Search ...",
+  "hello": "Hello",
+  "yourEmail": "Your email"
 }
