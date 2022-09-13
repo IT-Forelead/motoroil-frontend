@@ -139,7 +139,7 @@ onMounted(() => {
 <!-- Mobile Navbar -->
   <div class="fixed bottom-0 z-30 flex justify-center w-full p-2 bg-gray-900 border-t-2 border-red-500 md:hidden">
     <div class="container flex items-center justify-center w-full text-white">
-      <ul class="grid items-center justify-center grid-cols-3 gap-4" :class="{'grid-cols-4':authStore.user}">
+      <ul class="grid items-center justify-center gap-4" :class="(authStore.user)? 'grid-cols-4':'grid-cols-3'">
         <li
           class="p-2 m-0 font-medium uppercase rounded-md cursor-pointer text-md hover:bg-red-500 hover:text-white"
           :class="{ 'bg-red-500 text-white': $router.currentRoute.value.path === '/' }"

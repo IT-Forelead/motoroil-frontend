@@ -31,7 +31,7 @@ const searchProducts = () => {
         <div class="flex items-center rounded bg-white lg:w-[30rem]">
           <input type="search" v-model="search"
             class="w-full px-4 text-gray-900 bg-transparent border border-gray-300 rounded-l outline-none focus:outline-none"
-            placeholder="Search ..." />
+            :placeholder="$t('search...')" />
           <router-link to="/products" @click="searchProducts()" class="px-4 py-2 text-white bg-red-500 rounded-r">
             <SearchIcon class="w-6 h-6" />
           </router-link>

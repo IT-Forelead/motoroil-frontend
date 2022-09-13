@@ -1,6 +1,6 @@
 {
   "login": "Kirish",
-  "registration": "Ro'yhatdan o'tish",
+  "registration": "Registratsiya",
   "ourRecentPosts": "bizning so'nggi xabarlarimiz",
   "homePage": "Bosh Sahifa",
   "Oops": "Voy!",
@@ -73,7 +73,7 @@
   "noResults":"Natija yo'q",
   "dbEmpty":"Ma'lumotlar bazasi bo'sh!",
   "wishlist":"Istaklar ro`yxati",
-  "myWishlist":"Mening istaklar ro`yxatim",
+  "myWishlist":"Mening istaklar ro'yxatim",
   "faq":"Ko'p so'raladigan savollar",
   "latestBlogs": "eng so'nggi bloglar",
   "wheelsAndTires": "G'ildiraklar va shinalar",
@@ -252,5 +252,10 @@
   "minimumSpend":"Minimal xarajat",
   "discountMoney":"Chegirmali pul",
   "chooseAUser":"Foydalanuvchini tanlang",
-  "editBlog":"Blogni tahrirlash"
+  "editBlog":"Blogni tahrirlash",
+  "postBy": "Muallif:",
+  "search...": "Qidirish ...",
+  "hello": "Salom",
+  "yourEmail": "Sizning e-mail",
+  "myAddresses": "Mening manzillarim"
 }

@@ -38,7 +38,7 @@ onMounted(() => {
           <div class="py-3">
             <div class="flex items-center justify-between mb-2 text-xs text-gray-400">
               <div>{{ formatDateTime(blog.createdAt) }}</div>
-              <div>Post by {{ blog.userName }}</div>
+              <div>{{ $t('postBy') }} {{ blog.userName }}</div>
             </div>
             <router-link to="/blog" @click="readMore(blog.id)">
               <h5 class="h-12 mb-2 overflow-hidden font-semibold text-gray-900 text-md">{{ blog.title }}</h5>

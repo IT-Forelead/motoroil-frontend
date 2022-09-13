@@ -87,7 +87,7 @@
   "newArrivals": "Новые поступления",
   "bestSeller": "Бестселлер",
   "dealOfTheDay": "Сделка дня",
-  "topFavoriteInTheWeek": "Лучший фаворит недели",
+  "topFavoriteInTheWeek": "Лучшие фавориты недели",
   "favoriteProducts": "Любимые продукты",
   "topFeaturedCollections": "Самые популярные коллекции",
   "shopByCategories": "Магазин по категориям",
@@ -252,5 +252,10 @@
   "minimumSpend":"Минимальные расходы",
   "discountMoney":"Дисконтные деньги",
   "chooseAUser":"Выберите пользователя",
-  "editBlog":"Изменить блог"
+  "editBlog":"Изменить блог",
+  "postBy": "Пост от:",
+  "search...": "Поиск ...",
+  "hello": "Привет",
+  "yourEmail": "Ваш e-mail",
+  "myAddresses": "Мои адреса"
 }
