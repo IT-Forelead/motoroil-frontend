@@ -1,6 +1,11 @@
 module.exports = {
-  extends: ['plugin:vue/vue3-essential', 'prettier'],
-  rules: {
-    'vue/no-unused-vars': 'error',
+  root: true,
+  env: {
+    node: true,
   },
+  extends: ['plugin:vue/vue3-essential', 'eslint:recommended'],
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
+  rules: {},
 }
