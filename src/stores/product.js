@@ -34,7 +34,8 @@ export const useProductStore = defineStore({
     multiselectOEMids: [],
     multiselectSpecids: [],
     multiselectProductIds: [],
-    selectedProductGroup: {}
+    selectedProductGroup: {},
+    selectedProduct: {}
   }),
   getters: {
     getSelectedProductGroupName() {
@@ -72,6 +73,30 @@ export const useProductStore = defineStore({
     },
     getSelectedProductGroupCategoriesId() {
       return this.selectedProductGroup?.productGroup?.categoriesId
+    },
+    getSelectedProductId() {
+      return this.selectedProduct?.product?.id
+    },
+    getSelectedProductGroupId() {
+      return this.selectedProduct?.product?.productGroupId
+    },
+    getSelectedProductImageUrls() {
+      return this.selectedProduct?.product?.imageUrl
+    },
+    getSelectedProductSpecTypeId() {
+      return this.selectedProduct?.specTypeValue?.specTypeId
+    },
+    getSelectedProductSpecTypeValueId() {
+      return this.selectedProduct?.specTypeValue?.id
+    },
+    getSelectedProductSpecTypeValue() {
+      return this.selectedProduct?.specTypeValue?.value
+    },
+    getSelectedProductPrice() {
+      return this.selectedProduct?.product?.price
+    },
+    getSelectedProductQuantity() {
+      return this.selectedProduct?.product?.quantity
     }
   },
   actions: {
@@ -87,6 +112,9 @@ export const useProductStore = defineStore({
     },
     async getSelectedProductGroup(id) {
       this.selectedProductGroup = this.productGroups.filter((pg) => pg?.productGroup?.id === id)[0]
+    },
+    async getSelectedProduct(id) {
+      this.selectedProduct = this.products.filter((pg) => pg?.product?.id === id)[0]
     },
     async getProductsByGroupId(productId) {
       const response = await axios.get(
@@ -466,6 +494,30 @@ export const useProductStore = defineStore({
           notify.error({
             title: 'Error',
             message: 'While adding product!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async editProduct(data) {
+      await axios
+        .put(`${API_URL}/admin/edit-product`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: authHeaderForMultipart(),
+          },
+        })
+        .then(() => {
+          notify.success({
+            message: 'Product edited!',
+            position: 'bottomRight',
+          })
+          this.getAllProducts()
+          useModalStore().closeEditProductModal()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While editing product!',
             position: 'bottomRight',
           })
         })
