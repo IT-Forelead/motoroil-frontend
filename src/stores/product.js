@@ -34,11 +34,59 @@ export const useProductStore = defineStore({
     multiselectOEMids: [],
     multiselectSpecids: [],
     multiselectProductIds: [],
+    selectedProductGroup: {}
   }),
+  getters: {
+    getSelectedProductGroupName() {
+      return this.selectedProductGroup?.productGroup?.name
+    },
+    getSelectedProductGroupBrandId() {
+      return this.selectedProductGroup?.productGroup?.brandId
+    },
+    getSelectedProductGroupDesc() {
+      return this.selectedProductGroup?.productGroup?.description
+    },
+    getSelectedProductGroupCategoryId() {
+      return this.selectedProductGroup?.category?.id
+    },
+    getSelectedProductGroupSubCategoryId() {
+      return this.selectedProductGroup?.subCategory?.id
+    },
+    getSelectedProductGroupMiniSubCategoryId() {
+      return this.selectedProductGroup?.miniSubCategory?.id
+    },
+    getSelectedProductGroupViscosityGradeId() {
+      return this.selectedProductGroup?.viscosityGrade?.id
+    },
+    getSelectedProductGroupVideoUrl() {
+      return this.selectedProductGroup?.productGroup?.videoUrl
+    },
+    getSelectedProductGroupSpecIds() {
+      return this.selectedProductGroup?.specifications?.map(spec => spec?.id)
+    },
+    getSelectedProductGroupOEMIds() {
+      return this.selectedProductGroup?.oems?.map(oem => oem?.id)
+    },
+    getSelectedProductGroupCreatedAt() {
+      return this.selectedProductGroup?.productGroup?.createdAt
+    },
+    getSelectedProductGroupCategoriesId() {
+      return this.selectedProductGroup?.productGroup?.categoriesId
+    }
+  },
   actions: {
+    setMultiselectOEMids(data) {
+      this.multiselectOEMids = data
+    },
+    setMultiselectSpecids(data) {
+      this.multiselectSpecids = data
+    },
     async getAllProducts(sortBy) {
       const response = await axios.get(`${API_URL}/get-products/${sortBy}`)
       this.products = response.data
+    },
+    async getSelectedProductGroup(id) {
+      this.selectedProductGroup = this.productGroups.filter((pg) => pg?.productGroup?.id === id)[0]
     },
     async getProductsByGroupId(productId) {
       const response = await axios.get(
@@ -444,6 +492,32 @@ export const useProductStore = defineStore({
           notify.error({
             title: 'Error',
             message: 'While adding product group!',
+            position: 'bottomRight',
+          })
+        })
+    },
+    async editProductGroup(data) {
+      await axios
+        .put(`${API_URL}/admin/edit-product-group`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: authHeaderForMultipart(),
+          },
+        })
+        .then(() => {
+          notify.success({
+            message: 'Product Group edited!',
+            position: 'bottomRight',
+          })
+          this.getProductGroups()
+          this.multiselectOEMids = []
+          this.multiselectSpecids = []
+          useModalStore().closeEditProductGroupModal()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While editing product group!',
             position: 'bottomRight',
           })
         })
