@@ -153,7 +153,9 @@ const editedProductGroupData = reactive({
   miniSubCategoryId: '',
   videoUrl: '',
   viscosityGradeId: '',
-  pdfUrl: ''
+  pdfUrl: '',
+  createdAt: '',
+  categoriesId: ''
 })
 
 const closeEditModal = () => {
@@ -166,6 +168,8 @@ const closeEditModal = () => {
   editedProductGroupData.brandId = ''
   editedProductGroupData.viscosityGradeId = ''
   editedProductGroupData.videoUrl = ''
+  editedProductGroupData.createdAt = ''
+  editedProductGroupData.categoriesId = ''
   store.setMultiselectOEMids([])
   store.setMultiselectSpecids([])
 }
@@ -181,6 +185,8 @@ watch(
     editedProductGroupData.brandId = store.getSelectedProductGroupBrandId
     editedProductGroupData.viscosityGradeId = store.getSelectedProductGroupViscosityGradeId
     editedProductGroupData.videoUrl = store.getSelectedProductGroupVideoUrl
+    editedProductGroupData.createdAt = store.getSelectedProductGroupCreatedAt
+    editedProductGroupData.categoriesId = store.getSelectedProductGroupCategoriesId
     store.setMultiselectOEMids(store.getSelectedProductGroupOEMIds)
     store.setMultiselectSpecids(store.getSelectedProductGroupSpecIds)
   },
@@ -199,7 +205,7 @@ const submitEditProductGroupData = () => {
   formData.append('name', editedProductGroupData.name)
   formData.append('description', $('#editProductDesc .ql-editor').html())
   formData.append('categoryId', editedProductGroupData.categoryId)
-  formData.append('createdAt', new Date())
+  formData.append('createdAt', editedProductGroupData.createdAt)
   if (editedProductGroupData.subCategoryId) {
     formData.append('subCategoryId', editedProductGroupData.subCategoryId)
   }
@@ -212,6 +218,7 @@ const submitEditProductGroupData = () => {
   formData.append('productOEMIds', store.multiselectOEMids.join(','))
   formData.append('productSpecIds', store.multiselectSpecids.join(','))
   formData.append('pdfUrl', editedProductGroupData.pdfUrl)
+  formData.append('categoriesId', editedProductGroupData.categoriesId)
 
   if (!editedProductGroupData?.name) {
     notify.warning({

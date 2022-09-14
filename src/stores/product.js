@@ -66,6 +66,12 @@ export const useProductStore = defineStore({
     },
     getSelectedProductGroupOEMIds() {
       return this.selectedProductGroup?.oems?.map(oem => oem?.id)
+    },
+    getSelectedProductGroupCreatedAt() {
+      return this.selectedProductGroup?.productGroup?.createdAt
+    },
+    getSelectedProductGroupCategoriesId() {
+      return this.selectedProductGroup?.productGroup?.categoriesId
     }
   },
   actions: {
