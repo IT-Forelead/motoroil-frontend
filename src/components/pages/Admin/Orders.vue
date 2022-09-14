@@ -71,33 +71,33 @@ onMounted(() => {
               <td class="p-3">
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('name')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.receiverFullName }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddressWithRegion?.receiverFullName }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('phone')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.receiverPhone }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddressWithRegion?.receiverPhone }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('postalCode')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.postalCode }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddressWithRegion?.postalCode }}</div>
                 </div>
               </td>
               <td class="p-3">
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('country')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.country }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddressWithRegion?.country }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('region')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.region }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddressWithRegion?.region }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">City:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.city }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddressWithRegion?.city }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('street')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddress?.street }}</div>
+                  <div class="font-medium text-gray-700 text-md">{{ order?.userAddressWithRegion?.street }}</div>
                 </div>
               </td>
               <td class="p-3">
