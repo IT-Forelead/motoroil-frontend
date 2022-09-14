@@ -213,7 +213,7 @@ onMounted(() => {
           <div class="p-3 border rounded-xl">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold">${{ totalSumInLast30Days }}</p>
+                <p class="text-3xl font-bold">€{{ totalSumInLast30Days }}</p>
                 <p>Last 30 days income</p>
               </div>
               <MoneyBagIcon class="w-10 h-10" />

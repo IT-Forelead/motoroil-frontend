@@ -52,7 +52,7 @@ const getAccountingByDate = () => {
 <template>
   <div class="flex justify-center px-5 py-2 bg-white">
     <div class="container flex flex-col justify-center">
-      <div class="flex flex-col md:flex-row md:items-center justify-between">
+      <div class="flex flex-col justify-between md:flex-row md:items-center">
         <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">
           {{ $t('accounting') }}
         </div>
@@ -130,10 +130,10 @@ const getAccountingByDate = () => {
                 {{ accounting?.quantity }}
               </td>
               <td class="p-3 font-medium text-gray-700 text-md">
-                ${{ accounting?.price }}
+                €{{ accounting?.price }}
               </td>
               <td class="p-3 font-medium text-gray-700 text-md">
-                ${{ accounting?.price * accounting?.quantity }}
+                €{{ accounting?.price * accounting?.quantity }}
               </td>
             </tr>
             <tr class="align-middle">
@@ -145,7 +145,7 @@ const getAccountingByDate = () => {
               </td>
               <td class="p-3 font-medium text-gray-700 text-md"></td>
               <td class="p-3 font-medium text-gray-700 text-md">
-                ${{ totalPrice() }}
+                €{{ totalPrice() }}
               </td>
             </tr>
           </tbody>
