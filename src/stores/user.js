@@ -21,83 +21,109 @@ export const useUserStore = defineStore({
     countries: [],
     regions: [],
     cities: [],
-    cartSum: 0
+    cartSum: 0,
   }),
   getters: {
-    getAddressId(){
+    getAddressId() {
       return this.singleAddress?.id
     },
-    getAddressUserId(){
+    getAddressUserId() {
       return this.singleAddress?.userId
     },
-    getAddressReceiverFullName(){
+    getAddressReceiverFullName() {
       return this.singleAddress?.receiverFullName
     },
-    getAddressReceiverPhone(){
+    getAddressReceiverPhone() {
       return this.singleAddress?.receiverPhone
     },
-    getAddressCountryId(){
+    getAddressCountryId() {
       return this.singleAddress?.countryId
     },
-    getAddressRegionId(){
+    getAddressRegionId() {
       return this.singleAddress?.regionId
     },
-    getAddressCityId(){
+    getAddressCityId() {
       return this.singleAddress?.cityId
     },
-    getAddressStreet(){
+    getAddressStreet() {
       return this.singleAddress?.street
     },
-    getAddressPostalCode(){
+    getAddressPostalCode() {
       return this.singleAddress?.postalCode
-    }
+    },
   },
   actions: {
     async getNotifications() {
-      if (useAuthStore().user?.role === 'user'){
-        const response = await axios.get(`${API_URL}/user/notifications`, {headers: authHeader()})
+      if (useAuthStore().user?.role === 'user') {
+        const response = await axios.get(`${API_URL}/user/notifications`, {
+          headers: authHeader(),
+        })
         this.notifications = response.data
       }
     },
     async getUsers() {
-      const response = await axios.get(`${API_URL}/user/users`, {headers: authHeader()})
+      const response = await axios.get(`${API_URL}/user/users`, {
+        headers: authHeader(),
+      })
       this.users = response.data
     },
     async getCart() {
-        const response = await axios.get(`${API_URL}/user/cart`, {headers: authHeader()})
-        this.cart = response.data
-        this.cartSum = this.cart.map((p) => p?.quantity * p?.productPrice).reduce((q, a) => q + a, 0)
+      const response = await axios.get(`${API_URL}/user/cart`, {
+        headers: authHeader(),
+      })
+      this.cart = response.data
+      this.cartSum = this.cart
+        .map((p) => p?.quantity * p?.productPrice)
+        .reduce((q, a) => q + a, 0)
     },
     async getWishlist() {
-        const response = await axios.get(`${API_URL}/user/wishlist`, {headers: authHeader()})
-        this.wishlist = response.data
+      const response = await axios.get(`${API_URL}/user/wishlist`, {
+        headers: authHeader(),
+      })
+      this.wishlist = response.data
     },
     async getCoupons() {
-        const response = await axios.get(`${API_URL}/user/coupons`, {headers: authHeader()})
-        this.coupons = response.data
+      const response = await axios.get(`${API_URL}/user/coupons`, {
+        headers: authHeader(),
+      })
+      this.coupons = response.data
     },
-    async getUserAddresses() { 
-        const response = await axios.get(`${API_URL}/user/user-addresses`, {headers: authHeader()})
-        this.addresses = response.data
+    async getUserAddresses() {
+      const response = await axios.get(`${API_URL}/user/user-addresses`, {
+        headers: authHeader(),
+      })
+      this.addresses = response.data
     },
     async getSingleUserAddress(id) {
-        this.singleAddress = this.addresses.filter(i => i?.id === id)[0]
+      this.singleAddress = this.addresses.filter((i) => i?.id === id)[0]
     },
     async getCountries() {
-        const response = await axios.get(`${API_URL}/user/countries`, {headers: authHeader()})
-        this.countries = response.data
+      const response = await axios.get(`${API_URL}/user/countries`, {
+        headers: authHeader(),
+      })
+      this.countries = response.data
     },
     async getRegions(countryId) {
-        const response = await axios.post(`${API_URL}/user/regions`, `"${countryId}"`, {headers: authHeader()})
-        this.regions = response.data
+      const response = await axios.post(
+        `${API_URL}/user/regions`,
+        `"${countryId}"`,
+        { headers: authHeader() }
+      )
+      this.regions = response.data
     },
     async getCities(regionId) {
-        const response = await axios.post(`${API_URL}/user/cities`, `"${regionId}"`, {headers: authHeader()})
-        this.cities = response.data
+      const response = await axios.post(
+        `${API_URL}/user/cities`,
+        `"${regionId}"`,
+        { headers: authHeader() }
+      )
+      this.cities = response.data
     },
     async changeCartItemsQuantityPlus(data) {
-        await axios
-        .get(`${API_URL}/user/change-cart-items-quantity-plus/${data}`, {headers: authHeader()})
+      await axios
+        .get(`${API_URL}/user/change-cart-items-quantity-plus/${data}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           this.getCart()
         })
@@ -109,8 +135,10 @@ export const useUserStore = defineStore({
         })
     },
     async changeCartItemsQuantityMinus(data) {
-        await axios
-        .get(`${API_URL}/user/change-cart-items-quantity-minus/${data}`, {headers: authHeader()})
+      await axios
+        .get(`${API_URL}/user/change-cart-items-quantity-minus/${data}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           this.getCart()
         })
@@ -141,7 +169,9 @@ export const useUserStore = defineStore({
     },
     async deleteUserAddress(id) {
       await axios
-        .get(`${API_URL}/user/delete-user-address/${id}`, { headers: authHeader() })
+        .get(`${API_URL}/user/delete-user-address/${id}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Address deleted!',
@@ -159,7 +189,9 @@ export const useUserStore = defineStore({
     },
     async deleteWishlist(data) {
       await axios
-        .post(`${API_URL}/user/delete-wishlist`, data, { headers: authHeader() })
+        .post(`${API_URL}/user/delete-wishlist`, data, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Wishlist deleted!',
@@ -175,9 +207,32 @@ export const useUserStore = defineStore({
           })
         })
     },
+    async buy(couponId, data) {
+      await axios
+        .post(`${API_URL}/user/order`, data, {
+          headers: authHeader(),
+          params: {
+            ...(couponId ? { couponId: couponId } : {}),
+          },
+        })
+        .then(() => {
+          notify.success({
+            message: 'Ordered!',
+            position: 'bottomRight',
+          })
+          this.getCart()
+        })
+        .catch(() => {
+          notify.error({
+            title: 'Error',
+            message: 'While ordering!',
+            position: 'bottomRight',
+          })
+        })
+    },
     async addWishlist(data) {
       await axios
-        .post(`${API_URL}/user/add-wishlist`, data, {headers: authHeader()})
+        .post(`${API_URL}/user/add-wishlist`, data, { headers: authHeader() })
         .then(() => {
           notify.success({
             message: 'Liked!',
@@ -193,7 +248,7 @@ export const useUserStore = defineStore({
     },
     async addCart(data) {
       await axios
-        .post(`${API_URL}/user/add-cart`, data, {headers: authHeader()})
+        .post(`${API_URL}/user/add-cart`, data, { headers: authHeader() })
         .then(() => {
           notify.success({
             message: 'Product added to cart!',
@@ -210,7 +265,9 @@ export const useUserStore = defineStore({
     },
     async addUserAddress(data) {
       await axios
-        .post(`${API_URL}/user/add-user-address`, data, {headers: authHeader()})
+        .post(`${API_URL}/user/add-user-address`, data, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Address added!',
@@ -227,7 +284,9 @@ export const useUserStore = defineStore({
     },
     async editUserAddress(data) {
       await axios
-        .post(`${API_URL}/user/edit-user-address`, data, {headers: authHeader()})
+        .post(`${API_URL}/user/edit-user-address`, data, {
+          headers: authHeader(),
+        })
         .then(() => {
           notify.success({
             message: 'Address edited!',
@@ -245,7 +304,7 @@ export const useUserStore = defineStore({
     },
     async addCoupon(data) {
       await axios
-        .post(`${API_URL}/admin/coupon`, data, {headers: authHeader()})
+        .post(`${API_URL}/admin/coupon`, data, { headers: authHeader() })
         .then(() => {
           notify.success({
             message: 'Coupon added!',
@@ -261,8 +320,10 @@ export const useUserStore = defineStore({
         })
     },
     async viewNotification(id) {
-        await axios
-        .get(`${API_URL}/user/view-notification/${id}`, {headers: authHeader()})
+      await axios
+        .get(`${API_URL}/user/view-notification/${id}`, {
+          headers: authHeader(),
+        })
         .then(() => {
           this.getNotifications()
         })
