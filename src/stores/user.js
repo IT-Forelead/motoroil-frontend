@@ -74,8 +74,14 @@ export const useUserStore = defineStore({
       });
       this.cart = response.data;
       this.cartSum = this.cart
-        .map((p) => p?.quantity * p?.productPrice)
-        .reduce((q, a) => q + a, 0);
+        .map((p) => {
+          if (p?.productDiscountId && p?.productDiscountPercent){
+            return p?.quantity * p?.productPrice * (1 - p?.productDiscountPercent / 100)
+          } else {
+            return p?.quantity * p?.productPrice
+          }
+        })
+        .reduce((q, a) => q + a, 0).toFixed(2);
     },
     async getWishlist() {
       const response = await axios.get(`${API_URL}/user/wishlist`, {
