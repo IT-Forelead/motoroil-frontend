@@ -257,5 +257,7 @@
   "search...": "Поиск ...",
   "hello": "Привет",
   "yourEmail": "Ваш e-mail",
-  "myAddresses": "Мои адреса"
+  "myAddresses": "Мои адреса",
+  "yourAccountActivated": "Ваш аккаунт активирован!",
+  "yourAccountNotActivated": "Ваш аккаунт не активирован!"
 }

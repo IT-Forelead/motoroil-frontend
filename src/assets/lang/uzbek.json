@@ -56,7 +56,7 @@
   "author":"Muallif",
   "readMore":"Batafsil",
   "ourBlog":"Bizning Blog",
-  "myCart":"Mening Aravam",
+  "myCart":"Savatcha",
   "actions":"Amallar",
   "selectAddress":"MANZILNI TANLASH",
   "addAddress":"Manzilni qo'shish",
@@ -169,7 +169,7 @@
   "paymentSecure": "To'lov 100% xavfsiz",
   "onlineSupport": "Onlayn yordam",
   "contactUsHoursDay": "Biz bilan kuniga 24 soat bog'laning",
-  "allCategories": "BARCHA TURUMLAR",
+  "allCategories": "BARCHA TURKUMLAR",
   "home": "Uy",
   "adminAccess": "Administratorga kirish",
   "productModels": "Mahsulot modellari",
@@ -257,5 +257,7 @@
   "search...": "Qidirish ...",
   "hello": "Salom",
   "yourEmail": "Sizning e-mail",
-  "myAddresses": "Mening manzillarim"
+  "myAddresses": "Mening manzillarim",
+  "yourAccountActivated": "Hisobingiz faollashtirilgan!",
+  "yourAccountNotActivated": "Hisobingiz faollashtirilmagan!"
 }
