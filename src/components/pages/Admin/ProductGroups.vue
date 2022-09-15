@@ -22,7 +22,7 @@ const modalStore = useModalStore()
 const categoryStore = useCategoryStore()
 const videoLink = ref('')
 
-const getVideoLink = (link) => (videoLink.value = link)
+const getVideoLink = (link) => (videoLink.value = link.replace('watch?v=', 'embed/'))
 
 const productGroupForm = reactive({
   name: '',
@@ -497,7 +497,7 @@ const submitEditProductGroupData = () => {
                   </p>
                   <input id="videoLink" type="text" v-model="productGroupForm.videoUrl"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
-                    placeholder="Enter product video link" />
+                    placeholder="https://www.youtube.com/embed/RRaZwB56djS" />
                 </label>
                 <label for="productPdf">
                   <p class="mt-2 font-medium text-slate-700">
@@ -641,7 +641,7 @@ const submitEditProductGroupData = () => {
                   </p>
                   <input id="editVideoLink" v-model="editedProductGroupData.videoUrl" type="text"
                     class="w-full px-3 py-3 border rounded border-slate-200 focus:outline-none focus:border-slate-500 hover:shadow"
-                    placeholder="Enter product video link" />
+                    placeholder="https://www.youtube.com/embed/RRaZwB56djS" />
                 </label>
                 <label for="editProductPdf">
                   <p class="mt-2 font-medium text-slate-700">
