@@ -33,7 +33,7 @@ export const useOrderStore = defineStore({
             ...(fromDate ? { to: toDate } : {}),
           },
         })
-        .then(() => {
+        .then((response) => {
           this.accounting = response.data
         })
         .catch((err) => {

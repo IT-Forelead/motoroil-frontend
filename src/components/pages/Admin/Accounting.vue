@@ -20,9 +20,9 @@ const totalQuantity = () =>
   orderStore.accounting.map((p) => p?.quantity).reduce((q, a) => q + a, 0)
 
 const totalPrice = () =>
-  orderStore.accounting
+  (orderStore.accounting
     .map((p) => p?.quantity * p?.price)
-    .reduce((q, a) => q + a, 0)
+    .reduce((q, a) => q + a, 0)).toFixed(2)
 
 const fromDate = ref('')
 const toDate = ref('')
