@@ -139,7 +139,7 @@ const couponStatusColor = (start, end) => {
                   <label for="user" class="text-gray-700 text-md">{{ $t('user') }}</label>
                     <select v-model="coupon.userId" id="user" class="block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
                         <option value="" selected>{{ $t('chooseAUser') }}</option>
-                        <option v-for="(user, idx) in userStore.users" :key="idx" :value="user?.uuid">{{ user?.name }}</option>
+                        <option v-for="(user, idx) in userStore.users?.filter(u => u?.isActive)" :key="idx" :value="user?.uuid">{{ user?.name }}</option>
                     </select>
                 </div>
                 <div class="space-y-1">
