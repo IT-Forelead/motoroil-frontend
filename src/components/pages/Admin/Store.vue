@@ -8,7 +8,7 @@ import PencilDuotoneIcon from '../../../assets/icons/PencilDuotoneIcon.vue';
 import { useProductStore } from '../../../stores/product.js'
 import { reactive, ref } from '@vue/reactivity';
 import { onClickOutside } from '@vueuse/core'
-import { onMounted } from '@vue/runtime-core';
+import { onMounted, watch } from '@vue/runtime-core';
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { useModalStore } from '../../../stores/modal.js';
@@ -50,6 +50,12 @@ function getImage(e) {
   productData['productImage'] = filteredImages
 }
 
+function getEditImage(e) {
+  const filteredImages = Object.values(e?.target?.files).filter(i => i.type.includes('image'))
+  uploadedImageForView.value = filteredImages.map(f => URL.createObjectURL(f))
+  editProductData['productImages'] = filteredImages
+}
+
 const productData = reactive({
   "productGroupId": '',
   "productImage": [],
@@ -58,6 +64,33 @@ const productData = reactive({
   "price": 0,
   "quantity": 0
 })
+
+const editProductData = reactive({
+  id: '',
+  productGroupId: '',
+  productDefaultImageUrls: [],
+  productImages: [],
+  specTypeId: '',
+  specTypeValueId: '',
+  capacity: 0,
+  price: 0,
+  quantity: 0
+})
+
+watch(
+  () => store.selectedProduct,
+  () => {
+    editProductData.id = store.getSelectedProductId
+    editProductData.productGroupId = store.getSelectedProductGroupId
+    editProductData.productDefaultImageUrls = store.getSelectedProductImageUrls
+    editProductData.specTypeId = store.getSelectedProductSpecTypeId
+    editProductData.specTypeValueId = store.getSelectedProductSpecTypeValueId
+    editProductData.capacity = store.getSelectedProductSpecTypeValue
+    editProductData.price = store.getSelectedProductPrice
+    editProductData.quantity = store.getSelectedProductQuantity
+  },
+  { deep: true }
+)
 
 const addProduct = () => {
   const formData = new FormData()
@@ -111,18 +144,57 @@ const addProduct = () => {
   }
 }
 
-const editProductData = reactive({
-  "productGroupId": '',
-  "productImage": [],
-  "specTypeId": '',
-  "capacity": 0,
-  "price": 0,
-  "quantity": 0
-})
-
-const editModal = (id) => {
-  modalStore.openEditProductModal();
-  store.getSingleProduct(id)
+const editProduct = () => {
+  const formData = new FormData()
+  if (editProductData.productGroupId === ''){
+		notify.error({
+			message: 'Choose a product group!',
+			position: 'bottomRight'
+		})
+  } else if (editProductData.specTypeId === ''){
+		notify.error({
+			message: 'Choose a product type!',
+			position: 'bottomRight'
+		})
+  } else if (editProductData.capacity === 0){
+		notify.error({
+			message: 'Enter product capacity!',
+			position: 'bottomRight'
+		})
+  } else if (editProductData.price === 0){
+		notify.error({
+			message: 'Enter product price!',
+			position: 'bottomRight'
+		})
+  } else if (editProductData.quantity === 0){
+		notify.error({
+			message: 'Enter product quantity!',
+			position: 'bottomRight'
+		})
+  } else {
+    formData.append('id', editProductData.id)
+    formData.append('productGroupId', editProductData.productGroupId)
+    editProductData['productImages'].map(f => {
+      formData.append('productImage', f)
+    })
+    formData.append('defaultImageUrls', editProductData.productDefaultImageUrls)
+    formData.append('specTypeId', editProductData.specTypeId)
+    formData.append('specTypeValueId', editProductData.specTypeValueId)
+    formData.append('capacity', editProductData.capacity)
+    formData.append('price', editProductData.price)
+    formData.append('quantity', editProductData.quantity)
+    store.editProduct(formData).then(() => {
+      editProductData.id = ''
+      editProductData.productGroupId = ''
+      editProductData.productDefaultImageUrls = []
+      editProductData.productImages = []
+      editProductData.specTypeValueId = ''
+      editProductData.specTypeId = ''
+      editProductData.capacity = 0
+      editProductData.price = 0
+      editProductData.quantity = 0
+    })
+  }
 }
 </script>
 
@@ -240,7 +312,7 @@ const editModal = (id) => {
               </td>
               <td class="p-3">
                 <div class="flex items-start space-x-2">
-                  <button @click="editModal(product?.product?.id)"
+                  <button @click="modalStore.openEditProductModal(); store.getSelectedProduct(product?.product?.id)"
                     class="flex items-center justify-center p-2 text-white bg-red-500 rounded hover:bg-red-700">
                     <PencilDuotoneIcon class="w-4 h-4" />
                   </button>
@@ -340,7 +412,7 @@ const editModal = (id) => {
     <div class="relative w-full h-full max-w-2xl p-4 -translate-x-1/2 -translate-y-1/2 md:h-auto top-1/2 left-1/2">
       <div class="relative bg-white rounded shadow dark:bg-gray-700">
         <div class="flex items-start justify-between px-6 py-3 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('addProduct') }}</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $t('editProduct') }}</h3>
           <button type="button" @click="modalStore.closeEditProductModal()"
             class="inline-flex items-center p-1 ml-auto text-sm text-gray-400 bg-transparent rounded hover:bg-gray-200 hover:text-gray-900"
             data-modal-toggle="defaultModal">
@@ -367,7 +439,7 @@ const editModal = (id) => {
                   class="flex items-center justify-center p-2 text-gray-600 border border-gray-600 rounded-md cursor-pointer hover:border-red-500 hover:text-red-500">
                   <ImageUploadIcon class="w-6 h-6 mr-3" /> {{ $t('uploadImage') }}
                 </p>
-                <input id="product-images1" type="file" class="hidden" name="productImage" @change="getImage"
+                <input id="product-images1" type="file" class="hidden" name="productImage" @change="getEditImage"
                   multiple />
               </label>
               <div v-if="uploadedImageForView.length > 0" class="flex flex-wrap items-center justify-center space-x-2">
@@ -377,7 +449,7 @@ const editModal = (id) => {
               <div class="grid grid-cols-2 mt-0 gap-x-2">
                 <label for="spec-type1">
                   <p class="pb-2 font-medium text-slate-700">{{ $t('selectType') }}</p>
-                  <select v-model="productData.specTypeId"
+                  <select v-model="editProductData.specTypeId"
                     class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
                     <option v-for="(specType, idx) in store.specTypes" :key="idx" :value="specType?.id">{{
                         specType?.name
@@ -386,23 +458,23 @@ const editModal = (id) => {
                 </label>
                 <label for="capacity1">
                   <p class="pb-2 font-medium text-slate-700">{{ $t('capacity') }}</p>
-                  <input type="number" id="capacity1" min="0" v-model="capacity"
+                  <input type="number" id="capacity1" min="0" v-model="editProductData.capacity"
                     class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
                 </label>
               </div>
               <label for="price1">
                 <p class="pb-2 font-medium text-slate-700">{{ $t('price') }}</p>
-                <input type="number" id="price1" min="0" v-model="productData.price"
+                <input type="number" id="price1" min="0" v-model="editProductData.price"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </label>
               <label for="quantity1">
                 <p class="pb-2 font-medium text-slate-700">{{ $t('quantity') }}</p>
-                <input type="number" id="quantity1" min="0" v-model="productData.quantity"
+                <input type="number" id="quantity1" min="0" v-model="editProductData.quantity"
                   class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" />
               </label>
               <button
                 class="inline-flex items-center justify-center w-full py-3 font-medium text-white bg-red-500 border-red-500 rounded hover:bg-red-400 hover:shadow">
-                {{ $t('addProduct') }}
+                {{ $t('save') }}
               </button>
             </div>
           </form>

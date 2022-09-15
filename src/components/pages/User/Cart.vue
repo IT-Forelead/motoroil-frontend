@@ -186,7 +186,7 @@ watch(
                     </div>
                   </td>
                   <td class="p-3 text-sm font-medium text-center text-gray-700">
-                    ${{ product?.productPrice }}
+                    €{{ product?.productPrice }}
                   </td>
                   <td class="p-3">
                     <div class="grid items-center w-1/2 grid-cols-3 gap-1 px-1.5 py-1 mx-auto rounded-full shadow">
@@ -290,21 +290,21 @@ watch(
                 <ul class="px-5 my-3 divide-y">
                   <li class="flex items-center justify-between py-3 font-medium">
                     <span class="text-gray-600">{{ $t('orderSubtotal') }}</span>
-                    <span class="text-gray-900">${{ userStore.cartSum }}</span>
+                    <span class="text-gray-900">€{{ userStore.cartSum }}</span>
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
                     <span class="text-gray-700">{{
                     $t('shippingAndHandling')
                     }}</span>
-                    <span class="text-gray-900">$0</span>
+                    <span class="text-gray-900">€0</span>
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
                     <span class="text-gray-700">{{ $t('taxi') }}</span>
-                    <span class="text-gray-900">$0</span>
+                    <span class="text-gray-900">€0</span>
                   </li>
                   <li class="flex items-center justify-between py-3 font-medium">
                     <span class="text-gray-600">{{ $t('total') }}</span>
-                    <span class="text-gray-900">${{ userStore.cartSum }}</span>
+                    <span class="text-gray-900">€{{ userStore.cartSum }}</span>
                   </li>
                 </ul>
                 <button @click="submitOrderData()"

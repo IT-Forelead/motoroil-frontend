@@ -14,6 +14,7 @@ import { useOrderStore } from '../../../stores/order'
 import MoneyBillTrendUpIcon from '../../../assets/icons/MoneyBillTrendUpIcon.vue'
 
 const analyticsStore = useAnalyticsStore()
+const orderStore = useOrderStore()
 
 Chart.register(...registerables)
 
@@ -22,11 +23,26 @@ const userView = ref([])
 const ghostView = ref([])
 const productUserView = ref([])
 const productGhostView = ref([])
+const totalSumInLast30Days = ref(0.0)
 
 function newProductChecker(createdAt) {
   let today = new Date()
   return new Date(today.setDate(today.getDate() - 30)) <= new Date(createdAt)
 }
+
+totalSumInLast30Days.value = orderStore.ordersForAdmins?.filter((e) =>
+  newProductChecker(e?.orders?.createdAt)
+)
+
+watch(
+  () => orderStore.ordersForAdmins,
+  () => {
+    totalSumInLast30Days.value = orderStore.ordersForAdmins?.filter((e) =>
+      newProductChecker(e?.orders?.createdAt)
+    ).map(o => o.orderItem?.totalPrice).reduce((q, a) => q + a, 0)
+  },
+  { deep: true }
+)
 
 watch(
   () => analyticsStore.events,
@@ -197,7 +213,7 @@ onMounted(() => {
           <div class="p-3 border rounded-xl">
             <div class="flex justify-between">
               <div>
-                <p class="text-3xl font-bold">$120</p>
+                <p class="text-3xl font-bold">€{{ totalSumInLast30Days }}</p>
                 <p>Last 30 days income</p>
               </div>
               <MoneyBagIcon class="w-10 h-10" />

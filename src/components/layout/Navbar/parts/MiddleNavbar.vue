@@ -22,9 +22,9 @@ const searchProducts = () => {
 </script>
 
 <template>
-  <div class="flex justify-center h-20 p-2 md:mb-5 bg-white">
-    <div class="flex md:container md:grid items-center justify-center md:grid-cols-4 gap-3">
-      <div class="relative hidden md:block h-24 overflow-hidden">
+  <div class="flex justify-center h-20 p-2 bg-white md:mb-5">
+    <div class="flex items-center justify-center gap-3 md:container md:grid md:grid-cols-4">
+      <div class="relative hidden h-24 overflow-hidden md:block">
         <router-link to="/"><img src="/logo.png" alt="Motoroil" class="absolute w-auto h-24 -translate-y-1/2 top-1/2" /></router-link>
       </div>
       <div class="md:col-span-2">
@@ -50,9 +50,9 @@ const searchProducts = () => {
             <ShoppingCartFillIcon />
             <div class="absolute -top-3 -right-2 px-1.5 py-0.5 text-xs text-white bg-red-500 rounded-full">{{ userStore.cart.length }}</div>
           </div>
-          <div class="hidden md:flex items-center justify-center px-4 py-2 border-l">
+          <div class="items-center justify-center hidden px-4 py-2 border-l md:flex">
             {{ $t('myCart') }}:
-            <span class="ml-1 font-medium text-red-500">${{ userStore.cartSum }}</span>
+            <span class="ml-1 font-medium text-red-500">€{{ userStore.cartSum }}</span>
           </div>
         </router-link>
         <button v-else-if="authStore.user?.role === 'admin'" class="hidden"></button>
@@ -60,7 +60,7 @@ const searchProducts = () => {
           <div class="relative flex items-center justify-center p-3 md:p-2">
             <ShoppingCartFillIcon />
           </div>
-          <div class="hidden md:flex items-center justify-center px-4 py-2 border-l">
+          <div class="items-center justify-center hidden px-4 py-2 border-l md:flex">
             {{ $t('myCart') }}
           </div>
         </button>
