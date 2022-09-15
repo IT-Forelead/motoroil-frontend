@@ -266,17 +266,6 @@ const deleteCurrentProduct = (id) => {
                   </li>
                 </ul>
               </div>
-              <div class="py-3">
-                <ul class="flex flex-col p-2 space-y-1 border-l-4 border-red-500">
-                  <li class="flex items-center space-x-2"
-                    @click="deleteCurrentProduct(store.singleProduct?.product?.id)">
-                    <span class="font-medium text-gray-500 cursor-pointer hover:text-red-600 text-md">{{$t('deleteProduct')}}</span>
-                  </li>
-                  <li class="flex items-center space-x-2">
-                    <span class="font-medium text-gray-500 cursor-pointer hover:text-blue-600 text-md">{{$t('editProduct')}}</span>
-                  </li>
-                </ul>
-              </div>
               <div v-if="authStore.user?.role !== 'admin'" class="py-3">
                 <div class="space-y-2 w-72">
                   <div class="flex items-center px-3 py-1.5 space-x-3 border border-gray-300">
