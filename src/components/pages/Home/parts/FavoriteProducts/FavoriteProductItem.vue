@@ -31,7 +31,7 @@ import Rating from '../../../../Rating.vue';
     </div>
     <div v-if="newProductChecker(product?.product?.createdAt)" class="absolute font-normal text-center text-white uppercase top-4 new">{{$t('new')}}</div>
     <div class="w-full h-[250px] relative overflow-hidden border-b">
-      <router-link to="/product" @click="showProduct(product?.product?.id)" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+      <router-link to="/product" @click="showProduct(product?.product?.id)" class="absolute h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <img :src="API_URL + '/image/' + (product?.product?.imageUrl[0] ? product?.product?.imageUrl[0] : '')" alt="product image">
       </router-link>
     </div>

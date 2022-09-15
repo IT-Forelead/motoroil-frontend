@@ -70,12 +70,12 @@ store.getTimerSpecialOffers()
       </div>
       <div class="hidden md:block">
         <swiper :spaceBetween="30" :centeredSlides="true" :navigation="false" :loop="true" :modules="modules"
-          :autoplay="{ delay: 5000, disableOnInteraction: false }" class="mySwiper">
+          :autoplay="{ delay: 5000, disableOnInteraction: false }" class="mySwiper h-[300px]">
           <swiper-slide v-for="(product, idx) in store.timerSpecialOffers" :key="idx" class="slide">
-            <div>
+            <div class=" w-96 h-96">
               <router-link to="/product" @click="showProduct(product?.product?.id)">
                 <img :src="API_URL + '/image/' + (product?.product?.imageUrl[0] ? product?.product?.imageUrl[0] : '')"
-                  class="img-responsive" alt="product image">
+                  class="h-full img-responsive" alt="product image">
               </router-link>
             </div>
           </swiper-slide>

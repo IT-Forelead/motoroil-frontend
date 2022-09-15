@@ -163,14 +163,14 @@ const deleteCurrentProduct = (id) => {
             <CaretRightIcon class="mx-3 text-gray-500" />
           </li>
           <li class="text-gray-700">{{ store.singleProduct?.productGroup?.name + ' ' +
-              store.singleProduct?.viscosityGrade?.name
+          store.singleProduct?.viscosityGrade?.name
           }}</li>
         </ul>
       </div>
       <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <Sidebar />
-        <div class="col-span-3 px-3">
-          <div class="grid grid-cols-2 gap-7">
+        <div class="px-3 md:col-span-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-7">
             <div>
               <div class="relative h-[300px] overflow-hidden">
                 <div v-if="store.singleProduct?.discount" class="absolute top-5 left-5">
@@ -185,10 +185,10 @@ const deleteCurrentProduct = (id) => {
                   <YoutubeIcon class="w-10 h-10 text-gray-700 cursor-pointer hover:text-red-500" />
                 </div>
                 <img v-if="store.singleProduct?.product?.imageUrl[0]"
-                  class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  class="absolute h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   :src="selectedImage ? `${API_URL}/image/${selectedImage}` : `${API_URL}/image/${store.singleProduct?.product?.imageUrl[0]}`"
                   alt="Product image">
-                <img v-else class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                <img v-else class="absolute h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   :src="store.singleProduct?.product?.imageUrl[0] ? `${API_URL}/image/${store.singleProduct?.product?.imageUrl[0]}` : ''"
                   alt="Product image">
               </div>
@@ -197,7 +197,8 @@ const deleteCurrentProduct = (id) => {
                 <swiper-slide v-for="(image, idx) in store.singleProduct?.product?.imageUrl" :key="idx"
                   @click="setImageFull(image)" class="relative border cursor-pointer"
                   :class="{ 'border-red-500': image === selectedImage }">
-                  <img :src="`${API_URL}/image/${image}`" alt="Product Image">
+                  <img :src="`${API_URL}/image/${image}`"
+                    class="absolute h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Product Image">
                 </swiper-slide>
               </swiper>
             </div>
@@ -212,8 +213,8 @@ const deleteCurrentProduct = (id) => {
                     {{ store.singleProduct?.product?.price }}</div>
                   <div v-else class="flex items-center justify-center">
                     <div class="mb-2 mr-3 text-lg font-semibold text-red-500">€ {{ (store.singleProduct?.product?.price
-                        -
-                        store.singleProduct?.product?.price * (store.singleProduct?.discount?.discountPercent / 100))
+                    -
+                    store.singleProduct?.product?.price * (store.singleProduct?.discount?.discountPercent / 100))
                     }}</div>
                     <div class="mb-2 text-gray-500 line-through text-md">€ {{ store.singleProduct?.product?.price }}
                     </div>
@@ -243,13 +244,13 @@ const deleteCurrentProduct = (id) => {
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">OEM-Freigabe:</span>
                     <span class="font-normal text-gray-700 text-md">{{ store.oemsAndSpecsByProductId?.oems?.map(o =>
-                        o.name).join(', ')
+                    o.name).join(', ')
                     }}</span>
                   </li>
                   <li class="flex items-center space-x-2">
                     <span class="font-medium text-gray-700 text-md">{{$t('spectification')}}:</span>
                     <span class="font-normal text-gray-700 text-md">{{
-                        store.oemsAndSpecsByProductId?.specifications?.map(o => o.name).join(', ')
+                    store.oemsAndSpecsByProductId?.specifications?.map(o => o.name).join(', ')
                     }}</span>
                   </li>
                   <li class="flex items-center space-x-2">
@@ -274,7 +275,7 @@ const deleteCurrentProduct = (id) => {
                     <OilerIcon class="w-5 h-5" />
                     <label for="lll" class="block ml-3 text-sm font-medium text-gray-700">
                       <div class="font-medium text-md">{{ store.singleProduct?.specType?.name + ': ' +
-                          store.singleProduct?.specTypeValue?.value
+                      store.singleProduct?.specTypeValue?.value
                       }}</div>
                       <div class="text-sm font-normal">
                         <div v-if="!store.singleProduct?.discount" class="text-red-500">
@@ -283,7 +284,7 @@ const deleteCurrentProduct = (id) => {
                         <div v-else class="flex items-center justify-center">
                           <div class="mr-2 text-red-500">
                             € {{ (store.singleProduct?.product?.price - store.singleProduct?.product?.price *
-                                (store.singleProduct?.discount?.discountPercent / 100))
+                            (store.singleProduct?.discount?.discountPercent / 100))
                             }}
                           </div>
                           <div class="text-gray-500 line-through text-md">€ {{ store.singleProduct?.product?.price }}
@@ -293,13 +294,15 @@ const deleteCurrentProduct = (id) => {
                     </label>
                   </div>
                   <div class="flex items-center border border-gray-300 divide-x divide-gray-300">
-                    <button @click="plusMinus(store.singleProduct?.product?.quantity, '-')" class="flex justify-center w-1/4 p-3 text-gray-700 rounded-l hover:text-red-500">
+                    <button @click="plusMinus(store.singleProduct?.product?.quantity, '-')"
+                      class="flex justify-center w-1/4 p-3 text-gray-700 rounded-l hover:text-red-500">
                       <MinusIcon />
                     </button>
                     <div class="w-2/4 px-4 py-2 text-lg font-normal text-center">
                       {{ cartForm.quantity }}
                     </div>
-                    <button @click="plusMinus(store.singleProduct?.product?.quantity, '+')" class="flex justify-center w-1/4 p-3 text-gray-700 rounded-r hover:text-red-500">
+                    <button @click="plusMinus(store.singleProduct?.product?.quantity, '+')"
+                      class="flex justify-center w-1/4 p-3 text-gray-700 rounded-r hover:text-red-500">
                       <PlusIcon />
                     </button>
                   </div>
@@ -308,7 +311,8 @@ const deleteCurrentProduct = (id) => {
                       class="flex items-center justify-center p-3.5 text-white bg-red-500 hover:bg-red-700">
                       <HeartFillIcon class="w-5 h-5" />
                     </button>
-                    <button @click="addToCart()" class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
+                    <button @click="addToCart()"
+                      class="flex items-center justify-center w-full p-3 text-white bg-red-500 hover:bg-red-700">
                       <ShoppingCartFillIcon class="mr-2" />
                       {{$t('addToCart')}}
                     </button>
@@ -332,7 +336,7 @@ const deleteCurrentProduct = (id) => {
                         <div v-else class="flex items-center justify-center">
                           <div class="mr-2 text-red-500">
                             € {{ (product?.product?.price - product?.product?.price *
-                                (product?.discount?.discountPercent / 100))
+                            (product?.discount?.discountPercent / 100))
                             }}
                           </div>
                           <div class="text-gray-500 line-through text-md">€ {{ product?.product?.price }}</div>
@@ -363,7 +367,7 @@ const deleteCurrentProduct = (id) => {
               </div>
             </div>
           </div>
-          <div class="p-5">
+          <div class="md:p-5">
             <ul class="flex items-center space-x-3 border-b border-red-500">
               <li class="px-5 py-2 text-gray-700 cursor-pointer hover:text-red-700"
                 :class="{ 'text-red-700 border border-b-0 border-red-500 rounded-t': isActiveDesc }"
@@ -378,7 +382,8 @@ const deleteCurrentProduct = (id) => {
               <div id="review" class="space-y-2" v-else>
                 <div v-if="authStore.user?.role === 'user'" class="pb-3 mb-3 border-b">
                   <div class="max-w-2xl space-y-1">
-                    <label for="message" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">{{$t('writeReview')}}</label>
+                    <label for="message"
+                      class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-400">{{$t('writeReview')}}</label>
                     <textarea id="message" rows="4" v-model="comment.message"
                       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Your review..."></textarea>
@@ -399,7 +404,7 @@ const deleteCurrentProduct = (id) => {
                 </div>
                 <div v-for="(comment, idx) in store.comments" :key="idx"
                   class="flex items-start px-4 py-3 border rounded">
-                  <div class="flex items-center justify-center w-12 h-12 mr-4 bg-red-500 rounded-full shadow">
+                  <div class="flex items-center justify-center w-8 h-8 mr-4 bg-red-500 rounded-full shadow md:w-12 md:h-12">
                     <UserIcon class="w-8 h-8 text-white" />
                   </div>
                   <div class="w-full">

@@ -49,7 +49,7 @@ const showProduct = (id) => {
           <li class="text-gray-700">{{ $t('wishlist') }}</li>
         </ul>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <Sidebar />
         <div class="col-span-3 ml-3">
           <div class="p-3 mb-2 text-2xl font-semibold text-gray-700">{{ $t('myWishlist') }}</div>
@@ -60,7 +60,7 @@ const showProduct = (id) => {
               </div>
               <DropDown :options="['delete']" :productId="product?.productId" :wishlistId="product?.id"/>
               <div class="relative h-[200px] border-b overflow-hidden">
-                <router-link to="/product" @click="showProduct(product?.productId)" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <router-link to="/product" @click="showProduct(product?.productId)" class="absolute h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                   <img :src="API_URL + '/image/' + (product?.productImageUrl[0] ? product?.productImageUrl[0] : '')" alt="product image">
                 </router-link>
               </div>

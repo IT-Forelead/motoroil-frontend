@@ -1,6 +1,5 @@
 <script setup>
 import BlogsSection from './parts/BlogsSection.vue'
-import SoCategoriesSection from './parts/SoCategoriesSection.vue'
 import ArrivalsSection from './parts/ArrivalsSection.vue'
 import DealsSection from './parts/DealsSection.vue'
 import BestSellerSection from './parts/BestSellerSection.vue'
@@ -40,7 +39,6 @@ onMounted(() => {
     <ArrivalsSection />
     <FavoriteProductsSection />
     <TopViewedProductsSection />
-    <!-- <SoCategoriesSection /> -->
     <BlogsSection />
   </div>
 </template>

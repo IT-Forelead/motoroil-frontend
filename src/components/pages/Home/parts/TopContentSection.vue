@@ -70,11 +70,11 @@ const submitSlideData = () => {
 
 <template>
   <div class="flex justify-center p-5 bg-white">
-    <div class="container grid items-center grid-cols-1 lg:grid-cols-4 gap-3">
+    <div class="container grid items-center grid-cols-1 gap-3 lg:grid-cols-4">
       <div class="flex flex-col h-full md:space-y-20 bg-slate-200 bg-[url('/bg/bg-advanced.jpg')] bg-no-repeat bg-cover">
         <div class="p-5 text-2xl font-semibold text-white uppercase bg-gray-900/60">
           {{ $t('selectEngineOilRequirements') }}</div>
-        <div class="px-5 space-y-3 py-3">
+        <div class="px-5 py-3 space-y-3">
           <select v-model="mainFilter.brand"
             class="block w-full px-5 py-3 mt-1 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option value="" selected>{{$t('brand')}}</option>
@@ -106,7 +106,7 @@ const submitSlideData = () => {
       </div>
       <div class="hidden md:block col-span-3 h-auto lg:h-[650px]">
         <swiper v-if="slideStore.slides.length > 0" :spaceBetween="30" :loop="true" :centeredSlides="true" :navigation="true"
-          :modules="modules" :autoplay="{ delay: 2500, disableOnInteraction: false }" class="mySwiper">
+          :modules="modules" :autoplay="{ delay: 5000, disableOnInteraction: false }" class="mySwiper">
           <swiper-slide v-for="(slide, idx) in slideStore.slides" :key="idx" class="slide">
             <img :src="`${API_URL}/image/${slide?.imageUrl}`" class="w-full" alt="#">
             <a :href="slide?.link" target="_blank"
@@ -122,7 +122,7 @@ const submitSlideData = () => {
           </swiper-slide>
         </swiper>
         <swiper v-else :spaceBetween="30" :centeredSlides="true" :navigation="true" :modules="modules"
-          :autoplay="{ delay: 2500, disableOnInteraction: false }" class="mySwiper">
+          :autoplay="{ delay: 5000, disableOnInteraction: false }" class="mySwiper">
           <swiper-slide class="slide">
             <img src="/bg/slider-1.jpg" class="w-full" alt="#">
             <a href="#" target="_blank"
