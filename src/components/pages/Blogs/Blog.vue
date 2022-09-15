@@ -4,7 +4,7 @@ import HouseIcon from '../../../assets/icons/HouseIcon.vue'
 import CaretRightIcon from '../../../assets/icons/CaretRightIcon.vue';
 import UserFillIcon from '../../../assets/icons/UserFillIcon.vue';
 import CalendarFillIcon from '../../../assets/icons/CalendarFillIcon.vue';
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, watch } from 'vue';
 import { useBlogStore } from '../../../stores/blog.js'
 import { useModalStore } from '../../../stores/modal.js'
 import { useAuthStore } from '../../../stores/auth.js';
@@ -23,12 +23,23 @@ const authStore = useAuthStore()
 const analyticsStore = useAnalyticsStore()
 
 const blog = reactive({
-	id: store.getBlogId,
-	title: store.getBlogTitle,
-	text: store.getBlogText,
-	defaultImageUrl: store.getBlogDefaultKey,
+	id: '',
+	title: '',
+	text: '',
+	defaultImageUrl: '',
 	image: ''
 })
+
+watch(
+	() => store.singleBlog,
+	() => {
+		blog.id = store.getBlogId,
+		blog.title = store.getBlogTitle,
+		blog.text = store.getBlogText,
+		blog.defaultImageUrl = store.getBlogDefaultKey
+	},
+	{deep: true}
+)
 
 function getImage(e) {
   if (e?.target?.files[0].type.includes('image')) {
