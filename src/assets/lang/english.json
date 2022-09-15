@@ -256,5 +256,7 @@
   "postBy": "Post by:",
   "search...": "Search ...",
   "hello": "Hello",
-  "yourEmail": "Your email"
+  "yourEmail": "Your email",
+  "yourAccountActivated": "Your account activated!",
+  "yourAccountNotActivated": "Your account not activated!"
 }

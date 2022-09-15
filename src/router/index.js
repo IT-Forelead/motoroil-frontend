@@ -138,6 +138,11 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
+    path: '/user/activate/:link',
+    name: 'Activate user',
+    component: () => import('../components/ActivateUser.vue'),
+  },
+  {
     path: '/notfound',
     name: 'Not-Found',
     component: () => import('../components/NotFound.vue'),
