@@ -103,11 +103,11 @@ onMounted(() => {
               <td class="p-3">
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('total')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">€{{ order?.orderItem?.totalPrice }}</div>
+                  <div class="font-medium text-gray-700 text-md">€{{ order?.orderItem?.totalPrice * order?.orderItem?.quantity }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('unit')}}:</div>
-                  <div class="font-medium text-gray-700 text-md">{{ order?.orderItem?.totalPrice }}</div>
+                  <div class="font-medium text-gray-700 text-md">€{{ order?.orderItem?.totalPrice }}</div>
                 </div>
                 <div class="flex items-center">
                   <div class="mr-1 text-sm text-gray-500">{{$t('quantity')}}:</div>

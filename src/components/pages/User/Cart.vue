@@ -80,13 +80,24 @@ watch(
   () => userStore.cart,
   () => {
     orderData.value = userStore.cart?.map((i) => {
-      return {
-        cartItemId: i?.id,
-        productId: i?.productId,
-        cartId: i?.id,
-        userAddressId: selectedUserAddressId,
-        quantity: i?.quantity,
-        totalPrice: userStore.cartSum
+      if (i?.productDiscountPercent && i?.productDiscountId){
+        return {
+          cartItemId: i?.id,
+          productId: i?.productId,
+          cartId: i?.id,
+          userAddressId: selectedUserAddressId,
+          quantity: i?.quantity,
+          totalPrice: (i?.productPrice * (1 - i?.productDiscountPercent / 100)).toFixed(2)
+        }
+      } else {
+        return {
+          cartItemId: i?.id,
+          productId: i?.productId,
+          cartId: i?.id,
+          userAddressId: selectedUserAddressId,
+          quantity: i?.quantity,
+          totalPrice: i?.productPrice
+        }
       }
     })
   },
@@ -186,7 +197,15 @@ watch(
                     </div>
                   </td>
                   <td class="p-3 text-sm font-medium text-center text-gray-700">
-                    €{{ product?.productPrice }}
+                    <div v-if="!product?.productDiscountId && !product?.productDiscountPercent" class="mb-2 mr-3 text-lg font-semibold text-red-500">
+                      €{{ product?.productPrice }}
+                    </div>
+                    <div v-else class="flex items-center justify-center">
+                      <div class="mb-2 mr-3 text-lg font-semibold text-red-500">
+                        €{{ (product?.productPrice * (1 - product?.productDiscountPercent / 100)).toFixed(2) }}
+                      </div>
+                      <div class="mb-2 text-gray-500 line-through text-md">€ {{ product?.productPrice }}</div>
+                    </div>
                   </td>
                   <td class="p-3">
                     <div class="grid items-center w-1/2 grid-cols-3 gap-1 px-1.5 py-1 mx-auto rounded-full shadow">
