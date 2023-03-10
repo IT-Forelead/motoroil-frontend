@@ -1,13 +1,17 @@
 <script setup>
-import StarFillIcon from '../../../../assets/icons/StarFillIcon.vue';
 import FavoriteProductItem from './FavoriteProducts/FavoriteProductItem.vue';
 import { useProductStore } from '../../../../stores/product.js'
 import { onMounted } from '@vue/runtime-core';
+import {computed} from "vue";
 
 const store = useProductStore()
+const productsByLikes = computed(() => {
+  return store.productsByLikes.length ? store.productsByLikes : store.products.slice(-5)
+})
 
 onMounted(() => {
   store.getProductsByLikes()
+  store.getAllProducts()
 })
 </script>
 
@@ -24,7 +28,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          <FavoriteProductItem v-for="(product, idx) in store.productsByLikes" :key="idx" :product="product" />
+          <FavoriteProductItem v-for="(product, idx) in productsByLikes" :key="idx" :product="product" />
         </div>
       </div>
     </div>
